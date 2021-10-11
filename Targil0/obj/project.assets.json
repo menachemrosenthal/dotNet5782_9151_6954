@@ -8,19 +8,19 @@
     "net5.0": []
   },
   "packageFolders": {
-    "C:\\Users\\איציק\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Source\\Repos\\dotNet5782_9151_6954\\dotNet_9151_6954\\Targil0\\Targil0.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
       "projectName": "Targil0",
-      "projectPath": "C:\\Source\\Repos\\dotNet5782_9151_6954\\dotNet_9151_6954\\Targil0\\Targil0.csproj",
-      "packagesPath": "C:\\Users\\איציק\\.nuget\\packages\\",
-      "outputPath": "C:\\Source\\Repos\\dotNet5782_9151_6954\\dotNet_9151_6954\\Targil0\\obj\\",
+      "projectPath": "C:\\Users\\User\\Source\\Repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\Source\\Repos\\dotNet5782_9151_6954\\Targil0\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\איציק\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
