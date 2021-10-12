@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Source\\Repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj": {}
+    "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Source\\Repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj": {
+    "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
+        "projectUniqueName": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
         "projectName": "Targil0",
-        "projectPath": "C:\\Users\\User\\Source\\Repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
+        "projectPath": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Source\\Repos\\dotNet5782_9151_6954\\Targil0\\obj\\",
+        "outputPath": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\Targil0\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
