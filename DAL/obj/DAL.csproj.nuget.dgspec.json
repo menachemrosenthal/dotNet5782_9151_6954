@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {}
   },
   "projects": {
@@ -19,14 +20,39 @@
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
+=======
+    "C:\\Users\\Itzic\\Source\\Repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Itzic\\Source\\Repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Itzic\\Source\\Repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj",
+        "projectName": "DAL",
+        "projectPath": "C:\\Users\\Itzic\\Source\\Repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\Itzic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Itzic\\Source\\Repos\\dotNet5782_9151_6954\\DAL\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Itzic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+>>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
+<<<<<<< HEAD
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
+=======
+          "net5.0": {
+            "targetAlias": "net5.0",
+>>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564
             "projectReferences": {}
           }
         },
@@ -37,8 +63,13 @@
         }
       },
       "frameworks": {
+<<<<<<< HEAD
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
+=======
+        "net5.0": {
+          "targetAlias": "net5.0",
+>>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564
           "imports": [
             "net461",
             "net462",
@@ -54,7 +85,11 @@
               "privateAssets": "all"
             }
           },
+<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+=======
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+>>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564
         }
       }
     }
