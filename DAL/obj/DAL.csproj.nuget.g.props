@@ -6,7 +6,11 @@
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\User\.nuget\packages\</NuGetPackageFolders>
+=======
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Itzic\.nuget\packages\</NuGetPackageFolders>
+>>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564
 =======
     <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Itzic\.nuget\packages\</NuGetPackageFolders>
 >>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564
@@ -15,7 +19,11 @@
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <SourceRoot Include="C:\Users\User\.nuget\packages\" />
+=======
+    <SourceRoot Include="C:\Users\Itzic\.nuget\packages\" />
+>>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564
 =======
     <SourceRoot Include="C:\Users\Itzic\.nuget\packages\" />
 >>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564

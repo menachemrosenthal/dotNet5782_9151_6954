@@ -32,6 +32,7 @@ C:\Users\User\source\repos\dotNet5782_9151_6954\Targil0\obj\Debug\net5.0\ref\Tar
 C:\Users\User\source\repos\dotNet5782_9151_6954\Targil0\obj\Debug\net5.0\Targil0.pdb
 C:\Users\User\source\repos\dotNet5782_9151_6954\Targil0\obj\Debug\net5.0\Targil0.genruntimeconfig.cache
 =======
+>>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564
 C:\Users\Itzic\Source\Repos\dotNet5782_9151_6954\Targil0\bin\Debug\net5.0\Targil0.exe
 C:\Users\Itzic\Source\Repos\dotNet5782_9151_6954\Targil0\bin\Debug\net5.0\Targil0.deps.json
 C:\Users\Itzic\Source\Repos\dotNet5782_9151_6954\Targil0\bin\Debug\net5.0\Targil0.runtimeconfig.json
@@ -48,4 +49,3 @@ C:\Users\Itzic\Source\Repos\dotNet5782_9151_6954\Targil0\obj\Debug\net5.0\Targil
 C:\Users\Itzic\Source\Repos\dotNet5782_9151_6954\Targil0\obj\Debug\net5.0\ref\Targil0.dll
 C:\Users\Itzic\Source\Repos\dotNet5782_9151_6954\Targil0\obj\Debug\net5.0\Targil0.pdb
 C:\Users\Itzic\Source\Repos\dotNet5782_9151_6954\Targil0\obj\Debug\net5.0\Targil0.genruntimeconfig.cache
->>>>>>> 96d36c2168a0f1bf4ef676025815cd45d0624564
