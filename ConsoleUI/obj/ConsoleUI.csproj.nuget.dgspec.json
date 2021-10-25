@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj": {}
+    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj": {
+    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj",
+        "projectUniqueName": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj",
         "projectName": "ConsoleUI",
-        "projectPath": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\obj\\",
+        "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj",
+        "packagesPath": "C:\\Users\\Itzic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Itzic\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {
-                "projectPath": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj"
+              "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {
+                "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj"
               }
             }
           }
@@ -58,21 +58,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {
+    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj",
+        "projectUniqueName": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj",
         "projectName": "DAL",
-        "projectPath": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\dotNet5782_9151_6954\\DAL\\obj\\",
+        "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj",
+        "packagesPath": "C:\\Users\\Itzic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Itzic\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -112,7 +112,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
