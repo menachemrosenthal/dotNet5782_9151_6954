@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace IDAL
 {
-    namespace DP
+    namespace DO
     {
         public struct Parcel
         {
             public int Id { get; set; }
             public int Senderid { get; set; }
             public int TargetId { get; set; }
-            public string Weight { get; set; }
-            public string Proirity { get; set; }
+            public WeightCategories Weight { get; set; }
+            public Priorities Proirity { get; set; }
             public int DroindId { get; set; }
-            public string Requested { get; set; }
-            public string Scheduled { get; set; }
-            public string PickedUp { get; set; }
-            public string Delivered { get; set; }
+            public DateTime Requested { get; set; }
+            public DateTime Scheduled { get; set; }
+            public DateTime PickedUp { get; set; }
+            public DateTime Delivered { get; set; }
         }
     }
 }
