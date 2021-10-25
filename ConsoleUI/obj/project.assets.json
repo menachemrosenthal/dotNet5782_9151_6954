@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {}
+    "net5.0": {
+      "DAL/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/DAL.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/DAL.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "DAL/1.0.0": {
+      "type": "project",
+      "path": "../DAL/DAL.csproj",
+      "msbuildProject": "../DAL/DAL.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0": []
+    "net5.0": [
+      "DAL >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Itzic\\.nuget\\packages\\": {}
@@ -13,11 +32,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
-      "projectName": "Targil0",
-      "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
+      "projectUniqueName": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj",
+      "projectName": "ConsoleUI",
+      "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\ConsoleUI.csproj",
       "packagesPath": "C:\\Users\\Itzic\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\Targil0\\obj\\",
+      "outputPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Itzic\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -33,7 +52,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {
+              "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj": {}
+    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj": {
+    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
-        "projectName": "Targil0",
-        "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\Targil0\\Targil0.csproj",
+        "projectUniqueName": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj",
+        "projectName": "DAL",
+        "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj",
         "packagesPath": "C:\\Users\\Itzic\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\Targil0\\obj\\",
+        "outputPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Itzic\\AppData\\Roaming\\NuGet\\NuGet.Config",
