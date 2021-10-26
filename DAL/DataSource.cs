@@ -12,14 +12,14 @@ namespace DalObject
         internal static Drone[] drones = new Drone[10];
         internal static Station[] stations = new Station[5];
         internal static Parcel[] parcels = new Parcel[1000];
-        internal class Config
+        internal  class Config
         {
             internal static int nextCustomer = 0;
             internal static int nextDrone = 0;
             internal static int nextStation = 0;
             internal static int nextParcel = 0;
             internal static int craeteParcelNumber = 11;
-            internal void Initialize()
+            internal static void Initialize()
             {
                 Random r = new Random();
                 DateTime currentDate = DateTime.Now;
@@ -41,7 +41,7 @@ namespace DalObject
                     drones[i] = new Drone
                     {
                         Id = r.Next(100),
-                        Model = (Names)r.Next(9),
+                        Model = $"Ferari {i}",
                         Battery = 50 + i,
                         MaxWeight = (WeightCategories)r.Next(3),
                         Status = (DroneStatuses)r.Next(3),
@@ -54,7 +54,7 @@ namespace DalObject
                     customers[i] = new Customer
                     {
                         Id = r.Next(100000000, 1000000000),
-                        Name = (Names)r.Next(9),
+                        Name = $"person {i}",
                         Phone = string.Format("{00:##-#######}", r.Next(100000000, 100000000)),
                         Longitude = r.Next(360),
                         Lattitude = r.Next(360)
@@ -71,7 +71,7 @@ namespace DalObject
                         TargetId = r.Next(100000000, 1000000000),
                         Weight = (WeightCategories)r.Next(3),
                         Proirity = (Priorities)r.Next(3),
-                        DroindId = r.Next(100000000, 1000000000),
+                        DroneId = r.Next(100000000, 1000000000),
                         Requested = currentDate,
                         Scheduled = currentDate,
                         PickedUp = currentDate,
