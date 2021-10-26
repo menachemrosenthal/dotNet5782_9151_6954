@@ -12,7 +12,8 @@ namespace IDAL
         public enum DroneStatuses { free , maintenance, sending }
         public enum Priorities { ragular , fast, urgent }
 
-
+        public enum Names { Moshe, Yitzchak, menachem, Emuna, Avraham,
+            Yaakov, Tzvi, Yosef, Shlomo }
 
     }
 }

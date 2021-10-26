@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace DalObject
 {
     class DataSource
@@ -43,7 +44,7 @@ namespace DalObject
                         Id = 10 + i,
                         Model = "ferari" + i,
                         Battery = 50 + i,
-                        MaxWeight = WeightCategories.heavy,
+                        MaxWeight = WeightCategories,
                         Status=DroneStatuses.free
                     };
                 }
@@ -53,12 +54,27 @@ namespace DalObject
                     {
                         Id = 2222 + i,
                         Name = "abc" + i,
-                        Phone= @"{058}-{667788+i}",
-                        MaxWeight = WeightCategories.heavy,
-                        Status = DroneStatuses.free
+                        Phone = @"{058}-{667788+i}",
+                        Longitude = 31.78 + 200 * i,
+                        Lattitude = 35.20 + 300 * i
                     };
                 }
-
+                for (int i = 0; i < 10; i++)
+                {
+                    parcels[i] = new Parcel
+                    {
+                        Id = 222222251 + i,
+                        Senderid { get; set; }
+                        TargetId { get; set; }
+                        Weight { get; set; }
+                        Proirity { get; set; }
+                        DroindId { get; set; }
+                        Requested { get; set; }
+            public DateTime Scheduled { get; set; }
+            public DateTime PickedUp { get; set; }
+            public DateTime Delivered { get; set; }
+        };
+                }
 
 
 
