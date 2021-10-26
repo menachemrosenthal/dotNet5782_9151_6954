@@ -46,13 +46,10 @@ namespace DalObject
                         Id = r.Next(100),
                         Model = (Names)r.Next(9),
                         Battery = 50 + i,
-<<<<<<< HEAD
                         MaxWeight = (WeightCategories)r.Next(3),
-                        Status = DroneStatuses.free
-=======
+                        Status = DroneStatuses.free,
                         MaxWeight = WeightCategories,
                         Status=DroneStatuses.free
->>>>>>> acba88d482c6d5275b8550f181aceecba03c1f32
                     };
                 }
                 nextDrone += 5;
@@ -63,15 +60,12 @@ namespace DalObject
                     {
                         Id = r.Next(100000000,1000000000),
                         Name = "abc" + i,
-<<<<<<< HEAD
                         Phone= string.Format("{00:##-#######}",r.Next(100000000,100000000)),
                         Longitude = r.Next(360),
                         Lattitude = r.Next(360)
                     };
                 }
                 nextCustomer += 10;
-
-=======
                         Phone = @"{058}-{667788+i}",
                         Longitude = 31.78 + 200 * i,
                         Lattitude = 35.20 + 300 * i
@@ -93,7 +87,6 @@ namespace DalObject
                         Delivered
         };
                 }
->>>>>>> acba88d482c6d5275b8550f181aceecba03c1f32
 
 
 
