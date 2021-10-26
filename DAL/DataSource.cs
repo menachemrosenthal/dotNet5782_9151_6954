@@ -49,8 +49,6 @@ namespace DalObject
                         Battery = 50 + i,
                         MaxWeight = (WeightCategories)r.Next(3),
                         Status = DroneStatuses.free,
-                        MaxWeight = WeightCategories,
-                        Status=DroneStatuses.free
                     };
                 }
                 nextDrone += 5;
@@ -72,17 +70,17 @@ namespace DalObject
                 {
                     parcels[i] = new Parcel
                     {
-                        Id = 222222251 + i,
-                        Senderid
-                        TargetId
-                        Weight
-                        Proirity
-                        DroindId
+                        Id = r.Next(100000000, 1000000000),
+                        Senderid = r.Next(100000000, 1000000000),
+                        TargetId = r.Next(100000000, 1000000000),
+                        Weight = (WeightCategories)r.Next(3),
+                        Proirity = (Priorities)r.Next(3),
+                        DroindId = r.Next(100000000, 1000000000),
                         Requested
                         Scheduled
                         PickedUp
                         Delivered
-        };
+                    };
                 }
 
 
