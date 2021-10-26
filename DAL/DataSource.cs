@@ -25,17 +25,17 @@ namespace DalObject
                 DateTime currentDate = DateTime.Now;
 
                 for (int i = 0; i < 2; i++)
-                    for (int i = 0; i < 2; i++)
+                {
+                    stations[i] = new Station
                     {
-                        stations[i] = new Station
-                        {
-                            Name = 'a' + i,
-                            Id = r.Next(100000000, 1000000000),
-                            ChargeSlots = r.Next(10),
-                            Longitude = r.Next(360),
-                            Lattitude = r.Next(360)
-                        };
-                    }
+                        Name = 'a' + i,
+                        Id = r.Next(100000000, 1000000000),
+                        ChargeSlots = r.Next(10),
+                        Longitude = r.Next(360),
+                        Lattitude = r.Next(360)
+                    };
+                }
+
                 for (int i = 0; i < 5; i++)
                 {
                     drones[i] = new Drone
@@ -48,6 +48,7 @@ namespace DalObject
                     };
                 }
                 nextDrone += 5;
+
                 for (int i = 0; i < 10; i++)
                 {
                     customers[i] = new Customer
@@ -77,6 +78,7 @@ namespace DalObject
                         Delivered = currentDate
                     };
                 }
+                nextParcel += 10;
 
             }
         }
