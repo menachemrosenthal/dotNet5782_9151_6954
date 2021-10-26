@@ -8,5 +8,10 @@ namespace ConsoleUI
         {
             Console.WriteLine("Hello World!");
         }
+
+        private static void Initialize()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
