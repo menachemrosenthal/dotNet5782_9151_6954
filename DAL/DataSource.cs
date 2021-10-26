@@ -28,8 +28,9 @@ namespace DalObject
             internal void Initialize() 
             {
                 Random  r = new Random();
+                DateTime currentDate = DateTime.Now;
 
-                for(int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     stations[i] = new Station
                     {
@@ -48,7 +49,7 @@ namespace DalObject
                         Model = (Names)r.Next(9),
                         Battery = 50 + i,
                         MaxWeight = (WeightCategories)r.Next(3),
-                        Status = DroneStatuses.free,
+                        Status = (DroneStatuses)r.Next(3),
                     };
                 }
                 nextDrone += 5;
@@ -76,10 +77,10 @@ namespace DalObject
                         Weight = (WeightCategories)r.Next(3),
                         Proirity = (Priorities)r.Next(3),
                         DroindId = r.Next(100000000, 1000000000),
-                        Requested
-                        Scheduled
-                        PickedUp
-                        Delivered
+                        Requested = currentDate,
+                        Scheduled = currentDate,
+                        PickedUp = currentDate,
+                        Delivered = currentDate
                     };
                 }
 
