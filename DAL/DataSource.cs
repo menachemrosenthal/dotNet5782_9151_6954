@@ -64,15 +64,15 @@ namespace DalObject
                     parcels[i] = new Parcel
                     {
                         Id = 222222251 + i,
-                        Senderid { get; set; }
-                        TargetId { get; set; }
-                        Weight { get; set; }
-                        Proirity { get; set; }
-                        DroindId { get; set; }
-                        Requested { get; set; }
-            public DateTime Scheduled { get; set; }
-            public DateTime PickedUp { get; set; }
-            public DateTime Delivered { get; set; }
+                        Senderid
+                        TargetId
+                        Weight
+                        Proirity
+                        DroindId
+                        Requested
+                        Scheduled
+                        PickedUp
+                        Delivered
         };
                 }
 
