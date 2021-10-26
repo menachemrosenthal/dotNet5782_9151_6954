@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+
 namespace DalObject
 {
     class DataSource
@@ -66,11 +67,7 @@ namespace DalObject
                     };
                 }
                 nextCustomer += 10;
-                        Phone = @"{058}-{667788+i}",
-                        Longitude = 31.78 + 200 * i,
-                        Lattitude = 35.20 + 300 * i
-                    };
-                }
+                        
                 for (int i = 0; i < 10; i++)
                 {
                     parcels[i] = new Parcel
