@@ -9,8 +9,6 @@ namespace DalObject
 {
     public class DalObject
     {
-        private const string V = "";
-
         public DalObject(){ DataSource.Config.Initialize(); }
 
         public void addDrone() 
