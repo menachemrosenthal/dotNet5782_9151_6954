@@ -19,7 +19,7 @@ namespace DalObject
             internal static int nextStation = 0;
             internal static int nextParcel = 0;
             internal static int craeteParcelNumber = 11;
-            internal void Initialize()
+            internal static void Initialize()
             {
                 Random r = new Random();
                 DateTime currentDate = DateTime.Now;

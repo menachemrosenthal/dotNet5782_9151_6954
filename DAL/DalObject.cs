@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IDAL.DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,16 @@ namespace DalObject
 {
     public class DalObject
     {
+        public DalObject()
+        {
+            DataSource.Config.Initialize();
+        }
+        public static void addstation()
+        {
+            int nst = DataSource.Config.nextStation;
+            DataSource.stations[nst] = new Station();
+            Console.WriteLine("ENTER ID:");
+            TryParse(Console.ReadLine(DataSource.stations[nst].Id ));
+        }
     }
 }
