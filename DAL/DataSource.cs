@@ -28,7 +28,7 @@ namespace DalObject
                 {
                     Stations[i] = new Station
                     {
-                        Name = 'a' + i,
+                        Name = r.Next(100,1000),
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(10),
                         Longitude = r.Next(360),
@@ -67,8 +67,8 @@ namespace DalObject
                     Parcels[i] = new Parcel
                     {
                         Id = r.Next(100000000, 1000000000),
-                        Senderid = r.Next(100000000, 1000000000),
-                        TargetId = DataSource.Customers[r.Next(Config.nextCustomer-1)].Id,
+                        Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                        TargetId = r.Next(100000000, 1000000000),
                         Weight = (WeightCategories)r.Next(3),
                         Proirity = (Priorities)r.Next(3),
                         DroneId = r.Next(100000000, 1000000000),
