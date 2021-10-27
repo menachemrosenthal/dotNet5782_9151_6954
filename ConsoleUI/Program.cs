@@ -6,12 +6,8 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
-        }
-
-        private static void Initialize()
-        {
-            throw new NotImplementedException();
+            Console.WriteLine("Hello!  What do you want to do?\n" +
+                "");
         }
     }
 }

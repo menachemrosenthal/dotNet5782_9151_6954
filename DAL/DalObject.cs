@@ -14,16 +14,16 @@ namespace DalObject
         public void addDrone() 
         {
             int ndr = DataSource.Config.nextDrone;
-            DataSource.drones[ndr] = new Drone();
+            DataSource.Drones[ndr] = new Drone();
 
             Console.WriteLine("Enter Id\n");
-            DataSource.drones[ndr].Id = int.Parse(Console.ReadLine());
+            DataSource.Drones[ndr].Id = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter model\n");
-            DataSource.drones[ndr].Model = Console.ReadLine();
+            DataSource.Drones[ndr].Model = Console.ReadLine();
 
             Console.WriteLine("Enter max weight between 0-2\n");
-            DataSource.drones[ndr].MaxWeight = (WeightCategories)int.Parse(Console.ReadLine());
+            DataSource.Drones[ndr].MaxWeight = (WeightCategories)int.Parse(Console.ReadLine());
 
             DataSource.Config.nextDrone++;
         }
@@ -31,22 +31,22 @@ namespace DalObject
         public void addCostumer()
         {
             int ncsr = DataSource.Config.nextCustomer;
-            DataSource.customers[ncsr] = new Customer();
+            DataSource.Customers[ncsr] = new Customer();
 
             Console.WriteLine("Enter ID\n");
-            DataSource.customers[ncsr].Id = int.Parse(Console.ReadLine());
+            DataSource.Customers[ncsr].Id = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter name\n");
-            DataSource.customers[ncsr].Name = Console.ReadLine();
+            DataSource.Customers[ncsr].Name = Console.ReadLine();
 
             Console.WriteLine("Enter phone number\n");
-            DataSource.customers[ncsr].Phone = Console.ReadLine();
+            DataSource.Customers[ncsr].Phone = Console.ReadLine();
 
             Console.WriteLine("Enter longitude\n");
-            DataSource.customers[ncsr].Longitude = double.Parse(Console.ReadLine());
+            DataSource.Customers[ncsr].Longitude = double.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter lattitude\n");
-            DataSource.customers[ncsr].Lattitude = double.Parse(Console.ReadLine());
+            DataSource.Customers[ncsr].Lattitude = double.Parse(Console.ReadLine());
 
             DataSource.Config.nextCustomer++;
         }
@@ -54,24 +54,24 @@ namespace DalObject
         public void addParcel()
         {
             int npcl = DataSource.Config.nextParcel;
-            DataSource.parcels[npcl] = new Parcel();
+            DataSource.Parcels[npcl] = new Parcel();
 
             Console.WriteLine("Enter ID\n");
-            DataSource.parcels[npcl].Id = int.Parse(Console.ReadLine());
+            DataSource.Parcels[npcl].Id = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter sender ID\n");
-            DataSource.parcels[npcl].Senderid = int.Parse(Console.ReadLine());
+            DataSource.Parcels[npcl].Senderid = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Enter target ID\n");
-            DataSource.parcels[npcl].TargetId = int.Parse(Console.ReadLine());
+            DataSource.Parcels[npcl].TargetId = int.Parse(Console.ReadLine());
 
             Console.WriteLine("Weight between 0-2\n");
-            DataSource.parcels[npcl].Weight = (WeightCategories)int.Parse(Console.ReadLine());
+            DataSource.Parcels[npcl].Weight = (WeightCategories)int.Parse(Console.ReadLine());
 
-            DataSource.parcels[npcl].DroneId = 0;
+            DataSource.Parcels[npcl].DroneId = 0;
 
             DateTime currentDate = DateTime.Now;
-            DataSource.parcels[npcl].Requested = currentDate;
+            DataSource.Parcels[npcl].Requested = currentDate;
         }
 
     }
