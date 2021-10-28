@@ -8,11 +8,11 @@ namespace DalObject
 {
     class DataSource
     {
-        internal static Customer[] customers = new Customer[100];
-        internal static Drone[] drones = new Drone[10];
-        internal static Station[] stations = new Station[5];
-        internal static Parcel[] parcels = new Parcel[1000];
-        internal class Config
+        internal static Customer[] Customers = new Customer[100];
+        internal static Drone[] Drones = new Drone[10];
+        internal static Station[] Stations = new Station[5];
+        internal static Parcel[] Parcels = new Parcel[1000];
+        internal  class Config
         {
             internal static int nextCustomer = 0;
             internal static int nextDrone = 0;
@@ -26,9 +26,9 @@ namespace DalObject
 
                 for (int i = 0; i < 2; i++)
                 {
-                    stations[i] = new Station
+                    Stations[i] = new Station
                     {
-                        Name = 'a' + i,
+                        Name = r.Next(100,1000),
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(10),
                         Longitude = r.Next(360),
@@ -38,10 +38,10 @@ namespace DalObject
 
                 for (int i = 0; i < 5; i++)
                 {
-                    drones[i] = new Drone
+                    Drones[i] = new Drone
                     {
                         Id = r.Next(100),
-                        Model = (Names)r.Next(9),
+                        Model = $"Ferari {i}",
                         Battery = 50 + i,
                         MaxWeight = (WeightCategories)r.Next(3),
                         Status = (DroneStatuses)r.Next(3),
@@ -51,10 +51,10 @@ namespace DalObject
 
                 for (int i = 0; i < 10; i++)
                 {
-                    customers[i] = new Customer
+                    Customers[i] = new Customer
                     {
                         Id = r.Next(100000000, 1000000000),
-                        Name = (Names)r.Next(9),
+                        Name = $"person {i}",
                         Phone = string.Format("{00:##-#######}", r.Next(100000000, 100000000)),
                         Longitude = r.Next(360),
                         Lattitude = r.Next(360)
@@ -64,14 +64,14 @@ namespace DalObject
 
                 for (int i = 0; i < 10; i++)
                 {
-                    parcels[i] = new Parcel
+                    Parcels[i] = new Parcel
                     {
                         Id = r.Next(100000000, 1000000000),
-                        Senderid = r.Next(100000000, 1000000000),
+                        Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
                         TargetId = r.Next(100000000, 1000000000),
                         Weight = (WeightCategories)r.Next(3),
                         Proirity = (Priorities)r.Next(3),
-                        DroindId = r.Next(100000000, 1000000000),
+                        DroneId = r.Next(100000000, 1000000000),
                         Requested = currentDate,
                         Scheduled = currentDate,
                         PickedUp = currentDate,
