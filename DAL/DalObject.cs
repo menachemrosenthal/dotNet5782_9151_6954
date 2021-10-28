@@ -51,6 +51,17 @@ namespace DalObject
             DataSource.Config.nextCustomer++;
         }
 
+        public static Customer GetCostumer(int id)
+        {
+            int i = 0;
+            for (; i < DataSource.Config.nextCustomer; i++)
+            {
+                if (id == DataSource.Customers[i].Id)
+                    break;
+            }
+            return DataSource.Customers[i];
+        }
+
         public void addParcel()
         {
             int npcl = DataSource.Config.nextParcel;
@@ -74,5 +85,26 @@ namespace DalObject
             DataSource.Parcels[npcl].Requested = currentDate;
         }
 
+        public static Station GetStation(int id)
+        {
+            int i = 0;
+            for (; i < DataSource.Config.nextStation; i++)
+            {
+                if (id == DataSource.Stations[i].Id)
+                    break;
+            }
+            return DataSource.Stations[i];
+        }
+
+        public static Drone GetDrone(int id)
+        {
+            int i = 0;
+            for (; i < DataSource.Config.nextDrone; i++)
+            {
+                if (id == DataSource.Drones[i].Id)
+                    break;
+            }
+            return DataSource.Drones[i];
+        }
     }
 }
