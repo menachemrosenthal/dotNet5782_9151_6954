@@ -1,5 +1,7 @@
 ﻿using System;
 using IDAL.DO;
+using DalObject;
+
 namespace ConsoleUI
 {
 
@@ -26,7 +28,7 @@ namespace ConsoleUI
             st.Longitude = Console.Read();
             Console.WriteLine("ENTER latitude\n");
             st.Lattitude = Console.Read();
-            ////Func(st);
+            DalObject.DalObject.Addstation(st);
         }
         public static void Adddrone()
         {
@@ -41,7 +43,8 @@ namespace ConsoleUI
             dr.MaxWeight = (IDAL.DO.WeightCategories)int.Parse(Console.ReadLine());
             Console.WriteLine("ENTER Status\n");
             dr.Status = (IDAL.DO.DroneStatuses)int.Parse(Console.ReadLine());
-            ///func(dr);
+            DalObject.DalObject.AddDrone(dr);
+
         }
         public static void Addcustomer()
         {
@@ -56,7 +59,8 @@ namespace ConsoleUI
             cu.Longitude = Console.Read();
             Console.WriteLine("ENTER latitude\n");
             cu.Lattitude = Console.Read();
-            ////Func(cu);
+            DalObject.DalObject.Addcustumer(cu);
+
         }
         public static void Addparcel()
         {
@@ -82,9 +86,16 @@ namespace ConsoleUI
             Console.WriteLine("ENTER Delivered time\n");
             pa.Delivered = DateTime.Parse(Console.ReadLine());
 
-            ////Func(pa);
+            DalObject.DalObject.Addparcel(pa);
         }
-
+        public static void Setparceltodrone()
+        {
+            Console.WriteLine("ENTER parcel id\n");
+            int pid = Console.Read();
+            Console.WriteLine("ENTER drone id\n");
+            int did = Console.Read();
+            DalObject.DalObject.parceltodrone(pid, did);
+        }
 
 
 
@@ -114,8 +125,55 @@ namespace ConsoleUI
                     break;
                 case Choice.addCustomer: Addcustomer();
                     break;
-                case Choice.addParcel: Addparcel();                  
+                case Choice.addParcel: Addparcel();
                     break;
+                case Choice.stationDisplay: stationDisplay();
+                    break;
+                case Choice.droneDisplay: DroneDisplay();
+                    break;
+                case Choice.customerDisplay: customerDisplay();
+                    break;
+                case Choice.parcelToDrone: Setparceltodrone();                  
+                    break;
+                case Choice.pickup:
+                    {
+                        Console.WriteLine("Enter time of pickup\n");
+                        DateTime pdt = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Enter id of parcel\n");
+                        int ppid = int.Parse(Console.ReadLine());
+                        DalObject.DalObject.Updatepickup(pdt, ppid);
+                        break;
+                    }
+                case Choice.delivery:
+                    {
+                        Console.WriteLine("Enter time of delivery\n");
+                        DateTime ddt = DateTime.Parse(Console.ReadLine());
+                        Console.WriteLine("Enter id of parcel\n");
+                        int id = int.Parse(Console.ReadLine());
+                        DalObject.DalObject.Updatedelivery(ddt, id);
+                        break;
+                    }
+                case Choice.droneCharge: 
+                    {
+                        Console.WriteLine("ENTER id of drone\n");
+                        int did = int.Parse(Console.ReadLine());
+                        Console.WriteLine("pick a station to charge and enter station id\n");
+                        //stationlistdisplay();
+                        int sid = int.Parse(Console.ReadLine());
+                        DalObject.DalObject.Chargedrone(did, sid);
+                        break;
+                    }
+                case Choice.finishCharge:
+                    {
+                        Console.WriteLine("ENTER id of drone\n");
+                        int did = int.Parse(Console.ReadLine());
+                        Console.WriteLine("enter the station of charge id\n");
+                        //stationlistdisplay();
+                        int sid = int.Parse(Console.ReadLine());
+                        DalObject.DalObject.Endcharge(did, sid);
+                        break;
+                    }
+                    
             }
 
 
@@ -123,6 +181,47 @@ namespace ConsoleUI
         }
        
        
+        private static void customerDisplay()
+        {
+            Console.WriteLine("Enter ID of the costumer\n");
+            int Id = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("ID: ", DalObject.DalObject.GetCostumer(Id).Id, "\n");
+            Console.WriteLine("Name: ", DalObject.DalObject.GetCostumer(Id).Name, "\n");
+            Console.WriteLine("Phone number: ", DalObject.DalObject.GetCostumer(Id).Phone, "\n");
+            Console.WriteLine("Longitube: ", DalObject.DalObject.GetCostumer(Id).Longitude, "\n");
+            Console.WriteLine("Lattitude: ", DalObject.DalObject.GetCostumer(Id).Lattitude, "\n");
+
+            return;
+        }
+
+        private static void DroneDisplay()
+        {
+            Console.WriteLine("Enter ID of the drone\n");
+            int Id = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("ID: ", DalObject.DalObject.GetDrone(Id).Id, "\n");
+            Console.WriteLine("Model: ", DalObject.DalObject.GetDrone(Id).Model, "\n");
+            Console.WriteLine("Battery: ", DalObject.DalObject.GetDrone(Id).Battery, "\n");
+            Console.WriteLine("Max weight: ", DalObject.DalObject.GetDrone(Id).MaxWeight, "\n");
+            Console.WriteLine("Status: ", DalObject.DalObject.GetDrone(Id).Status, "\n");
+
+            return;
+        }
+
+        private static void stationDisplay()
+        {
+            Console.WriteLine("Enter ID of the staiton\n");
+            int Id = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("ID: ", DalObject.DalObject.GetStation(Id).Id,"\n");
+            Console.WriteLine("Name: ", DalObject.DalObject.GetStation(Id).Name, "\n");
+            Console.WriteLine("Charge slots: ", DalObject.DalObject.GetStation(Id).ChargeSlots,"\n");
+            Console.WriteLine("Longitube: ", DalObject.DalObject.GetStation(Id).Longitude, "\n");
+            Console.WriteLine("Lattitude: ", DalObject.DalObject.GetStation(Id).Lattitude, "\n");
+
+            return;
+        }
     }
 
 

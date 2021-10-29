@@ -16,6 +16,7 @@ namespace DalObject
         {
             internal static int nextCustomer = 0;
             internal static int nextDrone = 0;
+
             internal static int nextStation = 0;
             internal static int nextParcel = 0;
             internal static int craeteParcelNumber = 11;
