@@ -189,21 +189,21 @@ namespace ConsoleUI
 
         public static void parcelPickup()
         {
-            Console.WriteLine("Enter time of pickup\n");
-            DateTime pdt = DateTime.Parse(Console.ReadLine());
+           // Console.WriteLine("Enter time of pickup\n");
+            //DateTime pdt = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("Enter ID of parcel\n");
             int pid = int.Parse(Console.ReadLine());
-            DalObject.DalObject.UpdatePickup(pdt, pid);
+            DalObject.DalObject.UpdatePickup(pid);
 
         }
 
         public static void parcelDelivered()
         {
-            Console.WriteLine("Enter time of delivery\n");
-            DateTime ddt = DateTime.Parse(Console.ReadLine());
+           // Console.WriteLine("Enter time of delivery\n");
+            //DateTime ddt = DateTime.Parse(Console.ReadLine());
             Console.WriteLine("Enter id of parcel\n");
             int id = int.Parse(Console.ReadLine());
-            DalObject.DalObject.UpdateDelivery(ddt, id);
+            DalObject.DalObject.UpdateDelivery(id);
         }
 
         private static void finishCharge()

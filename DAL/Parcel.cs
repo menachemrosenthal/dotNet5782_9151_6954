@@ -23,10 +23,10 @@ namespace IDAL
             public DateTime Delivered { get; set; }
             public override string ToString()
             {
-                return "Parcel number: " + Id +
-                    "\nSender ID: " + Senderid + "\nTarget ID: " + TargetId + "\nWeight: " + Weight + 
-                    "\nPriority: "+Priority+"\nDrone ID: "+DroneId+"\nRequested: "+Requested+
-                    "\nSchedeled: "+Scheduled+"\nPicked up: "+PickedUp+"\nDelivered: "+Delivered+"\n";
+                return "Parcel number: " + Id + "\nSender ID: " + Senderid + "\nTarget ID: " + TargetId +
+                    "\nWeight: " + Weight + "\nPriority: " + Priority + "\nDrone ID: " + DroneId +
+                    "\nRequested: " + Requested + "\nSchedeled: " + Scheduled +
+                    "\nPicked up: " + PickedUp + "\nDelivered: " + Delivered + "\n";
             }
         }
     }
