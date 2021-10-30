@@ -29,7 +29,7 @@ namespace DalObject
                 {
                     Stations[i] = new Station
                     {
-                        Name = r.Next(100,1000),
+                        Name = $"Station {r.Next(100,1000)}",
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(10),
                         Longitude = r.Next(360),

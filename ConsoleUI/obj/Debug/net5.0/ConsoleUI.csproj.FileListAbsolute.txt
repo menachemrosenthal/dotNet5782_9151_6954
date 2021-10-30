@@ -16,4 +16,3 @@ C:\Users\Itzic\source\repos\dotNet5782_9151_6954\ConsoleUI\obj\Debug\net5.0\Cons
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\ConsoleUI\obj\Debug\net5.0\ref\ConsoleUI.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\ConsoleUI\obj\Debug\net5.0\ConsoleUI.pdb
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\ConsoleUI\obj\Debug\net5.0\ConsoleUI.genruntimeconfig.cache
-C:\Users\Itzic\Source\Repos\dotNet5782_9151_6954\ConsoleUI\obj\Debug\net5.0\ConsoleUI.csproj.CopyComplete

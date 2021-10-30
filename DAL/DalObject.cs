@@ -20,7 +20,6 @@ namespace DalObject
             DataSource.Config.nextStation++;
             DataSource.Stations[nst] = st;
         }
-
         public static void AddDrone(Drone dr) 
         {
             int ndr = DataSource.Config.nextDrone;
@@ -42,20 +41,6 @@ namespace DalObject
             DataSource.Config.nextParcel++;
             DataSource.Parcels[np] = pa;
         }
-
-
-
-        public static Customer GetCostumer(int id)
-        {
-            int i = 0;
-            for (; i < DataSource.Config.nextCustomer; i++)
-            {
-                if (id == DataSource.Customers[i].Id)
-                    break;
-            }
-            return DataSource.Customers[i];
-        }
-
         public void addParcel()
         {
             int npcl = DataSource.Config.nextParcel;
@@ -78,7 +63,6 @@ namespace DalObject
             DateTime currentDate = DateTime.Now;
             DataSource.Parcels[npcl].Requested = currentDate;
         }
-
         public static void parceltodrone(int pid,int did)
         {
             for(int i = 0; i < DataSource.Config.nextParcel; i++)
@@ -97,7 +81,6 @@ namespace DalObject
                 if (id == DataSource.Parcels[i].Id)
                     DataSource.Parcels[i].Delivered = dt;
         }
-
         public static void Chargedrone(int did,int sid)
         {
             for (int i = 0; i < DataSource.Config.nextDrone; i++)
@@ -132,7 +115,6 @@ namespace DalObject
             }
             return DataSource.Stations[i];
         }
-
         public static Drone GetDrone(int id)
         {
             int i = 0;
@@ -142,6 +124,26 @@ namespace DalObject
                     break;
             }
             return DataSource.Drones[i];
+        }
+        public static Customer GetCostumer(int id)
+        {
+            int i = 0;
+            for (; i < DataSource.Config.nextCustomer; i++)
+            {
+                if (id == DataSource.Customers[i].Id)
+                    break;
+            }
+            return DataSource.Customers[i];
+        }
+        public static Parcel GetParcel(int id)
+        {
+            int i = 0;
+            for (; i < DataSource.Config.nextParcel; i++)
+            {
+                if (id == DataSource.Parcels[i].Id)
+                    break;
+            }
+            return DataSource.Parcels[i];
         }
     }
 }
