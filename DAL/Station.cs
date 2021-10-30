@@ -13,7 +13,11 @@ namespace IDAL
             public int ChargeSlots { get; set; }
             public double Longitude { get; set; }
             public double Lattitude { get; set; }
-            
+            public override string ToString()
+            {
+                return "Station: "+Name+
+                    "\nID: "+Id+"\nCharge slots: "+ChargeSlots+"\nLongitude: "+Longitude+"\nLattitude: "+Lattitude+"\n";
+            }
         }
     }
 }
