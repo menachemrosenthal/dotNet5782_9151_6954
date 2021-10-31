@@ -41,8 +41,8 @@ namespace ConsoleUI
                "Station list-14, Drone list-15, Customer list-16, Parcel list-17,\n" +
                "Unassosiated parcels-18, Stations with free charge slots-19.\n\n" +
                "END-20 ");
-                    
-                Enum.TryParse(Console.ReadLine(), out Choice choice);
+
+                _ = Enum.TryParse(Console.ReadLine(), out Choice choice);
 
                 switch (choice)
                 {
