@@ -9,41 +9,56 @@ namespace DalObject
 {
     public class DalObject
     {
+        /// <summary>
+        /// constructor
+        /// </summary>
         public DalObject()
         {
             DataSource.Config.Initialize();
         }
+
         /// <summary>
-        /// 
+        /// add a station to the stations array
         /// </summary>
-        /// <param name="st">station to add into the array stations</param>
-        public static void Addstation(Station st)
+        /// <param name="station">the station for add</param>
+        public static void AddStation(Station station)
         {
             int nst = DataSource.Config.nextStation++;
             DataSource.Stations[nst] = new Station();
-            DataSource.Stations[nst] = st;
+            DataSource.Stations[nst] = station;
         }
+
         /// <summary>
-        /// 
+        /// add a drone to the drones array
         /// </summary>
-        /// <param name="dr">drone to add into the array drones</param>
-        public static void AddDrone(Drone dr)
+        /// <param name="drone">the drone for add</param>
+        public static void AddDrone(Drone drone)
         {
             int ndr = DataSource.Config.nextDrone;
             DataSource.Drones[ndr] = new();
             DataSource.Config.nextDrone++;
-            DataSource.Drones[ndr] = dr;
+            DataSource.Drones[ndr] = drone;
         }
-        public static void Addcustumer(Customer cu)
+
+        /// <summary>
+        /// add a customer to the customers array array
+        /// </summary>
+        /// <param name="customer">the customer for add</param>
+        public static void Addcustumer(Customer customer)
         {
             int nc = DataSource.Config.nextCustomer;
             DataSource.Customers[nc] = new();
             DataSource.Config.nextCustomer++;
-            DataSource.Customers[nc] = cu;
+            DataSource.Customers[nc] = customer;
         }
-        public static void AddParcel(Parcel pa)
+
+        /// <summary>
+        /// add a parcel to the parcels array
+        /// </summary>
+        /// <param name="parcel"></param>
+        public static void AddParcel(Parcel parcel)
         {
-            pa.Id = DataSource.Config.createParcelNumber++;
+            parcel.Id = DataSource.Config.createParcelNumber++;
             int np = DataSource.Config.nextParcel++;
             DataSource.Parcels[np] = new();
             DataSource.Parcels[np] = pa;
