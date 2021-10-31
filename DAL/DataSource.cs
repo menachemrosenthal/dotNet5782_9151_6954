@@ -12,14 +12,15 @@ namespace DalObject
         internal static Drone[] Drones = new Drone[10];
         internal static Station[] Stations = new Station[5];
         internal static Parcel[] Parcels = new Parcel[1000];
+        internal static DroneCharge[] DronesCharge = new DroneCharge[10];
         internal  class Config
         {
             internal static int nextCustomer = 0;
             internal static int nextDrone = 0;
-
             internal static int nextStation = 0;
             internal static int nextParcel = 0;
-            internal static int craeteParcelNumber = 11;
+            internal static int nextDroneCharge = 0;
+            internal static int createParcelNumber = 1;
             internal static void Initialize()
             {
                 Random r = new Random();
@@ -29,7 +30,7 @@ namespace DalObject
                 {
                     Stations[i] = new Station
                     {
-                        Name = r.Next(100,1000),
+                        Name = $"Station {r.Next(100,1000)}",
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(10),
                         Longitude = r.Next(360),
@@ -67,11 +68,11 @@ namespace DalObject
                 {
                     Parcels[i] = new Parcel
                     {
-                        Id = r.Next(100000000, 1000000000),
+                        Id = createParcelNumber++,
                         Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
                         TargetId = r.Next(100000000, 1000000000),
                         Weight = (WeightCategories)r.Next(3),
-                        Proirity = (Priorities)r.Next(3),
+                        Priority = (Priorities)r.Next(3),
                         DroneId = r.Next(100000000, 1000000000),
                         Requested = currentDate,
                         Scheduled = currentDate,
