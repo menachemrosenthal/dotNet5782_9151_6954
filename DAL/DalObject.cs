@@ -63,7 +63,6 @@ namespace DalObject
         public static void AddParcel(Parcel parcel)
         {
             parcel.Id = DataSource.Config.createParcelNumber++;
-<<<<<<< HEAD
             int nextParcel = DataSource.Config.nextParcel++;
             DataSource.Parcels[nextParcel] = new();
             DataSource.Parcels[nextParcel] = parcel;
@@ -76,7 +75,6 @@ namespace DalObject
         /// <param name="parcelId">the parcel number</param>
         /// <param name="droneId">drone id</param>
         public static void ParcelToDrone(int parcelId, int droneId)
-=======
             int np = DataSource.Config.nextParcel++;
             DataSource.Parcels[np] = new();
             DataSource.Parcels[np] = parcel;
