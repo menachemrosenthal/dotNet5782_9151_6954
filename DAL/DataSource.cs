@@ -35,8 +35,9 @@ namespace DalObject
                         ChargeSlots = r.Next(10),
                         Longitude = r.Next(360),
                         Lattitude = r.Next(360)
-                    };
+                    };                    
                 }
+                nextStation += 2;
 
                 for (int i = 0; i < 5; i++)
                 {
@@ -57,7 +58,7 @@ namespace DalObject
                     {
                         Id = r.Next(100000000, 1000000000),
                         Name = $"person {i}",
-                        Phone = string.Format("{00:##-#######}", r.Next(100000000, 100000000)),
+                        Phone = string.Format("0{0:###-#######}", r.Next(500000000, 599999999)),
                         Longitude = r.Next(360),
                         Lattitude = r.Next(360)
                     };
@@ -74,10 +75,7 @@ namespace DalObject
                         Weight = (WeightCategories)r.Next(3),
                         Priority = (Priorities)r.Next(3),
                         DroneId = r.Next(100000000, 1000000000),
-                        Requested = currentDate,
-                        Scheduled = currentDate,
-                        PickedUp = currentDate,
-                        Delivered = currentDate
+                        Requested = currentDate
                     };
                 }
                 nextParcel += 10;
