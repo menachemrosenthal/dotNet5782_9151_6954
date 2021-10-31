@@ -61,7 +61,7 @@ namespace DalObject
             parcel.Id = DataSource.Config.createParcelNumber++;
             int np = DataSource.Config.nextParcel++;
             DataSource.Parcels[np] = new();
-            DataSource.Parcels[np] = pa;
+            DataSource.Parcels[np] = parcel;
         }
         /// <summary>
         /// 

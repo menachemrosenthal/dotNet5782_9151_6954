@@ -8,6 +8,7 @@ namespace DalObject
 {
     class DataSource
     {
+        //Arrays of data(customers, drones, stations,parcels, dronecharges)
         internal static Customer[] Customers = new Customer[100];
         internal static Drone[] Drones = new Drone[10];
         internal static Station[] Stations = new Station[5];
@@ -15,17 +16,23 @@ namespace DalObject
         internal static DroneCharge[] DronesCharge = new DroneCharge[10];
         internal  class Config
         {
+            //pointers to next free element in arrays
             internal static int nextCustomer = 0;
             internal static int nextDrone = 0;
             internal static int nextStation = 0;
             internal static int nextParcel = 0;
             internal static int nextDroneCharge = 0;
             internal static int createParcelNumber = 1;
+
+            /// <summary>
+            /// starting a project, initialize the data
+            /// </summary>
             internal static void Initialize()
             {
                 Random r = new Random();
                 DateTime currentDate = DateTime.Now;
 
+                //initialize stations
                 for (int i = 0; i < 2; i++)
                 {
                     Stations[i] = new Station
@@ -39,6 +46,7 @@ namespace DalObject
                 }
                 nextStation += 2;
 
+                //initialize drones
                 for (int i = 0; i < 5; i++)
                 {
                     Drones[i] = new Drone
@@ -52,6 +60,7 @@ namespace DalObject
                 }
                 nextDrone += 5;
 
+                //initialize customers
                 for (int i = 0; i < 10; i++)
                 {
                     Customers[i] = new Customer
@@ -65,6 +74,7 @@ namespace DalObject
                 }
                 nextCustomer += 10;
 
+                //initialize parcels
                 for (int i = 0; i < 10; i++)
                 {
                     Parcels[i] = new Parcel
