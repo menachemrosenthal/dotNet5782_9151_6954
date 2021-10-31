@@ -59,46 +59,46 @@ namespace ConsoleUI
                         SetParcelToDrone();
                         break;
                     case Choice.stationDisplay:
-                        stationDisplay();
+                        StationDisplay();
                         break;
                     case Choice.droneDisplay:
                         DroneDisplay();
                         break;
                     case Choice.customerDisplay:
-                        customerDisplay();
+                        CustomerDisplay();
                         break;
                     case Choice.parcelDisplay: 
                         ParcelDisplay();
                         break;
                     case Choice.pickup:
-                        parcelPickup();
+                        ParcelPickup();
                         break;
                     case Choice.delivery:
-                        parcelDelivered();
+                        ParcelDelivered();
                         break;
                     case Choice.droneCharge:
-                        droneCharge();
+                        DroneCharge();
                             break;                        
                     case Choice.finishCharge:
-                        finishCharge();
+                        FinishCharge();
                             break;
                     case Choice.stationList: 
-                        stationListDisplay();
+                        StationListDisplay();
                         break;
                     case Choice.droneList:
-                        droneListDisplay();
+                        DroneListDisplay();
                         break;
                     case Choice.customerList:
-                        customerListDisplay();
+                        CustomerListDisplay();
                         break;
                     case Choice.parcelList:
-                        parcelListDisplay();
+                        ParcelListDisplay();
                         break;
                     case Choice.unassosiatedParcelList:
-                        unassosiatedParcelListDisplay();
+                        UnassosiatedParcelListDisplay();
                         break;
                     case Choice.stationsWithFreeSlots:
-                        stationsWithFreeSlotsDisplay();
+                        StationsWithFreeSlotsDisplay();
                         break;
 
                 }
@@ -111,7 +111,9 @@ namespace ConsoleUI
 
 
 
-
+        /// <summary>
+        /// adds a station
+        /// </summary>
         public static void Addstation()
         {
             Station st = new();
@@ -127,7 +129,9 @@ namespace ConsoleUI
             st.Lattitude = double.Parse(Console.ReadLine());
             DalObject.DalObject.Addstation(st);
         }
-
+        /// <summary>
+        /// addsa drone
+        /// </summary>
         public static void Adddrone()
         {
             Drone dr = new();
@@ -144,7 +148,9 @@ namespace ConsoleUI
             DalObject.DalObject.AddDrone(dr);
 
         }
-
+        /// <summary>
+        /// adds a customer
+        /// </summary>
         public static void Addcustomer()
         {
             Customer cu = new();
@@ -161,7 +167,9 @@ namespace ConsoleUI
             DalObject.DalObject.Addcustumer(cu);
 
         }
-
+        /// <summary>
+        /// adds a parcel
+        /// </summary>
         public static void Addparcel()
         {
             Parcel pa = new();
@@ -177,17 +185,21 @@ namespace ConsoleUI
             pa.Requested = DateTime.Now;
             DalObject.DalObject.Addparcel(pa);
         }
-
+        /// <summary>
+        /// apply a parcel to a drone
+        /// </summary>
         public static void SetParcelToDrone()
         {
             Console.WriteLine("ENTER parcel ID\n");
             int pid = int.Parse(Console.ReadLine());
             Console.WriteLine("ENTER drone ID\n");
             int did = int.Parse(Console.ReadLine());
-            DalObject.DalObject.parcelToDrone(pid, did);
+            DalObject.DalObject.ParcelToDrone(pid, did);
         }
-
-        public static void parcelPickup()
+        /// <summary>
+        /// updates the time of pickup
+        /// </summary>
+        public static void ParcelPickup()
         {
            // Console.WriteLine("Enter time of pickup\n");
             //DateTime pdt = DateTime.Parse(Console.ReadLine());
@@ -196,8 +208,10 @@ namespace ConsoleUI
             DalObject.DalObject.UpdatePickup(pid);
 
         }
-
-        public static void parcelDelivered()
+        /// <summary>
+        /// updates time of delivery
+        /// </summary>
+        public static void ParcelDelivered()
         {
            // Console.WriteLine("Enter time of delivery\n");
             //DateTime ddt = DateTime.Parse(Console.ReadLine());
@@ -205,14 +219,18 @@ namespace ConsoleUI
             int id = int.Parse(Console.ReadLine());
             DalObject.DalObject.UpdateDelivery(id);
         }
-
-        private static void finishCharge()
+        /// <summary>
+        /// drone finished charging, updates status 
+        /// </summary>
+        private static void FinishCharge()
         {
             Console.WriteLine("ENTER id of drone\n");
             int did = int.Parse(Console.ReadLine());
             DalObject.DalObject.EndCharge(did);
         }
-
+        /// <summary>
+        /// display parcel
+        /// </summary>
         public static void ParcelDisplay()
         {
             Console.WriteLine("Enter ID of the Parcel\n");
@@ -220,25 +238,31 @@ namespace ConsoleUI
             Console.WriteLine("ID: ", DalObject.DalObject.GetParcel(Id).ToString());
             return;
         }
-
-        public static void droneCharge()
+        /// <summary>
+        /// charging a drone, updates status to charging
+        /// </summary>
+        public static void DroneCharge()
         {
             Console.WriteLine("ENTER id of drone\n");
             int did = int.Parse(Console.ReadLine());
             Console.WriteLine("pick a station to charge and enter station id\n");
-            stationsWithFreeSlotsDisplay();
+            StationsWithFreeSlotsDisplay();
             int sid = int.Parse(Console.ReadLine());
-            DalObject.DalObject.chargeDrone(did, sid);
+            DalObject.DalObject.ChargeDrone(did, sid);
         }
-
-        public static void customerDisplay()
+        /// <summary>
+        /// display customer
+        /// </summary>
+        public static void CustomerDisplay()
         {
             Console.WriteLine("Enter ID of the costumer\n");
             int Id = int.Parse(Console.ReadLine());
             Console.WriteLine(DalObject.DalObject.GetCostumer(Id).ToString());
             return;
         }
-
+        /// <summary>
+        /// dispay drone
+        /// </summary>
         public static void DroneDisplay()
         {
             Console.WriteLine("Enter ID of the drone\n");
@@ -246,59 +270,73 @@ namespace ConsoleUI
             Console.WriteLine(DalObject.DalObject.GetDrone(Id).ToString());
             return;
         }
-
-        public static void stationDisplay()
+        /// <summary>
+        /// display station
+        /// </summary>
+        public static void StationDisplay()
         {
             Console.WriteLine("Enter ID of the staiton\n");
             int Id = int.Parse(Console.ReadLine());
             Console.WriteLine(DalObject.DalObject.GetStation(Id).ToString());
             return;
         }
-        
-        public static void stationListDisplay()
+        /// <summary>
+        /// display the list of stations
+        /// </summary>
+        public static void StationListDisplay()
         {
-            foreach (var Station in DalObject.DalObject.stationList())
+            foreach (var Station in DalObject.DalObject.StationList())
             {
                 Console.WriteLine(Station.ToString());
             }
         }
-
-        public static void droneListDisplay()
+        /// <summary>
+        /// display the list of drones
+        /// </summary>
+        public static void DroneListDisplay()
         {
-            foreach (var Drone in DalObject.DalObject.droneList())
+            foreach (var Drone in DalObject.DalObject.DroneList())
             {
                 Console.WriteLine(Drone.ToString());
             }
         }
-
-        public static void customerListDisplay()
+        /// <summary>
+        /// display the list of customers
+        /// </summary>
+        public static void CustomerListDisplay()
         {
-            foreach (var Customer in DalObject.DalObject.customerList())
+            foreach (var Customer in DalObject.DalObject.CustomerList())
             {
                 Console.WriteLine(Customer.ToString());
             }
         }
-
-        public static void parcelListDisplay()
+        /// <summary>
+        /// display the list of parcels
+        /// </summary>
+        public static void ParcelListDisplay()
         {
-            foreach (var Parcel in DalObject.DalObject.parcelList())
+            foreach (var Parcel in DalObject.DalObject.ParcelList())
             {
                 Console.WriteLine(Parcel.ToString());
             }
         }
-
-        public static void stationsWithFreeSlotsDisplay()
+        /// <summary>
+        /// display list of stations with free charge slots
+        /// </summary>
+        public static void StationsWithFreeSlotsDisplay()
         {
-            foreach (var Station in DalObject.DalObject.stationList())
+            foreach (var Station in DalObject.DalObject.StationList())
             {
                 if(Station.ChargeSlots != 0)
                      Console.WriteLine(Station.ToString());
             }
         }
-       
-        public static void unassosiatedParcelListDisplay()
+       /// <summary>
+       /// display list pf unassosiated parcels
+       /// </summary>
+        public static void UnassosiatedParcelListDisplay()
         {
-            foreach (var Parcel in DalObject.DalObject.parcelList())
+            foreach (var Parcel in DalObject.DalObject.ParcelList())
             {
                 if(Parcel.DroneId != 0)
                     Console.WriteLine(Parcel.ToString());
