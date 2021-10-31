@@ -204,7 +204,7 @@ namespace ConsoleUI
 
             parcel.Senderid = senderId; parcel.TargetId = targetId; parcel.Weight = weight; parcel.Priority = priority;
             parcel.DroneId = 0; parcel.Requested = DateTime.Now;
-            DalObject.DalObject.AddP arcel(parcel);
+            DalObject.DalObject.AddParcel(parcel);
         }
 
         public static void SetParcelToDrone()
