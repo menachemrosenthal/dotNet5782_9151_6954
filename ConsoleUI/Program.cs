@@ -137,7 +137,7 @@ namespace ConsoleUI
 
             st.Id = id; st.ChargeSlots = chargSolts; st.Longitude = longitude; st.Lattitude = lattitude;
 
-            DalObject.DalObject.Addstation(st);
+            DalObject.DalObject.AddStation(st);
         }
 
         /// <summary>
@@ -215,7 +215,7 @@ namespace ConsoleUI
             Console.WriteLine("ENTER drone ID\n");
             int.TryParse(Console.ReadLine(), out did);
 
-            DalObject.DalObject.parcelToDrone(pid, did);
+            DalObject.DalObject.ParcelToDrone(pid, did);
         }
 
         public static void parcelPickup()
@@ -270,7 +270,7 @@ namespace ConsoleUI
             stationsWithFreeSlotsDisplay();
             int.TryParse(Console.ReadLine(), out stationId);
 
-            DalObject.DalObject.chargeDrone(droneId, stationId);
+            DalObject.DalObject.ChargeDrone(droneId, stationId);
         }
 
         public static void customerDisplay()
@@ -306,9 +306,8 @@ namespace ConsoleUI
 
         public static void stationListDisplay()
         {
-            foreach (var Station in DalObject.DalObject.stationList())
-                Console.WriteLine(Station.ToString());
-            
+            foreach (var Station in DalObject.DalObject.StationList())
+                Console.WriteLine(Station.ToString());    
         }
 
         public static void droneListDisplay()
@@ -334,10 +333,9 @@ namespace ConsoleUI
 
         public static void stationsWithFreeSlotsDisplay()
         {
-            foreach (var Station in DalObject.DalObject.stationList())            
+            foreach (var Station in DalObject.DalObject.StationList())            
                 if (Station.ChargeSlots != 0)
-                    Console.WriteLine(Station.ToString());
-            
+                    Console.WriteLine(Station.ToString());            
         }
 
         public static void unassosiatedParcelListDisplay()
