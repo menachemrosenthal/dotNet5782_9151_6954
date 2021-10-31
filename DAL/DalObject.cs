@@ -13,12 +13,20 @@ namespace DalObject
         {
             DataSource.Config.Initialize();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="st">station to add into the array stations</param>
         public static void Addstation(Station st)
         {
             int nst = DataSource.Config.nextStation++;
             DataSource.Stations[nst] = new Station();
             DataSource.Stations[nst] = st;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dr">drone to add into the array drones</param>
         public static void AddDrone(Drone dr)
         {
             int ndr = DataSource.Config.nextDrone;
@@ -33,7 +41,7 @@ namespace DalObject
             DataSource.Config.nextCustomer++;
             DataSource.Customers[nc] = cu;
         }
-        public static void Addparcel(Parcel pa)
+        public static void AddParcel(Parcel pa)
         {
             pa.Id = DataSource.Config.createParcelNumber++;
             int np = DataSource.Config.nextParcel++;
