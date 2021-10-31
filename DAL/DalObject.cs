@@ -63,6 +63,7 @@ namespace DalObject
         public static void AddParcel(Parcel parcel)
         {
             parcel.Id = DataSource.Config.createParcelNumber++;
+<<<<<<< HEAD
             int nextParcel = DataSource.Config.nextParcel++;
             DataSource.Parcels[nextParcel] = new();
             DataSource.Parcels[nextParcel] = parcel;
@@ -75,6 +76,18 @@ namespace DalObject
         /// <param name="parcelId">the parcel number</param>
         /// <param name="droneId">drone id</param>
         public static void ParcelToDrone(int parcelId, int droneId)
+=======
+            int np = DataSource.Config.nextParcel++;
+            DataSource.Parcels[np] = new();
+            DataSource.Parcels[np] = pa;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pid"></param>
+        /// <param name="did"></param>
+        public static void ParcelToDrone(int pid, int did)
+>>>>>>> 92ca661946b0c84fd730879c1873c4d171e9669e
         {
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
                 if (parcelId == DataSource.Parcels[i].Id)
@@ -121,6 +134,7 @@ namespace DalObject
                 }
             }
         }
+<<<<<<< HEAD
 
 
         /// <summary>
@@ -129,13 +143,20 @@ namespace DalObject
         /// <param name="droneId">drone id</param>
         /// <param name="stationId">station id</param>
         public static void ChargeDrone(int droneId, int stationId)
+=======
+        public static void ChargeDrone(int did, int sid)
+>>>>>>> 92ca661946b0c84fd730879c1873c4d171e9669e
         {
             for (int i = 0; i < DataSource.Config.nextDrone; i++)
             {
                 if (droneId == DataSource.Drones[i].Id)
                 {
                     DataSource.Drones[i].Status = DroneStatuses.maintenance;
+<<<<<<< HEAD
                     DataSource.DronesCharge[DataSource.Config.nextDroneCharge] = new() { DroneId = droneId, StationId = stationId };
+=======
+                    DataSource.DronesCharge[DataSource.Config.nextDroneCharge] = new(){ DroneId = did, StationId = sid };
+>>>>>>> 92ca661946b0c84fd730879c1873c4d171e9669e
                     DataSource.Config.nextDroneCharge += 1;
                 }
             }
@@ -235,7 +256,7 @@ namespace DalObject
             return stationList;
         }
 
-        public static Customer[] customerList()
+        public static Customer[] CustomerList()
         {
             Customer[] customerList = new Customer[DataSource.Config.nextCustomer];
             for (int i = 0; i < DataSource.Config.nextCustomer; i++)
@@ -246,7 +267,7 @@ namespace DalObject
             return customerList;
         }
 
-        public static Parcel[] parcelList()
+        public static Parcel[] ParcelList()
         {
             Parcel[] parcelList = new Parcel[DataSource.Config.nextParcel];
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
@@ -257,7 +278,7 @@ namespace DalObject
             return parcelList;
         }
 
-        public static Drone[] droneList()
+        public static Drone[] DroneList()
         {
             Drone[] droneList = new Drone[DataSource.Config.nextDrone];
             for (int i = 0; i < DataSource.Config.nextDrone; i++)
