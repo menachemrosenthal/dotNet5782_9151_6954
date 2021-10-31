@@ -126,8 +126,11 @@ namespace ConsoleUI
             Console.WriteLine("\nENTER longitude");
             st.Longitude = double.Parse(Console.ReadLine());
             Console.WriteLine("\nENTER latitude");
-            st.Lattitude = double.Parse(Console.ReadLine());
-            DalObject.DalObject.Addstation(st);
+            double.TryParse(Console.ReadLine(), out lattitude);
+
+            st.Id = id; st.ChargeSlots = chargSolts; st.Longitude = longitude; st.Lattitude = lattitude;
+
+            DalObject.DalObject.AddStation(st);
         }
         /// <summary>
         /// addsa drone
@@ -193,7 +196,8 @@ namespace ConsoleUI
             Console.WriteLine("ENTER parcel ID\n");
             int pid = int.Parse(Console.ReadLine());
             Console.WriteLine("ENTER drone ID\n");
-            int did = int.Parse(Console.ReadLine());
+            int.TryParse(Console.ReadLine(), out did);
+
             DalObject.DalObject.ParcelToDrone(pid, did);
         }
         /// <summary>
@@ -246,9 +250,10 @@ namespace ConsoleUI
             Console.WriteLine("ENTER id of drone\n");
             int did = int.Parse(Console.ReadLine());
             Console.WriteLine("pick a station to charge and enter station id\n");
-            StationsWithFreeSlotsDisplay();
-            int sid = int.Parse(Console.ReadLine());
-            DalObject.DalObject.ChargeDrone(did, sid);
+            stationsWithFreeSlotsDisplay();
+            int.TryParse(Console.ReadLine(), out stationId);
+
+            DalObject.DalObject.ChargeDrone(droneId, stationId);
         }
         /// <summary>
         /// display customer
@@ -286,9 +291,7 @@ namespace ConsoleUI
         public static void StationListDisplay()
         {
             foreach (var Station in DalObject.DalObject.StationList())
-            {
-                Console.WriteLine(Station.ToString());
-            }
+                Console.WriteLine(Station.ToString());    
         }
         /// <summary>
         /// display the list of drones
