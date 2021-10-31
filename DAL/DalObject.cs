@@ -76,20 +76,9 @@ namespace DalObject
         /// <param name="parcelId">parcel number to connect</param>
         /// <param name="droneId">drone id</param>
         public static void ParcelToDrone(int parcelId, int droneId)
-            int np = DataSource.Config.nextParcel++;
-            DataSource.Parcels[np] = new();
-            DataSource.Parcels[np] = parcel;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="pid"></param>
-        /// <param name="did"></param>
-        public static void ParcelToDrone(int pid, int did)
->>>>>>> 92ca661946b0c84fd730879c1873c4d171e9669e
         {
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
-            { 
+            {
                 if (parcelId == DataSource.Parcels[i].Id)
                 {
                     DataSource.Parcels[i].DroneId = droneId;
@@ -106,7 +95,7 @@ namespace DalObject
         public static void UpdatePickup(int parcelId)
         {
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
-            { 
+            {
                 if (parcelId == DataSource.Parcels[i].Id)
                     DataSource.Parcels[i].PickedUp = DateTime.Now;
 
@@ -131,9 +120,9 @@ namespace DalObject
                     DataSource.Parcels[i].Delivered = DateTime.Now;
 
                     //the drone status uodate to free
-                    for (int j = 0; j < DataSource.Config.nextDrone; j++)                    
+                    for (int j = 0; j < DataSource.Config.nextDrone; j++)
                         if (DataSource.Parcels[i].DroneId == DataSource.Drones[j].Id)
-                            DataSource.Drones[j].Status = DroneStatuses.free;                                            
+                            DataSource.Drones[j].Status = DroneStatuses.free;
                 }
             }
         }

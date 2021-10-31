@@ -8,7 +8,7 @@ namespace DalObject
 {
     class DataSource
     {
-        //Arrays of data(customers, drones, stations,parcels, dronecharges)
+        //Arrays of data(customers, drones, stations, parcels, dronecharges)
         internal static Customer[] Customers = new Customer[100];
         internal static Drone[] Drones = new Drone[10];
         internal static Station[] Stations = new Station[5];
@@ -84,7 +84,7 @@ namespace DalObject
                         TargetId = r.Next(100000000, 1000000000),
                         Weight = (WeightCategories)r.Next(3),
                         Priority = (Priorities)r.Next(3),
-                        DroneId = r.Next(100000000, 1000000000),
+                        DroneId = 0,
                         Requested = currentDate
                     };
                 }
