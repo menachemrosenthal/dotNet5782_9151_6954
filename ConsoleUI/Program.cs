@@ -42,7 +42,7 @@ namespace ConsoleUI
                "Unassosiated parcels-18, Stations with free charge slots-19.\n\n" +
                "END-20 ");
 
-                _ = Enum.TryParse(Console.ReadLine(), out Choice choice);
+                Enum.TryParse(Console.ReadLine(), out Choice choice);
 
                 switch (choice)
                 {
