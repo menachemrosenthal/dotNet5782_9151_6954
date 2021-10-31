@@ -9,68 +9,61 @@ namespace DalObject
 {
     public class DalObject
     {
+        /// <summary>
+        /// constructor
+        /// </summary>
         public DalObject()
         {
             DataSource.Config.Initialize();
         }
+
         /// <summary>
-        /// 
+        /// add a station to the stations array
         /// </summary>
-        /// <param name="st">station to add into the array stations</param>
-        public static void Addstation(Station st)
+        /// <param name="station">the station for add</param>
+        public static void AddStation(Station station)
         {
             int nst = DataSource.Config.nextStation++;
             DataSource.Stations[nst] = new Station();
-            DataSource.Stations[nst] = st;
+            DataSource.Stations[nst] = station;
         }
+
         /// <summary>
-        /// 
+        /// add a drone to the drones array
         /// </summary>
-        /// <param name="dr">drone to add into the array drones</param>
-        public static void AddDrone(Drone dr)
+        /// <param name="drone">the drone for add</param>
+        public static void AddDrone(Drone drone)
         {
             int ndr = DataSource.Config.nextDrone;
             DataSource.Drones[ndr] = new();
             DataSource.Config.nextDrone++;
-            DataSource.Drones[ndr] = dr;
+            DataSource.Drones[ndr] = drone;
         }
-        public static void Addcustumer(Customer cu)
+
+        /// <summary>
+        /// add a customer to the customers array array
+        /// </summary>
+        /// <param name="customer">the customer for add</param>
+        public static void Addcustumer(Customer customer)
         {
             int nc = DataSource.Config.nextCustomer;
             DataSource.Customers[nc] = new();
             DataSource.Config.nextCustomer++;
-            DataSource.Customers[nc] = cu;
+            DataSource.Customers[nc] = customer;
         }
-        public static void AddParcel(Parcel pa)
+
+        /// <summary>
+        /// add a parcel to the parcels array
+        /// </summary>
+        /// <param name="parcel"></param>
+        public static void AddParcel(Parcel parcel)
         {
-            pa.Id = DataSource.Config.createParcelNumber++;
+            parcel.Id = DataSource.Config.createParcelNumber++;
             int np = DataSource.Config.nextParcel++;
             DataSource.Parcels[np] = new();
-            DataSource.Parcels[np] = pa;
+            DataSource.Parcels[np] = parcel;
         }
-        public void addParcel()
-        {
-            int npcl = DataSource.Config.nextParcel;
-            DataSource.Parcels[npcl] = new Parcel();
-
-            Console.WriteLine("Enter ID\n");
-            DataSource.Parcels[npcl].Id = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter sender ID\n");
-            DataSource.Parcels[npcl].Senderid = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Enter target ID\n");
-            DataSource.Parcels[npcl].TargetId = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Weight between 0-2\n");
-            DataSource.Parcels[npcl].Weight = (WeightCategories)int.Parse(Console.ReadLine());
-
-            DataSource.Parcels[npcl].DroneId = 0;
-
-            DateTime currentDate = DateTime.Now;
-            DataSource.Parcels[npcl].Requested = currentDate;
-        }
-        public static void parcelToDrone(int pid, int did)
+        public static void ParcelToDrone(int pid, int did)
         {
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
                 if (pid == DataSource.Parcels[i].Id)
@@ -188,7 +181,7 @@ namespace DalObject
             }
             return DataSource.Parcels[i];
         }
-        public static Station[] stationList()
+        public static Station[] StationList()
         {
             Station[] stationList = new Station[DataSource.Config.nextStation];
             for (int i = 0; i < DataSource.Config.nextStation; i++)
