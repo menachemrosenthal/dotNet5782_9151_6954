@@ -307,51 +307,45 @@ namespace ConsoleUI
         public static void stationListDisplay()
         {
             foreach (var Station in DalObject.DalObject.stationList())
-            {
                 Console.WriteLine(Station.ToString());
-            }
+            
         }
 
         public static void droneListDisplay()
         {
-            foreach (var Drone in DalObject.DalObject.droneList())
-            {
+            foreach (var Drone in DalObject.DalObject.droneList())           
                 Console.WriteLine(Drone.ToString());
-            }
+            
         }
 
         public static void customerListDisplay()
         {
-            foreach (var Customer in DalObject.DalObject.customerList())
-            {
+            foreach (var Customer in DalObject.DalObject.customerList())            
                 Console.WriteLine(Customer.ToString());
-            }
+            
         }
 
         public static void parcelListDisplay()
         {
-            foreach (var Parcel in DalObject.DalObject.parcelList())
-            {
+            foreach (var Parcel in DalObject.DalObject.parcelList())            
                 Console.WriteLine(Parcel.ToString());
-            }
+            
         }
 
         public static void stationsWithFreeSlotsDisplay()
         {
-            foreach (var Station in DalObject.DalObject.stationList())
-            {
+            foreach (var Station in DalObject.DalObject.stationList())            
                 if (Station.ChargeSlots != 0)
                     Console.WriteLine(Station.ToString());
-            }
+            
         }
 
         public static void unassosiatedParcelListDisplay()
         {
-            foreach (var Parcel in DalObject.DalObject.parcelList())
-            {
+            foreach (var Parcel in DalObject.DalObject.parcelList())            
                 if (Parcel.DroneId != 0)
                     Console.WriteLine(Parcel.ToString());
-            }
+            
         }
     }
 }
