@@ -188,6 +188,8 @@ namespace ConsoleUI
             pa.Requested = DateTime.Now;
             DalObject.DalObject.Addparcel(pa);
         }
+
+
         /// <summary>
         /// apply a parcel to a drone
         /// </summary>
@@ -200,6 +202,8 @@ namespace ConsoleUI
 
             DalObject.DalObject.ParcelToDrone(pid, did);
         }
+
+
         /// <summary>
         /// updates the time of pickup
         /// </summary>
@@ -212,6 +216,8 @@ namespace ConsoleUI
             DalObject.DalObject.UpdatePickup(pid);
 
         }
+
+
         /// <summary>
         /// updates time of delivery
         /// </summary>
@@ -223,6 +229,8 @@ namespace ConsoleUI
             int id = int.Parse(Console.ReadLine());
             DalObject.DalObject.UpdateDelivery(id);
         }
+
+
         /// <summary>
         /// drone finished charging, updates status 
         /// </summary>
@@ -242,6 +250,8 @@ namespace ConsoleUI
             Console.WriteLine("ID: ", DalObject.DalObject.GetParcel(Id).ToString());
             return;
         }
+
+
         /// <summary>
         /// charging a drone, updates status to charging
         /// </summary>
@@ -250,11 +260,13 @@ namespace ConsoleUI
             Console.WriteLine("ENTER id of drone\n");
             int did = int.Parse(Console.ReadLine());
             Console.WriteLine("pick a station to charge and enter station id\n");
-            stationsWithFreeSlotsDisplay();
+            StationsWithFreeSlotsDisplay();
             int.TryParse(Console.ReadLine(), out stationId);
 
             DalObject.DalObject.ChargeDrone(droneId, stationId);
         }
+
+
         /// <summary>
         /// display customer
         /// </summary>
@@ -275,6 +287,8 @@ namespace ConsoleUI
             Console.WriteLine(DalObject.DalObject.GetDrone(Id).ToString());
             return;
         }
+
+
         /// <summary>
         /// display station
         /// </summary>
@@ -293,6 +307,8 @@ namespace ConsoleUI
             foreach (var Station in DalObject.DalObject.StationList())
                 Console.WriteLine(Station.ToString());    
         }
+
+
         /// <summary>
         /// display the list of drones
         /// </summary>
@@ -323,6 +339,8 @@ namespace ConsoleUI
                 Console.WriteLine(Parcel.ToString());
             }
         }
+
+
         /// <summary>
         /// display list of stations with free charge slots
         /// </summary>
