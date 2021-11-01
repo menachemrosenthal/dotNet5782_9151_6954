@@ -161,8 +161,10 @@ namespace DalObject
             for (int i = 0; i < DataSource.Config.nextDrone; i++)
             {
                 if (droneId == DataSource.Drones[i].Id)
+                { 
                     DataSource.Drones[i].Status = DroneStatuses.free;
-                break;
+                    break;
+                }
             }
 
             //charge slots update
@@ -173,7 +175,10 @@ namespace DalObject
                     for (int j = 0; j < DataSource.Config.nextStation; j++)
                     {
                         if (DataSource.DronesCharge[i].StationId == DataSource.Stations[j].Id)
-                            DataSource.Stations[j].ChargeSlots++; break;
+                        { 
+                            DataSource.Stations[j].ChargeSlots++;
+                            break;
+                        }
                     }
                     break;
                 }

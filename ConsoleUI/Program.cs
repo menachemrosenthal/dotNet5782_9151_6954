@@ -205,8 +205,6 @@ namespace ConsoleUI
             parcel.Senderid = senderId; parcel.TargetId = TargetId; parcel.Weight = weight; parcel.Priority = priority;
             dalObject.AddParcel(parcel);
         }
-
-
         /// <summary>
         /// apply a parcel to a drone
         /// </summary>
@@ -219,8 +217,6 @@ namespace ConsoleUI
 
             dalObject.ParcelToDrone(parcelId, droneId);
         }
-
-
         /// <summary>
         /// updates the time of pickup
         /// </summary>
@@ -231,8 +227,6 @@ namespace ConsoleUI
 
            dalObject.UpdatePickup(parcelId);
         }
-
-
         /// <summary>
         /// updates time of delivery
         /// </summary>
@@ -243,8 +237,6 @@ namespace ConsoleUI
 
             dalObject.UpdateDelivery(parcelId);
         }
-
-
         /// <summary>
         /// drone finished charging, updates status 
         /// </summary>
@@ -267,8 +259,6 @@ namespace ConsoleUI
 
             Console.WriteLine(dalObject.GetParcel(parcelId).ToString());
         }
-
-
         /// <summary>
         /// charging a drone, updates status to charging
         /// </summary>
@@ -282,8 +272,6 @@ namespace ConsoleUI
 
             dalObject.ChargeDrone(droneId, stationId);
         }
-
-
         /// <summary>
         /// display customer
         /// </summary>
@@ -306,8 +294,6 @@ namespace ConsoleUI
 
             Console.WriteLine(dalObject.GetDrone(droneId).ToString());
         }
-
-
         /// <summary>
         /// display station
         /// </summary>
@@ -362,8 +348,6 @@ namespace ConsoleUI
                 Console.WriteLine(Parcel.ToString());
 
         }
-
-
         /// <summary>
         /// display list of stations with free charge slots
         /// </summary>
