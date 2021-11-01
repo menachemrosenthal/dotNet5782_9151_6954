@@ -47,18 +47,7 @@ namespace DalObject
                 nextStation += 2;
 
                 //initialize drones
-                for (int i = 0; i < 5; i++)
-                {
-                    Drones[i] = new Drone
-                    {
-                        Id = r.Next(100),
-                        Model = $"Ferari {i}",
-                        Battery = 50 + i,
-                        MaxWeight = (WeightCategories)r.Next(3),
-                        Status = (DroneStatuses)r.Next(3),
-                    };
-                }
-                nextDrone += 5;
+                
 
                 //initialize customers
                 for (int i = 0; i < 10; i++)
@@ -75,19 +64,102 @@ namespace DalObject
                 nextCustomer += 10;
 
                 //initialize parcels
-                for (int i = 0; i < 10; i++)
-                {
-                    Parcels[i] = new Parcel
+                
+                    Parcels[0] = new Parcel
                     {
                         Id = createParcelNumber++,
                         Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
                         TargetId = r.Next(100000000, 1000000000),
                         Weight = (WeightCategories)r.Next(3),
                         Priority = (Priorities)r.Next(3),
-                        DroneId = r.Next(100000000, 1000000000),
-                        Requested = currentDate
+                        DroneId = Drones[0].Id,
+                        Requested = currentDate,
+                        Scheduled=currentDate
                     };
-                }
+                Parcels[1] = new Parcel
+                {
+                    Id = createParcelNumber++,
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    DroneId = Drones[1].Id,
+                    Requested = currentDate,
+                    Scheduled = currentDate
+
+                };
+                Parcels[2] = new Parcel
+                {
+                    Id = createParcelNumber++,
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    Requested = currentDate
+                };
+                Parcels[3] = new Parcel
+                {
+                    Id = createParcelNumber++,
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    Requested = currentDate
+                };
+                Parcels[4] = new Parcel
+                {
+                    Id = createParcelNumber++,
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    Requested = currentDate
+                };
+                Parcels[5] = new Parcel
+                {
+                    Id = createParcelNumber++,
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    Requested = currentDate
+                };
+                Parcels[6] = new Parcel
+                {
+                    Id = createParcelNumber++,
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    Requested = currentDate
+                };
+                Parcels[7] = new Parcel
+                {
+                    Id = createParcelNumber++,
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    Requested = currentDate
+                };
+                Parcels[8] = new Parcel
+                {
+                    Id = createParcelNumber++,
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    Requested = currentDate
+                };
+                Parcels[9] = new Parcel
+                {
+                    Id = createParcelNumber++,
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    Requested = currentDate
+                };
                 nextParcel += 10;
 
             }
