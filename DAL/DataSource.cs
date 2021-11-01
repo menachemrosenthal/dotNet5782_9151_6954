@@ -40,25 +40,11 @@ namespace DalObject
                         Name = $"Station {r.Next(100, 1000)}",
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(10),
-                        Longitude = r.Next(360),
+                        Longitude = (double)r.Next(3600)/10,
                         Lattitude = r.Next(360)
                     };
                 }
                 nextStation += 2;
-
-                //initialize drones
-                for (int i = 0; i < 5; i++)
-                {
-                    Drones[i] = new Drone
-                    {
-                        Id = r.Next(100),
-                        Model = $"Ferari {i}",
-                        Battery = 50 + i,
-                        MaxWeight = (WeightCategories)r.Next(3),
-                        Status = (DroneStatuses)r.Next(3),
-                    };
-                }
-                nextDrone += 5;
 
                 //initialize customers
                 for (int i = 0; i < 10; i++)
@@ -77,68 +63,42 @@ namespace DalObject
                 //initialize parcels
                 for (int i = 0; i < 10; i++)
                 {
-                    int choice = r.Next(0, 4);
-                    if (choice == 0)
+                    Parcels[i] = new Parcel
                     {
-                        Parcels[i] = new Parcel
-                        {
-                            Id = createParcelNumber++,
-                            Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
-                            TargetId = r.Next(100000000, 1000000000),
-                            Weight = (WeightCategories)r.Next(3),
-                            Priority = (Priorities)r.Next(3),
-                            DroneId = 0,
-                            Requested = currentDate
-                        };
-                    }
-                    if (choice == 1)
-                    {
-                        Parcels[i] = new Parcel
-                        {
-                            Id = createParcelNumber++,
-                            Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
-                            TargetId = r.Next(100000000, 1000000000),
-                            Weight = (WeightCategories)r.Next(3),
-                            Priority = (Priorities)r.Next(3),
-                            DroneId = DataSource.Drones[r.Next(Config.nextDrone - 1)].Id,
-                            Requested = currentDate,
-                        };
-                        DalObject.ParcelToDrone(Parcels[i].Id, Parcels[i].DroneId);
-                    }
-                    if (choice == 2)
-                    {
-                        Parcels[i] = new Parcel
-                        {
-                            Id = createParcelNumber++,
-                            Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
-                            TargetId = r.Next(100000000, 1000000000),
-                            Weight = (WeightCategories)r.Next(3),
-                            Priority = (Priorities)r.Next(3),
-                            DroneId = DataSource.Drones[r.Next(Config.nextDrone - 1)].Id,
-                            Requested = currentDate,
-                            Scheduled = currentDate,
-                        };
-                        DalObject.ParcelToDrone(Parcels[i].Id, Parcels[i].DroneId);
-                        DalObject.UpdatePickup(Parcels[i].Id);
-                    }
-                    if (choice == 3)
-                    {
-                        Parcels[i] = new Parcel
-                        {
-                            Id = createParcelNumber++,
-                            Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
-                            TargetId = r.Next(100000000, 1000000000),
-                            Weight = (WeightCategories)r.Next(3),
-                            Priority = (Priorities)r.Next(3),
-                            DroneId = DataSource.Drones[r.Next(Config.nextDrone - 1)].Id,
-                            Requested = currentDate,
-                        };
-                        DalObject.ParcelToDrone(Parcels[i].Id, Parcels[i].DroneId);
-                        DalObject.UpdatePickup(Parcels[i].Id);
-                        DalObject.UpdateDelivery(Parcels[i].Id);
-                    }
+                        Id = createParcelNumber++,
+                        Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                        TargetId = r.Next(100000000, 1000000000),
+                        Weight = (WeightCategories)r.Next(3),
+                        Priority = (Priorities)r.Next(3),
+                        DroneId = 0,
+                        Requested = currentDate
+                    };
                 }
                 nextParcel += 10;
+
+
+                //initialize drones
+                for (int i = 0; i < 5; i++)
+                {
+                    Drones[i] = new Drone
+                    {
+                        Id = r.Next(100),
+                        Model = $"Ferari {i}",
+                        Battery = 50 + i,
+                        MaxWeight = (WeightCategories)r.Next(3),
+                        Status = (DroneStatuses)r.Next(3),
+                    };
+                    if(Drones[i].Status == DroneStatuses.sending)
+                    {
+                        dalObject.ParcelToDrone(Parcels[i].Id, Drones[i].Id);
+                        dalObject.UpdatePickup(Parcels[i].Id);
+                    }
+                    if(Drones[i].Status == DroneStatuses.maintenance)
+                    {
+                        dalObject.ChargeDrone(Drones[i].Id, Stations[i % 2].Id);
+                    }
+                }
+                nextDrone += 5;
             }
         }
     }

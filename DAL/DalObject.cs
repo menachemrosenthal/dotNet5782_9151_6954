@@ -22,7 +22,7 @@ namespace DalObject
         /// add a station to the stations array
         /// </summary>
         /// <param name="station">the station for add</param>
-        public static void AddStation(Station station)
+        public void AddStation(Station station)
         {
             int nextStation = DataSource.Config.nextStation++;
             DataSource.Stations[nextStation] = new Station();
@@ -34,7 +34,7 @@ namespace DalObject
         /// add a drone to the drones array
         /// </summary>
         /// <param name="drone">the drone for add</param>
-        public static void AddDrone(Drone drone)
+        public void AddDrone(Drone drone)
         {
             int ndr = DataSource.Config.nextDrone;
             DataSource.Drones[ndr] = new();
@@ -47,7 +47,7 @@ namespace DalObject
         /// add a customer to the customers array array
         /// </summary>
         /// <param name="customer">the customer for add</param>
-        public static void Addcustumer(Customer customer)
+        public void Addcustumer(Customer customer)
         {
             int nc = DataSource.Config.nextCustomer;
             DataSource.Customers[nc] = new();
@@ -60,7 +60,7 @@ namespace DalObject
         /// add a parcel to the parcels array
         /// </summary>
         /// <param name="parcel">the parcel to add</param>
-        public static void AddParcel(Parcel parcel)
+        public void AddParcel(Parcel parcel)
         {
             parcel.Id = DataSource.Config.createParcelNumber++;
             int nextParcel = DataSource.Config.nextParcel++;
@@ -75,7 +75,7 @@ namespace DalObject
         /// </summary>
         /// <param name="parcelId">parcel number to connect</param>
         /// <param name="droneId">drone id</param>
-        public static void ParcelToDrone(int parcelId, int droneId)
+        public void ParcelToDrone(int parcelId, int droneId)
         {
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
             {
@@ -92,7 +92,7 @@ namespace DalObject
         /// the time of pickup a parcel by drone update
         /// </summary>
         /// <param name="parcelId">parcel id</param>
-        public static void UpdatePickup(int parcelId)
+        public void UpdatePickup(int parcelId)
         {
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
             {
@@ -111,7 +111,7 @@ namespace DalObject
         /// parcel delivery time update
         /// </summary>
         /// <param name="parcelId">parcel id</param>
-        public static void UpdateDelivery(int parcelId)
+        public void UpdateDelivery(int parcelId)
         {
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
             {
@@ -133,7 +133,7 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId">drone id</param>
         /// <param name="stationId">station id</param>
-        public static void ChargeDrone(int droneId, int stationId)
+        public void ChargeDrone(int droneId, int stationId)
         {
 
             for (int i = 0; i < DataSource.Config.nextDrone; i++)
@@ -159,7 +159,7 @@ namespace DalObject
         /// drone release from chrage
         /// </summary>
         /// <param name="droneId">drone id to release</param>
-        public static void EndCharge(int droneId)
+        public void EndCharge(int droneId)
         {
             //drone status update
             for (int i = 0; i < DataSource.Config.nextDrone; i++)
@@ -191,7 +191,7 @@ namespace DalObject
         /// </summary>
         /// <param name="stationId">station id to return</param>
         /// <returns>station object</returns>
-        public static Station GetStation(int stationId)
+        public Station GetStation(int stationId)
         {
             int i = 0;
             for (; i < DataSource.Config.nextStation; i++)
@@ -208,7 +208,7 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId">drone id to return</param>
         /// <returns>drone object</returns>
-        public static Drone GetDrone(int droneId)
+        public Drone GetDrone(int droneId)
         {
             int i = 0;
             for (; i < DataSource.Config.nextDrone; i++)
@@ -225,7 +225,7 @@ namespace DalObject
         /// </summary>
         /// <param name="customerId">customer id to return</param>
         /// <returns>customer object</returns>
-        public static Customer GetCostumer(int customerId)
+        public Customer GetCostumer(int customerId)
         {
             int i = 0;
             for (; i < DataSource.Config.nextCustomer; i++)
@@ -242,7 +242,7 @@ namespace DalObject
         /// </summary>
         /// <param name="parcelId">parcel id to return</param>
         /// <returns>parcel object</returns>
-        public static Parcel GetParcel(int parcelId)
+        public Parcel GetParcel(int parcelId)
         {
             int i = 0;
             for (; i < DataSource.Config.nextParcel; i++)
@@ -258,7 +258,7 @@ namespace DalObject
         /// get list of the stations
         /// </summary>
         /// <returns>station array</returns>
-        public static Station[] StationList()
+        public Station[] StationList()
         {
             Station[] stationList = new Station[DataSource.Config.nextStation];
             for (int i = 0; i < DataSource.Config.nextStation; i++)
@@ -274,7 +274,7 @@ namespace DalObject
         /// get list of the customers
         /// </summary>
         /// <returns>customer array</returns>
-        public static Customer[] CustomerList()
+        public Customer[] CustomerList()
         {
             Customer[] customerList = new Customer[DataSource.Config.nextCustomer];
             for (int i = 0; i < DataSource.Config.nextCustomer; i++)
@@ -290,7 +290,7 @@ namespace DalObject
         /// get list of the parcels
         /// </summary>
         /// <returns>parcel array</returns>
-        public static Parcel[] ParcelList()
+        public Parcel[] ParcelList()
         {
             Parcel[] parcelList = new Parcel[DataSource.Config.nextParcel];
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
@@ -306,7 +306,7 @@ namespace DalObject
         /// get the drone list
         /// </summary>
         /// <returns>drone list</returns>
-        public static Drone[] DroneList()
+        public Drone[] DroneList()
         {
             Drone[] droneList = new Drone[DataSource.Config.nextDrone];
             for (int i = 0; i < DataSource.Config.nextDrone; i++)
