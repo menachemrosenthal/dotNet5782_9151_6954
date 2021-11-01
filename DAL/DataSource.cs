@@ -40,14 +40,13 @@ namespace DalObject
                         Name = $"Station {r.Next(100,1000)}",
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(10),
-                        Longitude = r.Next(360),
+                        Longitude = (double)r.Next(3600)/10,
                         Lattitude = r.Next(360)
                     };                    
                 }
                 nextStation += 2;
 
-                //initialize drones
-                
+
 
                 //initialize customers
                 for (int i = 0; i < 10; i++)
@@ -63,19 +62,18 @@ namespace DalObject
                 }
                 nextCustomer += 10;
 
-                //initialize parcels
-                
-                    Parcels[0] = new Parcel
-                    {
+                Parcels[0] = new Parcel
+                {
+                   
                         Id = createParcelNumber++,
-                        Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
-                        TargetId = r.Next(100000000, 1000000000),
-                        Weight = (WeightCategories)r.Next(3),
-                        Priority = (Priorities)r.Next(3),
-                        DroneId = Drones[0].Id,
-                        Requested = currentDate,
-                        Scheduled=currentDate
-                    };
+                    Senderid = DataSource.Customers[r.Next(Config.nextCustomer - 1)].Id,
+                    TargetId = r.Next(100000000, 1000000000),
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    DroneId = Drones[0].Id,
+                    Requested = currentDate,
+                    Scheduled = currentDate
+                };
                 Parcels[1] = new Parcel
                 {
                     Id = createParcelNumber++,
@@ -161,8 +159,30 @@ namespace DalObject
                     Requested = currentDate
                 };
                 nextParcel += 10;
+                    //initialize drones
+                    for (int i = 0; i < 5; i++)
+                    {
+                        Drones[i] = new Drone
+                        {
+                            Id = r.Next(100),
+                            Model = $"Ferari {i}",
+                            Battery = 50 + i,
+                            MaxWeight = (WeightCategories)r.Next(3),
+                            Status = (DroneStatuses)r.Next(3),
+                        };
+                        if (Drones[i].Status == DroneStatuses.sending)
+                        {
+                            dalObject.ParcelToDrone(Parcels[i].Id, Drones[i].Id);
+                            dalObject.UpdatePickup(Parcels[i].Id);
+                        }
+                        if (Drones[i].Status == DroneStatuses.maintenance)
+                        {
+                            dalObject.ChargeDrone(Drones[i].Id, Stations[i % 2].Id);
+                        }
+                    }
+                    nextDrone += 5;
 
-            }
+                }
         }
     }
 }
