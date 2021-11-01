@@ -40,8 +40,8 @@ namespace DalObject
                         Name = $"Station {r.Next(100, 1000)}",
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(10),
-                        Longitude = (double)r.Next(3600)/10,
-                        Lattitude = r.Next(360)
+                        Longitude = (double)r.Next(34663817,35223456) / 1000000,
+                        Lattitude = (double)r.Next(31748768,31810806)/1000000
                     };
                 }
                 nextStation += 2;
@@ -54,8 +54,8 @@ namespace DalObject
                         Id = r.Next(100000000, 1000000000),
                         Name = $"person {i}",
                         Phone = string.Format("0{0:###-#######}", r.Next(500000000, 599999999)),
-                        Longitude = r.Next(360),
-                        Lattitude = r.Next(360)
+                        Longitude = (double)r.Next(34663817, 35223456) / 1000000,
+                        Lattitude = (double)r.Next(31748768, 31810806) / 1000000
                     };
                 }
                 nextCustomer += 10;
@@ -78,27 +78,45 @@ namespace DalObject
 
 
                 //initialize drones
-                for (int i = 0; i < 5; i++)
+
+                Drones[0] = new Drone
                 {
-                    Drones[i] = new Drone
-                    {
-                        Id = r.Next(100),
-                        Model = $"Ferari {i}",
-                        Battery = 50 + i,
-                        MaxWeight = (WeightCategories)r.Next(3),
-                        Status = (DroneStatuses)r.Next(3),
-                    };
-                    if(Drones[i].Status == DroneStatuses.sending)
-                    {
-                        dalObject.ParcelToDrone(Parcels[i].Id, Drones[i].Id);
-                        dalObject.UpdatePickup(Parcels[i].Id);
-                    }
-                    if(Drones[i].Status == DroneStatuses.maintenance)
-                    {
-                        dalObject.ChargeDrone(Drones[i].Id, Stations[i % 2].Id);
-                    }
-                }
-                nextDrone += 5;
+                    Id = r.Next(100),
+                    Model = $"Ferari",
+                    Battery = r.Next(50,100),
+                    MaxWeight = (WeightCategories)2,
+                    Status = (DroneStatuses)1,
+                };
+
+                Drones[1] = new Drone
+                {
+                    Id = r.Next(100),
+                    Model = $"Mercedes",
+                    Battery = r.Next(50,100),
+                    MaxWeight = (WeightCategories)2,
+                    Status = (DroneStatuses)1,
+                };
+
+                Drones[2] = new Drone
+                {
+                    Id = r.Next(100),
+                    Model = $"Mitsubishi",
+                    Battery = r.Next(50,100),
+                    MaxWeight = (WeightCategories)0,
+                    Status = (DroneStatuses)0,
+                };
+
+                Drones[3] = new Drone
+                {
+                    Id = r.Next(100),
+                    Model = "Toyota",
+                    Battery = r.NextDouble()*100,
+                    MaxWeight = (WeightCategories)0,
+                    Status = (DroneStatuses)0,
+                };
+
+
+
             }
         }
     }
