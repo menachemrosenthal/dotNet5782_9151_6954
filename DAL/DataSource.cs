@@ -40,10 +40,11 @@ namespace DalObject
                         Name = $"Station {r.Next(100, 1000)}",
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(2,8),
-                        Longitude = (double)r.Next(34663817, 35223456) / 1000000,
-                        Lattitude = (double)r.Next(31748768, 31810806) / 1000000
+                        Longitude = (double)r.Next(31748768, 31810806) / 1000000,
+                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
                     };
                 }
+                
                 nextStation += 2;
 
 
@@ -56,8 +57,8 @@ namespace DalObject
                         Id = r.Next(100000000, 1000000000),
                         Name = $"person {i}",
                         Phone = string.Format("0{0:###-#######}", r.Next(500000000, 599999999)),
-                        Longitude = (double)r.Next(34663817, 35223456) / 1000000,
-                        Lattitude = (double)r.Next(31748768, 31810806) / 1000000
+                        Longitude = (double)r.Next(31748768, 31810806) / 1000000,
+                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
                     };
                 }
                 nextCustomer += 10;
