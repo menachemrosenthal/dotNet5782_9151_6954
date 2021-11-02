@@ -4,7 +4,6 @@ using DalObject;
 
 namespace ConsoleUI
 {
-
      class Program
     {
         public enum Choice
@@ -13,12 +12,9 @@ namespace ConsoleUI
             parcelToDrone, pickup, delivery, droneCharge, finishCharge,
             stationDisplay, droneDisplay, customerDisplay, parcelDisplay,
             stationList, droneList, customerList, parcelList, unassosiatedParcelList, stationsWithFreeSlots,
+            customerDistance, stationDistance,
             end
         }
-
-
-
-
 
         static void Main(string[] args)
         {
@@ -30,7 +26,7 @@ namespace ConsoleUI
 
             while (flag)
             {
-                Console.WriteLine("Pick one of the following options:\n\n" +
+                Console.WriteLine("\n\nPick one of the following options:\n\n" +
                "Add 1-4:\n " +
                "Station-1, Drone-2, Customer-3, Parcel-4.\n\n" +
                "Update 5-9:\n" +
@@ -39,8 +35,10 @@ namespace ConsoleUI
                "Station-10, Drone-11, Cistomer-12, Parcel-13.\n\n" +
                "Display Lists 14-19:\n" +
                "Station list-14, Drone list-15, Customer list-16, Parcel list-17,\n" +
-               "Unassosiated parcels-18, Stations with free charge slots-19.\n\n" +
-               "END-20 ");
+               "Unassosiated parcels-18, Stations with free charge slots-19.\n" +
+               "Distances 21-22\n:" +
+               "Point to customer-20, Point to station-21\n\n" +
+               "END-22 ");
 
                 Enum.TryParse(Console.ReadLine(), out Choice choice);
 
@@ -103,11 +101,46 @@ namespace ConsoleUI
                     case Choice.stationsWithFreeSlots:
                         StationsWithFreeSlotsDisplay(dalObject);
                         break;
+                    case Choice.customerDistance:
+                        CustomerDistance(dalObject);
+                        break;
+                    case Choice.stationDistance:
+                        StationDistance(dalObject);
+                        break;
                     case Choice.end:
                         flag = false;
                         break;
                 }
             }
+        }
+
+        private static void StationDistance(DalObject.DalObject dalObject)
+        {
+            Console.WriteLine("\nENTER longitude");
+            double.TryParse(Console.ReadLine(), out double longitude);
+            Console.WriteLine("\nENTER lattitude");
+            double.TryParse(Console.ReadLine(), out double lattitude);
+            Console.WriteLine("\nENTER Station ID");
+            int.TryParse(Console.ReadLine(), out int customerId);
+
+            Console.WriteLine("The distance between the point to station is:\n"
+                + dalObject.DistanceCalculate(lattitude, longitude,
+                dalObject.GetStation(customerId).Lattitude, dalObject.GetStation(customerId).Longitude));
+        }
+
+        public static void CustomerDistance(DalObject.DalObject dalObject)
+        {
+            Console.WriteLine("\nENTER longitude");
+            double.TryParse(Console.ReadLine(), out double longitude);
+            Console.WriteLine("\nENTER lattitude");
+            double.TryParse(Console.ReadLine(), out double lattitude);
+            Console.WriteLine("\nENTER Customer ID");
+            int.TryParse(Console.ReadLine(), out int customerId);
+
+            Console.WriteLine("The distance between the point to customer is:\n"
+                + dalObject.DistanceCalculate(lattitude, longitude, 
+                dalObject.GetCustomer(customerId).Lattitude, dalObject.GetCustomer(customerId).Longitude));
+            
         }
 
         /// <summary>
@@ -288,7 +321,7 @@ namespace ConsoleUI
             Console.WriteLine("\nEnter ID of the costumer");
             _ = int.TryParse(Console.ReadLine(), out int id);
 
-            Console.WriteLine(dalObject.GetCostumer(id).ToString());
+            Console.WriteLine(dalObject.GetCustomer(id).ToString());
         }
 
 
@@ -379,6 +412,6 @@ namespace ConsoleUI
             foreach (var Parcel in dalObject.ParcelList())
                 if (Parcel.DroneId != 0)
                     Console.WriteLine(Parcel.ToString());
-        }
+        }       
     }
 }
