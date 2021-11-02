@@ -95,7 +95,7 @@ namespace DalObject
                 if (parcelId == DataSource.Parcels[i].Id)
                     DataSource.Parcels[i].PickedUp = DateTime.Now;
 
-                //the drone status update to sending
+                //drone status update to sending
                 for (int j = 0; j < DataSource.Config.nextDrone; j++)
                     if (DataSource.Parcels[i].DroneId == DataSource.Drones[j].Id)
                         DataSource.Drones[j].Status = DroneStatuses.sending;
@@ -115,7 +115,7 @@ namespace DalObject
                 {
                     DataSource.Parcels[i].Delivered = DateTime.Now;
 
-                    //the drone status uodate to free
+                    //drone status uodate to free
                     for (int j = 0; j < DataSource.Config.nextDrone; j++)
                         if (DataSource.Parcels[i].DroneId == DataSource.Drones[j].Id)
                             DataSource.Drones[j].Status = DroneStatuses.free;
@@ -135,7 +135,7 @@ namespace DalObject
             for (int i = 0; i < DataSource.Config.nextDrone; i++)
             {
                 if (droneId == DataSource.Drones[i].Id)
-                {
+                {   //drone status update
                     DataSource.Drones[i].Status = DroneStatuses.maintenance;
                     //create drone charge object
                     DataSource.DronesCharge[DataSource.Config.nextDroneCharge++] = new() { DroneId = droneId, StationId = stationId };
@@ -170,10 +170,12 @@ namespace DalObject
             //charge slots update
             for (int i = 0; i < DataSource.Config.nextDroneCharge; i++)
             {
+                //found the correct drone charge object
                 if (DataSource.DronesCharge[i].DroneId == droneId)
                 {
                     for (int j = 0; j < DataSource.Config.nextStation; j++)
                     {
+                        //found the correct station
                         if (DataSource.DronesCharge[i].StationId == DataSource.Stations[j].Id)
                         { 
                             DataSource.Stations[j].ChargeSlots++;
@@ -211,11 +213,13 @@ namespace DalObject
         public Drone GetDrone(int droneId)
         {
             int i = 0;
+
             for (; i < DataSource.Config.nextDrone; i++)
             {
                 if (droneId == DataSource.Drones[i].Id)
                     break;
             }
+
             return DataSource.Drones[i];
         }
 
@@ -228,11 +232,13 @@ namespace DalObject
         public Customer GetCustomer(int customerId)
         {
             int i = 0;
+
             for (; i < DataSource.Config.nextCustomer; i++)
             {
                 if (customerId == DataSource.Customers[i].Id)
                     break;
             }
+
             return DataSource.Customers[i];
         }
 
@@ -245,6 +251,7 @@ namespace DalObject
         public Parcel GetParcel(int parcelId)
         {
             int i = 0;
+
             for (; i < DataSource.Config.nextParcel; i++)
             {
                 if (parcelId == DataSource.Parcels[i].Id)
@@ -261,6 +268,7 @@ namespace DalObject
         public Station[] StationList()
         {
             Station[] stationList = new Station[DataSource.Config.nextStation];
+
             for (int i = 0; i < DataSource.Config.nextStation; i++)
             {
                 stationList[i] = new Station();
@@ -277,6 +285,7 @@ namespace DalObject
         public Customer[] CustomerList()
         {
             Customer[] customerList = new Customer[DataSource.Config.nextCustomer];
+
             for (int i = 0; i < DataSource.Config.nextCustomer; i++)
             {
                 customerList[i] = new Customer();
@@ -317,7 +326,14 @@ namespace DalObject
             return droneList;
         }
 
-
+        /// <summary>
+        /// distance calculation between to geographic points
+        /// </summary>
+        /// <param name="lat1">user lattiude</param>
+        /// <param name="lon1">user longitude</param>
+        /// <param name="lat2">object lattiude</param>
+        /// <param name="lon2">object longitude</param>
+        /// <returns>distance in kilometer</returns>
         public double DistanceCalculate(double lat1, double lon1, double lat2, double lon2)
         {
             double rlat1 = Math.PI * lat1 / 180;
