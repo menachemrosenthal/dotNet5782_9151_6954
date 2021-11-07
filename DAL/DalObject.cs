@@ -24,9 +24,11 @@ namespace DalObject
         /// <param name="station">the station for add</param>
         public void AddStation(Station station)
         {
-            int nextStation = DataSource.Config.nextStation++;
-            DataSource.Stations[nextStation] = new Station();
-            DataSource.Stations[nextStation] = station;
+            //int nextStation = DataSource.Config.nextStation++;
+            //DataSource.Stations[nextStation] = new Station();
+            //DataSource.Stations[nextStation] = station;
+            DataSource.Config.nextStation++;
+            DataSource.Stations.Add(station);
         }
 
 
@@ -36,10 +38,11 @@ namespace DalObject
         /// <param name="drone">the drone for add</param>
         public void AddDrone(Drone drone)
         {
-            int ndr = DataSource.Config.nextDrone;
-            DataSource.Drones[ndr] = new();
+            //int ndr = DataSource.Config.nextDrone;
+            //DataSource.Drones[ndr] = new();
+            //DataSource.Drones[ndr] = drone;
             DataSource.Config.nextDrone++;
-            DataSource.Drones[ndr] = drone;
+            DataSource.Drones.Add(drone);
         }
 
 
@@ -49,10 +52,10 @@ namespace DalObject
         /// <param name="customer">the customer for add</param>
         public void Addcustumer(Customer customer)
         {
-            int nc = DataSource.Config.nextCustomer;
-            DataSource.Customers[nc] = new();
+            //int nc = DataSource.Config.nextCustomer;
+            //DataSource.Customers[nc] = new();
             DataSource.Config.nextCustomer++;
-            DataSource.Customers[nc] = customer;
+            DataSource.Customers.Add(customer);
         }
 
 
@@ -63,9 +66,10 @@ namespace DalObject
         public void AddParcel(Parcel parcel)
         {
             parcel.Id = DataSource.Config.createParcelNumber++;
-            int nextParcel = DataSource.Config.nextParcel++;
-            DataSource.Parcels[nextParcel] = new();
-            DataSource.Parcels[nextParcel] = parcel;
+            //int nextParcel = DataSource.Config.nextParcel++;
+            //DataSource.Parcels[nextParcel] = new();
+            DataSource.Parcels.Add(parcel);
+            DataSource.Config.nextParcel++;
         }
 
 
@@ -81,8 +85,12 @@ namespace DalObject
             {
                 if (parcelId == DataSource.Parcels[i].Id)
                 {
-                    DataSource.Parcels[i].DroneId = droneId;
-                    DataSource.Parcels[i].Scheduled = DateTime.Now;
+                    //DataSource.Parcels[i].DroneId = droneId;
+                    //DataSource.Parcels[i].Scheduled = DateTime.Now;
+                    Parcel temp;
+                    temp = DataSource.Parcels[i];
+                    temp.DroneId = droneId;
+                    DataSource.Parcels[i] = temp;
                 }
             }
         }
@@ -97,12 +105,24 @@ namespace DalObject
             for (int i = 0; i < DataSource.Config.nextParcel; i++)
             {
                 if (parcelId == DataSource.Parcels[i].Id)
-                    DataSource.Parcels[i].PickedUp = DateTime.Now;
+                {
+                    Parcel temp1;
+                    temp1 = DataSource.Parcels[i];
+                    temp1.PickedUp = DateTime.Now;
+                    DataSource.Parcels[i] = temp1;
+                }
+                   // DataSource.Parcels[i].PickedUp = DateTime.Now;
 
                 //the drone status update to sending
                 for (int j = 0; j < DataSource.Config.nextDrone; j++)
                     if (DataSource.Parcels[i].DroneId == DataSource.Drones[j].Id)
-                        DataSource.Drones[j].Status = DroneStatuses.sending;
+                    {
+                        Drone temp2;
+                        temp2 = DataSource.Drones[j];
+                        temp2.Status= DroneStatuses.sending;
+                        DataSource.Drones[j] = temp2;
+                    }
+                        //DataSource.Drones[j].Status = DroneStatuses.sending;
             }
         }
 

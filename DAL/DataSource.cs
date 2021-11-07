@@ -9,11 +9,11 @@ namespace DalObject
     class DataSource
     {
         //Arrays of data(customers, drones, stations,parcels, dronecharges)
-        internal static Customer[] Customers = new Customer[100];
-        internal static Drone[] Drones = new Drone[10];
-        internal static Station[] Stations = new Station[5];
-        internal static Parcel[] Parcels = new Parcel[1000];
-        internal static DroneCharge[] DronesCharge = new DroneCharge[10];
+        internal static List<Customer> Customers;
+        internal static List<Drone> Drones;
+        internal static List<Station> Stations;
+        internal static List<Parcel> Parcels = new List<Parcel>();
+        internal static List<DroneCharge> DronesCharge;
         internal  class Config
         {
             //pointers to next free element in arrays
