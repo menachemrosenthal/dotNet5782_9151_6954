@@ -4,7 +4,6 @@ using DalObject;
 
 namespace ConsoleUI
 {
-
      class Program
     {
         public enum Choice
@@ -13,12 +12,9 @@ namespace ConsoleUI
             parcelToDrone, pickup, delivery, droneCharge, finishCharge,
             stationDisplay, droneDisplay, customerDisplay, parcelDisplay,
             stationList, droneList, customerList, parcelList, unassosiatedParcelList, stationsWithFreeSlots,
+            customerDistance, stationDistance,
             end
         }
-
-
-
-
 
         static void Main(string[] args)
         {
@@ -30,7 +26,7 @@ namespace ConsoleUI
 
             while (flag)
             {
-                Console.WriteLine("Pick one of the following options:\n\n" +
+                Console.WriteLine("\n\nPick one of the following options:\n\n" +
                "Add 1-4:\n " +
                "Station-1, Drone-2, Customer-3, Parcel-4.\n\n" +
                "Update 5-9:\n" +
@@ -39,8 +35,10 @@ namespace ConsoleUI
                "Station-10, Drone-11, Cistomer-12, Parcel-13.\n\n" +
                "Display Lists 14-19:\n" +
                "Station list-14, Drone list-15, Customer list-16, Parcel list-17,\n" +
-               "Unassosiated parcels-18, Stations with free charge slots-19.\n\n" +
-               "END-20 ");
+               "Unassosiated parcels-18, Stations with free charge slots-19.\n" +
+               "Distances 21-22\n:" +
+               "Point to customer-20, Point to station-21\n\n" +
+               "END-22 ");
 
                 Enum.TryParse(Console.ReadLine(), out Choice choice);
 
@@ -103,28 +101,70 @@ namespace ConsoleUI
                     case Choice.stationsWithFreeSlots:
                         StationsWithFreeSlotsDisplay(dalObject);
                         break;
+                    case Choice.customerDistance:
+                        CustomerDistance(dalObject);
+                        break;
+                    case Choice.stationDistance:
+                        StationDistance(dalObject);
+                        break;
                     case Choice.end:
                         flag = false;
                         break;
-
                 }
             }
         }
 
 
+        /// <summary>
+        /// distance between user poin and station
+        /// </summary>
+        /// <param name="dalObject"></param>
+        private static void StationDistance(DalObject.DalObject dalObject)
+        {
+            Console.WriteLine("\nENTER longitude");
+            double.TryParse(Console.ReadLine(), out double longitude);
+            Console.WriteLine("\nENTER lattitude");
+            double.TryParse(Console.ReadLine(), out double lattitude);
+            Console.WriteLine("\nENTER Station ID");
+            int.TryParse(Console.ReadLine(), out int customerId);
+
+            Console.WriteLine("The distance between the point to station is:\n"
+                + dalObject.DistanceCalculate(lattitude, longitude,
+                dalObject.GetStation(customerId).Lattitude, dalObject.GetStation(customerId).Longitude));
+        }
 
 
         /// <summary>
-        /// adds a station
+        /// distance between user point and customer
+        /// </summary>
+        /// <param name="dalObject"></param>
+        public static void CustomerDistance(DalObject.DalObject dalObject)
+        {
+            Console.WriteLine("\nENTER longitude");
+            double.TryParse(Console.ReadLine(), out double longitude);
+            Console.WriteLine("\nENTER lattitude");
+            double.TryParse(Console.ReadLine(), out double lattitude);
+            Console.WriteLine("\nENTER Customer ID");
+            int.TryParse(Console.ReadLine(), out int customerId);
+
+            Console.WriteLine("The distance between the point to customer is:\n"
+                + dalObject.DistanceCalculate(lattitude, longitude, 
+                dalObject.GetCustomer(customerId).Lattitude, dalObject.GetCustomer(customerId).Longitude));
+            
+        }
+
+
+        /// <summary>
+        /// add a station
         /// </summary>
         public static void AddStation(DalObject.DalObject dalObject)
         {
-            Station st = new();
+            Station station = new();
 
             Console.WriteLine("ENTER Id");
             _ = int.TryParse(Console.ReadLine(), out int id);
             Console.WriteLine("\nENTER Name");
-            st.Name = Console.ReadLine();
+            station.Name = Console.ReadLine();
             Console.WriteLine("\nENTER Charge slots");
             _ = int.TryParse(Console.ReadLine(), out int chargeSlots);
             Console.WriteLine("\nENTER longitude");
@@ -132,13 +172,13 @@ namespace ConsoleUI
             Console.WriteLine("\nENTER latitude");
             _ = double.TryParse(Console.ReadLine(), out double latitude);
 
-            st.Id = id; st.ChargeSlots = chargeSlots; st.Longitude = longitude; st.Lattitude = latitude;
-            dalObject.AddStation(st);
+            station.Id = id; station.ChargeSlots = chargeSlots; station.Longitude = longitude; station.Lattitude = latitude;
+            dalObject.AddStation(station);
         }
 
 
         /// <summary>
-        /// addsa drone
+        /// add a drone
         /// </summary>
         public static void AddDrone(DalObject.DalObject dalObject)
         {
@@ -205,6 +245,8 @@ namespace ConsoleUI
             parcel.Senderid = senderId; parcel.TargetId = TargetId; parcel.Weight = weight; parcel.Priority = priority;
             dalObject.AddParcel(parcel);
         }
+
+
         /// <summary>
         /// apply a parcel to a drone
         /// </summary>
@@ -217,6 +259,8 @@ namespace ConsoleUI
 
             dalObject.ParcelToDrone(parcelId, droneId);
         }
+
+
         /// <summary>
         /// updates the time of pickup
         /// </summary>
@@ -227,6 +271,8 @@ namespace ConsoleUI
 
            dalObject.UpdatePickup(parcelId);
         }
+
+
         /// <summary>
         /// updates time of delivery
         /// </summary>
@@ -237,6 +283,8 @@ namespace ConsoleUI
 
             dalObject.UpdateDelivery(parcelId);
         }
+
+
         /// <summary>
         /// drone finished charging, updates status 
         /// </summary>
@@ -259,6 +307,8 @@ namespace ConsoleUI
 
             Console.WriteLine(dalObject.GetParcel(parcelId).ToString());
         }
+
+
         /// <summary>
         /// charging a drone, updates status to charging
         /// </summary>
@@ -272,6 +322,8 @@ namespace ConsoleUI
 
             dalObject.ChargeDrone(droneId, stationId);
         }
+
+
         /// <summary>
         /// display customer
         /// </summary>
@@ -280,7 +332,7 @@ namespace ConsoleUI
             Console.WriteLine("\nEnter ID of the costumer");
             _ = int.TryParse(Console.ReadLine(), out int id);
 
-            Console.WriteLine(dalObject.GetCostumer(id).ToString());
+            Console.WriteLine(dalObject.GetCustomer(id).ToString());
         }
 
 
@@ -294,6 +346,8 @@ namespace ConsoleUI
 
             Console.WriteLine(dalObject.GetDrone(droneId).ToString());
         }
+
+
         /// <summary>
         /// display station
         /// </summary>
@@ -318,7 +372,7 @@ namespace ConsoleUI
 
 
         /// <summary>
-        /// display the list of drones
+        /// display the list of Drones
         /// </summary>
         public static void DroneListDisplay(DalObject.DalObject dalObject)
         {
@@ -329,7 +383,7 @@ namespace ConsoleUI
 
 
         /// <summary>
-        /// display the list of customers
+        /// display the list of Customers
         /// </summary>
         public static void CustomerListDisplay(DalObject.DalObject dalObject)
         {
@@ -348,6 +402,8 @@ namespace ConsoleUI
                 Console.WriteLine(Parcel.ToString());
 
         }
+
+
         /// <summary>
         /// display list of stations with free charge slots
         /// </summary>
@@ -367,6 +423,6 @@ namespace ConsoleUI
             foreach (var Parcel in dalObject.ParcelList())
                 if (Parcel.DroneId != 0)
                     Console.WriteLine(Parcel.ToString());
-        }
+        }       
     }
 }

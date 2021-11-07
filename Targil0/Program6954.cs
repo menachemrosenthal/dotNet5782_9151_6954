@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 
 namespace Targil0
 {
@@ -20,4 +20,3 @@ namespace Targil0
         }
     }
 }
-*/
