@@ -11,8 +11,7 @@ namespace IDAL
             public WeightCategories MaxWeight { get; set; }
             public override string ToString()
             {
-                return "Drone: " + Model +
-                    "\nID: " + Id + "\nBattery: " + Battery + "\nMax weight: " + MaxWeight + "\nStatus: " + Status + "\n";
+                return $"Drone: {Model}\nID: {Id}\nMax weight: {MaxWeight}";
             }
         }
     }

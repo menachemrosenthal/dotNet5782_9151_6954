@@ -6,15 +6,16 @@ namespace DalObject
     class DataSource
     {
         //Arrays of data(Customers, Drones, stations,parcels, dronecharges)
-        internal static List<Customer> Customers;
-        internal static List<Drone> Drones;
-        internal static List<Station> Stations;
-        internal static List<Parcel> Parcels;
-        internal static List<DroneCharge> DronesCharge;
+        internal static List<Customer> Customers = new();
+        internal static List<Drone> Drones = new();
+        internal static List<Station> Stations = new();
+        internal static List<Parcel> Parcels = new();
+        internal static List<DroneCharge> DronesCharge = new();
 
         internal class Config
         {
-            internal static int createParcelNumber = 1;
+            private static int _createParcelNumber = 1;
+            internal static int CreateParcelNumber => _createParcelNumber++;
 
             /// <summary>
             /// starting a project, initialize the data
@@ -25,17 +26,24 @@ namespace DalObject
                 DateTime currentDate = DateTime.Now;
 
                 //initialize stations
-                for (int i = 0; i < 2; i++)
-                {
-                    Stations.Add(new Station
+                Stations = new List<Station> {
+                    new Station
                     {
                         Name = $"Station {r.Next(100, 1000)}",
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(2, 8),
                         Longitude = (double)r.Next(31748768, 31810806) / 1000000,
                         Lattitude = (double)r.Next(34663817, 35223456) / 1000000
-                    });
-                }
+                    },
+                    new Station
+                    {
+                        Name = $"Station {r.Next(100, 1000)}",
+                        Id = r.Next(100000000, 1000000000),
+                        ChargeSlots = r.Next(2, 8),
+                        Longitude = (double)r.Next(31748768, 31810806) / 1000000,
+                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
+                    }
+                };
 
                 //initialize Customers
                 Customer customer = new();
@@ -78,7 +86,7 @@ namespace DalObject
                 Parcels.Add(new Parcel
                 {
 
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[9].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -91,7 +99,7 @@ namespace DalObject
 
                 Parcels.Add(new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[8].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -102,9 +110,9 @@ namespace DalObject
                     PickedUp = currentDate
                 });
 
-                Parcels.Add( new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[7].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -114,7 +122,7 @@ namespace DalObject
 
                 Parcels.Add(new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[6].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -126,7 +134,7 @@ namespace DalObject
 
                 Parcels.Add(new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[5].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -136,7 +144,7 @@ namespace DalObject
 
                 Parcels.Add(new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[4].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -146,7 +154,7 @@ namespace DalObject
 
                 Parcels.Add(new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[3].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -156,7 +164,7 @@ namespace DalObject
 
                 Parcels.Add(new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[2].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -166,7 +174,7 @@ namespace DalObject
 
                 Parcels.Add(new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[1].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -176,7 +184,7 @@ namespace DalObject
 
                 Parcels.Add(new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[0].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
