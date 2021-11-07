@@ -8,20 +8,15 @@ namespace DalObject
 {
     class DataSource
     {
-        //Arrays of data(customers, drones, stations,parcels, dronecharges)
-        internal static Customer[] Customers = new Customer[100];
-        internal static Drone[] Drones = new Drone[10];
-        internal static Station[] Stations = new Station[5];
-        internal static Parcel[] Parcels = new Parcel[1000];
-        internal static DroneCharge[] DronesCharge = new DroneCharge[10];
+        //Arrays of data(Customers, Drones, stations,parcels, dronecharges)
+        internal static List<Customer> Customers;
+        internal static List<Drone> Drones;
+        internal static List<Station> Stations;
+        internal static List<Parcel> parcels;
+        internal static List<DroneCharge> DronesCharge;
+
         internal class Config
         {
-            //pointers to next free element in arrays
-            internal static int nextCustomer = 0;
-            internal static int nextDrone = 0;
-            internal static int nextStation = 0;
-            internal static int nextParcel = 0;
-            internal static int nextDroneCharge = 0;
             internal static int createParcelNumber = 1;
 
             /// <summary>
@@ -33,80 +28,56 @@ namespace DalObject
                 DateTime currentDate = DateTime.Now;
 
                 //initialize stations
+                Station station = new();
                 for (int i = 0; i < 2; i++)
                 {
-                    Stations[i] = new Station
-                    {
-                        Name = $"Station {r.Next(100, 1000)}",
-                        Id = r.Next(100000000, 1000000000),
-                        ChargeSlots = r.Next(2,8),
-                        Longitude = (double)r.Next(31748768, 31810806) / 1000000,
-                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
-                    };
+                    station.Name = $"Station {r.Next(100, 1000)}";
+                    station.Id = r.Next(100000000, 1000000000);
+                    station.ChargeSlots = r.Next(2, 8);
+                    station.Longitude = (double)r.Next(31748768, 31810806) / 1000000;
+                    station.Lattitude = (double)r.Next(34663817, 35223456) / 1000000;
+
+                    Stations.Add(station);
                 }
-                
-                nextStation += 2;
 
-
-
-                //initialize customers
+                //initialize Customers
+                Customer customer = new();
                 for (int i = 0; i < 10; i++)
                 {
-                    Customers[i] = new Customer
-                    {
-                        Id = r.Next(100000000, 1000000000),
-                        Name = $"person {i}",
-                        Phone = string.Format("0{0:###-#######}", r.Next(500000000, 599999999)),
-                        Longitude = (double)r.Next(31748768, 31810806) / 1000000,
-                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
-                    };
+                    customer.Id = r.Next(100000000, 1000000000);
+                    customer.Name = $"person {i}";
+                    customer.Phone = string.Format("0{0:###-#######}", r.Next(500000000, 599999999));
+                    customer.Longitude = (double)r.Next(31748768, 31810806) / 1000000;
+                    customer.Lattitude = (double)r.Next(34663817, 35223456) / 1000000;
+
+                    Customers.Add(customer);
                 }
-                nextCustomer += 10;
 
-                //initialize drones
+                //initialize Drones
 
-                Drones[nextDrone++] = new Drone
-                {
-                    Id = r.Next(100),
-                    Model = $"Ferari",
-                    Battery = r.Next(50, 100),
-                    MaxWeight = (WeightCategories)2,
-                    Status = (DroneStatuses)2,
-                };
+                Drone drone = new();
 
-                Drones[nextDrone++] = new Drone
-                {
-                    Id = r.Next(100),
-                    Model = $"Mercedes",
-                    Battery = r.Next(50, 100),
-                    MaxWeight = (WeightCategories)2,
-                    Status = (DroneStatuses)2,
-                };
+                drone.Id = r.Next(100); drone.Model = $"Ferari"; drone.MaxWeight = (WeightCategories)2;
+                Drones.Add(drone);
 
-                Drones[nextDrone++] = new Drone
-                {
-                    Id = r.Next(100),
-                    Model = $"Mitsubishi",
-                    Battery = r.Next(50, 100),
-                    MaxWeight = (WeightCategories)0,
-                    Status = (DroneStatuses)0,
-                };
+                drone.Id = r.Next(100); drone.Model = $"Mercedes"; drone.MaxWeight = (WeightCategories)2;
+                Drones.Add(drone);
 
-                Drones[nextDrone++] = new Drone
-                {
-                    Id = r.Next(100),
-                    Model = "Toyota",
-                    Battery = r.NextDouble() * 100,
-                    MaxWeight = (WeightCategories)0,
-                    Status = (DroneStatuses)1,
-                };
+                drone.Id = r.Next(100); drone.Model = $"Mitsubishi"; drone.MaxWeight = (WeightCategories)0;
+                Drones.Add(drone);
 
-                DronesCharge[nextDroneCharge++] = new DroneCharge
-                {
-                    DroneId = Drones[3].Id,
-                    StationId = Stations[1].Id
-                };
-                Stations[1].ChargeSlots--;
+                drone.Id = r.Next(100); drone.Model = "Toyota"; drone.MaxWeight = (WeightCategories)0;
+                Drones.Add(drone);
+
+
+                DroneCharge droneCharge = new();
+                droneCharge.DroneId = Drones[3].Id; droneCharge.StationId = Stations[1].Id;
+                DronesCharge.Add(droneCharge);
+
+                Station station = Stations[1];
+                station.ChargeSlots--;
+                Stations[1] = station;
+
 
                 //initialize parcels
                 Parcels[0] = new Parcel

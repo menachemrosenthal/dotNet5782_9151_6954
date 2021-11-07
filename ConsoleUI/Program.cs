@@ -114,6 +114,11 @@ namespace ConsoleUI
             }
         }
 
+
+        /// <summary>
+        /// distance between user poin and station
+        /// </summary>
+        /// <param name="dalObject"></param>
         private static void StationDistance(DalObject.DalObject dalObject)
         {
             Console.WriteLine("\nENTER longitude");
@@ -128,6 +133,11 @@ namespace ConsoleUI
                 dalObject.GetStation(customerId).Lattitude, dalObject.GetStation(customerId).Longitude));
         }
 
+
+        /// <summary>
+        /// distance between user point and customer
+        /// </summary>
+        /// <param name="dalObject"></param>
         public static void CustomerDistance(DalObject.DalObject dalObject)
         {
             Console.WriteLine("\nENTER longitude");
@@ -143,8 +153,9 @@ namespace ConsoleUI
             
         }
 
+
         /// <summary>
-        /// adds a station
+        /// add a station
         /// </summary>
         public static void AddStation(DalObject.DalObject dalObject)
         {
@@ -167,7 +178,7 @@ namespace ConsoleUI
 
 
         /// <summary>
-        /// addsa drone
+        /// add a drone
         /// </summary>
         public static void AddDrone(DalObject.DalObject dalObject)
         {
@@ -361,7 +372,7 @@ namespace ConsoleUI
 
 
         /// <summary>
-        /// display the list of drones
+        /// display the list of Drones
         /// </summary>
         public static void DroneListDisplay(DalObject.DalObject dalObject)
         {
@@ -372,7 +383,7 @@ namespace ConsoleUI
 
 
         /// <summary>
-        /// display the list of customers
+        /// display the list of Customers
         /// </summary>
         public static void CustomerListDisplay(DalObject.DalObject dalObject)
         {

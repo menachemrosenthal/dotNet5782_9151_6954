@@ -27,7 +27,7 @@ namespace DalObject
 
 
         /// <summary>
-        /// add a drone to the drones array
+        /// add a drone to the Drones array
         /// </summary>
         /// <param name="drone">the drone for add</param>
         public void AddDrone(Drone drone)
@@ -40,7 +40,7 @@ namespace DalObject
 
 
         /// <summary>
-        /// add a customer to the customers array array
+        /// add a customer to the Customers array array
         /// </summary>
         /// <param name="customer">the customer for add</param>
         public void Addcustumer(Customer customer)
@@ -279,7 +279,7 @@ namespace DalObject
 
 
         /// <summary>
-        /// get list of the customers
+        /// get list of the Customers
         /// </summary>
         /// <returns>customer array</returns>
         public Customer[] CustomerList()
