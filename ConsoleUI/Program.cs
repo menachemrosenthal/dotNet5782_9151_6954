@@ -215,7 +215,7 @@ namespace ConsoleUI
             _ = double.TryParse(Console.ReadLine(), out double lattitude);
 
             customer.Id = id; customer.Longitude = longitude; customer.Lattitude = lattitude;
-            dalObject.Addcustumer(customer);
+            dalObject.AddCustumer(customer);
 
         }
 

@@ -22,7 +22,9 @@ namespace DalObject
         /// <param name="station">the station for add</param>
         public void AddStation(Station station)
         {
-            DataSource.Stations.Add(station);
+            var exist = DataSource.Stations.Any(x => x.Id == station.Id);
+            if (!exist)
+                DataSource.Stations.Add(station);
         }
 
 
@@ -32,7 +34,9 @@ namespace DalObject
         /// <param name="drone">the drone for add</param>
         public void AddDrone(Drone drone)
         {
-            DataSource.Drones.Add(drone);
+            var exist = DataSource.Drones.Any(x => x.Id == drone.Id);
+            if (!exist)
+                DataSource.Drones.Add(drone);
         }
 
 
@@ -40,9 +44,11 @@ namespace DalObject
         /// add a customer to the Customers array array
         /// </summary>
         /// <param name="customer">the customer for add</param>
-        public void Addcustumer(Customer customer)
+        public void AddCustumer(Customer customer)
         {
-            DataSource.Customers.Add(customer);
+            var exist = DataSource.Customers.Any(x => x.Id == customer.Id);
+            if (!exist)
+                DataSource.Customers.Add(customer);
         }
 
 
@@ -67,12 +73,15 @@ namespace DalObject
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
             if (exist)
             {
-                var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
-                var index = DataSource.Parcels.IndexOf(parcel);
+                if (exist = DataSource.Drones.Any(x => x.Id == droneId))
+                {
+                    var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
+                    var index = DataSource.Parcels.IndexOf(parcel);
 
-                parcel.DroneId = droneId;
-                parcel.Scheduled = DateTime.Now;
-                DataSource.Parcels[index]= parcel;
+                    parcel.DroneId = droneId;
+                    parcel.Scheduled = DateTime.Now;
+                    DataSource.Parcels[index] = parcel;
+                }
             }
         }
 
@@ -121,18 +130,16 @@ namespace DalObject
             var exist = DataSource.Drones.Any(x => x.Id == droneId);
             if (exist)
             {
-                var drone = DataSource.Drones.First(x => x.Id == droneId);
-                DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId });
-            }
+                if (exist = DataSource.Stations.Any(x => x.Id == stationId))
+                {
+                    DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId });
 
-            exist = DataSource.Stations.Any(x => x.Id == stationId);
-            if (exist)
-            {
-                var station = DataSource.Stations.First(x => x.Id == stationId);
-                var index = DataSource.Stations.IndexOf(station);
-                station.ChargeSlots--;
-                DataSource.Stations[index] = station;
-            }
+                    var station = DataSource.Stations.First(x => x.Id == stationId);
+                    var index = DataSource.Stations.IndexOf(station);
+                    station.ChargeSlots--;
+                    DataSource.Stations[index] = station;
+                }               
+            }            
         }
 
         /// <summary>
@@ -147,7 +154,6 @@ namespace DalObject
             {
                 var droneCharge = DataSource.DronesCharge.First(x => x.DroneId == droneId);
                 var station = DataSource.Stations.First(x => x.Id == droneCharge.StationId);
-                
                 var index = DataSource.Stations.IndexOf(station);
                 station.ChargeSlots++;
                 DataSource.Stations[index] = station;
