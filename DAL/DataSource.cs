@@ -74,7 +74,7 @@ namespace DalObject
                 droneCharge.DroneId = Drones[3].Id; droneCharge.StationId = Stations[1].Id;
                 DronesCharge.Add(droneCharge);
 
-                Station station = Stations[1];
+                station = Stations[1];
                 station.ChargeSlots--;
                 Stations[1] = station;
 
