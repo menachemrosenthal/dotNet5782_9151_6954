@@ -1,23 +1,21 @@
 ﻿using IDAL.DO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 namespace DalObject
 {
     class DataSource
     {
         //Arrays of data(Customers, Drones, stations,parcels, dronecharges)
-        internal static List<Customer> Customers;
-        internal static List<Drone> Drones;
-        internal static List<Station> Stations;
-        internal static List<Parcel> Parcels;
-        internal static List<DroneCharge> DronesCharge;
+        internal static List<Customer> Customers = new();
+        internal static List<Drone> Drones = new();
+        internal static List<Station> Stations = new();
+        internal static List<Parcel> Parcels = new();
+        internal static List<DroneCharge> DronesCharge = new();
 
         internal class Config
         {
-            internal static int CreateParcelNumber = 1;
+            private static int _createParcelNumber = 1;
+            internal static int CreateParcelNumber => _createParcelNumber++;
 
             /// <summary>
             /// starting a project, initialize the data
@@ -28,17 +26,24 @@ namespace DalObject
                 DateTime currentDate = DateTime.Now;
 
                 //initialize stations
-                Station station = new();
-                for (int i = 0; i < 2; i++)
-                {
-                    station.Name = $"Station {r.Next(100, 1000)}";
-                    station.Id = r.Next(100000000, 1000000000);
-                    station.ChargeSlots = r.Next(2, 8);
-                    station.Longitude = (double)r.Next(31748768, 31810806) / 1000000;
-                    station.Lattitude = (double)r.Next(34663817, 35223456) / 1000000;
-
-                    Stations.Add(station);
-                }
+                Stations = new List<Station> {
+                    new Station
+                    {
+                        Name = $"Station {r.Next(100, 1000)}",
+                        Id = r.Next(100000000, 1000000000),
+                        ChargeSlots = r.Next(2, 8),
+                        Longitude = (double)r.Next(31748768, 31810806) / 1000000,
+                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
+                    },
+                    new Station
+                    {
+                        Name = $"Station {r.Next(100, 1000)}",
+                        Id = r.Next(100000000, 1000000000),
+                        ChargeSlots = r.Next(2, 8),
+                        Longitude = (double)r.Next(31748768, 31810806) / 1000000,
+                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
+                    }
+                };
 
                 //initialize Customers
                 Customer customer = new();
@@ -74,16 +79,14 @@ namespace DalObject
                 droneCharge.DroneId = Drones[3].Id; droneCharge.StationId = Stations[1].Id;
                 DronesCharge.Add(droneCharge);
 
-                station = Stations[1];
+                var station = Stations[1];
                 station.ChargeSlots--;
-                Stations[1] = station;
-
 
                 //initialize parcels
-                Parcels[0] = new Parcel
+                Parcels.Add(new Parcel
                 {
 
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[9].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -92,11 +95,11 @@ namespace DalObject
                     Requested = currentDate,
                     Scheduled = currentDate,
                     PickedUp = currentDate
-                };
+                });
 
-                Parcels[1] = new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[8].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -105,21 +108,21 @@ namespace DalObject
                     Requested = currentDate,
                     Scheduled = currentDate,
                     PickedUp = currentDate
-                };
+                });
 
-                Parcels[2] = new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[7].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
-                };
+                });
 
-                Parcels[3] = new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[6].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -127,67 +130,67 @@ namespace DalObject
                     DroneId = Drones[2].Id,
                     Requested = currentDate,
                     Scheduled = currentDate
-                };
+                });
 
-                Parcels[4] = new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[5].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
-                };
+                });
 
-                Parcels[5] = new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[4].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
-                };
+                });
 
-                Parcels[6] = new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[3].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
-                };
+                });
 
-                Parcels[7] = new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[2].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
-                };
+                });
 
-                Parcels[8] = new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[1].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
-                };
+                });
 
-                Parcels[9] = new Parcel
+                Parcels.Add(new Parcel
                 {
-                    Id = CreateParcelNumber++,
+                    Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[0].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
-                };
+                });
             }
         }
     }
