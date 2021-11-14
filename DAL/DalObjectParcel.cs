@@ -19,7 +19,6 @@ namespace DalObject
             DataSource.Parcels.Add(parcel);
         }
 
-
         /// <summary>
         /// connect parcel to drone
         /// </summary>
@@ -51,7 +50,6 @@ namespace DalObject
 
         }
 
-
         /// <summary>
         /// the time of pickup a parcel by drone update
         /// </summary>
@@ -76,7 +74,6 @@ namespace DalObject
                 return;
             }
         }
-
 
         /// <summary>
         /// parcel delivery time update
