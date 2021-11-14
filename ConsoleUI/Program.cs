@@ -22,7 +22,7 @@ namespace ConsoleUI
 
             bool flag = true;
 
-            Console.WriteLine("Welcome to Drone Deliveries!\n");
+            Console.WriteLine("Welcome to Drone Deliveries!");
 
             while (flag)
             {
