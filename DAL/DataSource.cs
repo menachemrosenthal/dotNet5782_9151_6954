@@ -12,12 +12,12 @@ namespace DalObject
         internal static List<Customer> Customers;
         internal static List<Drone> Drones;
         internal static List<Station> Stations;
-        internal static List<Parcel> parcels;
+        internal static List<Parcel> Parcels;
         internal static List<DroneCharge> DronesCharge;
 
         internal class Config
         {
-            internal static int createParcelNumber = 1;
+            internal static int CreateParcelNumber = 1;
 
             /// <summary>
             /// starting a project, initialize the data
@@ -83,7 +83,7 @@ namespace DalObject
                 Parcels[0] = new Parcel
                 {
 
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[9].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -96,7 +96,7 @@ namespace DalObject
 
                 Parcels[1] = new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[8].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -109,7 +109,7 @@ namespace DalObject
 
                 Parcels[2] = new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[7].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -119,7 +119,7 @@ namespace DalObject
 
                 Parcels[3] = new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[6].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -131,7 +131,7 @@ namespace DalObject
 
                 Parcels[4] = new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[5].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -141,7 +141,7 @@ namespace DalObject
 
                 Parcels[5] = new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[4].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -151,7 +151,7 @@ namespace DalObject
 
                 Parcels[6] = new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[3].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -161,7 +161,7 @@ namespace DalObject
 
                 Parcels[7] = new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[2].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -171,7 +171,7 @@ namespace DalObject
 
                 Parcels[8] = new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[1].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
@@ -181,14 +181,13 @@ namespace DalObject
 
                 Parcels[9] = new Parcel
                 {
-                    Id = createParcelNumber++,
+                    Id = CreateParcelNumber++,
                     Senderid = DataSource.Customers[0].Id,
                     TargetId = r.Next(100000000, 1000000000),
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
                 };
-                nextParcel += 10;
             }
         }
     }

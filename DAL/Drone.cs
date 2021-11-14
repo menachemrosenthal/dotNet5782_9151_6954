@@ -12,7 +12,7 @@ namespace IDAL
             public override string ToString()
             {
                 return "Drone: " + Model +
-                    "\nID: " + Id + "\nBattery: " + Battery + "\nMax weight: " + MaxWeight + "\nStatus: " + Status + "\n";
+                    "\nID: " + Id + "\nMax weight: " + MaxWeight + "\n";
             }
         }
     }
