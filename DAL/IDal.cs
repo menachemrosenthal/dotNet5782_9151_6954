@@ -18,10 +18,10 @@ namespace IDAL
         void UpdateDelivery(int parcelId);
         void ChargeDrone(int droneId, int stationId);
         void EndCharge(int droneId);
-        Station GetStation(int stationId);
-        Drone GetDrone(int droneId);
-        Customer GetCustomer(int customerId);
-        Parcel GetParcel(int parcelId);
+        Station? GetStation(int stationId);
+        Drone? GetDrone(int droneId);
+        Customer? GetCustomer(int customerId);
+        Parcel? GetParcel(int parcelId);
         IEnumerable<Station> StationList();
         IEnumerable<Customer> CustomerList();
         IEnumerable<Parcel> ParcelList();

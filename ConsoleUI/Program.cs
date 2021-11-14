@@ -18,7 +18,7 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            DalObject.DalObject dalObject = new();
+            DalObject.DalObject IDal = new();
 
             bool flag = true;
 
@@ -45,67 +45,67 @@ namespace ConsoleUI
                 switch (choice)
                 {
                     case Choice.addStation:
-                        AddStation(dalObject);
+                        AddStation(IDal);
                         break;
                     case Choice.addDrone:
-                        AddDrone(dalObject);
+                        AddDrone(IDal);
                         break;
                     case Choice.addCustomer:
-                        AddCustomer(dalObject);
+                        AddCustomer(IDal);
                         break;
                     case Choice.addParcel:
-                        AddParcel(dalObject);
+                        AddParcel(IDal);
                         break;
                     case Choice.parcelToDrone:
-                        SetParcelToDrone(dalObject);
+                        SetParcelToDrone(IDal);
                         break;
                     case Choice.stationDisplay:
-                        StationDisplay(dalObject);
+                        StationDisplay(IDal);
                         break;
                     case Choice.droneDisplay:
-                        DroneDisplay(dalObject);
+                        DroneDisplay(IDal);
                         break;
                     case Choice.customerDisplay:
-                        CustomerDisplay(dalObject);
+                        CustomerDisplay(IDal);
                         break;
                     case Choice.parcelDisplay:
-                        ParcelDisplay(dalObject);
+                        ParcelDisplay(IDal);
                         break;
                     case Choice.pickup:
-                        ParcelPickup(dalObject);
+                        ParcelPickup(IDal);
                         break;
                     case Choice.delivery:
-                        ParcelDelivered(dalObject);
+                        ParcelDelivered(IDal);
                         break;
                     case Choice.droneCharge:
-                        DroneCharge(dalObject);
+                        DroneCharge(IDal);
                         break;
                     case Choice.finishCharge:
-                        FinishCharge(dalObject);
+                        FinishCharge(IDal);
                         break;
                     case Choice.stationList:
-                        StationListDisplay(dalObject);
+                        StationListDisplay(IDal);
                         break;
                     case Choice.droneList:
-                        DroneListDisplay(dalObject);
+                        DroneListDisplay(IDal);
                         break;
                     case Choice.customerList:
-                        CustomerListDisplay(dalObject);
+                        CustomerListDisplay(IDal);
                         break;
                     case Choice.parcelList:
-                        ParcelListDisplay(dalObject);
+                        ParcelListDisplay(IDal);
                         break;
                     case Choice.unassosiatedParcelList:
-                        UnassosiatedParcelListDisplay(dalObject);
+                        UnassosiatedParcelListDisplay(IDal);
                         break;
                     case Choice.stationsWithFreeSlots:
-                        StationsWithFreeSlotsDisplay(dalObject);
+                        StationsWithFreeSlotsDisplay(IDal);
                         break;
                     case Choice.customerDistance:
-                        CustomerDistance(dalObject);
+                        CustomerDistance(IDal);
                         break;
                     case Choice.stationDistance:
-                        StationDistance(dalObject);
+                        StationDistance(IDal);
                         break;
                     case Choice.end:
                         flag = false;
