@@ -22,9 +22,18 @@ namespace DalObject
         /// <param name="station">the station for add</param>
         public void AddStation(Station station)
         {
-            var exist = DataSource.Stations.Any(x => x.Id == station.Id);
-            if (!exist)
+            try
+            {
+                var exist = DataSource.Stations.Any(x => x.Id == station.Id);
+                if (exist)
+                    throw new IDAL.AddExistException("Station", station.Id, "station is alredy exist");
                 DataSource.Stations.Add(station);
+            }
+            catch (IDAL.AddExistException ex)
+            {
+                Console.WriteLine(ex);
+                return;
+            }
         }
 
 
@@ -34,9 +43,20 @@ namespace DalObject
         /// <param name="drone">the drone for add</param>
         public void AddDrone(Drone drone)
         {
-            var exist = DataSource.Drones.Any(x => x.Id == drone.Id);
-            if (!exist)
+            try
+            {
+                var exist = DataSource.Drones.Any(x => x.Id == drone.Id);
+                if (exist)
+                    throw new IDAL.AddExistException("Drone", drone.Id, "drone is alredy exist");
                 DataSource.Drones.Add(drone);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex);
+                return;
+            }
+
         }
 
 
@@ -46,9 +66,19 @@ namespace DalObject
         /// <param name="customer">the customer for add</param>
         public void AddCustumer(Customer customer)
         {
-            var exist = DataSource.Customers.Any(x => x.Id == customer.Id);
-            if (!exist)
+            try
+            {
+                var exist = DataSource.Customers.Any(x => x.Id == customer.Id);
+                if (exist)
+                    throw new IDAL.AddExistException("Customer", customer.Id, "customer is alredy exist");
                 DataSource.Customers.Add(customer);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return;
+            }
+
         }
 
 
@@ -70,19 +100,28 @@ namespace DalObject
         /// <param name="droneId">drone id</param>
         public void ParcelToDrone(int parcelId, int droneId)
         {
-            var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
-            if (exist)
+            try
             {
-                if (exist = DataSource.Drones.Any(x => x.Id == droneId))
-                {
-                    var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
-                    var index = DataSource.Parcels.IndexOf(parcel);
+                var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
+                if (!exist)
+                    throw new IDAL.ItemNotFoundException("Parcel", parcelId, "not found");
 
-                    parcel.DroneId = droneId;
-                    parcel.Scheduled = DateTime.Now;
-                    DataSource.Parcels[index] = parcel;
-                }
+                if (!(exist = DataSource.Drones.Any(x => x.Id == droneId)))
+
+                    throw new IDAL.ItemNotFoundException("Drone", droneId, "not found");
+
+                var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
+                var index = DataSource.Parcels.IndexOf(parcel);
+                parcel.DroneId = droneId;
+                parcel.Scheduled = DateTime.Now;
+                DataSource.Parcels[index] = parcel;
             }
+            catch (IDAL.ItemNotFoundException ex)
+            {
+                Console.WriteLine(ex);
+                return;
+            }
+
         }
 
 
@@ -92,13 +131,22 @@ namespace DalObject
         /// <param name="parcelId">parcel id</param>
         public void UpdatePickup(int parcelId)
         {
-            var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
-            if (exist)
+            try
             {
+                var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
+                if (!exist)
+                    throw new IDAL.ItemNotFoundException("Parcel", parcelId, "not found");
+
                 var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
                 var index = DataSource.Parcels.IndexOf(parcel);
                 parcel.PickedUp = DateTime.Now;
                 DataSource.Parcels[index] = parcel;
+
+            }
+            catch (IDAL.ItemNotFoundException ex)
+            {
+                Console.WriteLine((ex);
+                return;
             }
         }
 
@@ -109,13 +157,22 @@ namespace DalObject
         /// <param name="parcelId">parcel id</param>
         public void UpdateDelivery(int parcelId)
         {
-            var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
-            if (exist)
+            try
             {
+                var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
+                if (!exist)
+                    throw new IDAL.ItemNotFoundException("Parcel", parcelId, "not found");
+
                 var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
                 var index = DataSource.Parcels.IndexOf(parcel);
                 parcel.Delivered = DateTime.Now;
                 DataSource.Parcels[index] = parcel;
+
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
 
@@ -138,8 +195,8 @@ namespace DalObject
                     var index = DataSource.Stations.IndexOf(station);
                     station.ChargeSlots--;
                     DataSource.Stations[index] = station;
-                }               
-            }            
+                }
+            }
         }
 
         /// <summary>
