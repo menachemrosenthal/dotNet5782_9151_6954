@@ -145,7 +145,7 @@ namespace DalObject
             }
             catch (IDAL.ItemNotFoundException ex)
             {
-                Console.WriteLine((ex);
+                Console.WriteLine(ex);
                 return;
             }
         }
