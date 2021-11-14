@@ -26,7 +26,7 @@ namespace DalObject
             {
                 var exist = DataSource.Stations.Any(x => x.Id == station.Id);
                 if (exist)
-                    throw new IDAL.AddExistException("Station", station.Id, "station is alredy exist");
+                    throw new IDAL.AddExistException("Station", station.Id);
                 DataSource.Stations.Add(station);
             }
             catch (IDAL.AddExistException ex)
@@ -47,7 +47,7 @@ namespace DalObject
             {
                 var exist = DataSource.Drones.Any(x => x.Id == drone.Id);
                 if (exist)
-                    throw new IDAL.AddExistException("Drone", drone.Id, "drone is alredy exist");
+                    throw new IDAL.AddExistException("Drone", drone.Id);
                 DataSource.Drones.Add(drone);
             }
             catch (Exception ex)
@@ -70,7 +70,7 @@ namespace DalObject
             {
                 var exist = DataSource.Customers.Any(x => x.Id == customer.Id);
                 if (exist)
-                    throw new IDAL.AddExistException("Customer", customer.Id, "customer is alredy exist");
+                    throw new IDAL.AddExistException("Customer", customer.Id);
                 DataSource.Customers.Add(customer);
             }
             catch (Exception ex)
@@ -104,11 +104,11 @@ namespace DalObject
             {
                 var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
                 if (!exist)
-                    throw new IDAL.ItemNotFoundException("Parcel", parcelId, "not found");
+                    throw new IDAL.ItemNotFoundException("Parcel", parcelId);
 
                 if (!(exist = DataSource.Drones.Any(x => x.Id == droneId)))
 
-                    throw new IDAL.ItemNotFoundException("Drone", droneId, "not found");
+                    throw new IDAL.ItemNotFoundException("Drone", droneId);
 
                 var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
                 var index = DataSource.Parcels.IndexOf(parcel);
@@ -135,7 +135,7 @@ namespace DalObject
             {
                 var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
                 if (!exist)
-                    throw new IDAL.ItemNotFoundException("Parcel", parcelId, "not found");
+                    throw new IDAL.ItemNotFoundException("Parcel", parcelId);
 
                 var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
                 var index = DataSource.Parcels.IndexOf(parcel);
@@ -161,7 +161,7 @@ namespace DalObject
             {
                 var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
                 if (!exist)
-                    throw new IDAL.ItemNotFoundException("Parcel", parcelId, "not found");
+                    throw new IDAL.ItemNotFoundException("Parcel", parcelId);
 
                 var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
                 var index = DataSource.Parcels.IndexOf(parcel);
@@ -169,10 +169,10 @@ namespace DalObject
                 DataSource.Parcels[index] = parcel;
 
             }
-            catch (Exception)
+            catch (IDAL.ItemNotFoundException ex)
             {
-
-                throw;
+                Console.WriteLine(ex);
+                return;
             }
         }
 
@@ -184,18 +184,27 @@ namespace DalObject
         /// <param name="stationId">station id</param>
         public void ChargeDrone(int droneId, int stationId)
         {
-            var exist = DataSource.Drones.Any(x => x.Id == droneId);
-            if (exist)
+            try
             {
-                if (exist = DataSource.Stations.Any(x => x.Id == stationId))
-                {
-                    DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId });
+                var exist = DataSource.Drones.Any(x => x.Id == droneId);
+                if (!exist)
+                    throw new IDAL.ItemNotFoundException("Drone", droneId);
 
-                    var station = DataSource.Stations.First(x => x.Id == stationId);
-                    var index = DataSource.Stations.IndexOf(station);
-                    station.ChargeSlots--;
-                    DataSource.Stations[index] = station;
-                }
+
+                    if (!(exist = DataSource.Stations.Any(x => x.Id == stationId)))
+                        throw new IDAL.ItemNotFoundException("Station", stationId);
+
+                DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId });
+
+                var station = DataSource.Stations.First(x => x.Id == stationId);
+                var index = DataSource.Stations.IndexOf(station);
+                station.ChargeSlots--;
+                DataSource.Stations[index] = station;
+            }
+            catch (IDAL.ItemNotFoundException ex)
+            {
+                Console.WriteLine(ex);
+                return;
             }
         }
 
