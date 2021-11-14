@@ -188,11 +188,16 @@ namespace ConsoleUI
             _ = int.TryParse(Console.ReadLine(), out int id);
             Console.WriteLine("\nENTER Model");
             drone.Model = Console.ReadLine();
+            Console.WriteLine("\nENTER Battery");
+            _ = double.TryParse(Console.ReadLine(), out double battery);
             Console.WriteLine("\nENTER MaxWeight");
             _ = Enum.TryParse(Console.ReadLine(), out WeightCategories maxWeight);
+            Console.WriteLine("\nENTER Status");
+            _ = Enum.TryParse(Console.ReadLine(), out DroneStatuses status);
 
-            drone.Id = id; drone.MaxWeight = maxWeight;
+            drone.Id = id; drone.Battery = battery; drone.MaxWeight = maxWeight; drone.Status = status;
             dalObject.AddDrone(drone);
+
         }
 
 
@@ -215,7 +220,7 @@ namespace ConsoleUI
             _ = double.TryParse(Console.ReadLine(), out double lattitude);
 
             customer.Id = id; customer.Longitude = longitude; customer.Lattitude = lattitude;
-            dalObject.AddCustumer(customer);
+            dalObject.Addcustumer(customer);
 
         }
 

@@ -88,7 +88,7 @@ namespace DalObject
         /// <param name="parcel">the parcel to add</param>
         public void AddParcel(Parcel parcel)
         {
-            parcel.Id = DataSource.Config.CreateParcelNumber;
+            parcel.Id = DataSource.Config.CreateParcelNumber++;
             DataSource.Parcels.Add(parcel);
         }
 
