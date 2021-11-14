@@ -311,5 +311,14 @@ namespace DalObject
 
             return dist * 1.609344; ;
         }
+        public double[] ElectricityUseRquest()
+        {
+            double[] electricityUse = new double[4];
+            electricityUse[0] = DataSource.Config.Free;
+            electricityUse[1] = DataSource.Config.CarryingLight;
+            electricityUse[2] = DataSource.Config.CarryingMediem;
+            electricityUse[3] = DataSource.Config.CarryingHeavy;
+            electricityUse[4] = DataSource.Config.;
+        }
     }
 }
