@@ -21,6 +21,7 @@ namespace DalObject
             public static double Carryinglight { get; set; }
             public static double Carryingmediem { get; set; }
             public static double Carryingheavy { get; set; }
+            public static double ChargePace { get; set; }
             /// <summary>
             /// starting a project, initialize the data
             /// </summary>
