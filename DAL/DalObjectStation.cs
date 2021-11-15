@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DalObject
+namespace IDAL
 {
     public partial class DalObject : IDAL.IDal
     {
@@ -34,22 +34,13 @@ namespace DalObject
         /// </summary>
         /// <param name="stationId">station id to return</param>
         /// <returns>station object</returns>
-        public Station? GetStation(int stationId)
+        public Station GetStation(int stationId)
         {
-            try
-            {
-                var exist = DataSource.Stations.Any(x => x.Id == stationId);
-                if (!exist)
-                    throw new IDAL.ItemNotFoundException("Station", stationId);
+            var exist = DataSource.Stations.Any(x => x.Id == stationId);
+            if (!exist)
+                throw new IDAL.ItemNotFoundException("Station", stationId);
 
-                return DataSource.Stations.FirstOrDefault(x => x.Id == stationId);
-            }
-            catch (IDAL.ItemNotFoundException ex)
-            {
-                Console.WriteLine(ex);
-                return null;
-            }
-
+            return DataSource.Stations.FirstOrDefault(x => x.Id == stationId);
         }
 
         /// <summary>

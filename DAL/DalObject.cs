@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DalObject
+namespace IDAL
 {
     public partial class DalObject : IDAL.IDal
     {
@@ -15,7 +15,6 @@ namespace DalObject
             DataSource.Config.Initialize();
         }
 
- 
         /// <summary>
         /// distance calculation between to geographic points
         /// </summary>

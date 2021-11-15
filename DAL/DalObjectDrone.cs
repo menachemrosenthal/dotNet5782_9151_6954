@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DalObject
+namespace IDAL
 {
     public partial class DalObject : IDAL.IDal
     {
@@ -15,20 +15,10 @@ namespace DalObject
         /// <param name="drone">the drone for add</param>
         public void AddDrone(Drone drone)
         {
-            try
-            {
                 var exist = DataSource.Drones.Any(x => x.Id == drone.Id);
                 if (exist)
                     throw new IDAL.AddExistException("Drone", drone.Id);
                 DataSource.Drones.Add(drone);
-            }
-            catch (Exception ex)
-            {
-
-                Console.WriteLine(ex);
-                return;
-            }
-
         }
 
         /// <summary>
@@ -37,9 +27,7 @@ namespace DalObject
         /// <param name="droneId">drone id</param>
         /// <param name="stationId">station id</param>
         public void ChargeDrone(int droneId, int stationId)
-        {
-            try
-            {
+        {                        
                 var exist = DataSource.Drones.Any(x => x.Id == droneId);
                 if (!exist)
                     throw new IDAL.ItemNotFoundException("Drone", droneId);
@@ -53,13 +41,7 @@ namespace DalObject
                 var station = DataSource.Stations.First(x => x.Id == stationId);
                 var index = DataSource.Stations.IndexOf(station);
                 station.ChargeSlots--;
-                DataSource.Stations[index] = station;
-            }
-            catch (IDAL.ItemNotFoundException ex)
-            {
-                Console.WriteLine(ex);
-                return;
-            }
+                DataSource.Stations[index] = station;            
         }
 
         /// <summary>
@@ -68,8 +50,6 @@ namespace DalObject
         /// <param name="droneId">drone id to release</param>
         public void EndCharge(int droneId)
         {
-            try
-            {
                 //drone status update
                 var exist = DataSource.DronesCharge.Any(x => x.DroneId == droneId);
                 if (!exist)
@@ -80,14 +60,7 @@ namespace DalObject
                 var index = DataSource.Stations.IndexOf(station);
                 station.ChargeSlots++;
                 DataSource.Stations[index] = station;
-                DataSource.DronesCharge.Remove(droneCharge);
-            }
-            catch (IDAL.ItemNotFoundException ex)
-            {
-                Console.WriteLine(ex);
-                return;
-            }
-
+                DataSource.DronesCharge.Remove(droneCharge);            
         }
 
         /// <summary>
@@ -95,22 +68,13 @@ namespace DalObject
         /// </summary>
         /// <param name="droneId">drone id to return</param>
         /// <returns>drone object</returns>
-        public Drone? GetDrone(int droneId)
+        public Drone GetDrone(int droneId)
         {
-            try
-            {
                 var exist = DataSource.Drones.Any(x => x.Id == droneId);
                 if (!exist)
                     throw new IDAL.ItemNotFoundException("Drone", droneId);
 
-                return DataSource.Drones.FirstOrDefault(x => x.Id == droneId);
-            }
-            catch (IDAL.ItemNotFoundException ex)
-            {
-                Console.WriteLine(ex);
-                return null;
-            }
-
+                return DataSource.Drones.FirstOrDefault(x => x.Id == droneId);            
         }
 
         /// <summary>

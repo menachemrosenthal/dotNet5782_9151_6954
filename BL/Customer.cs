@@ -11,8 +11,8 @@ namespace IBL.BO
         public int Id { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
-        public Location Location;
-        List<Parcel> HeSended;
-        List<Parcel> HeGet;
+        public Location Location { get; set; } 
+        List<Parcel> Sended;
+        List<Parcel> Get;
     }
 }
