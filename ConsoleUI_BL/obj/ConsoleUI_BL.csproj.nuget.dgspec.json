@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\BL\\BL.csproj": {}
+    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI_BL\\ConsoleUI_BL.csproj": {}
   },
   "projects": {
     "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\BL\\BL.csproj": {
@@ -30,6 +30,64 @@
             "projectReferences": {
               "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj": {
                 "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\DAL\\DAL.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI_BL\\ConsoleUI_BL.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI_BL\\ConsoleUI_BL.csproj",
+        "projectName": "ConsoleUI_BL",
+        "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI_BL\\ConsoleUI_BL.csproj",
+        "packagesPath": "C:\\Users\\Itzic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\ConsoleUI_BL\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Itzic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\BL\\BL.csproj": {
+                "projectPath": "C:\\Users\\Itzic\\source\\repos\\dotNet5782_9151_6954\\BL\\BL.csproj"
               }
             }
           }
