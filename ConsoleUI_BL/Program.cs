@@ -183,10 +183,9 @@ namespace ConsoleUI_BL
             _ = double.TryParse(Console.ReadLine(), out double latitude);
 
             station.Id = id; station.ChargeSlots = chargeSlots; station.LocationOfStation.Longitude = longitude;
-            station.LocationOfStation.Latittude = latitude;
-            bl.AddStation(station);
-            }
+            station.LocationOfStation.Latitude = latitude;
+            bl.AddStation(station);            
         }
-
     }
 }
+

@@ -78,18 +78,9 @@ namespace IBL.BO
 
         public double LocationsDistance(Location l1, Location l2)
         {
-            double lat1 = l1.Latitude, lon1 = l1.Longitude, lat2 = l2.Latitude, lon2 = l2.Longitude;
-            double rlat1 = Math.PI * lat1 / 180;
-            double rlat2 = Math.PI * lat2 / 180;
-            double theta = lon1 - lon2;
-            double rtheta = Math.PI * theta / 180;
-            double dist = Math.Sin(rlat1) * Math.Sin(rlat2) + Math.Cos(rlat1) * Math.Cos(rlat2) * Math.Cos(rtheta);
-            dist = Math.Acos(dist);
-            dist = dist * 180 / Math.PI;
-            dist = dist * 60 * 1.1515;
-
-            return dist * 1.609344;
+            return dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);        
         }
     }
 }
 
+;

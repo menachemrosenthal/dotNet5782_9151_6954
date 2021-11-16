@@ -13,7 +13,7 @@ namespace IBL.BO
             IDAL.DO.Station dalStation = new();
             dalStation.Id = station.Id;
             dalStation.Name = station.Name;
-            dalStation.Lattitude = station.LocationOfStation.Latittude;
+            dalStation.Latitude = station.LocationOfStation.Latitude;
             dalStation.Longitude = station.LocationOfStation.Longitude;
             station.DronesCharging = null;
             dal.AddStation(dalStation);

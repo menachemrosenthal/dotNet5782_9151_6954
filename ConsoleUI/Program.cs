@@ -137,12 +137,12 @@ namespace ConsoleUI
             Console.WriteLine("\nENTER longitude");
             double.TryParse(Console.ReadLine(), out double longitude);
             Console.WriteLine("\nENTER lattitude");
-            double.TryParse(Console.ReadLine(), out double lattitude);
+            double.TryParse(Console.ReadLine(), out double latitude);
             Console.WriteLine("\nENTER Station ID");
             int.TryParse(Console.ReadLine(), out int customerId);
 
             Console.WriteLine("The distance between the point to station is:\n"
-                + iDal.DistanceCalculate(lattitude, longitude,
+                + iDal.DistanceCalculate(latitude, longitude,
                 iDal.GetStation(customerId).Latitude, iDal.GetStation(customerId).Longitude));
         }
 
@@ -156,12 +156,12 @@ namespace ConsoleUI
             Console.WriteLine("\nENTER longitude");
             double.TryParse(Console.ReadLine(), out double longitude);
             Console.WriteLine("\nENTER lattitude");
-            double.TryParse(Console.ReadLine(), out double lattitude);
+            double.TryParse(Console.ReadLine(), out double latitude);
             Console.WriteLine("\nENTER Customer ID");
             int.TryParse(Console.ReadLine(), out int customerId);
 
             Console.WriteLine("The distance between the point to customer is:\n"
-                + iDal.DistanceCalculate(lattitude, longitude,
+                + iDal.DistanceCalculate(latitude, longitude,
                 iDal.GetCustomer(customerId).Latitude, iDal.GetCustomer(customerId).Longitude));
 
         }
