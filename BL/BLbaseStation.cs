@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    partial class BL :IBL
+    public partial class BL : IBL
     {
-
+        public void AddStation(Station station)
+        { }
     }
 }

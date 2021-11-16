@@ -1,5 +1,10 @@
 ﻿using IDAL;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using IBL.BO;
 
 namespace ConsoleUI_BL
 {
@@ -12,6 +17,7 @@ namespace ConsoleUI_BL
         public enum ListsMenu { baseStations = 1, drones, customers, parcels, nonDroneParcels, unoccupiedSlotsBaseStations }
         static void Main(string[] args)
         {
+            IBL.IBL bl = new BL();
             bool flag = true;
 
             Console.WriteLine("Welcome to Drone Deliveries!");
@@ -45,7 +51,7 @@ namespace ConsoleUI_BL
                             break;
                     }
 
-                    static void Add()
+                    void Add()
                     {
                         Console.WriteLine("\nPick one of the following add options:\n"
                         + " Base station, press 1\n Drone, press 2\n Customer press 3\n Parcel, press 4\n");
@@ -54,7 +60,7 @@ namespace ConsoleUI_BL
 
                         switch (choice)
                         {
-                            case AddMenu.baseStation:addBaseStation();
+                            case AddMenu.baseStation: AddStation(bl);
                                 break;
                             case AddMenu.drone:
                                 break;
@@ -159,10 +165,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
-
-        private static void addBaseStation()
+        public static void AddStation(IBL.IBL bl)
         {
-            throw new NotImplementedException();
+
         }
+
     }
 }

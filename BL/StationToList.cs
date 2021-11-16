@@ -7,7 +7,7 @@ using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    class StationToList
+    public class StationToList
     {
         public int Id { get; set; }
         public string Name { get; set; }

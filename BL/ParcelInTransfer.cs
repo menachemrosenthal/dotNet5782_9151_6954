@@ -7,10 +7,10 @@ using static IBL.BO.Enums;
 
 namespace IBL.BO
 {
-    class ParcelInTransfer
+    public class ParcelInTransfer
     {
         public int Id { get; set; }
-        public bool waitingOrTransferred { get; set; }
+        public bool Transferred { get; set; }
         public Priorities Priority { get; set; }
         public CustomerInParcel Sender { get; set; }
         public CustomerInParcel Receiver { get; set; }
