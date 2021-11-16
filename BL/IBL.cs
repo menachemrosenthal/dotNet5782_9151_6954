@@ -10,5 +10,6 @@ namespace IBL
     public interface IBL
     {
         void AddStation(Station station);
+        void AddDrone(Drone drone,int stationID);
     }
 }

@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
         public enum ListsMenu { baseStations = 1, drones, customers, parcels, nonDroneParcels, unoccupiedSlotsBaseStations }
         static void Main(string[] args)
         {
-            IBL.IBL bl = new BL();
+            IBL.IBL bl = new BLdrone();
             bool flag = true;
 
             Console.WriteLine("Welcome to Drone Deliveries!");
@@ -62,7 +62,7 @@ namespace ConsoleUI_BL
                         {
                             case AddMenu.baseStation: AddStation(bl);
                                 break;
-                            case AddMenu.drone:
+                            case AddMenu.drone: AddDrone(bl);
                                 break;
                             case AddMenu.customer:
                                 break;
@@ -185,8 +185,24 @@ namespace ConsoleUI_BL
             station.Id = id; station.ChargeSlots = chargeSlots; station.LocationOfStation.Longitude = longitude;
             station.LocationOfStation.Latittude = latitude;
             bl.AddStation(station);
-            }
         }
+        public static void AddDrone(IBL.IBL bl)
+        {
+            Drone drone = new();
+
+            Console.WriteLine("ENTER Id\n");
+            _ = int.TryParse(Console.ReadLine(), out int id);
+            Console.WriteLine("\nENTER Model");
+            drone.Model = Console.ReadLine();
+            Console.WriteLine("\nENTER MaxWeight");
+            _ = Enum.TryParse(Console.ReadLine(), out Enums.WeightCategories maxWeight);
+            Console.WriteLine("ENTER station ID to charge\n");
+            _ = int.TryParse(Console.ReadLine(), out int stationId);
+            
+            drone.Id = id; drone.MaxWeight = maxWeight;
+            bl.AddDrone(drone,stationId);
+        }
+        
 
     }
 }

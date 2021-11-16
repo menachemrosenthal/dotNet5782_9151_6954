@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using IDAL.DO;
 namespace IBL.BO
 {
-    public partial class BL : IBL
+    public partial class BLdrone : IBL
     {
         public void AddStation(Station station)
         {
