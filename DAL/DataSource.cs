@@ -38,7 +38,7 @@ namespace IDAL
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(2, 8),
                         Longitude = (double)r.Next(31748768, 31810806) / 1000000,
-                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
+                        Latitude = (double)r.Next(34663817, 35223456) / 1000000
                     },
                     new Station
                     {
@@ -46,7 +46,7 @@ namespace IDAL
                         Id = r.Next(100000000, 1000000000),
                         ChargeSlots = r.Next(2, 8),
                         Longitude = (double)r.Next(31748768, 31810806) / 1000000,
-                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
+                        Latitude = (double)r.Next(34663817, 35223456) / 1000000
                     }
                 };
 
@@ -58,7 +58,7 @@ namespace IDAL
                     customer.Name = $"person {i}";
                     customer.Phone = string.Format("0{0:###-#######}", r.Next(500000000, 599999999));
                     customer.Longitude = (double)r.Next(31748768, 31810806) / 1000000;
-                    customer.Lattitude = (double)r.Next(34663817, 35223456) / 1000000;
+                    customer.Latitude = (double)r.Next(34663817, 35223456) / 1000000;
 
                     Customers.Add(customer);
                 }

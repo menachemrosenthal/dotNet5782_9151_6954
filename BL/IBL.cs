@@ -10,5 +10,6 @@ namespace IBL
     public interface IBL
     {
         void AddStation(Station station);
+        double LocationsDistance(Location l1, Location l2);
     }
 }

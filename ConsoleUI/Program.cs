@@ -143,7 +143,7 @@ namespace ConsoleUI
 
             Console.WriteLine("The distance between the point to station is:\n"
                 + iDal.DistanceCalculate(lattitude, longitude,
-                iDal.GetStation(customerId).Lattitude, iDal.GetStation(customerId).Longitude));
+                iDal.GetStation(customerId).Latitude, iDal.GetStation(customerId).Longitude));
         }
 
 
@@ -162,7 +162,7 @@ namespace ConsoleUI
 
             Console.WriteLine("The distance between the point to customer is:\n"
                 + iDal.DistanceCalculate(lattitude, longitude,
-                iDal.GetCustomer(customerId).Lattitude, iDal.GetCustomer(customerId).Longitude));
+                iDal.GetCustomer(customerId).Latitude, iDal.GetCustomer(customerId).Longitude));
 
         }
 
@@ -185,7 +185,7 @@ namespace ConsoleUI
             Console.WriteLine("\nENTER latitude");
             _ = double.TryParse(Console.ReadLine(), out double latitude);
 
-            station.Id = id; station.ChargeSlots = chargeSlots; station.Longitude = longitude; station.Lattitude = latitude;
+            station.Id = id; station.ChargeSlots = chargeSlots; station.Longitude = longitude; station.Latitude = latitude;
             iDal.AddStation(station);
         }
 
@@ -228,7 +228,7 @@ namespace ConsoleUI
             Console.WriteLine("\nENTER latitude");
             _ = double.TryParse(Console.ReadLine(), out double lattitude);
 
-            customer.Id = id; customer.Longitude = longitude; customer.Lattitude = lattitude;
+            customer.Id = id; customer.Longitude = longitude; customer.Latitude = lattitude;
             iDal.AddCustumer(customer);
 
         }
