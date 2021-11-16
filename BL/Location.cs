@@ -8,7 +8,7 @@ namespace IBL.BO
 {
     public class Location
     {
-        double Longitude { get; set; }
-        double latittude { get; set; }
+        public double Longitude { get; set; }
+        public double Latittude { get; set; }
     }
 }
