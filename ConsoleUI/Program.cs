@@ -1,10 +1,11 @@
 ﻿using System;
 using IDAL.DO;
-using DalObject;
+using IDAL;
 
 namespace ConsoleUI
 {
-     class Program
+
+    class Program
     {
         public enum Choice
         {
@@ -18,7 +19,7 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            DalObject.DalObject dalObject = new();
+            IDAL.IDal iDal= new DalObject();
 
             bool flag = true;
 
@@ -41,85 +42,97 @@ namespace ConsoleUI
                "END-22 ");
 
                 Enum.TryParse(Console.ReadLine(), out Choice choice);
-
-                switch (choice)
+                try
                 {
-                    case Choice.addStation:
-                        AddStation(dalObject);
-                        break;
-                    case Choice.addDrone:
-                        AddDrone(dalObject);
-                        break;
-                    case Choice.addCustomer:
-                        AddCustomer(dalObject);
-                        break;
-                    case Choice.addParcel:
-                        AddParcel(dalObject);
-                        break;
-                    case Choice.parcelToDrone:
-                        SetParcelToDrone(dalObject);
-                        break;
-                    case Choice.stationDisplay:
-                        StationDisplay(dalObject);
-                        break;
-                    case Choice.droneDisplay:
-                        DroneDisplay(dalObject);
-                        break;
-                    case Choice.customerDisplay:
-                        CustomerDisplay(dalObject);
-                        break;
-                    case Choice.parcelDisplay:
-                        ParcelDisplay(dalObject);
-                        break;
-                    case Choice.pickup:
-                        ParcelPickup(dalObject);
-                        break;
-                    case Choice.delivery:
-                        ParcelDelivered(dalObject);
-                        break;
-                    case Choice.droneCharge:
-                        DroneCharge(dalObject);
-                        break;
-                    case Choice.finishCharge:
-                        FinishCharge(dalObject);
-                        break;
-                    case Choice.stationList:
-                        StationListDisplay(dalObject);
-                        break;
-                    case Choice.droneList:
-                        DroneListDisplay(dalObject);
-                        break;
-                    case Choice.customerList:
-                        CustomerListDisplay(dalObject);
-                        break;
-                    case Choice.parcelList:
-                        ParcelListDisplay(dalObject);
-                        break;
-                    case Choice.unassosiatedParcelList:
-                        UnassosiatedParcelListDisplay(dalObject);
-                        break;
-                    case Choice.stationsWithFreeSlots:
-                        StationsWithFreeSlotsDisplay(dalObject);
-                        break;
-                    case Choice.customerDistance:
-                        CustomerDistance(dalObject);
-                        break;
-                    case Choice.stationDistance:
-                        StationDistance(dalObject);
-                        break;
-                    case Choice.end:
-                        flag = false;
-                        break;
+                    switch (choice)
+                    {
+                        case Choice.addStation:
+                            AddStation(iDal);
+                            break;
+                        case Choice.addDrone:
+                            AddDrone(iDal);
+                            break;
+                        case Choice.addCustomer:
+                            AddCustomer(iDal);
+                            break;
+                        case Choice.addParcel:
+                            AddParcel(iDal);
+                            break;
+                        case Choice.parcelToDrone:
+                            SetParcelToDrone(iDal);
+                            break;
+                        case Choice.stationDisplay:
+                            StationDisplay(iDal);
+                            break;
+                        case Choice.droneDisplay:
+                            DroneDisplay(iDal);
+                            break;
+                        case Choice.customerDisplay:
+                            CustomerDisplay(iDal);
+                            break;
+                        case Choice.parcelDisplay:
+                            ParcelDisplay(iDal);
+                            break;
+                        case Choice.pickup:
+                            ParcelPickup(iDal);
+                            break;
+                        case Choice.delivery:
+                            ParcelDelivered(iDal);
+                            break;
+                        case Choice.droneCharge:
+                            DroneCharge(iDal);
+                            break;
+                        case Choice.finishCharge:
+                            FinishCharge(iDal);
+                            break;
+                        case Choice.stationList:
+                            StationListDisplay(iDal);
+                            break;
+                        case Choice.droneList:
+                            DroneListDisplay(iDal);
+                            break;
+                        case Choice.customerList:
+                            CustomerListDisplay(iDal);
+                            break;
+                        case Choice.parcelList:
+                            ParcelListDisplay(iDal);
+                            break;
+                        case Choice.unassosiatedParcelList:
+                            UnassosiatedParcelListDisplay(iDal);
+                            break;
+                        case Choice.stationsWithFreeSlots:
+                            StationsWithFreeSlotsDisplay(iDal);
+                            break;
+                        case Choice.customerDistance:
+                            CustomerDistance(iDal);
+                            break;
+                        case Choice.stationDistance:
+                            StationDistance(iDal);
+                            break;
+                        case Choice.end:
+                            flag = false;
+                            break;
+                    }
+                }
+                catch (IDAL.AddExistException ex)
+                {
+                    Console.WriteLine(ex);
+                    
+                }
+                catch(IDAL.ItemNotFoundException ex)
+                {
+                    Console.WriteLine(ex);
                 }
             }
+
         }
-
-
+        
+	     
         /// <summary>
-        /// distance between user poin and station
-        /// </summary>
-        /// <param name="dalObject"></param>
-        private static void StationDistance(DalObject.DalObject dalObject)
+                /// distance between user poin and station
+                /// </summary>
+                /// <param name="dalObject"></param>
+        private static void StationDistance(IDAL.IDal iDal)
         {
             Console.WriteLine("\nENTER longitude");
             double.TryParse(Console.ReadLine(), out double longitude);
@@ -129,8 +142,8 @@ namespace ConsoleUI
             int.TryParse(Console.ReadLine(), out int customerId);
 
             Console.WriteLine("The distance between the point to station is:\n"
-                + dalObject.DistanceCalculate(lattitude, longitude,
-                dalObject.GetStation(customerId).Lattitude, dalObject.GetStation(customerId).Longitude));
+                + iDal.DistanceCalculate(lattitude, longitude,
+                iDal.GetStation(customerId).Lattitude, iDal.GetStation(customerId).Longitude));
         }
 
 
@@ -138,7 +151,7 @@ namespace ConsoleUI
         /// distance between user point and customer
         /// </summary>
         /// <param name="dalObject"></param>
-        public static void CustomerDistance(DalObject.DalObject dalObject)
+        public static void CustomerDistance(IDAL.IDal iDal)
         {
             Console.WriteLine("\nENTER longitude");
             double.TryParse(Console.ReadLine(), out double longitude);
@@ -148,16 +161,16 @@ namespace ConsoleUI
             int.TryParse(Console.ReadLine(), out int customerId);
 
             Console.WriteLine("The distance between the point to customer is:\n"
-                + dalObject.DistanceCalculate(lattitude, longitude, 
-                dalObject.GetCustomer(customerId).Lattitude, dalObject.GetCustomer(customerId).Longitude));
-            
+                + iDal.DistanceCalculate(lattitude, longitude,
+                iDal.GetCustomer(customerId).Lattitude, iDal.GetCustomer(customerId).Longitude));
+
         }
 
 
         /// <summary>
         /// add a station
         /// </summary>
-        public static void AddStation(DalObject.DalObject dalObject)
+        public static void AddStation(IDAL.IDal iDal)
         {
             Station station = new();
 
@@ -173,14 +186,14 @@ namespace ConsoleUI
             _ = double.TryParse(Console.ReadLine(), out double latitude);
 
             station.Id = id; station.ChargeSlots = chargeSlots; station.Longitude = longitude; station.Lattitude = latitude;
-            dalObject.AddStation(station);
+            iDal.AddStation(station);
         }
 
 
         /// <summary>
         /// add a drone
         /// </summary>
-        public static void AddDrone(DalObject.DalObject dalObject)
+        public static void AddDrone(IDAL.IDal iDal)
         {
             Drone drone = new();
 
@@ -192,7 +205,7 @@ namespace ConsoleUI
             _ = Enum.TryParse(Console.ReadLine(), out WeightCategories maxWeight);
 
             drone.Id = id; drone.MaxWeight = maxWeight;
-            dalObject.AddDrone(drone);
+            iDal.AddDrone(drone);
 
         }
 
@@ -200,7 +213,7 @@ namespace ConsoleUI
         /// <summary>
         /// adds a customer
         /// </summary>
-        public static void AddCustomer(DalObject.DalObject dalObject)
+        public static void AddCustomer(IDAL.IDal iDal)
         {
             Customer customer = new();
 
@@ -216,7 +229,7 @@ namespace ConsoleUI
             _ = double.TryParse(Console.ReadLine(), out double lattitude);
 
             customer.Id = id; customer.Longitude = longitude; customer.Lattitude = lattitude;
-            dalObject.AddCustumer(customer);
+            iDal.AddCustumer(customer);
 
         }
 
@@ -224,7 +237,7 @@ namespace ConsoleUI
         /// <summary>
         /// adds a parcel
         /// </summary>
-        public static void AddParcel(DalObject.DalObject dalObject)
+        public static void AddParcel(IDAL.IDal iDal)
         {
             Parcel parcel = new();
             Console.WriteLine("\nENTER sender ID");
@@ -239,40 +252,40 @@ namespace ConsoleUI
             parcel.Requested = DateTime.Now;
 
             parcel.Senderid = senderId; parcel.TargetId = TargetId; parcel.Weight = weight; parcel.Priority = priority;
-            dalObject.AddParcel(parcel);
+            iDal.AddParcel(parcel);
         }
 
 
         /// <summary>
         /// apply a parcel to a drone
         /// </summary>
-        public static void SetParcelToDrone(DalObject.DalObject dalObject)
+        public static void SetParcelToDrone(IDAL.IDal iDal)
         {
             Console.WriteLine("\nENTER parcel ID");
             _ = int.TryParse(Console.ReadLine(), out int parcelId);
             Console.WriteLine("\nENTER drone ID");
             _ = int.TryParse(Console.ReadLine(), out int droneId);
 
-            dalObject.ParcelToDrone(parcelId, droneId);
+            iDal.ParcelToDrone(parcelId, droneId);
         }
 
 
         /// <summary>
         /// updates the time of pickup
         /// </summary>
-        public static void ParcelPickup(DalObject.DalObject dalObject)
+        public static void ParcelPickup(IDAL.IDal dalObject)
         {
             Console.WriteLine("\nEnter ID of parcel");
             _ = int.TryParse(Console.ReadLine(), out int parcelId);
 
-           dalObject.UpdatePickup(parcelId);
+            dalObject.UpdatePickup(parcelId);
         }
 
 
         /// <summary>
         /// updates time of delivery
         /// </summary>
-        public static void ParcelDelivered(DalObject.DalObject dalObject)
+        public static void ParcelDelivered(IDAL.IDal dalObject)
         {
             Console.WriteLine("\nEnter id of parcel");
             _ = int.TryParse(Console.ReadLine(), out int parcelId);
@@ -284,7 +297,7 @@ namespace ConsoleUI
         /// <summary>
         /// drone finished charging, updates status 
         /// </summary>
-        private static void FinishCharge(DalObject.DalObject dalObject)
+        private static void FinishCharge(IDAL.IDal dalObject)
         {
             Console.WriteLine("\nENTER id of drone");
             _ = int.TryParse(Console.ReadLine(), out int droneId);
@@ -296,7 +309,7 @@ namespace ConsoleUI
         /// <summary>
         /// display parcel
         /// </summary>
-        public static void ParcelDisplay(DalObject.DalObject dalObject)
+        public static void ParcelDisplay(IDAL.IDal dalObject)
         {
             Console.WriteLine("\nEnter ID of the Parcel");
             _ = int.TryParse(Console.ReadLine(), out int parcelId);
@@ -308,7 +321,7 @@ namespace ConsoleUI
         /// <summary>
         /// charging a drone, updates status to charging
         /// </summary>
-        public static void DroneCharge(DalObject.DalObject dalObject)
+        public static void DroneCharge(IDAL.IDal dalObject)
         {
             Console.WriteLine("\nENTER id of drone");
             _ = int.TryParse(Console.ReadLine(), out int droneId);
@@ -323,7 +336,7 @@ namespace ConsoleUI
         /// <summary>
         /// display customer
         /// </summary>
-        public static void CustomerDisplay(DalObject.DalObject dalObject)
+        public static void CustomerDisplay(IDAL.IDal dalObject)
         {
             Console.WriteLine("\nEnter ID of the costumer");
             _ = int.TryParse(Console.ReadLine(), out int id);
@@ -335,33 +348,40 @@ namespace ConsoleUI
         /// <summary>
         /// dispay drone
         /// </summary>
-        public static void DroneDisplay(DalObject.DalObject dalObject)
+        public static void DroneDisplay(IDAL.IDal Dal)
         {
             Console.WriteLine("\nEnter ID of the drone");
             _ = int.TryParse(Console.ReadLine(), out int droneId);
 
-            Console.WriteLine(dalObject.GetDrone(droneId).ToString());
+            Console.WriteLine(Dal.GetDrone(droneId).ToString());
         }
 
 
         /// <summary>
         /// display station
         /// </summary>
-        public static void StationDisplay(DalObject.DalObject dalObject)
+        public static void StationDisplay(IDAL.IDal iDal)
         {
-            Console.WriteLine("\nEnter ID of the staiton");
-            _ = int.TryParse(Console.ReadLine(), out int stationId);
+            try
+            {
+                Console.WriteLine("\nEnter ID of the staiton");
+                _ = int.TryParse(Console.ReadLine(), out int stationId);
 
-            Console.WriteLine(dalObject.GetStation(stationId).ToString());
+                Console.WriteLine(iDal.GetStation(stationId).ToString());
+            }
+            catch(IDAL.ItemNotFoundException ex)
+            {
+                Console.WriteLine(ex);
+            }          
         }
 
 
         /// <summary>
         /// display the list of stations
         /// </summary>
-        public static void StationListDisplay(DalObject.DalObject dalObject)
+        public static void StationListDisplay(IDAL.IDal iDal)
         {
-            foreach (var Station in dalObject.StationList())
+            foreach (var Station in iDal.StationList())
                 Console.WriteLine(Station.ToString());
 
         }
@@ -370,9 +390,9 @@ namespace ConsoleUI
         /// <summary>
         /// display the list of Drones
         /// </summary>
-        public static void DroneListDisplay(DalObject.DalObject dalObject)
+        public static void DroneListDisplay(IDAL.IDal iDal)
         {
-            foreach (var Drone in dalObject.DroneList())
+            foreach (var Drone in iDal.DroneList())
                 Console.WriteLine(Drone.ToString());
 
         }
@@ -381,9 +401,9 @@ namespace ConsoleUI
         /// <summary>
         /// display the list of Customers
         /// </summary>
-        public static void CustomerListDisplay(DalObject.DalObject dalObject)
+        public static void CustomerListDisplay(IDAL.IDal iDal)
         {
-            foreach (var Customer in dalObject.CustomerList())
+            foreach (var Customer in iDal.CustomerList())
                 Console.WriteLine(Customer.ToString());
 
         }
@@ -392,9 +412,9 @@ namespace ConsoleUI
         /// <summary>
         /// display the list of parcels
         /// </summary>
-        public static void ParcelListDisplay(DalObject.DalObject dalObject)
+        public static void ParcelListDisplay(IDAL.IDal iDal)
         {
-            foreach (var Parcel in dalObject.ParcelList())
+            foreach (var Parcel in iDal.ParcelList())
                 Console.WriteLine(Parcel.ToString());
 
         }
@@ -403,9 +423,9 @@ namespace ConsoleUI
         /// <summary>
         /// display list of stations with free charge slots
         /// </summary>
-        public static void StationsWithFreeSlotsDisplay(DalObject.DalObject dalObject)
+        public static void StationsWithFreeSlotsDisplay(IDAL.IDal iDal)
         {
-            foreach (var Station in dalObject.StationList())
+            foreach (var Station in iDal.StationList())
                 if (Station.ChargeSlots != 0)
                     Console.WriteLine(Station.ToString());
         }
@@ -414,11 +434,16 @@ namespace ConsoleUI
         /// <summary>
         /// display list pf unassosiated parcels
         /// </summary>
-        public static void UnassosiatedParcelListDisplay(DalObject.DalObject dalObject)
+        public static void UnassosiatedParcelListDisplay(IDAL.IDal iDal)
         {
-            foreach (var Parcel in dalObject.ParcelList())
+            foreach (var Parcel in iDal.ParcelList())
                 if (Parcel.DroneId != 0)
                     Console.WriteLine(Parcel.ToString());
-        }       
+        }
     }
 }
+
+
+    
+
+  

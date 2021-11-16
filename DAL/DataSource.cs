@@ -1,7 +1,7 @@
 ﻿using IDAL.DO;
 using System;
 using System.Collections.Generic;
-namespace DalObject
+namespace IDAL
 {
     class DataSource
     {
@@ -18,9 +18,9 @@ namespace DalObject
             internal static int CreateParcelNumber => _createParcelNumber++;
 
             public static double Free { get; set; }
-            public static double Carryinglight { get; set; }
-            public static double Carryingmediem { get; set; }
-            public static double Carryingheavy { get; set; }
+            public static double CarryingLight { get; set; }
+            public static double CarryingMediem { get; set; }
+            public static double CarryingHeavy { get; set; }
             public static double ChargePace { get; set; }
             /// <summary>
             /// starting a project, initialize the data

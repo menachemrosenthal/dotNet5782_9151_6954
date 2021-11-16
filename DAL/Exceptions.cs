@@ -34,9 +34,10 @@ namespace IDAL
         public ItemNotFoundException(string message, Exception inner) : base(message, inner) { }
         protected ItemNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context) { }
         public ItemNotFoundException(string itemType, int id) : base() { this.Id = id; this.ItemType = itemType; }
+        public ItemNotFoundException(string itemType, int id,string message) : base(message) { this.Id = id; this.ItemType = itemType; }
         public override string ToString()
         {
-            return $"the {ItemType} id {Id} is not found";
+            return $"the {ItemType} id {Id} is not found {Message}";
         }
     }
 
