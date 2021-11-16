@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using IBL;
 
 namespace ConsoleUI_BL
 {
@@ -56,7 +61,7 @@ namespace ConsoleUI_BL
 
                         switch (choice)
                         {
-                            case AddMenu.baseStation:
+                            case AddMenu.baseStation: AddStation();
                                 break;
                             case AddMenu.drone:
                                 break;
@@ -161,6 +166,10 @@ namespace ConsoleUI_BL
                 }
             }
         }
+        public static void AddStation()
+        {
+
+        }
+
     }
 }
-
