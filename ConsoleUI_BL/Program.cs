@@ -186,6 +186,23 @@ namespace ConsoleUI_BL
             station.LocationOfStation.Latitude = latitude;
             bl.AddStation(station);            
         }
+
+        public static void AddDrone(IBL.IBL bl)
+        {
+            Drone drone = new();
+
+            Console.WriteLine("ENTER Id\n");
+            _ = int.TryParse(Console.ReadLine(), out int id);
+            Console.WriteLine("\nENTER Model");
+            drone.Model = Console.ReadLine();
+            Console.WriteLine("\nENTER MaxWeight");
+            _ = Enum.TryParse(Console.ReadLine(), out Enums.WeightCategories maxWeight);
+            Console.WriteLine("ENTER station ID to charge\n");
+            _ = int.TryParse(Console.ReadLine(), out int stationId);
+
+            drone.Id = id; drone.MaxWeight = maxWeight;
+            bl.AddDrone(drone, stationId);
+        }
     }
 }
 
