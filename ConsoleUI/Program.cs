@@ -19,7 +19,7 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            IDAL.IDal iDal= new DalObject();
+            IDal iDal= new DalObject();
 
             bool flag = true;
 

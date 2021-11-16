@@ -12,7 +12,7 @@ namespace IDAL
         void AddStation(Station station);
         void AddDrone(Drone drone);
         void AddCustumer(Customer customer);
-        void AddParcel(Parcel parcel);
+        int AddParcel(Parcel parcel);
         void ParcelToDrone(int parcelId, int droneId);
         void UpdatePickup(int parcelId);
         void UpdateDelivery(int parcelId);

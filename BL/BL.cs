@@ -1,0 +1,14 @@
+﻿using IDAL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace IBL.BO
+{
+    partial class BL:IBL
+    {
+        BL( ) { IDal dal = new DalObject(); }
+    }
+}

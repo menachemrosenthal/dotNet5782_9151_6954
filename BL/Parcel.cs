@@ -14,7 +14,7 @@ namespace IBL.BO
         public int TargetId { get; set; }
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
-        public DroneInParcel Drone { get; set}
+        public DroneInParcel Drone { get; set; }
         public DateTime Requested { get; set; }
         public DateTime Scheduled { get; set; }
         public DateTime PickedUp { get; set; }

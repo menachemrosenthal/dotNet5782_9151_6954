@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IDAL;
+using System;
 
 namespace ConsoleUI_BL
 {
@@ -17,11 +18,8 @@ namespace ConsoleUI_BL
 
             while (flag)
             {
-                Console.WriteLine("\n\nPick one of the following options:\n"
-                    + "For add menu press 1"
-                    + "For Update menu press 2"
-                    + "For Object display menu press 3"
-                     + "For List disply menu press 4\n");
+                Console.WriteLine("\n\nPick one of the following options:\n For add menu press 1\n"
+                 + " For Update menu press 2\n For Object display menu press 3\n For List disply menu press 4\n");
 
                 Enum.TryParse(Console.ReadLine(), out MainMenu choice);
                 try
@@ -50,13 +48,13 @@ namespace ConsoleUI_BL
                     static void Add()
                     {
                         Console.WriteLine("\nPick one of the following add options:\n"
-                        + "Base station, press 1\n Drone, press 2/n Customer press 3\n Parcel, press 4\n");
+                        + " Base station, press 1\n Drone, press 2\n Customer press 3\n Parcel, press 4\n");
 
                         Enum.TryParse(Console.ReadLine(), out AddMenu choice);
 
                         switch (choice)
                         {
-                            case AddMenu.baseStation:
+                            case AddMenu.baseStation:addBaseStation();
                                 break;
                             case AddMenu.drone:
                                 break;
@@ -73,9 +71,9 @@ namespace ConsoleUI_BL
                     static void Update()
                     {
                         Console.WriteLine("\nPick one of the following update options:\n"
-                            + "Drone name, press 1\n Station, press 2\n Customer, press 3\n Sending drone to charge, press 4\n"
-                            + "Release drone from charge, press 5\n Associating parcel to drone, press 6\n"
-                            + "Parcel picked-up by drone, press 7\n Parcel provision by drone, press 8\n");
+                            + " Drone name, press 1\n Station, press 2\n Customer, press 3\n Sending drone to charge, press 4\n"
+                            + " Release drone from charge, press 5\n Associating parcel to drone, press 6\n"
+                            + " Parcel picked-up by drone, press 7\n Parcel provision by drone, press 8\n");
 
                         Enum.TryParse(Console.ReadLine(), out UpdateMenu choice);
 
@@ -106,7 +104,7 @@ namespace ConsoleUI_BL
                     static void Display()
                     {
                         Console.WriteLine("\nPick one of the following object display options:\n"
-                            + "Base station, press 1\n Drone, press 2\n Customer, press 3\n Parcel, press 4\n");
+                            + " Base station, press 1\n Drone, press 2\n Customer, press 3\n Parcel, press 4\n");
 
                         Enum.TryParse(Console.ReadLine(), out DisplayMenu choice);
 
@@ -129,8 +127,8 @@ namespace ConsoleUI_BL
                     static void Lists()
                     {
                         Console.WriteLine("\n\nPick one of the list display options:\n"
-                            + "Base stations, press 1\n Drones, press 2\n Customers, press 3\n Parcels, press 4\n"
-                            + "Non drone associate parcels, press 5\n Unoccupied charge slots base stations, press 6\n");
+                            + " Base stations, press 1\n Drones, press 2\n Customers, press 3\n Parcels, press 4\n"
+                            + " Non drone associate parcels, press 5\n Unoccupied charge slots base stations, press 6\n");
 
                         Enum.TryParse(Console.ReadLine(), out ListsMenu choice);
 
@@ -160,6 +158,11 @@ namespace ConsoleUI_BL
                     throw;
                 }
             }
+        }
+
+        private static void addBaseStation()
+        {
+            throw new NotImplementedException();
         }
     }
 }
