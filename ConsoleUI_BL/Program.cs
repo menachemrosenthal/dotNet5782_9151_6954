@@ -165,9 +165,27 @@ namespace ConsoleUI_BL
                 }
             }
         }
+       
         public static void AddStation(IBL.IBL bl)
         {
 
+            Station station = new();
+
+            Console.WriteLine("ENTER Id");
+            _ = int.TryParse(Console.ReadLine(), out int id);
+            Console.WriteLine("\nENTER Name");
+            station.Name = Console.ReadLine();
+            Console.WriteLine("\nENTER Charge slots");
+            _ = int.TryParse(Console.ReadLine(), out int chargeSlots);
+            Console.WriteLine("\nENTER longitude");
+            _ = double.TryParse(Console.ReadLine(), out double longitude);
+            Console.WriteLine("\nENTER latitude");
+            _ = double.TryParse(Console.ReadLine(), out double latitude);
+
+            station.Id = id; station.ChargeSlots = chargeSlots; station.LocationOfStation.Longitude = longitude;
+            station.LocationOfStation.Latittude = latitude;
+            bl.AddStation(station);
+            }
         }
 
     }

@@ -15,11 +15,11 @@ namespace IBL.BO
         public static double CarryingHeavyElectricityUse { get; set; }
         public static double ChargePace { get; set; }
         List<Drone> Drones = new();
-
+        IDal dal = new DalObject();
 
         public BL()
         {
-            IDal dal = new DalObject();
+            dal = new DalObject();
             FreeElectricityUse = dal.ElectricityUseRquest()[0];
             CarryingLightElectricityUse = dal.ElectricityUseRquest()[1];
             CarryingMediemElectricityUse = dal.ElectricityUseRquest()[2];
