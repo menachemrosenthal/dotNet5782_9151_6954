@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
         public enum ListsMenu { baseStations = 1, drones, customers, parcels, nonDroneParcels, unoccupiedSlotsBaseStations }
         static void Main(string[] args)
         {
-            IBL.IBL bl = new BL();
+            IBL.IBL bl = new BLdrone();
             bool flag = true;
 
             Console.WriteLine("Welcome to Drone Deliveries!");
@@ -62,7 +62,7 @@ namespace ConsoleUI_BL
                         {
                             case AddMenu.baseStation: AddStation(bl);
                                 break;
-                            case AddMenu.drone:
+                            case AddMenu.drone: AddDrone(bl);
                                 break;
                             case AddMenu.customer:
                                 break;

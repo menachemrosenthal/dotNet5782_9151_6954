@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    public partial class BL : IBL
+    public partial class BLdrone : IBL
     {
         public static double FreeElectricityUse { get; set; }
         public static double CarryingLightElectricityUse { get; set; }
@@ -17,7 +17,7 @@ namespace IBL.BO
         List<Drone> Drones = new();
         IDal dal = new DalObject();
 
-        public BL()
+        public BLdrone()
         {
             dal = new DalObject();
             FreeElectricityUse = dal.ElectricityUseRquest()[0];
