@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
+
 namespace IBL.BO
 {
-    public partial class BLdrone : IBL
+    public partial class BL : IBL
     {
         public void AddDrone(Drone drone, int stationID)
         {
@@ -19,6 +20,23 @@ namespace IBL.BO
             daldrone.Id = drone.Id; daldrone.Model = drone.Model;
             daldrone.MaxWeight = (IDAL.DO.WeightCategories)drone.MaxWeight;
             dal.AddDrone(daldrone);
+        }
+
+        public string DroneStatus(int id)
+        {
+            if (!dal.ParcelList().Any(x => x.DroneId == id))
+                return "Free";
+            else
+            {
+                IDAL.DO.Parcel parcel = new();
+                parcel = dal.ParcelList().First(x => x.DroneId == id);
+
+                if (parcel.PickedUp == null)
+                    return "Associated";
+                if (parcel.Delivered == null)
+                    return "Executing";                
+            }
+            return "Free";
         }
     }
 }

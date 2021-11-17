@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IBL.BO
 {
-    public partial class BLdrone : IBL
+    public partial class BL : IBL
     {
         public static double FreeElectricityUse { get; set; }
         public static double CarryingLightElectricityUse { get; set; }
@@ -17,7 +17,7 @@ namespace IBL.BO
         List<Drone> Drones = new();
         IDal dal = new DalObject();
 
-        public BLdrone()
+        public BL()
         {
             dal = new DalObject();
             FreeElectricityUse = dal.ElectricityUseRquest()[0];
@@ -36,91 +36,44 @@ namespace IBL.BO
                 Location customerLocation = new();
                 Location stationLocation = new();
 
-                //the drone is associated to parcel
-                if (dal.ParcelList().Any(x => x.DroneId == Drone.Id))
+                if (!(DroneStatus(drone.Id) == "Free"))
                 {
                     drone.Status = Enums.DroneStatuses.sending;
-
                     IDAL.DO.Parcel parcel = new();
                     parcel = dal.ParcelList().First(x => x.DroneId == Drone.Id);
+                    customerLocation = CusromerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
 
-                    //the drone is sending
-                    if (parcel.Delivered == null)
+                    if (DroneStatus(drone.Id) == "Associated")
+                        drone.CurrentLocation = StationLocation(ClosestStation(customerLocation));
+
+                    if (DroneStatus(drone.Id) == "Executing")
+                        drone.CurrentLocation = customerLocation;
+
+                    drone.BatteryStatus = r.Next((int)CarryingHeavyElectricityUse *
+                            ((int)LocationsDistance(drone.CurrentLocation, TargetLocation(parcel))
+                            + (int)LocationsDistance(StationLocation(ClosestStation(TargetLocation(parcel))), TargetLocation(parcel))), 99) + 1;
+
+                    Drones.Add(drone);
+
+                }
+
+                if (DroneStatus(drone.Id) == "Free")
+                {
+                    drone.Status = (Enums.DroneStatuses)r.Next(2);
+                    if (drone.Status == Enums.DroneStatuses.maintenance)
                     {
-                        //the customer that parcel belong to
-                        customerLocation.Longitude = dal.CustomerList().First(x => x.Id == parcel.Senderid).Longitude;
-                        customerLocation.Latitude = dal.CustomerList().First(x => x.Id == parcel.Senderid).Latitude;
-
-                        //if the parcel not yet pickedup
-                        if (parcel.PickedUp == null)
-                        {
-                            drone.CurrentLocation.Longitude = dal.StationList().First().Longitude;
-                            drone.CurrentLocation.Latitude = dal.StationList().First().Latitude;
-
-                            //search for the closest station to the customer
-                            foreach (var Station in dal.StationList())
-                            {
-                                Location location = new() { Longitude = Station.Longitude, Latitude = Station.Latitude };
-                                if (LocationsDistance(drone.CurrentLocation, customerLocation) > LocationsDistance(customerLocation, location))
-                                    drone.CurrentLocation = location;
-                            }
-                        }
-                        //the parcel has alredy pickedup
-                        else
-                        {
-                            //not yet delivered
-                            if (parcel.Delivered == null)
-                                drone.CurrentLocation = customerLocation;
-                        }
-                        Location targetLocation = new();
-
-                        targetLocation.Longitude = dal.CustomerList().First(x => x.Id == parcel.TargetId).Longitude;
-                        targetLocation.Latitude = dal.CustomerList().First(x => x.Id == parcel.TargetId).Latitude;
-                        stationLocation.Longitude = dal.StationList().First().Longitude;
-                        stationLocation.Latitude = dal.StationList().First().Latitude;
-                        foreach (var Station in dal.StationList())
-                        {
-                            Location location = new() { Longitude = Station.Longitude, Latitude = Station.Latitude };
-                            if (LocationsDistance(targetLocation, stationLocation) > LocationsDistance(targetLocation, location))
-                                stationLocation = location;
-                        }
-                        drone.BatteryStatus = r.Next((int)CarryingHeavyElectricityUse * 
-                            ((int)LocationsDistance(drone.CurrentLocation, targetLocation)
-                            + (int)LocationsDistance(stationLocation, targetLocation)), 99) + 1;
-
+                        drone.CurrentLocation = StationLocation(dal.StationList().ElementAt(r.Next((int)dal.StationList().LongCount())));
+                        drone.BatteryStatus = r.Next(0, 20);
                         Drones.Add(drone);
                     }
-                    //the drone is free
+
                     else
                     {
-                        drone.Status = (Enums.DroneStatuses)r.Next(2);
-                        if (drone.Status == Enums.DroneStatuses.maintenance)
-                        {
-                            int index = r.Next((int)dal.StationList().LongCount());
-                            drone.CurrentLocation.Longitude = dal.StationList().ElementAt(index).Longitude;
-                            drone.CurrentLocation.Latitude = dal.StationList().ElementAt(index).Latitude;
-                            drone.BatteryStatus = r.Next(0, 20);
-                            Drones.Add(drone);
-                        }
-                        else
-                        {
-                            List<IDAL.DO.Customer> geters = new();
-                            foreach (var customer in dal.CustomerList())
-                            {
-                                if (dal.ParcelList().Any(x => x.TargetId == customer.Id))
-                                    geters.Add(customer);
-                            }
-
-                        }
+                        drone.CurrentLocation = CusromerLocation(ReceivedCustomersList().ElementAt(r.Next((int)ReceivedCustomersList().LongCount())));
+                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation))), 99) + 1;
+                        Drones.Add(drone);
                     }
-
-
-                }
-
-                else
-                {
-
-                }
+                }                         
             }
         }
 
@@ -129,6 +82,8 @@ namespace IBL.BO
             return dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);
         }
     }
-}
 
-;
+    
+};
+
+
