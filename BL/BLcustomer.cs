@@ -24,5 +24,15 @@ namespace IBL.BO
             }
             return receivedCustomers;
         }
+        public void AddCustumer(Customer customer)
+        {
+            IDAL.DO.Customer dalCustomer = new();
+            dalCustomer.Id = customer.Id;
+            dalCustomer.Name = customer.Name;
+            dalCustomer.Phone = customer.Phone;
+            dalCustomer.Latitude = customer.Location.Latitude;
+            dalCustomer.Longitude = customer.Location.Longitude;
+            dal.AddCustumer(dalCustomer);
+        }
     }
 }
