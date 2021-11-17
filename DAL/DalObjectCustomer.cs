@@ -41,5 +41,11 @@ namespace IDAL
         /// </summary>
         /// <returns>customer array</returns>
         public IEnumerable<Customer> CustomerList() => DataSource.Customers.ToList();
+
+        public void CustomerUpdate(Customer customer)
+        {
+            int index = DataSource.Customers.IndexOf(customer);
+            DataSource.Customers[index] = customer;
+        }
     }
 }

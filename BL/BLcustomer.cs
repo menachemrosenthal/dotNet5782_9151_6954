@@ -24,6 +24,7 @@ namespace IBL.BO
             }
             return receivedCustomers;
         }
+       
         public void AddCustumer(Customer customer)
         {
             IDAL.DO.Customer dalCustomer = new();
@@ -33,6 +34,18 @@ namespace IBL.BO
             dalCustomer.Latitude = customer.Location.Latitude;
             dalCustomer.Longitude = customer.Location.Longitude;
             dal.AddCustumer(dalCustomer);
+        }
+
+        public void CustomerUpdate(Customer customer)
+        {
+            IDAL.DO.Customer dalCustomer = new();
+            dalCustomer = dal.CustomerList().First(x => x.Id == customer.Id);
+
+            if (customer.Name != "")
+                dalCustomer.Name = customer.Name;
+            if (customer.Phone != "")
+                dalCustomer.Phone = customer.Phone;
+            dal.CustomerUpdate(dalCustomer);
         }
     }
 }

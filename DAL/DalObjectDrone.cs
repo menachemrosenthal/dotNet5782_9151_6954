@@ -83,7 +83,7 @@ namespace IDAL
         /// <returns>drone list</returns>
         public IEnumerable<Drone> DroneList() => DataSource.Drones.ToList();
 
-        void DroneUpdate(Drone drone)
+        public void DroneUpdate(Drone drone)
         {
             int index = DataSource.Drones.IndexOf(drone);
             DataSource.Drones[index] = drone;

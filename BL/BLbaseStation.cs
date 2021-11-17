@@ -26,19 +26,33 @@ namespace IBL.BO
             return location;
         }
 
-        public IDAL.DO.Station ClosestStation(Location location)
+        public IDAL.DO.Station ClosestStation(Location location,IEnumerable<IDAL.DO.Station> stations)
         {
             IDAL.DO.Station station = new();
             station = dal.StationList().First();
             double diastance = LocationsDistance(location, StationLocation(station));
 
-            foreach (var Station in dal.StationList())
+            foreach (var Station in stations)
             {
                 if (diastance > LocationsDistance(location, StationLocation(Station)))
                     station = Station;
             }
 
             return station;
+        }
+
+        public void StationUpdate(int stationId, string nameUpdate, string freeChargeSlots)
+        {
+            //if (!dal.StationList().Any(x => x.Id == station.Id))
+            IDAL.DO.Station station = new();
+            station = dal.StationList().First(x => x.Id == station.Id);
+            if (nameUpdate!= "")
+                station.Name = nameUpdate;
+            if (freeChargeSlots != "")
+                if (int.TryParse((freeChargeSlots), out int chargeSlots))
+                    station.ChargeSlots = chargeSlots;
+
+            dal.StationUpdate(station);
         }
     }
 }

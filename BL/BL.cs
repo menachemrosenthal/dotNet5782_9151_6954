@@ -44,14 +44,14 @@ namespace IBL.BO
                     drone.ParcelInTransferId = parcel.Id;
 
                     if (DroneStatus(drone.Id) == "Associated")
-                        drone.CurrentLocation = StationLocation(ClosestStation(customerLocation));
+                        drone.CurrentLocation = StationLocation(ClosestStation(customerLocation,dal.StationList()));
 
                     if (DroneStatus(drone.Id) == "Executing")
                         drone.CurrentLocation = customerLocation;
 
                     drone.BatteryStatus = r.Next((int)CarryingHeavyElectricityUse *
                             ((int)LocationsDistance(drone.CurrentLocation, TargetLocation(parcel))
-                            + (int)LocationsDistance(StationLocation(ClosestStation(TargetLocation(parcel))), TargetLocation(parcel))), 99) + 1;
+                            + (int)LocationsDistance(StationLocation(ClosestStation(TargetLocation(parcel),dal.StationList())), TargetLocation(parcel))), 99) + 1;
 
                     Drones.Add(drone);
 
@@ -73,7 +73,7 @@ namespace IBL.BO
                     else
                     {
                         drone.CurrentLocation = CusromerLocation(ReceivedCustomersList().ElementAt(r.Next((int)ReceivedCustomersList().LongCount())));
-                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation))), 99) + 1;
+                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99) + 1;
                         Drones.Add(drone);
                     }
                 }                         

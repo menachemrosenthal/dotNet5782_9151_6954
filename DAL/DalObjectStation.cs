@@ -49,6 +49,20 @@ namespace IDAL
         /// <returns>station array</returns>
         public IEnumerable<Station> StationList() => DataSource.Stations.ToList();
 
+        public void StationUpdate(Station station)
+        {
+            int index = DataSource.Stations.IndexOf(station);
+            DataSource.Stations[index] = station;
+        }
 
+        public IEnumerable<Station> StationsWithFreeSlots()
+        {
+            List<Station> freeSlotsStations = new();
+            foreach (var Station in DataSource.Stations)
+                if (Station.ChargeSlots != 0)
+                    freeSlotsStations.Add(Station);
+
+            return freeSlotsStations;
+        }
     }
 }
