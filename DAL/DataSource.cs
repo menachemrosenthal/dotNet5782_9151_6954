@@ -17,11 +17,11 @@ namespace IDAL
             private static int _createParcelNumber = 1;
             internal static int CreateParcelNumber => _createParcelNumber++;
 
-            public static double Free { get; set; }
-            public static double CarryingLight { get; set; }
-            public static double CarryingMediem { get; set; }
-            public static double CarryingHeavy { get; set; }
-            public static double ChargePace { get; set; }
+            public static double Free = 0.8;
+            public static double CarryingLight = 1.0;
+            public static double CarryingMediem = 1.2;
+            public static double CarryingHeavy = 1.4;
+            public static double ChargePace = 25.0;
             /// <summary>
             /// starting a project, initialize the data
             /// </summary>
@@ -35,18 +35,18 @@ namespace IDAL
                     new Station
                     {
                         Name = $"Station {r.Next(100, 1000)}",
-                        Id = r.Next(100000000, 1000000000),
+                        Id = r.Next(1000, 10000),
                         ChargeSlots = r.Next(2, 8),
-                        Longitude = (double)r.Next(31748768, 31810806) / 1000000,
-                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
+                         Longitude = (double)r.Next(34955762, 34959020) / 1000000,
+                        Latitude = (double)r.Next(31589844, 32801705) / 1000000
                     },
                     new Station
                     {
                         Name = $"Station {r.Next(100, 1000)}",
-                        Id = r.Next(100000000, 1000000000),
+                        Id = r.Next(1000, 10000),
                         ChargeSlots = r.Next(2, 8),
-                        Longitude = (double)r.Next(31748768, 31810806) / 1000000,
-                        Lattitude = (double)r.Next(34663817, 35223456) / 1000000
+                        Longitude = (double)r.Next(34955762, 34959020) / 1000000,
+                        Latitude = (double)r.Next(31589844, 32801705) / 1000000
                     }
                 };
 
@@ -57,8 +57,8 @@ namespace IDAL
                     customer.Id = r.Next(100000000, 1000000000);
                     customer.Name = $"person {i}";
                     customer.Phone = string.Format("0{0:###-#######}", r.Next(500000000, 599999999));
-                    customer.Longitude = (double)r.Next(31748768, 31810806) / 1000000;
-                    customer.Lattitude = (double)r.Next(34663817, 35223456) / 1000000;
+                    customer.Longitude = (double)r.Next(34955762, 34959020) / 1000000;
+                    customer.Latitude = (double)r.Next(31589844, 32801705) / 1000000;
 
                     Customers.Add(customer);
                 }
@@ -93,7 +93,7 @@ namespace IDAL
 
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[9].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[0].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[0].Id,
@@ -106,7 +106,7 @@ namespace IDAL
                 {
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[8].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[1].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[1].Id,
@@ -119,7 +119,7 @@ namespace IDAL
                 {
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[7].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[2].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -129,7 +129,7 @@ namespace IDAL
                 {
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[6].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[3].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[2].Id,
@@ -141,7 +141,7 @@ namespace IDAL
                 {
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[5].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[4].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -151,7 +151,7 @@ namespace IDAL
                 {
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[4].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[5].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -161,7 +161,7 @@ namespace IDAL
                 {
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[3].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[6].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -171,7 +171,7 @@ namespace IDAL
                 {
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[2].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[8].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -181,7 +181,7 @@ namespace IDAL
                 {
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[1].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[7].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -191,7 +191,7 @@ namespace IDAL
                 {
                     Id = CreateParcelNumber,
                     Senderid = DataSource.Customers[0].Id,
-                    TargetId = r.Next(100000000, 1000000000),
+                    TargetId = DataSource.Customers[9].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
