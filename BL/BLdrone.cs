@@ -38,5 +38,13 @@ namespace IBL.BO
             }
             return "Free";
         }
+
+        public void DroneNameUpdate(int droneId, string updateName)
+        {
+            IDAL.DO.Drone drone = new();
+            drone = dal.DroneList().First(x => x.Id == droneId);
+            drone.Model = updateName;
+            dal.DroneUpdate(drone);
+        }
     }
 }

@@ -60,9 +60,11 @@ namespace ConsoleUI_BL
 
                         switch (choice)
                         {
-                            case AddMenu.baseStation: AddStation(bl);
+                            case AddMenu.baseStation:
+                                AddStation(bl);
                                 break;
-                            case AddMenu.drone: AddDrone(bl);
+                            case AddMenu.drone:
+                                AddDrone(bl);
                                 break;
                             case AddMenu.customer:
                                 break;
@@ -74,7 +76,7 @@ namespace ConsoleUI_BL
                         return;
                     }
 
-                    static void Update()
+                    void Update()
                     {
                         Console.WriteLine("\nPick one of the following update options:\n"
                             + " Drone name, press 1\n Station, press 2\n Customer, press 3\n Sending drone to charge, press 4\n"
@@ -86,6 +88,7 @@ namespace ConsoleUI_BL
                         switch (choice)
                         {
                             case UpdateMenu.droneName:
+                                DroneNameUpdate(bl);
                                 break;
                             case UpdateMenu.station:
                                 break;
@@ -165,7 +168,17 @@ namespace ConsoleUI_BL
                 }
             }
         }
-       
+
+        private static void DroneNameUpdate(IBL.IBL bl)
+        {
+            Console.WriteLine("\nENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int droneId);
+            Console.WriteLine("\nETER the new name");
+            string updateName = Console.ReadLine();
+
+            bl.DroneNameUpdate(droneId, updateName);
+        }
+
         public static void AddStation(IBL.IBL bl)
         {
 
@@ -184,7 +197,7 @@ namespace ConsoleUI_BL
 
             station.Id = id; station.ChargeSlots = chargeSlots; station.LocationOfStation.Longitude = longitude;
             station.LocationOfStation.Latitude = latitude;
-            bl.AddStation(station);            
+            bl.AddStation(station);
         }
 
         public static void AddDrone(IBL.IBL bl)

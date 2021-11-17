@@ -41,6 +41,7 @@ namespace IBL.BO
                     IDAL.DO.Parcel parcel = new();
                     parcel = dal.ParcelList().First(x => x.DroneId == Drone.Id);
                     customerLocation = CusromerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
+                    drone.ParcelInTransferId = parcel.Id;
 
                     if (DroneStatus(drone.Id) == "Associated")
                         drone.CurrentLocation = StationLocation(ClosestStation(customerLocation));
@@ -58,12 +59,15 @@ namespace IBL.BO
 
                 if (DroneStatus(drone.Id) == "Free")
                 {
+                    drone.ParcelInTransferId = 0;
                     drone.Status = (Enums.DroneStatuses)r.Next(2);
+
                     if (drone.Status == Enums.DroneStatuses.maintenance)
                     {
                         drone.CurrentLocation = StationLocation(dal.StationList().ElementAt(r.Next((int)dal.StationList().LongCount())));
                         drone.BatteryStatus = r.Next(0, 20);
                         Drones.Add(drone);
+                        dal.ChargeDrone(drone.Id, dal.StationList().First(x => StationLocation(x) == drone.CurrentLocation).Id);
                     }
 
                     else
