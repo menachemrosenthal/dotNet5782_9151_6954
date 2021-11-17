@@ -14,12 +14,11 @@ namespace IBL.BO
         public static double CarryingMediemElectricityUse { get; set; }
         public static double CarryingHeavyElectricityUse { get; set; }
         public static double ChargePace { get; set; }
-        List<Drone> Drones = new();
+        List<DroneToList> Drones = new();
         IDal dal = new DalObject();
 
         public BL()
         {
-            dal = new DalObject();
             FreeElectricityUse = dal.ElectricityUseRquest()[0];
             CarryingLightElectricityUse = dal.ElectricityUseRquest()[1];
             CarryingMediemElectricityUse = dal.ElectricityUseRquest()[2];
@@ -27,7 +26,7 @@ namespace IBL.BO
             ChargePace = dal.ElectricityUseRquest()[4];
 
             Random r = new Random();
-            Drone drone = new();
+            DroneToList drone = new();
             foreach (var Drone in dal.DroneList())
             {
                 drone.Id = Drone.Id;
