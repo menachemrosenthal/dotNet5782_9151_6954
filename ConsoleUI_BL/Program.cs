@@ -103,8 +103,10 @@ namespace ConsoleUI_BL
                                 ReleaseDrone(bl);
                                 break;
                             case UpdateMenu.parcelToDrone:
+                                ParcelToDrone(bl);
                                 break;
                             case UpdateMenu.parcelPickedup:
+                                ParcelPickedupUptade(bl);
                                 break;
                             case UpdateMenu.parcelProvision:
                                 break;
@@ -173,14 +175,30 @@ namespace ConsoleUI_BL
             }
         }
 
+        private static void ParcelPickedupUptade(IBL.IBL bl)
+        {
+            Console.WriteLine("ENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int droneId);
+
+            bl.ParcelPickedupUptade(droneId);
+        }
+
+        private static void ParcelToDrone(IBL.IBL bl)
+        {
+            Console.WriteLine("\nENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int droneId);
+
+            bl.ParcelToDrone(droneId);
+        }
+
         private static void ReleaseDrone(IBL.IBL bl)
         {
             Console.WriteLine("\nENTER Drone id");
             _ = int.TryParse(Console.ReadLine(), out int droneId);
             Console.WriteLine("ENTER charging time 00:00");
-            string chargingTime = Console.ReadLine();
+            _ = TimeSpan.TryParse( Console.ReadLine(),out TimeSpan time);
 
-            bl.ReleaseDrone(droneId, chargingTime);
+            bl.ReleaseDrone(droneId, time);
         }
 
         private static void ChargeDrone(IBL.IBL bl)

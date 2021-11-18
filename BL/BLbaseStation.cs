@@ -20,13 +20,13 @@ namespace IBL.BO
             dal.AddStation(dalStation);
         }
 
-        public Location StationLocation(IDAL.DO.Station station)
+        Location StationLocation(IDAL.DO.Station station)
         {
             Location location = new() { Longitude = station.Longitude, Latitude = station.Latitude };
             return location;
         }
 
-        public IDAL.DO.Station ClosestStation(Location location,IEnumerable<IDAL.DO.Station> stations)
+        IDAL.DO.Station ClosestStation(Location location,IEnumerable<IDAL.DO.Station> stations)
         {
             IDAL.DO.Station station = new();
             station = dal.StationList().First();

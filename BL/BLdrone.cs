@@ -9,10 +9,23 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        public void ParcelPickedupUptade(int droneId)
+        {
+            if(DroneStatus(droneId) == "Associated")
+            {
+                DroneToList drone = new();
+                drone = Drones.Find(x => x.Id == droneId);
+                double distance = LocationsDistance(drone.CurrentLocation, SenderLocation(dal.GetParcel(drone.DeliveredParcelId)));
+                drone.BatteryStatus -= distance * FreeElectricityUse;
+                drone.CurrentLocation = SenderLocation(dal.GetParcel(drone.DeliveredParcelId));
+                dal.UpdatePickup(drone.DeliveredParcelId);
+            }
+        }
+
         public void AddDrone(DroneToLIst drone, int stationID)
         {
             Random r = new Random();
-            drone.BatteryStatus = (double)r.Next(20,40);
+            drone.BatteryStatus = (double)r.Next(20, 40);
             drone.CurrentLocation.Longitude = dal.GetStation(stationID).Longitude;
             drone.CurrentLocation.Latitude = dal.GetStation(stationID).Latitude;
             drone.Status = Enums.DroneStatuses.maintenance;
@@ -27,7 +40,7 @@ namespace IBL.BO
         /// </summary>
         /// <param name="id">drone id for check</param>
         /// <returns>"Free" or "Associated" or "Executing"</returns>
-        public string DroneStatus(int id)
+        string DroneStatus(int id)
         {
             if (!dal.ParcelList().Any(x => x.DroneId == id))
                 return "Free";
@@ -39,7 +52,7 @@ namespace IBL.BO
                 if (parcel.PickedUp == null)
                     return "Associated";
                 if (parcel.Delivered == null)
-                    return "Executing";                
+                    return "Executing";
             }
             return "Free";
         }
@@ -53,7 +66,7 @@ namespace IBL.BO
         }
 
         public void ChargeDrone(int droneId)
-        {            
+        {
             if (DroneStatus(droneId) == "Free")
             {
                 DroneToList drone = new();
@@ -66,7 +79,7 @@ namespace IBL.BO
 
                 double distance = LocationsDistance(drone.CurrentLocation, location);
 
-                if (FreeElectricityUse*distance >= drone.BatteryStatus)
+                if (FreeElectricityUse * distance >= drone.BatteryStatus)
                 {
                     drone.CurrentLocation = location;
                     drone.BatteryStatus -= FreeElectricityUse * distance;
@@ -81,22 +94,66 @@ namespace IBL.BO
             //throw ...
         }
 
-        public void ReleaseDrone(int droneId, string time)
+        public void ReleaseDrone(int droneId, TimeSpan time)
         {
             DroneToList drone = new();
-            drone = Drones.Find(x=>x.Id == droneId);
-            if(drone.Status == Enums.DroneStatuses.maintenance)
+            drone = Drones.Find(x => x.Id == droneId);
+            if (drone.Status == Enums.DroneStatuses.maintenance)
             {
-                double timeToDouble = int.Parse(time.Substring(0, 2));
-                timeToDouble += double.Parse(time.Substring(3, 2)) / 100 * 1.66666667;               
+                double timeToDouble = time.Minutes;
+                timeToDouble /= 60;
                 drone.BatteryStatus = ChargePace * timeToDouble;
+                if (drone.BatteryStatus > 100)
+                    drone.BatteryStatus = 100;
+
                 drone.Status = Enums.DroneStatuses.free;
                 dal.EndCharge(droneId);
                 int index = Drones.IndexOf(drone);
-                Drones[index] = drone;                
+                Drones[index] = drone;
             }
             //else
-                //throw....
-        } 
+            //    throw
+        }
+
+        public void ParcelToDrone(int droneId)
+        {
+            if (DroneStatus(droneId) == "Free")
+            {
+                DroneToList drone = new();
+                drone = Drones.Find(x => x.Id == droneId);
+
+                List<IDAL.DO.Parcel> parcels = new();
+                parcels = SortParcels(drone.CurrentLocation);
+
+                int weight = (int)drone.MaxWeight;
+
+                foreach (var parcel in parcels)
+                {
+                    if(weight >= (int)parcel.Weight)
+                    {
+                        if(drone.BatteryStatus >= BatteryUseByParcel(drone,parcel))
+                        {
+                            drone.Status = Enums.DroneStatuses.sending;
+                            drone.DeliveredParcelId = parcel.Id;
+                            dal.ParcelToDrone(parcel.Id, drone.Id);
+                            Drones[Drones.IndexOf(drone)] = drone;
+                            break;
+                        }
+                        
+                    }
+                }
+                //if(DroneStatus(drone.Id)=="Free")
+                    //therow...;
+            }
+        }
+        
+        double BatteryUseByParcel(DroneToList drone, IDAL.DO.Parcel parcel)
+        {            
+            double electricityUse = LocationsDistance(drone.CurrentLocation, SenderLocation(parcel)) * FreeElectricityUse;
+            electricityUse += SenderTaregetDistance(parcel) * dal.ElectricityUseRquest()[(int)parcel.Weight];
+            electricityUse += CustomerClosestStationDistance(parcel.TargetId) * FreeElectricityUse;
+
+            return electricityUse;
+        }
     }
 }

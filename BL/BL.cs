@@ -40,8 +40,8 @@ namespace IBL.BO
                     drone.Status = Enums.DroneStatuses.sending;
                     IDAL.DO.Parcel parcel = new();
                     parcel = dal.ParcelList().First(x => x.DroneId == Drone.Id);
-                    customerLocation = CusromerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
-                    drone.ParcelInTransferId = parcel.Id;
+                    customerLocation = CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
+                    drone.DeliveredParcelId = parcel.Id;
 
                     if (DroneStatus(drone.Id) == "Associated")
                         drone.CurrentLocation = StationLocation(ClosestStation(customerLocation,dal.StationList()));
@@ -59,7 +59,7 @@ namespace IBL.BO
 
                 if (DroneStatus(drone.Id) == "Free")
                 {
-                    drone.ParcelInTransferId = 0;
+                    drone.DeliveredParcelId = 0;
                     drone.Status = (Enums.DroneStatuses)r.Next(2);
 
                     if (drone.Status == Enums.DroneStatuses.maintenance)
@@ -72,7 +72,7 @@ namespace IBL.BO
 
                     else
                     {
-                        drone.CurrentLocation = CusromerLocation(ReceivedCustomersList().ElementAt(r.Next((int)ReceivedCustomersList().LongCount())));
+                        drone.CurrentLocation = CustomerLocation(ReceivedCustomersList().ElementAt(r.Next((int)ReceivedCustomersList().LongCount())));
                         drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99) + 1;
                         Drones.Add(drone);
                     }
@@ -80,7 +80,7 @@ namespace IBL.BO
             }
         }
 
-        public double LocationsDistance(Location l1, Location l2)
+        double LocationsDistance(Location l1, Location l2)
         {
             return dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);
         }

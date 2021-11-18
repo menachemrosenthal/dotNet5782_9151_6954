@@ -8,13 +8,13 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
-        public Location CusromerLocation(IDAL.DO.Customer customer)
+        Location CustomerLocation(IDAL.DO.Customer customer)
         {
             Location location = new() { Longitude = customer.Longitude, Latitude = customer.Latitude };
             return location;
         }
 
-        public IEnumerable<IDAL.DO.Customer> ReceivedCustomersList()
+        IEnumerable<IDAL.DO.Customer> ReceivedCustomersList()
         {
             List<IDAL.DO.Customer> receivedCustomers = new();
             foreach (var Customer in dal.CustomerList())
@@ -46,6 +46,13 @@ namespace IBL.BO
             if (customer.Phone != "")
                 dalCustomer.Phone = customer.Phone;
             dal.CustomerUpdate(dalCustomer);
+        }
+
+        double CustomerClosestStationDistance(int customerId)
+        {
+            IDAL.DO.Customer customer = new();
+            customer = dal.CustomerList().First(x => x.Id == customerId);
+            return LocationsDistance(CustomerLocation(customer), StationLocation(ClosestStation(CustomerLocation(customer), dal.StationList())));
         }
     }
 }
