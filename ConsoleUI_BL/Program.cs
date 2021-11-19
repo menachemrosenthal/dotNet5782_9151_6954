@@ -60,13 +60,17 @@ namespace ConsoleUI_BL
 
                         switch (choice)
                         {
-                            case AddMenu.baseStation: AddStation(bl);
+                            case AddMenu.baseStation:
+                                AddStation(bl);
                                 break;
-                            case AddMenu.drone: AddDrone(bl);
+                            case AddMenu.drone:
+                                AddDrone(bl);
                                 break;
-                            case AddMenu.customer: AddCustomer(bl);
+                            case AddMenu.customer:
+                                AddCustomer(bl);
                                 break;
-                            case AddMenu.parcel: AddParcel(bl);
+                            case AddMenu.parcel:
+                                AddParcel(bl);
                                 break;
                             default:
                                 break;
@@ -74,7 +78,7 @@ namespace ConsoleUI_BL
                         return;
                     }
 
-                    static void Update()
+                    void Update()
                     {
                         Console.WriteLine("\nPick one of the following update options:\n"
                             + " Drone name, press 1\n Station, press 2\n Customer, press 3\n Sending drone to charge, press 4\n"
@@ -86,18 +90,25 @@ namespace ConsoleUI_BL
                         switch (choice)
                         {
                             case UpdateMenu.droneName:
+                                DroneNameUpdate(bl);
                                 break;
                             case UpdateMenu.station:
+                                StationUpdate(bl);
                                 break;
                             case UpdateMenu.customer:
+                                CustomerUpdate(bl);
                                 break;
                             case UpdateMenu.droneToCharge:
+                                ChargeDrone(bl);
                                 break;
                             case UpdateMenu.releaseDrone:
+                                ReleaseDrone(bl);
                                 break;
                             case UpdateMenu.parcelToDrone:
+                                ParcelToDrone(bl);
                                 break;
                             case UpdateMenu.parcelPickedup:
+                                ParcelPickedupUptade(bl);
                                 break;
                             case UpdateMenu.parcelProvision:
                                 break;
@@ -107,7 +118,7 @@ namespace ConsoleUI_BL
                         return;
                     }
 
-                    static void Display()
+                    void Display()
                     {
                         Console.WriteLine("\nPick one of the following object display options:\n"
                             + " Base station, press 1\n Drone, press 2\n Customer, press 3\n Parcel, press 4\n");
@@ -117,8 +128,10 @@ namespace ConsoleUI_BL
                         switch (choice)
                         {
                             case DisplayMenu.baseStation:
+                                DisplayBaseStation(bl);
                                 break;
                             case DisplayMenu.drone:
+                                DisplayBaseDrone(bl);
                                 break;
                             case DisplayMenu.customer:
                                 break;
@@ -166,6 +179,92 @@ namespace ConsoleUI_BL
             }
         }
 
+        private static void DisplayBaseDrone(IBL.IBL bl)
+        {
+            Console.WriteLine("ENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int DroneId);
+
+            Console.WriteLine(bl.DroneToString(DroneId));
+        }
+
+        private static void DisplayBaseStation(IBL.IBL bl)
+        {
+            Console.WriteLine("ENTER Station id");
+            _ = int.TryParse(Console.ReadLine(), out int stationId);
+
+            Console.WriteLine(bl.StationToString(stationId));
+        }
+
+        private static void ParcelPickedupUptade(IBL.IBL bl)
+        {
+            Console.WriteLine("ENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int droneId);
+
+            bl.ParcelPickedupUptade(droneId);
+        }
+
+        private static void ParcelToDrone(IBL.IBL bl)
+        {
+            Console.WriteLine("\nENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int droneId);
+
+            bl.ParcelToDrone(droneId);
+        }
+
+        private static void ReleaseDrone(IBL.IBL bl)
+        {
+            Console.WriteLine("\nENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int droneId);
+            Console.WriteLine("ENTER charging time 00:00");
+            _ = TimeSpan.TryParse( Console.ReadLine(),out TimeSpan time);
+
+            bl.ReleaseDrone(droneId, time);
+        }
+
+        private static void ChargeDrone(IBL.IBL bl)
+        {
+            Console.WriteLine("\nENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int droneId);
+
+            bl.ChargeDrone(droneId);
+        }
+
+        private static void CustomerUpdate(IBL.IBL bl)
+        {
+            Console.WriteLine("\nENTER Customer id");
+            _ = int.TryParse(Console.ReadLine(), out int customerId);
+            Console.WriteLine("\nENTER the new name or press enter");
+            string newName = Console.ReadLine();
+            Console.WriteLine("\nENTER the new phone number");
+            string newPhoneNum = Console.ReadLine();
+
+            Customer customer = new() { Id = customerId, Name = newName, Phone = newPhoneNum };
+            bl.CustomerUpdate(customer);
+        }
+
+        private static void StationUpdate(IBL.IBL bl)
+        {
+            Console.WriteLine("/nENTER Station id");
+            _ = int.TryParse(Console.ReadLine(), out int stationId);
+            Console.WriteLine("/nENTER a new name or press enter");
+            string nameUpdate = Console.ReadLine();
+            Console.WriteLine("/nENTER number of free charge slots or press enter");
+            string freeChargSlots = Console.ReadLine();
+
+            bl.StationUpdate(stationId, nameUpdate, freeChargSlots);
+        }
+
+        private static void DroneNameUpdate(IBL.IBL bl)
+        {
+            Console.WriteLine("\nENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int droneId);
+            Console.WriteLine("\nETER the new name");
+            string updateName = Console.ReadLine();
+
+            bl.DroneNameUpdate(droneId, updateName);
+        }
+
+
         private static void AddParcel(IBL.IBL bl)
         {
             Parcel parcel = new();
@@ -203,12 +302,12 @@ namespace ConsoleUI_BL
 
             station.Id = id; station.ChargeSlots = chargeSlots; station.LocationOfStation.Longitude = longitude;
             station.LocationOfStation.Latitude = latitude;
-            bl.AddStation(station);            
+            bl.AddStation(station);
         }
 
         public static void AddDrone(IBL.IBL bl)
         {
-            Drone drone = new();
+            DroneToLIst drone = new();
 
             Console.WriteLine("ENTER Id\n");
             _ = int.TryParse(Console.ReadLine(), out int id);

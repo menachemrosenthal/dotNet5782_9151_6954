@@ -79,11 +79,6 @@ namespace IDAL
                 drone.Id = r.Next(100); drone.Model = "Toyota"; drone.MaxWeight = (WeightCategories)0;
                 Drones.Add(drone);
 
-
-                DroneCharge droneCharge = new();
-                droneCharge.DroneId = Drones[3].Id; droneCharge.StationId = Stations[1].Id;
-                DronesCharge.Add(droneCharge);
-
                 var station = Stations[1];
                 station.ChargeSlots--;
 

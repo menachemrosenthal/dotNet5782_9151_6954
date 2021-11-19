@@ -28,5 +28,12 @@ namespace IDAL
         IEnumerable<Drone> DroneList();
         double DistanceCalculate(double lat1, double lon1, double lat2, double lon2);
         double[] ElectricityUseRquest();
+        void DroneUpdate(Drone drone);
+        void StationUpdate(Station station);
+        void CustomerUpdate(Customer customer);
+        IEnumerable<Station> StationsWithFreeSlots();
+        IEnumerable<DroneCharge> DroneChargingList();
+        DroneCharge GetDroneCharging(int droneId);
+
     }
 }

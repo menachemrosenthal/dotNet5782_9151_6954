@@ -40,17 +40,18 @@ namespace IBL.BO
                     drone.Status = Enums.DroneStatuses.sending;
                     IDAL.DO.Parcel parcel = new();
                     parcel = dal.ParcelList().First(x => x.DroneId == Drone.Id);
-                    customerLocation = CusromerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
+                    customerLocation = CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
+                    drone.DeliveredParcelId = parcel.Id;
 
                     if (DroneStatus(drone.Id) == "Associated")
-                        drone.CurrentLocation = StationLocation(ClosestStation(customerLocation));
+                        drone.CurrentLocation = StationLocation(ClosestStation(customerLocation,dal.StationList()));
 
                     if (DroneStatus(drone.Id) == "Executing")
                         drone.CurrentLocation = customerLocation;
 
                     drone.BatteryStatus = r.Next((int)CarryingHeavyElectricityUse *
                             ((int)LocationsDistance(drone.CurrentLocation, TargetLocation(parcel))
-                            + (int)LocationsDistance(StationLocation(ClosestStation(TargetLocation(parcel))), TargetLocation(parcel))), 99) + 1;
+                            + (int)LocationsDistance(StationLocation(ClosestStation(TargetLocation(parcel),dal.StationList())), TargetLocation(parcel))), 99) + 1;
 
                     Drones.Add(drone);
 
@@ -58,18 +59,21 @@ namespace IBL.BO
 
                 if (DroneStatus(drone.Id) == "Free")
                 {
+                    drone.DeliveredParcelId = 0;
                     drone.Status = (Enums.DroneStatuses)r.Next(2);
+
                     if (drone.Status == Enums.DroneStatuses.maintenance)
                     {
                         drone.CurrentLocation = StationLocation(dal.StationList().ElementAt(r.Next((int)dal.StationList().LongCount())));
                         drone.BatteryStatus = r.Next(0, 20);
                         Drones.Add(drone);
+                        dal.ChargeDrone(drone.Id, dal.StationList().First(x => StationLocation(x) == drone.CurrentLocation).Id);
                     }
 
                     else
                     {
-                        drone.CurrentLocation = CusromerLocation(ReceivedCustomersList().ElementAt(r.Next((int)ReceivedCustomersList().LongCount())));
-                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation))), 99) + 1;
+                        drone.CurrentLocation = CustomerLocation(ReceivedCustomersList().ElementAt(r.Next((int)ReceivedCustomersList().LongCount())));
+                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99) + 1;
                         Drones.Add(drone);
                     }
                 }                         

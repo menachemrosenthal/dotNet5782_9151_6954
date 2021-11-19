@@ -424,9 +424,8 @@ namespace ConsoleUI
         /// display list of stations with free charge slots
         /// </summary>
         public static void StationsWithFreeSlotsDisplay(IDAL.IDal iDal)
-        {
-            foreach (var Station in iDal.StationList())
-                if (Station.ChargeSlots != 0)
+        {            
+            foreach (var Station in iDal.StationsWithFreeSlots())                
                     Console.WriteLine(Station.ToString());
         }
 
