@@ -15,5 +15,14 @@ namespace IBL.BO
         public int ChargeSlots { get; set; }
 
         public List<DroneInCharging> DronesCharging;
+        public override string ToString()
+        {
+            return "Station: " + Name +
+                "\nID: " + Id +
+                "\nCharge slots: " + ChargeSlots +
+                LocationOfStation.ToString()+
+                DronesCharging.ToString()
+                ;
+        }
     }
 }

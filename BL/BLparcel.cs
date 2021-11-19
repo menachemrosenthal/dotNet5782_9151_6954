@@ -112,5 +112,16 @@ namespace IBL.BO
         {
             return LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
         }
+        public void AddParcel(Parcel parcel)
+        {
+            IDAL.DO.Parcel dalParcel = new();
+            dalParcel.Senderid = parcel.Senderid;
+            dalParcel.TargetId = parcel.TargetId;
+            dalParcel.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
+            dalParcel.Priority = (IDAL.DO.Priorities)parcel.Priority;
+            dalParcel.Requested = DateTime.Now;
+            parcel.Drone = null;
+            dal.AddParcel(dalParcel);
+        }
     }
 }

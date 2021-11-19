@@ -54,5 +54,26 @@ namespace IBL.BO
 
             dal.StationUpdate(station);
         }
+        public string StationToString(int Idstation)
+        {
+            Station blStation = new();
+            IDAL.DO.Station s = new();
+            s = dal.GetStation(Idstation);
+            blStation.Id = Idstation; blStation.Name = s.Name;
+            blStation.ChargeSlots = s.ChargeSlots; blStation.LocationOfStation.Longitude = s.Longitude;
+            blStation.LocationOfStation.Latitude = s.Latitude;
+            IEnumerable<IDAL.DO.DroneCharge> drones = dal.DroneChargingList();
+            foreach (var droneCharge in drones)
+            {
+                if (droneCharge.StationId == Idstation)
+                {
+                    DroneInCharging d = new();
+                    d.Id = droneCharge.DroneId;
+                    // how do i get battery status?!
+                    blStation.DronesCharging.Add(d);
+                }
+            }
+            return blStation.ToString();
+        }
     }
 }

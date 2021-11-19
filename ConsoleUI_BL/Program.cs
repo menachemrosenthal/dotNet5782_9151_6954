@@ -67,8 +67,10 @@ namespace ConsoleUI_BL
                                 AddDrone(bl);
                                 break;
                             case AddMenu.customer:
+                                AddCustomer(bl);
                                 break;
                             case AddMenu.parcel:
+                                AddParcel(bl);
                                 break;
                             default:
                                 break;
@@ -116,7 +118,7 @@ namespace ConsoleUI_BL
                         return;
                     }
 
-                    static void Display()
+                    void Display()
                     {
                         Console.WriteLine("\nPick one of the following object display options:\n"
                             + " Base station, press 1\n Drone, press 2\n Customer, press 3\n Parcel, press 4\n");
@@ -126,8 +128,10 @@ namespace ConsoleUI_BL
                         switch (choice)
                         {
                             case DisplayMenu.baseStation:
+                                DisplayBaseStation(bl);
                                 break;
                             case DisplayMenu.drone:
+                                DisplayBaseDrone(bl);
                                 break;
                             case DisplayMenu.customer:
                                 break;
@@ -173,6 +177,22 @@ namespace ConsoleUI_BL
                     throw;
                 }
             }
+        }
+
+        private static void DisplayBaseDrone(IBL.IBL bl)
+        {
+            Console.WriteLine("ENTER Drone id");
+            _ = int.TryParse(Console.ReadLine(), out int DroneId);
+
+            Console.WriteLine(bl.DroneToString(DroneId));
+        }
+
+        private static void DisplayBaseStation(IBL.IBL bl)
+        {
+            Console.WriteLine("ENTER Station id");
+            _ = int.TryParse(Console.ReadLine(), out int stationId);
+
+            Console.WriteLine(bl.StationToString(stationId));
         }
 
         private static void ParcelPickedupUptade(IBL.IBL bl)
@@ -244,6 +264,26 @@ namespace ConsoleUI_BL
             bl.DroneNameUpdate(droneId, updateName);
         }
 
+
+        private static void AddParcel(IBL.IBL bl)
+        {
+            Parcel parcel = new();
+            Console.WriteLine("\nENTER sender ID");
+            _ = int.TryParse(Console.ReadLine(), out int senderId);
+            Console.WriteLine("\nENTER Target ID");
+            _ = int.TryParse(Console.ReadLine(), out int TargetId);
+            Console.WriteLine("\nENTER Weight: light, medium or heavy");
+            _ = Enum.TryParse(Console.ReadLine(), out Enums.WeightCategories weight);
+            Console.WriteLine("\nENTER proirity: ragular, fast, urgent");
+            _ = Enum.TryParse(Console.ReadLine(), out Enums.Priorities priority);
+            
+            parcel.Requested = DateTime.Now;
+
+            parcel.Senderid = senderId; parcel.TargetId = TargetId; 
+            parcel.Weight = weight; parcel.Priority = priority;
+            bl.AddParcel(parcel);
+        }
+
         public static void AddStation(IBL.IBL bl)
         {
 
@@ -273,13 +313,33 @@ namespace ConsoleUI_BL
             _ = int.TryParse(Console.ReadLine(), out int id);
             Console.WriteLine("\nENTER Model");
             drone.Model = Console.ReadLine();
-            Console.WriteLine("\nENTER MaxWeight");
+            Console.WriteLine("\nENTER MaxWeight: light, medium or heavy");
             _ = Enum.TryParse(Console.ReadLine(), out Enums.WeightCategories maxWeight);
             Console.WriteLine("ENTER station ID to charge\n");
             _ = int.TryParse(Console.ReadLine(), out int stationId);
 
             drone.Id = id; drone.MaxWeight = maxWeight;
             bl.AddDrone(drone, stationId);
+        }
+        public static void AddCustomer(IBL.IBL bl)
+        {
+            Customer customer = new();
+
+            Console.WriteLine("\nENTER Id");
+            _ = int.TryParse(Console.ReadLine(), out int id);
+            Console.WriteLine("\nENTER Name");
+            customer.Name = Console.ReadLine();
+            Console.WriteLine("\nENTER phone");
+            customer.Phone = Console.ReadLine();
+            Console.WriteLine("\nENTER longitude");
+            _ = double.TryParse(Console.ReadLine(), out double longitude);
+            Console.WriteLine("\nENTER latitude");
+            _ = double.TryParse(Console.ReadLine(), out double lattitude);
+
+            customer.Id = id; customer.Location.Longitude = longitude; 
+            customer.Location.Latitude = lattitude;
+            bl.AddCustumer(customer);
+
         }
     }
 }

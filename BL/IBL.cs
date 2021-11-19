@@ -18,5 +18,10 @@ namespace IBL
         void ReleaseDrone(int droneId, TimeSpan time);
         void ParcelToDrone(int droneId);
         void ParcelPickedupUptade(int droneId);
+        double LocationsDistance(Location l1, Location l2);
+        void AddCustumer(Customer customer);
+        void AddParcel(Parcel parcel);
+        string StationToString(int stationId);
+        string DroneToString(int DroneId);
     }
 }

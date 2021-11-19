@@ -80,7 +80,7 @@ namespace IBL.BO
             }
         }
 
-        double LocationsDistance(Location l1, Location l2)
+        public double LocationsDistance(Location l1, Location l2)
         {
             return dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);
         }

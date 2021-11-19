@@ -32,5 +32,8 @@ namespace IDAL
         void StationUpdate(Station station);
         void CustomerUpdate(Customer customer);
         IEnumerable<Station> StationsWithFreeSlots();
+        IEnumerable<DroneCharge> DroneChargingList();
+        DroneCharge GetDroneCharging(int droneId);
+
     }
 }

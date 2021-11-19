@@ -76,6 +76,19 @@ namespace IDAL
 
                 return DataSource.Drones.FirstOrDefault(x => x.Id == droneId);            
         }
+        /// <summary>
+        /// get droneCharging
+        /// </summary>
+        /// <param name="droneId">drone id to return</param>
+        /// <returns>drone object</returns>
+        public DroneCharge GetDroneCharging(int droneId)
+        {
+            var exist = DataSource.DronesCharge.Any(x => x.DroneId == droneId);
+            if (!exist)
+                throw new IDAL.ItemNotFoundException("Drone", droneId);
+
+            return DataSource.DronesCharge.FirstOrDefault(x => x.DroneId == droneId);
+        }
 
         /// <summary>
         /// get the drone list
@@ -83,10 +96,17 @@ namespace IDAL
         /// <returns>drone list</returns>
         public IEnumerable<Drone> DroneList() => DataSource.Drones.ToList();
 
+        /// <summary>
+        /// get the drone charging list
+        /// </summary>
+        /// <returns>drone list</returns>
+        public IEnumerable<DroneCharge> DroneChargingList() => DataSource.DronesCharge.ToList();
+
         public void DroneUpdate(Drone drone)
         {
             int index = DataSource.Drones.IndexOf(drone);
             DataSource.Drones[index] = drone;
         }
+        
     }
 }
