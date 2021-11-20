@@ -17,7 +17,7 @@ namespace ConsoleUI_BL
         public enum ListsMenu { baseStations = 1, drones, customers, parcels, nonDroneParcels, unoccupiedSlotsBaseStations }
         static void Main(string[] args)
         {
-            IBL.IBL bl = new BL();
+            IBL.IBL bl = new IBL.BO.BL();
             bool flag = true;
 
             Console.WriteLine("Welcome to Drone Deliveries!");
@@ -111,6 +111,7 @@ namespace ConsoleUI_BL
                                 ParcelPickedupUptade(bl);
                                 break;
                             case UpdateMenu.parcelProvision:
+                                parcelProvision(bl);
                                 break;
                             default:
                                 break;
@@ -177,6 +178,14 @@ namespace ConsoleUI_BL
                     throw;
                 }
             }
+        }
+
+        private static void parcelProvision(IBL.IBL bl)
+        {
+            Console.WriteLine("\nENTER Drone id");
+            _= int.TryParse(Console.ReadLine(), out int droneId);
+
+            bl.parcelProvisionUpdate(droneId);
         }
 
         private static void DisplayBaseDrone(IBL.IBL bl)
@@ -300,8 +309,12 @@ namespace ConsoleUI_BL
             Console.WriteLine("\nENTER latitude");
             _ = double.TryParse(Console.ReadLine(), out double latitude);
 
-            station.Id = id; station.ChargeSlots = chargeSlots; station.LocationOfStation.Longitude = longitude;
-            station.LocationOfStation.Latitude = latitude;
+            station.Id = id; station.ChargeSlots = chargeSlots; 
+            station.LocationOfStation = new()
+            {
+                Longitude = longitude,
+                Latitude = latitude
+            };
             bl.AddStation(station);
         }
 

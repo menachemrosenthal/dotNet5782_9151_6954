@@ -37,11 +37,7 @@ namespace IBL.BO
             dal.AddDrone(daldrone);
         }
 
-        /// <summary>
-        /// cheking drone status
-        /// </summary>
-        /// <param name="id">drone id for check</param>
-        /// <returns>"Free" or "Associated" or "Executing"</returns>
+        
         public void DroneNameUpdate(int droneId, string updateName)
         {
             IDAL.DO.Drone drone = new();
@@ -109,7 +105,7 @@ namespace IBL.BO
 
                 List<IDAL.DO.Parcel> parcels = new();
                 parcels = SortParcels(drone.CurrentLocation);
-
+                
                 int weight = (int)drone.MaxWeight;
 
                 foreach (var parcel in parcels)
@@ -132,8 +128,17 @@ namespace IBL.BO
             //therow...;
         }
 
+        public string DroneToString(int DroneId)
+        { return "no yet execute"; }
+
 
         //                   **************        Auxiliary functions          ***************           //
+
+        /// <summary>
+        /// cheking drone status
+        /// </summary>
+        /// <param name="id">drone id for check</param>
+        /// <returns>"Free" or "Associated" or "Executing"</returns>
         string DroneStatus(int id)
         {
             if (!dal.ParcelList().Any(x => x.DroneId == id))
@@ -153,11 +158,11 @@ namespace IBL.BO
 
         double BatteryUseInDelivery(DroneToList drone, IDAL.DO.Parcel parcel)
         {            
-            double electricityUse = LocationsDistance(drone.CurrentLocation, SenderLocation(parcel)) * FreeElectricityUse;
-            electricityUse += SenderTaregetDistance(parcel) * dal.ElectricityUseRquest()[(int)parcel.Weight];
-            electricityUse += CustomerClosestStationDistance(parcel.TargetId) * FreeElectricityUse;
+            double BatteryUse = LocationsDistance(drone.CurrentLocation, SenderLocation(parcel)) * FreeElectricityUse;
+            BatteryUse += SenderTaregetDistance(parcel) * dal.BatteryUseRquest()[(int)parcel.Weight];
+            BatteryUse += CustomerClosestStationDistance(parcel.TargetId) * FreeElectricityUse;
 
-            return electricityUse;
+            return BatteryUse;
         }
     }
 }

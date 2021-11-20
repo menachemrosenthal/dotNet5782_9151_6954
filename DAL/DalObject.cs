@@ -43,9 +43,9 @@ namespace IDAL
         /// electricity use array
         /// </summary>
         /// <returns>electricityUse array</returns>
-        public double[] ElectricityUseRquest()
+        public double[] BatteryUseRquest()
         {
-            double[] electricityUse = new double[4];
+            double[] electricityUse = new double[5];
 
             electricityUse[0] = DataSource.Config.Free;
             electricityUse[1] = DataSource.Config.CarryingLight;

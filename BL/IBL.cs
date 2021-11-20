@@ -23,5 +23,6 @@ namespace IBL
         void AddParcel(Parcel parcel);
         string StationToString(int stationId);
         string DroneToString(int DroneId);
+        void parcelProvisionUpdate(int droneId);
     }
 }

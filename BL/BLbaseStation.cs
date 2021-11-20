@@ -14,6 +14,7 @@ namespace IBL.BO
             IDAL.DO.Station dalStation = new();
             dalStation.Id = station.Id;
             dalStation.Name = station.Name;
+            dalStation.ChargeSlots = station.ChargeSlots;
             dalStation.Latitude = station.LocationOfStation.Latitude;
             dalStation.Longitude = station.LocationOfStation.Longitude;
             station.DronesCharging = null;
@@ -50,7 +51,7 @@ namespace IBL.BO
                 station.Name = nameUpdate;
             if (freeChargeSlots != "")
                 if (int.TryParse((freeChargeSlots), out int chargeSlots))
-                    station.ChargeSlots = chargeSlots;
+                    station.ChargeSlots = chargeSlots - DronesInStation(stationId).Count;
 
             dal.StationUpdate(station);
         }
@@ -60,20 +61,29 @@ namespace IBL.BO
             IDAL.DO.Station s = new();
             s = dal.GetStation(Idstation);
             blStation.Id = Idstation; blStation.Name = s.Name;
-            blStation.ChargeSlots = s.ChargeSlots; blStation.LocationOfStation.Longitude = s.Longitude;
-            blStation.LocationOfStation.Latitude = s.Latitude;
-            IEnumerable<IDAL.DO.DroneCharge> drones = dal.DroneChargingList();
-            foreach (var droneCharge in drones)
-            {
-                if (droneCharge.StationId == Idstation)
-                {
-                    DroneInCharging d = new();
-                    d.Id = droneCharge.DroneId;
-                    // how do i get battery status?!
-                    blStation.DronesCharging.Add(d);
-                }
-            }
+            blStation.ChargeSlots = s.ChargeSlots; 
+            blStation.LocationOfStation = StationLocation(s);                        
+            blStation.DronesCharging = DronesInStation(Idstation);
             return blStation.ToString();
         }
+
+        List<DroneInCharging> DronesInStation(int stationId)
+        {
+            List<DroneInCharging> droneCharge = new();
+
+            foreach (var Charge in dal.DroneChargingList())
+            {
+                if (Charge.StationId == stationId)
+                {
+                    DroneInCharging d = new();
+                    d.Id = Charge.DroneId;                    
+                    d.BatteryStatus = Drones.Find(x => x.Id == Charge.DroneId).BatteryStatus;
+                    droneCharge.Add(d);
+                }
+            }
+
+            return droneCharge;
+        }
+
     }
 }
