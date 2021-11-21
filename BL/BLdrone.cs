@@ -141,7 +141,7 @@ namespace IBL.BO
             drone.CurrentLocation = d.CurrentLocation;
             if (drone.Status == Enums.DroneStatuses.sending)
             {
-                //drone.Parcel = dal.GetParcelintrasfer(d.DeliveredParcelId);
+                drone.Parcel = getParcelInTransfer(d.DeliveredParcelId);
             }
             return drone;
         }

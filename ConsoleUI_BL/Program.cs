@@ -233,10 +233,11 @@ namespace ConsoleUI_BL
 
         private static void DisplayBaseStation(IBL.IBL bl)
         {
+            IBL.BO.Station station = new();
             Console.WriteLine("ENTER Station id");
-            _ = int.TryParse(Console.ReadLine(), out int stationId);
-
-            Console.WriteLine(bl.StationToString(stationId));
+            _ = int.TryParse(Console.ReadLine(), out int StationId);
+            station = bl.getStation(StationId);
+            Console.WriteLine(station);
         }
 
         private static void ParcelPickedupUptade(IBL.IBL bl)
