@@ -24,6 +24,20 @@ namespace IBL.BO
             parcel.Drone.BatteryStatus = d.BatteryStatus;
             return parcel;
         }
+        private ParcelInTransfer getParcelInTransfer(int parcelId)
+        {
+            ParcelInTransfer parcel = new();
+            IDAL.DO.Parcel p = dal.GetParcel(parcelId);
+            parcel.Id = p.Id; parcel.Transferred=? ;
+            parcel.Priority = (Enums.Priorities)p.Priority;
+            parcel.Receiver = getCustomerInParcel(p.TargetId);
+            parcel.Sender = getCustomerInParcel(p.Senderid);
+            parcel.Collection.Latitude=dal.GetCustomer(p.Senderid).Latitude;
+            parcel.Collection.Longitude = dal.GetCustomer(p.Senderid).Longitude;
+            parcel.Target.Latitude = dal.GetCustomer(p.TargetId).Latitude;
+            parcel.Target.Longitude = dal.GetCustomer(p.TargetId).Longitude;
+            return parcel;
+        }
         public void parcelProvisionUpdate(int droneId)
         {
             if (DroneStatus(droneId) == "Executing")

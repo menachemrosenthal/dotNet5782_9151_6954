@@ -24,7 +24,7 @@ namespace IBL
         Customer getCustomer(int CustomerId);
         void AddParcel(Parcel parcel);
         Parcel getParcel(int parcelId);
-        Station GetStation(int stationId);
+        Station getStation(int StationId);
         void parcelProvisionUpdate(int droneId);
         IEnumerable<StationToList> GetBaseStationList();
         IEnumerable<object> GetDroneList();

@@ -20,7 +20,8 @@ namespace IBL.BO
             return "\nStation: " + Name +
                 "\nID: " + Id +
                 "\nCharge slots: " + ChargeSlots +
-                LocationOfStation.ToString();                
+                "Location"+LocationOfStation +
+                "List of Drones In Charging:"+DronesCharging+"\n";                
         }
     }
 }

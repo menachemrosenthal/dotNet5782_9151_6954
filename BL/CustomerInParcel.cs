@@ -6,7 +6,7 @@ namespace IBL.BO
 {
     public class CustomerInParcel
     {
-        int Id { get; set; }
-        string Name { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

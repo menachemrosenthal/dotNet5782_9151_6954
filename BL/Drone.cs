@@ -19,7 +19,9 @@ namespace IBL.BO
         public override string ToString()
         {
             return "Drone: " + Model +
-                "\nID: " + Id + "\nMax weight: " + MaxWeight + "\n" 
+                "\nID: " + Id + "\nMax weight: " + MaxWeight + "\nBatteryStatus:" + BatteryStatus
+                + "\nDroneStatuses:" + Status + "\nParcelInTransfer:" + Parcel +
+                "Location" + CurrentLocation + "\n";
                 ;
         }
     }

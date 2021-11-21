@@ -12,7 +12,13 @@ namespace IBL.BO
         public string Name { get; set; }
         public string Phone { get; set; }
         public Location Location { get; set; } 
-        List<Parcel> Sended;
-        List<Parcel> Get;
+        public List<Parcel> Sended;
+        public List<Parcel> Get;
+        public override string ToString()
+        {
+            return "Customer number: " + Id + "\nName ID: " + Name + "\nPhone ID: " + Phone +
+                "\nLocation: " + Location + "List of Parceles to be sent " + Sended +
+                "List of Parceles to get" + Get + "\n";
+        }
     }
 }

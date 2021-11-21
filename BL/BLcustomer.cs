@@ -8,10 +8,38 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        private CustomerInParcel getCustomerInParcel(int CustomerId)
+        {
+            CustomerInParcel customer = new();
+            IDAL.DO.Customer c = dal.GetCustomer(CustomerId);
+            customer.Id = c.Id; customer.Name = c.Name;
+            return customer;
+        }
         public Customer getCustomer(int CustomerId)
         {
             Customer customer = new();
-            // mimush...
+            IDAL.DO.Customer c1 = dal.GetCustomer(CustomerId);
+            customer.Id = c1.Id;customer.Name = c1.Name;customer.Phone = c1.Phone;
+            customer.Location.Latitude = c1.Latitude; customer.Location.Longitude = c1.Longitude;
+            List<IDAL.DO.Parcel> parcels = (List<IDAL.DO.Parcel>)dal.ParcelList();
+            foreach (var par in dal.ParcelList())
+            {
+                if (par.Senderid == CustomerId)
+                {
+                    Parcel p1 = new();
+                    p1 = getParcel(par.Id);
+                    customer.Sended.Add(p1);
+                }
+            }
+            foreach (var par in dal.ParcelList())
+            {
+                if (par.TargetId == CustomerId)
+                {
+                    Parcel p2 = new();
+                    p2= getParcel(par.Id);
+                    customer.Sended.Add(p2);
+                }
+            }
             return customer;
         }
 

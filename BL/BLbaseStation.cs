@@ -96,17 +96,16 @@ namespace IBL.BO
 
             dal.StationUpdate(station);
         }
-        
-        public Station GetStation(int Idstation)
+        public Station getStation(int StationId)
         {
-            Station blStation = new();
+            Station station = new();
             IDAL.DO.Station s = new();
-            s = dal.GetStation(Idstation);
-            blStation.Id = Idstation; blStation.Name = s.Name;
-            blStation.ChargeSlots = s.ChargeSlots; 
-            blStation.LocationOfStation = StationLocation(s);                        
-            blStation.DronesCharging = DronesInStation(Idstation);
-            return blStation;
+            s = dal.GetStation(StationId);
+            station.Id = s.Id; station.Name = s.Name;
+            station.ChargeSlots = s.ChargeSlots;
+            station.LocationOfStation = StationLocation(s);
+            station.DronesCharging = DronesInStation(StationId);
+            return station;
         }
 
         List<DroneInCharging> DronesInStation(int stationId)
