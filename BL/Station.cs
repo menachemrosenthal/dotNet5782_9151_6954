@@ -21,8 +21,7 @@ namespace IBL.BO
                 "\nID: " + Id +
                 "\nCharge slots: " + ChargeSlots +
                 LocationOfStation.ToString()+
-                DronesCharging.ToString()
-                ;
+                DronesCharging.ToString();
         }
     }
 }

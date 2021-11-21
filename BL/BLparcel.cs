@@ -7,8 +7,43 @@ using IDAL.DO;
 
 namespace IBL.BO
 {
-    public partial class BL:IBL
+    public partial class BL : IBL
     {
+        public Parcel getParcel(int parcelId)
+        {
+            Parcel parcel = new();
+            IDAL.DO.Parcel p = dal.GetParcel(parcelId);
+            parcel.Id = p.Id;                   parcel.PickedUp = p.PickedUp;     
+            parcel.Priority = (Enums.Priorities)p.Priority;
+            parcel.Requested = p.Requested;     parcel.Scheduled = p.Scheduled; 
+            parcel.Senderid = p.Senderid;        parcel.TargetId = p.TargetId;
+            parcel.Weight = (Enums.WeightCategories)p.Weight;
+            parcel.Delivered = p.Delivered;
+            DroneToList d = Drones.Find(x => x.Id == p.DroneId);
+            parcel.Drone.Id =d.Id; parcel.Drone.CurrentLocation = d.CurrentLocation; 
+            parcel.Drone.BatteryStatus = d.BatteryStatus;
+            return parcel;
+        }
+        public void parcelProvisionUpdate(int droneId)
+        {
+            if (DroneStatus(droneId) == "Executing")
+            {
+                DroneToList drone = new();
+                drone = Drones.Find(x => x.Id == droneId);
+                IDAL.DO.Parcel parcel = new();
+                parcel = dal.ParcelList().First(x => x.Id == drone.DeliveredParcelId);
+                drone.BatteryStatus -= SenderTaregetDistance(parcel) * dal.BatteryUseRquest()[(int)parcel.Weight];
+                drone.CurrentLocation = TargetLocation(parcel);
+                drone.Status = Enums.DroneStatuses.free;
+                dal.UpdateDelivery(parcel.Id);
+            }
+            
+
+            //throw...
+
+            
+        }
+
         Location SenderLocation(IDAL.DO.Parcel parcel)
         {
             return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
@@ -19,14 +54,14 @@ namespace IBL.BO
             return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
         }
 
-         /// <summary>
+        /// <summary>
         /// sort parcel list
         /// </summary>
         /// <param name="location"></param>
         /// <returns>sort list by "priority" , "weight" , "closest location"</returns>
         List<IDAL.DO.Parcel> SortParcels(Location location)
         {
-            List<IDAL.DO.Parcel> parcels = new(); 
+            List<IDAL.DO.Parcel> parcels = new();
             List<IDAL.DO.Parcel> temp = new();
             foreach (var parcel in dal.ParcelList())
             {
@@ -35,7 +70,7 @@ namespace IBL.BO
 
             //sort by closet location
             while (parcels.Count != 0)
-            {               
+            {
                 temp.Add(ClosestSender(location, parcels));
                 parcels.Remove(ClosestSender(location, parcels));
             }
@@ -49,7 +84,7 @@ namespace IBL.BO
                     temp.Remove(temp.First(x => x.Weight == WeightCategories.heavy));
                     continue;
                 }
-                                
+
                 if (temp.Any(x => x.Weight == WeightCategories.medium))
                 {
                     parcels.Add(temp.First(x => x.Weight == WeightCategories.medium));

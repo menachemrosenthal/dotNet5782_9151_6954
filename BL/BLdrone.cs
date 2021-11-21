@@ -19,10 +19,12 @@ namespace IBL.BO
                 drone.BatteryStatus -= distance * FreeElectricityUse;
                 drone.CurrentLocation = SenderLocation(dal.GetParcel(drone.DeliveredParcelId));
                 dal.UpdatePickup(drone.DeliveredParcelId);
+                return;
             }
+            //throw..
         }
 
-        public void AddDrone(DroneToLIst drone, int stationID)
+        public void AddDrone(Drone drone, int stationID)
         {
             Random r = new Random();
             drone.BatteryStatus = (double)r.Next(20, 40);
@@ -35,28 +37,7 @@ namespace IBL.BO
             dal.AddDrone(daldrone);
         }
 
-        /// <summary>
-        /// cheking drone status
-        /// </summary>
-        /// <param name="id">drone id for check</param>
-        /// <returns>"Free" or "Associated" or "Executing"</returns>
-        string DroneStatus(int id)
-        {
-            if (!dal.ParcelList().Any(x => x.DroneId == id))
-                return "Free";
-            else
-            {
-                IDAL.DO.Parcel parcel = new();
-                parcel = dal.ParcelList().First(x => x.DroneId == id);
-
-                if (parcel.PickedUp == null)
-                    return "Associated";
-                if (parcel.Delivered == null)
-                    return "Executing";
-            }
-            return "Free";
-        }
-
+        
         public void DroneNameUpdate(int droneId, string updateName)
         {
             IDAL.DO.Drone drone = new();
@@ -124,36 +105,76 @@ namespace IBL.BO
 
                 List<IDAL.DO.Parcel> parcels = new();
                 parcels = SortParcels(drone.CurrentLocation);
-
+                
                 int weight = (int)drone.MaxWeight;
 
                 foreach (var parcel in parcels)
                 {
                     if(weight >= (int)parcel.Weight)
                     {
-                        if(drone.BatteryStatus >= BatteryUseByParcel(drone,parcel))
+                        if(drone.BatteryStatus >= BatteryUseInDelivery(drone,parcel))
                         {
                             drone.Status = Enums.DroneStatuses.sending;
                             drone.DeliveredParcelId = parcel.Id;
                             dal.ParcelToDrone(parcel.Id, drone.Id);
                             Drones[Drones.IndexOf(drone)] = drone;
-                            break;
+                            return;
                         }
                         
                     }
                 }
-                //if(DroneStatus(drone.Id)=="Free")
-                    //therow...;
             }
-        }
-        
-        double BatteryUseByParcel(DroneToList drone, IDAL.DO.Parcel parcel)
-        {            
-            double electricityUse = LocationsDistance(drone.CurrentLocation, SenderLocation(parcel)) * FreeElectricityUse;
-            electricityUse += SenderTaregetDistance(parcel) * dal.ElectricityUseRquest()[(int)parcel.Weight];
-            electricityUse += CustomerClosestStationDistance(parcel.TargetId) * FreeElectricityUse;
 
-            return electricityUse;
+            //therow...;
+        }
+
+        public Drone getDrone(int DroneId)
+        {
+            Drone drone = new();
+            drone.Id = DroneId;
+            DroneToList d = Drones.Find(x => x.Id == DroneId);
+            drone.Model = d.Model; drone.MaxWeight = d.MaxWeight;
+            drone.Status = d.Status;drone.BatteryStatus = d.BatteryStatus;
+            drone.CurrentLocation = d.CurrentLocation;
+            if (drone.Status == Enums.DroneStatuses.sending)
+            {
+                //drone.Parcel = dal.GetParcelintrasfer(d.DeliveredParcelId);
+            }
+            return drone;
+        }
+
+
+        //                   **************        Auxiliary functions          ***************           //
+
+        /// <summary>
+        /// cheking drone status
+        /// </summary>
+        /// <param name="id">drone id for check</param>
+        /// <returns>"Free" or "Associated" or "Executing"</returns>
+        string DroneStatus(int id)
+        {
+            if (!dal.ParcelList().Any(x => x.DroneId == id))
+                return "Free";
+            else
+            {
+                IDAL.DO.Parcel parcel = new();
+                parcel = dal.ParcelList().First(x => x.DroneId == id);
+
+                if (parcel.PickedUp == null)
+                    return "Associated";
+                if (parcel.Delivered == null)
+                    return "Executing";
+            }
+            return "Free";
+        }
+
+        double BatteryUseInDelivery(DroneToList drone, IDAL.DO.Parcel parcel)
+        {            
+            double BatteryUse = LocationsDistance(drone.CurrentLocation, SenderLocation(parcel)) * FreeElectricityUse;
+            BatteryUse += SenderTaregetDistance(parcel) * dal.BatteryUseRquest()[(int)parcel.Weight];
+            BatteryUse += CustomerClosestStationDistance(parcel.TargetId) * FreeElectricityUse;
+
+            return BatteryUse;
         }
     }
 }

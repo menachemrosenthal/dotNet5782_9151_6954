@@ -17,5 +17,12 @@ namespace IBL.BO
         public Location Collection { get; set; }
         public Location Target { get; set; }
         public double TransportDistance { get; set; }
+        public override string ToString()
+        {
+            return "Parcel number: " + Id +
+                "\nTransferred: " + Transferred + "\nPriority: " + Priority + "\nSender: " + Sender +
+                "\nReceiver: " + Receiver + "\nCollection: " + Collection +
+                "\nTarget: " + Target + "\nTransportDistance: " + TransportDistance + "\n";
+        }
     }
 }

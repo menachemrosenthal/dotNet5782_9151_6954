@@ -27,7 +27,7 @@ namespace IDAL
         IEnumerable<Parcel> ParcelList();
         IEnumerable<Drone> DroneList();
         double DistanceCalculate(double lat1, double lon1, double lat2, double lon2);
-        double[] ElectricityUseRquest();
+        double[] BatteryUseRquest();
         void DroneUpdate(Drone drone);
         void StationUpdate(Station station);
         void CustomerUpdate(Customer customer);

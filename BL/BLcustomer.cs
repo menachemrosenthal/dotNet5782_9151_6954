@@ -8,6 +8,12 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        public Customer getCustomer(int CustomerId)
+        {
+            Customer customer = new();
+            // mimush...
+            return customer;
+        }
         Location CustomerLocation(IDAL.DO.Customer customer)
         {
             Location location = new() { Longitude = customer.Longitude, Latitude = customer.Latitude };
