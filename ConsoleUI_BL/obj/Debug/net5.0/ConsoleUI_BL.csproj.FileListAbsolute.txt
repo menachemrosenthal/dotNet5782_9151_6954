@@ -19,3 +19,11 @@ C:\Users\Itzic\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\r
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.pdb
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.genruntimeconfig.cache
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.csproj.CopyComplete
+C:\Users\User\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.AssemblyInfo.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ref\ConsoleUI_BL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\ConsoleUI_BL\obj\Debug\net5.0\ConsoleUI_BL.pdb

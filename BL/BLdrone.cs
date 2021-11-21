@@ -28,7 +28,7 @@ namespace IBL.BO
             //throw..
         }
 
-        public void AddDrone(DroneToLIst drone, int stationID)
+        public void AddDrone(Drone drone, int stationID)
         {
             Random r = new Random();
             drone.BatteryStatus = (double)r.Next(20, 40);
@@ -131,8 +131,20 @@ namespace IBL.BO
             //therow...;
         }
 
-        public string DroneToString(int DroneId)
-        { return "no yet execute"; }
+        public Drone getDrone(int DroneId)
+        {
+            Drone drone = new();
+            drone.Id = DroneId;
+            DroneToList d = Drones.Find(x => x.Id == DroneId);
+            drone.Model = d.Model; drone.MaxWeight = d.MaxWeight;
+            drone.Status = d.Status;drone.BatteryStatus = d.BatteryStatus;
+            drone.CurrentLocation = d.CurrentLocation;
+            if (drone.Status == Enums.DroneStatuses.sending)
+            {
+                //drone.Parcel = dal.GetParcelintrasfer(d.DeliveredParcelId);
+            }
+            return drone;
+        }
 
 
         //                   **************        Auxiliary functions          ***************           //

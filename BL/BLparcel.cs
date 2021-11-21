@@ -9,6 +9,21 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        public Parcel getParcel(int parcelId)
+        {
+            Parcel parcel = new();
+            IDAL.DO.Parcel p = dal.GetParcel(parcelId);
+            parcel.Id = p.Id;                   parcel.PickedUp = p.PickedUp;     
+            parcel.Priority = (Enums.Priorities)p.Priority;
+            parcel.Requested = p.Requested;     parcel.Scheduled = p.Scheduled; 
+            parcel.Senderid = p.Senderid;        parcel.TargetId = p.TargetId;
+            parcel.Weight = (Enums.WeightCategories)p.Weight;
+            parcel.Delivered = p.Delivered;
+            DroneToList d = Drones.Find(x => x.Id == p.DroneId);
+            parcel.Drone.Id =d.Id; parcel.Drone.CurrentLocation = d.CurrentLocation; 
+            parcel.Drone.BatteryStatus = d.BatteryStatus;
+            return parcel;
+        }
         public void parcelProvisionUpdate(int droneId)
         {
             if (DroneStatus(droneId) == "Executing")

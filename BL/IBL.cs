@@ -10,7 +10,8 @@ namespace IBL
     public interface IBL
     {
         void AddStation(Station station);        
-        void AddDrone(DroneToLIst drone,int stationID);
+        void AddDrone(Drone drone,int stationID);
+        Drone getDrone(int DroneId);
         void DroneNameUpdate(int droneId, string updateName);
         void StationUpdate(int stationId,string nameUpdate,string freeChargeSlots);
         void CustomerUpdate(Customer customer);
@@ -20,9 +21,10 @@ namespace IBL
         void ParcelPickedupUptade(int droneId);
         double LocationsDistance(Location l1, Location l2);
         void AddCustumer(Customer customer);
+        Customer getCustomer(int CustomerId);
         void AddParcel(Parcel parcel);
+        Parcel getParcel(int parcelId);
         string StationToString(int stationId);
-        string DroneToString(int DroneId);
         void parcelProvisionUpdate(int droneId);
         IEnumerable<StationToList> GetBaseStationList();
         IEnumerable<object> GetDroneList();

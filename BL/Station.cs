@@ -20,8 +20,13 @@ namespace IBL.BO
             return "\nStation: " + Name +
                 "\nID: " + Id +
                 "\nCharge slots: " + ChargeSlots +
+<<<<<<< HEAD
                 LocationOfStation.ToString(); 
                 //DronesCharging.ToString();                
+=======
+                LocationOfStation.ToString()+
+                DronesCharging.ToString();
+>>>>>>> e501ea0add11c108cdc8ae69b6619556b2946345
         }
     }
 }
