@@ -9,6 +9,10 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        public IEnumerable<object> GetDroneList()
+        {
+            return Drones;
+        }
         public void ParcelPickedupUptade(int droneId)
         {
             if(DroneStatus(droneId) == "Associated")
@@ -28,15 +32,14 @@ namespace IBL.BO
         {
             Random r = new Random();
             drone.BatteryStatus = (double)r.Next(20, 40);
-            drone.CurrentLocation.Longitude = dal.GetStation(stationID).Longitude;
-            drone.CurrentLocation.Latitude = dal.GetStation(stationID).Latitude;
+            drone.CurrentLocation = new();
+            drone.CurrentLocation = StationLocation(dal.GetStation(stationID));
             drone.Status = Enums.DroneStatuses.maintenance;
             IDAL.DO.Drone daldrone = new();
             daldrone.Id = drone.Id; daldrone.Model = drone.Model;
             daldrone.MaxWeight = (IDAL.DO.WeightCategories)drone.MaxWeight;
             dal.AddDrone(daldrone);
         }
-
         
         public void DroneNameUpdate(int droneId, string updateName)
         {

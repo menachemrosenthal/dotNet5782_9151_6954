@@ -17,12 +17,11 @@ namespace IBL.BO
         public List<DroneInCharging> DronesCharging;
         public override string ToString()
         {
-            return "Station: " + Name +
+            return "\nStation: " + Name +
                 "\nID: " + Id +
                 "\nCharge slots: " + ChargeSlots +
-                LocationOfStation.ToString()+
-                DronesCharging.ToString()
-                ;
+                LocationOfStation.ToString(); 
+                //DronesCharging.ToString();                
         }
     }
 }

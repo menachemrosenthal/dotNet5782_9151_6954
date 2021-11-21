@@ -15,7 +15,7 @@ namespace IBL.BO
         {
             return "Drone In Charging: " +
                 "\nID: " + Id +
-                "\n:BatteryStatus "+ BatteryStatus
+                " , BatteryStatus: "+ BatteryStatus
                 ;
         }
     }

@@ -24,5 +24,7 @@ namespace IBL
         string StationToString(int stationId);
         string DroneToString(int DroneId);
         void parcelProvisionUpdate(int droneId);
+        IEnumerable<StationToList> GetBaseStationList();
+        IEnumerable<object> GetDroneList();
     }
 }

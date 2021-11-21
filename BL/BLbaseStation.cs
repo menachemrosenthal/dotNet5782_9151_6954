@@ -9,6 +9,24 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        public IEnumerable<StationToList> GetBaseStationList()
+        {
+            List<StationToList> baseStationList = new();
+            foreach (var station in dal.StationList())
+            {
+                StationToList blStation = new()
+                {
+                    Id = station.Id,
+                    Name = station.Name,
+                    FreeChargeSlots = station.ChargeSlots,
+                    FullChargeSlots = station.ChargeSlots + DronesInStation(station.Id).Count
+                };
+
+                baseStationList.Add(blStation);
+            }
+
+            return baseStationList;
+        }
         public void AddStation(Station station)
         {
             IDAL.DO.Station dalStation = new();

@@ -144,7 +144,7 @@ namespace ConsoleUI_BL
                         return;
                     }
 
-                    static void Lists()
+                    void Lists()
                     {
                         Console.WriteLine("\n\nPick one of the list display options:\n"
                             + " Base stations, press 1\n Drones, press 2\n Customers, press 3\n Parcels, press 4\n"
@@ -155,8 +155,10 @@ namespace ConsoleUI_BL
                         switch (choice)
                         {
                             case ListsMenu.baseStations:
+                                PrintBaseStationList(bl);
                                 break;
                             case ListsMenu.drones:
+                                PrintDroneList(bl);
                                 break;
                             case ListsMenu.customers:
                                 break;
@@ -178,6 +180,18 @@ namespace ConsoleUI_BL
                     throw;
                 }
             }
+        }
+
+        private static void PrintDroneList(IBL.IBL bl)
+        {
+            foreach (var drone in bl.GetDroneList())
+                Console.WriteLine(drone.ToString());
+        }
+
+        private static void PrintBaseStationList(IBL.IBL bl)
+        {
+            foreach (var station in bl.GetBaseStationList())
+                Console.WriteLine(station.ToString());
         }
 
         private static void parcelProvision(IBL.IBL bl)

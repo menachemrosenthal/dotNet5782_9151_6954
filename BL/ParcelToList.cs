@@ -15,5 +15,10 @@ namespace IBL.BO
         public WeightCategories Weight { get; set; }
         public Priorities Priority { get; set; }
         public ParcelStatuses status { get; set; }
+
+        public override string ToString()
+        {
+            return $"";
+        }
     }
 }

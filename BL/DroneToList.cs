@@ -17,5 +17,11 @@ namespace IBL.BO
         public DroneStatuses Status { get; set; }
         public int DeliveredParcelId { get; set; }
         public Location CurrentLocation { get; set; }
+        public override string ToString()
+        {
+            return $"\nDrone: {Model} \n ID: {Id} \n Maximum weight {MaxWeight} " +
+                $"\n Battery: {BatteryStatus} \n Status: {Status.ToString()} " +
+                $"\n Delivered Parce ID: {DeliveredParcelId} \n Location: {CurrentLocation} ";
+        }
     }
 }
