@@ -13,14 +13,14 @@ namespace IBL.BO
         {
             Parcel parcel = new();
             IDAL.DO.Parcel p = dal.GetParcel(parcelId);
-            parcel.Id = p.Id;                   parcel.PickedUp = p.PickedUp;     
+            parcel.Id = p.Id; parcel.PickedUp = p.PickedUp;
             parcel.Priority = (Enums.Priorities)p.Priority;
-            parcel.Requested = p.Requested;     parcel.Scheduled = p.Scheduled; 
-            parcel.Senderid = p.Senderid;        parcel.TargetId = p.TargetId;
+            parcel.Requested = p.Requested; parcel.Scheduled = p.Scheduled;
+            parcel.Senderid = p.Senderid; parcel.TargetId = p.TargetId;
             parcel.Weight = (Enums.WeightCategories)p.Weight;
             parcel.Delivered = p.Delivered;
-            DroneToList d = Drones.Find(x => x.Id == p.DroneId);
-            parcel.Drone.Id =d.Id; parcel.Drone.CurrentLocation = d.CurrentLocation; 
+            DroneToList d = new(); d = Drones.Find(x => x.Id == p.DroneId);
+            parcel.Drone.Id = d.Id; parcel.Drone.CurrentLocation = d.CurrentLocation;
             parcel.Drone.BatteryStatus = d.BatteryStatus;
             return parcel;
         }
@@ -37,11 +37,52 @@ namespace IBL.BO
                 drone.Status = Enums.DroneStatuses.free;
                 dal.UpdateDelivery(parcel.Id);
             }
-            
+
 
             //throw...
 
-            
+
+        }
+
+        public IEnumerable<ParcelToList> getParcelList()
+        {
+            List<ParcelToList> parcels = new();
+            foreach (var parcel in dal.ParcelList())
+            {
+                ParcelToList parcelToList = new()
+                {
+                    Id = parcel.Id,
+                    Senderid = parcel.Senderid,
+                    TargetId = parcel.TargetId,
+                    Weight = (Enums.WeightCategories)parcel.Weight,
+                    Priority = (Enums.Priorities)parcel.Priority,
+                    Status = GetParcelStatus(parcel.Id)
+                };
+                parcels.Add(parcelToList);
+            }
+            return parcels;
+        }
+
+        public IEnumerable<ParcelToList> GetNonAssociateParcelList()
+        {
+            List<ParcelToList> parcels = new();
+            foreach (var parcel in dal.ParcelList())
+            {
+                if (GetParcelStatus(parcel.Id) == Enums.ParcelStatuses.defined)
+                {
+                    ParcelToList parcelToList = new()
+                    {
+                        Id = parcel.Id,
+                        Senderid = parcel.Senderid,
+                        TargetId = parcel.TargetId,
+                        Weight = (Enums.WeightCategories)parcel.Weight,
+                        Priority = (Enums.Priorities)parcel.Priority,
+                        Status = GetParcelStatus(parcel.Id)
+                    };
+                    parcels.Add(parcelToList);
+                }
+            }
+            return parcels;
         }
 
         Location SenderLocation(IDAL.DO.Parcel parcel)
@@ -147,6 +188,7 @@ namespace IBL.BO
         {
             return LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
         }
+
         public void AddParcel(Parcel parcel)
         {
             IDAL.DO.Parcel dalParcel = new();
@@ -158,5 +200,17 @@ namespace IBL.BO
             parcel.Drone = null;
             dal.AddParcel(dalParcel);
         }
+
+        Enums.ParcelStatuses GetParcelStatus(int parcelId)
+        {           
+            if (dal.GetParcel(parcelId).Scheduled == null)
+                return Enums.ParcelStatuses.defined;
+            if (dal.GetParcel(parcelId).PickedUp == null)
+                return Enums.ParcelStatuses.associated;
+            if (dal.GetParcel(parcelId).Delivered == null)
+                return Enums.ParcelStatuses.collected;
+            return Enums.ParcelStatuses.provided;
+        }
     }
 }
+

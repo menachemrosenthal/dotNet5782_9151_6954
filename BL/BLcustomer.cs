@@ -14,6 +14,7 @@ namespace IBL.BO
             // mimush...
             return customer;
         }
+
         Location CustomerLocation(IDAL.DO.Customer customer)
         {
             Location location = new() { Longitude = customer.Longitude, Latitude = customer.Latitude };
@@ -59,6 +60,77 @@ namespace IBL.BO
             IDAL.DO.Customer customer = new();
             customer = dal.CustomerList().First(x => x.Id == customerId);
             return LocationsDistance(CustomerLocation(customer), StationLocation(ClosestStation(CustomerLocation(customer), dal.StationList())));
+        }
+
+        public IEnumerable<object> GetCustomerList()
+        {
+            List<CustomerToList> customers = new();
+            foreach (var customer in dal.CustomerList())
+            {
+                CustomerToList customerToList = new();
+                customerToList.Id = customer.Id;
+                customerToList.Name = customer.Name;
+                customerToList.Phone = customer.Phone;
+                customerToList.ParcelsProvidedNum = ProvidedParcels(customer.Id);
+                customerToList.ParcelsUnprovidedNum = UnProvidedParcels(customer.Id);
+                customerToList.ReceivedParcelsNum = ReceivedParcels(customer.Id);
+                customerToList.UnreceivedParcelsNum = UnreceivedParcels(customer.Id);
+                customers.Add(customerToList);
+            }
+
+            return customers;
+        }
+
+        int ProvidedParcels(int customerId)
+        {
+            int sum = 0;
+            foreach (var parcel in dal.ParcelList())
+            {
+                if (parcel.Senderid == customerId)
+                    if (parcel.Delivered != null)
+                        sum++;
+            }
+
+            return sum;
+        }
+
+        int UnProvidedParcels(int customerId)
+        {
+            int sum = 0;
+            foreach (var parcel in dal.ParcelList())
+            {
+                if (parcel.Senderid == customerId)
+                    if (parcel.Delivered == null)
+                        sum++;
+            }
+
+            return sum;
+        }
+
+        int ReceivedParcels(int customerId)
+        {
+            int sum = 0;
+            foreach (var parcel in dal.ParcelList())
+            {
+                if (parcel.TargetId == customerId)
+                    if (parcel.Delivered != null)
+                        sum++;
+            }
+
+            return sum;
+        }
+
+        int UnreceivedParcels(int customerId)
+        {
+            int sum = 0;
+            foreach (var parcel in dal.ParcelList())
+            {
+                if (parcel.TargetId == customerId)
+                    if (parcel.Delivered == null)
+                        sum++;
+            }
+
+            return sum;
         }
     }
 }

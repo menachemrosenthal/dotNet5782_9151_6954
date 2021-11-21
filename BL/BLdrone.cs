@@ -13,6 +13,7 @@ namespace IBL.BO
         {
             return Drones;
         }
+       
         public void ParcelPickedupUptade(int droneId)
         {
             if(DroneStatus(droneId) == "Associated")
@@ -28,10 +29,10 @@ namespace IBL.BO
             //throw..
         }
 
-        public void AddDrone(Drone drone, int stationID)
+        public void AddDrone(DroneToList drone, int stationID)
         {
             Random r = new Random();
-            drone.BatteryStatus = (double)r.Next(20, 40);
+            drone.BatteryStatus = r.Next(20, 40);
             drone.CurrentLocation = new();
             drone.CurrentLocation = StationLocation(dal.GetStation(stationID));
             drone.Status = Enums.DroneStatuses.maintenance;
@@ -39,6 +40,8 @@ namespace IBL.BO
             daldrone.Id = drone.Id; daldrone.Model = drone.Model;
             daldrone.MaxWeight = (IDAL.DO.WeightCategories)drone.MaxWeight;
             dal.AddDrone(daldrone);
+            Drones.Add(drone);
+            dal.ChargeDrone(drone.Id, stationID);
         }
         
         public void DroneNameUpdate(int droneId, string updateName)
@@ -135,7 +138,7 @@ namespace IBL.BO
         {
             Drone drone = new();
             drone.Id = DroneId;
-            DroneToList d = Drones.Find(x => x.Id == DroneId);
+            DroneToList d = new(); d = Drones.Find(x => x.Id == DroneId);
             drone.Model = d.Model; drone.MaxWeight = d.MaxWeight;
             drone.Status = d.Status;drone.BatteryStatus = d.BatteryStatus;
             drone.CurrentLocation = d.CurrentLocation;
