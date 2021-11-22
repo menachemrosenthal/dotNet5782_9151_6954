@@ -268,8 +268,8 @@ namespace ConsoleUI_BL
             Console.WriteLine("ENTER Station id");
             _ = int.TryParse(Console.ReadLine(), out int stationId);
 
-            Console.WriteLine(bl.GetStation(stationId));
-            foreach (var drone in bl.GetStation(stationId).DronesCharging)
+            Console.WriteLine(bl.getStation(stationId));
+            foreach (var drone in bl.getStation(stationId).DronesCharging)
             {
                 Console.WriteLine(drone);
             }

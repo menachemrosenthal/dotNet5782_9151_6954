@@ -19,25 +19,36 @@ namespace IBL.BO
             parcel.Senderid = p.Senderid; parcel.TargetId = p.TargetId;
             parcel.Weight = (Enums.WeightCategories)p.Weight;
             parcel.Delivered = p.Delivered;
-            DroneToList d = new(); d = Drones.Find(x => x.Id == p.DroneId);
-            parcel.Drone.Id = d.Id; parcel.Drone.CurrentLocation = d.CurrentLocation;
-            parcel.Drone.BatteryStatus = d.BatteryStatus;
+            if (Drones.Any(x => x.Id == p.DroneId))
+            {
+                DroneToList d = new(); d = Drones.Find(x => x.Id == p.DroneId);
+                parcel.Drone = new(); parcel.Drone.Id = d.Id;
+                parcel.Drone.CurrentLocation = new();
+                parcel.Drone.CurrentLocation = d.CurrentLocation;
+                parcel.Drone.BatteryStatus = d.BatteryStatus;
+            }
             return parcel;
         }
+
         private ParcelInTransfer getParcelInTransfer(int parcelId)
         {
             ParcelInTransfer parcel = new();
-            IDAL.DO.Parcel p = dal.GetParcel(parcelId);
-            parcel.Id = p.Id; parcel.Transferred=? ;
+            IDAL.DO.Parcel p = new(); 
+            p = dal.GetParcel(parcelId);
+            parcel.Id = p.Id;
+            if (GetParcelStatus(parcelId) == Enums.ParcelStatuses.defined || GetParcelStatus(parcelId) == Enums.ParcelStatuses.associated)
+                parcel.Transferred = false;
+            else
+                parcel.Transferred = true;
+
             parcel.Priority = (Enums.Priorities)p.Priority;
             parcel.Receiver = getCustomerInParcel(p.TargetId);
             parcel.Sender = getCustomerInParcel(p.Senderid);
-            parcel.Collection.Latitude=dal.GetCustomer(p.Senderid).Latitude;
-            parcel.Collection.Longitude = dal.GetCustomer(p.Senderid).Longitude;
-            parcel.Target.Latitude = dal.GetCustomer(p.TargetId).Latitude;
-            parcel.Target.Longitude = dal.GetCustomer(p.TargetId).Longitude;
+            parcel.Collection = SenderLocation(p);
+            parcel.Target = TargetLocation(p);            
             return parcel;
         }
+
         public void parcelProvisionUpdate(int droneId)
         {
             if (DroneStatus(droneId) == "Executing")
@@ -120,14 +131,16 @@ namespace IBL.BO
             List<IDAL.DO.Parcel> temp = new();
             foreach (var parcel in dal.ParcelList())
             {
-                parcels.Add(parcel);
+                if(parcel.DroneId == 0)
+                     parcels.Add(parcel);
             }
 
             //sort by closet location
             while (parcels.Count != 0)
             {
-                temp.Add(ClosestSender(location, parcels));
-                parcels.Remove(ClosestSender(location, parcels));
+                int index = parcels.IndexOf(ClosestSender(location, parcels));
+                temp.Add(parcels[index]);
+                parcels.Remove(parcels[index]);
             }
 
             //sort by weight
@@ -214,7 +227,7 @@ namespace IBL.BO
             parcel.Drone = null;
             dal.AddParcel(dalParcel);
         }
-
+        
         Enums.ParcelStatuses GetParcelStatus(int parcelId)
         {           
             if (dal.GetParcel(parcelId).Scheduled == null)
@@ -224,6 +237,26 @@ namespace IBL.BO
             if (dal.GetParcel(parcelId).Delivered == null)
                 return Enums.ParcelStatuses.collected;
             return Enums.ParcelStatuses.provided;
+        }
+
+        IEnumerable<IDAL.DO.Parcel> ParcelsByWeight(IEnumerable<IDAL.DO.Parcel> parcels ,WeightCategories weight)
+        {
+            List<IDAL.DO.Parcel> parcelsByWeight = new();
+            foreach (var parcel in parcels)
+                if (parcel.Weight == weight)
+                    parcelsByWeight.Add(parcel);
+
+            return parcelsByWeight;
+        }
+
+        IEnumerable<IDAL.DO.Parcel> ParcelsByPriority(IEnumerable<IDAL.DO.Parcel> parcels, Priorities priority)
+        {
+            List<IDAL.DO.Parcel> parcelsByPriority = new();
+            foreach (var parcel in parcels)
+                if (parcel.Priority == priority)
+                    parcelsByPriority.Add(parcel);
+
+            return parcelsByPriority;
         }
     }
 }

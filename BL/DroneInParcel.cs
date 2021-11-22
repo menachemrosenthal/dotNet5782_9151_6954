@@ -16,8 +16,8 @@ namespace IBL.BO
         public Location CurrentLocation { get; set; }
         public override string ToString()
         {
-            return "Drone Id: " + Id +
-                "\nBatteryStatus: " + BatteryStatus + "\nCurrentLocation: " + CurrentLocation + "\n"
+            return "\n Id: " + Id +
+                "\n BatteryStatus: " + BatteryStatus + "\n CurrentLocation: " + CurrentLocation;
                 ;
         }
     }
