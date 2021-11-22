@@ -116,7 +116,7 @@ namespace ConsoleUI
                 }
                 catch (IDAL.AddExistException ex)
                 {
-                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine(ex);
                     
                 }
                 catch(IDAL.ItemNotFoundException ex)

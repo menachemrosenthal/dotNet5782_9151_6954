@@ -21,10 +21,10 @@ namespace IBL.BO
         public DateTime? Delivered { get; set; }
         public override string ToString()
         {
-            return "Parcel number: " + Id + "\nSender ID: " + Senderid + "\nTarget ID: " + TargetId +
-                "\nWeight: " + Weight + "\nPriority: " + Priority + "\nDrone: " + Drone +
-                "\nRequested: " + Requested + "\nSchedeled: " + Scheduled +
-                "\nPicked up: " + PickedUp + "\nDelivered: " + Delivered + "\n";
+            return "Parcel number: " + Id + "\n Sender ID: " + Senderid + "\n Target ID: " + TargetId +
+                "\n Weight: " + Weight + "\n Priority: " + Priority + "\n Drone: " + Drone +
+                "\n Requested: " + Requested + "\n Schedeled: " + Scheduled +
+                "\n Picked up: " + PickedUp + "\n Delivered: " + Delivered + "\n";
         }
     }
 }

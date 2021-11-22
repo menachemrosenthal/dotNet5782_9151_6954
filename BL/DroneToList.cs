@@ -21,7 +21,7 @@ namespace IBL.BO
         {
             return $"\nDrone: {Model} \n ID: {Id} \n Maximum weight {MaxWeight} " +
                 $"\n Battery: {BatteryStatus} \n Status: {Status.ToString()} " +
-                $"\n Delivered Parcle ID: {DeliveredParcelId} \n {CurrentLocation} ";
+                $"\n Delivered Parcle ID: {DeliveredParcelId} \n Location: {CurrentLocation} ";
         }
     }
 }

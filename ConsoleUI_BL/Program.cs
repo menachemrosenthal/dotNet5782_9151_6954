@@ -189,6 +189,10 @@ namespace ConsoleUI_BL
                 {
                     Console.WriteLine(ex);
                 }
+                catch (BL.CannotUpdateExeption ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
         }
 

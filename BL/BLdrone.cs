@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
+using BL;
 
 namespace IBL.BO
 {
@@ -13,10 +14,10 @@ namespace IBL.BO
         {
             return Drones;
         }
-       
+
         public void ParcelPickedupUptade(int droneId)
         {
-            if(DroneStatus(droneId) == "Associated")
+            if (DroneStatus(droneId) == "Associated")
             {
                 DroneToList drone = new();
                 drone = Drones.Find(x => x.Id == droneId);
@@ -26,7 +27,10 @@ namespace IBL.BO
                 dal.UpdatePickup(drone.DeliveredParcelId);
                 return;
             }
-            //throw..
+            else
+            {
+                throw new CannotUpdateExeption("drone", droneId, "drone is unassociated");
+            }
         }
 
         public void AddDrone(DroneToList drone, int stationID)
@@ -43,7 +47,7 @@ namespace IBL.BO
             Drones.Add(drone);
             dal.ChargeDrone(drone.Id, stationID);
         }
-        
+
         public void DroneNameUpdate(int droneId, string updateName)
         {
             IDAL.DO.Drone drone = new();
@@ -66,7 +70,7 @@ namespace IBL.BO
 
                 double distance = LocationsDistance(drone.CurrentLocation, location);
 
-                if (FreeElectricityUse * distance >= drone.BatteryStatus)
+                if (FreeElectricityUse * distance <= drone.BatteryStatus)
                 {
                     drone.CurrentLocation = location;
                     drone.BatteryStatus -= FreeElectricityUse * distance;
@@ -76,9 +80,16 @@ namespace IBL.BO
 
                     return;
                 }
+                else
+                {
+                    throw new CannotUpdateExeption("drone", droneId, "not enough battery to reach station");
+                }
             }
-
-            //throw ...
+            else
+            {
+                throw new CannotUpdateExeption("drone",droneId,"drone is not free to charge");
+            }
+            
         }
 
         public void ReleaseDrone(int droneId, TimeSpan time)
@@ -87,7 +98,7 @@ namespace IBL.BO
             drone = Drones.Find(x => x.Id == droneId);
             if (drone.Status == Enums.DroneStatuses.maintenance)
             {
-                double timeToDouble = time.Minutes;
+                double timeToDouble = time.TotalMinutes;
                 timeToDouble /= 60;
                 drone.BatteryStatus = ChargePace * timeToDouble;
                 if (drone.BatteryStatus > 100)
@@ -98,8 +109,10 @@ namespace IBL.BO
                 int index = Drones.IndexOf(drone);
                 Drones[index] = drone;
             }
-            //else
-            //    throw
+            else
+            {
+                throw new CannotUpdateExeption("drone", droneId, "not in maintenance to be released");
+            }
         }
 
         public void ParcelToDrone(int droneId)
@@ -110,15 +123,15 @@ namespace IBL.BO
                 drone = Drones.Find(x => x.Id == droneId);
 
                 List<IDAL.DO.Parcel> parcels = new();
-                parcels = SortParcels(drone.CurrentLocation);
-                
+                //parcels = SortParcels(drone.CurrentLocation);
+
                 int weight = (int)drone.MaxWeight;
 
-                foreach (var parcel in parcels)
+                foreach (var parcel in ParcelsByWeight(ParcelsByPriority(dal.ParcelList(), Priorities.urgent) , (IDAL.DO.WeightCategories)drone.MaxWeight  ))
                 {
-                    if(weight >= (int)parcel.Weight)
+                    if (weight >= (int)parcel.Weight)
                     {
-                        if(drone.BatteryStatus >= BatteryUseInDelivery(drone,parcel))
+                        if (drone.BatteryStatus >= BatteryUseInDelivery(drone, parcel))
                         {
                             drone.Status = Enums.DroneStatuses.sending;
                             drone.DeliveredParcelId = parcel.Id;
@@ -126,12 +139,15 @@ namespace IBL.BO
                             Drones[Drones.IndexOf(drone)] = drone;
                             return;
                         }
-                        
+
                     }
                 }
             }
+            else
+            {
+                throw new CannotUpdateExeption("drone", droneId, "not  is not free");
+            }
 
-            //therow...;
         }
 
         public Drone getDrone(int DroneId)
@@ -140,7 +156,7 @@ namespace IBL.BO
             drone.Id = DroneId;
             DroneToList d = new(); d = Drones.Find(x => x.Id == DroneId);
             drone.Model = d.Model; drone.MaxWeight = d.MaxWeight;
-            drone.Status = d.Status;drone.BatteryStatus = d.BatteryStatus;
+            drone.Status = d.Status; drone.BatteryStatus = d.BatteryStatus;
             drone.CurrentLocation = d.CurrentLocation;
             if (drone.Status == Enums.DroneStatuses.sending)
             {
@@ -159,13 +175,15 @@ namespace IBL.BO
         /// <returns>"Free" or "Associated" or "Executing"</returns>
         string DroneStatus(int id)
         {
+
+            if (Drones.Any(x => x.Id == id  &&  x.Status == Enums.DroneStatuses.maintenance))
+                return "Maintenece";
             if (!dal.ParcelList().Any(x => x.DroneId == id))
                 return "Free";
             else
             {
                 IDAL.DO.Parcel parcel = new();
                 parcel = dal.ParcelList().First(x => x.DroneId == id);
-
                 if (parcel.PickedUp == null)
                     return "Associated";
                 if (parcel.Delivered == null)
@@ -175,7 +193,7 @@ namespace IBL.BO
         }
 
         double BatteryUseInDelivery(DroneToList drone, IDAL.DO.Parcel parcel)
-        {            
+        {
             double BatteryUse = LocationsDistance(drone.CurrentLocation, SenderLocation(parcel)) * FreeElectricityUse;
             BatteryUse += SenderTaregetDistance(parcel) * dal.BatteryUseRquest()[(int)parcel.Weight];
             BatteryUse += CustomerClosestStationDistance(parcel.TargetId) * FreeElectricityUse;
