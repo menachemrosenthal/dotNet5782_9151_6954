@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IDAL.DO;
+using BL;
 
 namespace IBL.BO
 {
@@ -26,7 +27,10 @@ namespace IBL.BO
                 dal.UpdatePickup(drone.DeliveredParcelId);
                 return;
             }
-            //throw..
+            else
+            {
+                throw new CannotUpdateExeption("drone", droneId, "drone is unassociated");
+            }
         }
 
         public void AddDrone(DroneToList drone, int stationID)
@@ -76,9 +80,16 @@ namespace IBL.BO
 
                     return;
                 }
+                else
+                {
+                    throw new CannotUpdateExeption("drone", droneId, "not enough battery to reach station");
+                }
             }
-
-            //throw ...
+            else
+            {
+                throw new CannotUpdateExeption("drone",droneId,"drone is not free to charge");
+            }
+            
         }
 
         public void ReleaseDrone(int droneId, TimeSpan time)
@@ -98,8 +109,10 @@ namespace IBL.BO
                 int index = Drones.IndexOf(drone);
                 Drones[index] = drone;
             }
-            //else
-            //    throw
+            else
+            {
+                throw new CannotUpdateExeption("drone", droneId, "not in maintenance to be released");
+            }
         }
 
         public void ParcelToDrone(int droneId)

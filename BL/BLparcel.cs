@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BL;
 using IDAL.DO;
 
 namespace IBL.BO
@@ -62,11 +63,10 @@ namespace IBL.BO
                 drone.Status = Enums.DroneStatuses.free;
                 dal.UpdateDelivery(parcel.Id);
             }
-
-
-            //throw...
-
-
+            else
+            {
+                throw new CannotUpdateExeption("drone", droneId, "not executing");
+            }
         }
 
         public IEnumerable<ParcelToList> getParcelList()

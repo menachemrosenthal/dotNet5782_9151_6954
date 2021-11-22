@@ -188,10 +188,18 @@ namespace ConsoleUI_BL
                         return;
                     }
                 }
-                catch (Exception)
+                catch (IDAL.AddExistException ex)
                 {
+                    Console.WriteLine(ex.TargetSite);
 
-                    throw;
+                }
+                catch (IDAL.ItemNotFoundException ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                catch (BL.CannotUpdateExeption ex)
+                {
+                    Console.WriteLine(ex);
                 }
             }
         }
