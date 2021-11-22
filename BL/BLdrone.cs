@@ -107,14 +107,16 @@ namespace IBL.BO
             if (DroneStatus(droneId) == "Free")
             {
                 DroneToList drone = new();
-                drone = Drones.Find(x => x.Id == droneId);
+                drone = Drones.FirstOrDefault(x => x.Id == droneId)?? throw new KeyNotFoundException(nameof(droneId));
 
-                List<IDAL.DO.Parcel> parcels = new();
-                //parcels = SortParcels(drone.CurrentLocation);
-
+                List<IDAL.DO.Parcel> parcels = dal.ParcelList().Where(x => x.DroneId == 0).ToList();
                 int weight = (int)drone.MaxWeight;
-
-                foreach (var parcel in ParcelsByWeight(ParcelsByPriority(dal.ParcelList(), Priorities.urgent) , (IDAL.DO.WeightCategories)drone.MaxWeight  ))
+                parcels
+                .OrderByDescending(x => x.Priority)
+                .ThenByDescending(x => x.Weight)
+                .ThenBy(x => LocationsDistance(SenderLocation(x), drone.CurrentLocation))
+                //.Select(x => new { Parcel = x, Distance = LocationsDistance(SenderLocation(x), drone.CurrentLocation) })
+                .ToList().ForEach(parcel =>
                 {
                     if (weight >= (int)parcel.Weight)
                     {
@@ -126,12 +128,9 @@ namespace IBL.BO
                             Drones[Drones.IndexOf(drone)] = drone;
                             return;
                         }
-
                     }
-                }
+                });
             }
-
-            //therow...;
         }
 
         public Drone getDrone(int DroneId)
@@ -160,7 +159,7 @@ namespace IBL.BO
         string DroneStatus(int id)
         {
 
-            if (Drones.Any(x => x.Id == id  &&  x.Status == Enums.DroneStatuses.maintenance))
+            if (Drones.Any(x => x.Id == id && x.Status == Enums.DroneStatuses.maintenance))
                 return "Maintenece";
             if (!dal.ParcelList().Any(x => x.DroneId == id))
                 return "Free";

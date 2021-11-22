@@ -57,24 +57,32 @@ namespace ConsoleUI_BL
                         + " Base station, press 1\n Drone, press 2\n Customer press 3\n Parcel, press 4\n");
 
                         Enum.TryParse(Console.ReadLine(), out AddMenu choice);
-
-                        switch (choice)
-                        {
-                            case AddMenu.baseStation:
-                                AddStation(bl);
-                                break;
-                            case AddMenu.drone:
-                                AddDrone(bl);
-                                break;
-                            case AddMenu.customer:
-                                AddCustomer(bl);
-                                break;
-                            case AddMenu.parcel:
-                                AddParcel(bl);
-                                break;
-                            default:
-                                break;
-                        }
+                        bool retry = false;
+                        while (!retry) {
+                            try
+                            {
+                                switch (choice)
+                                {
+                                    case AddMenu.baseStation:
+                                        AddStation(bl);
+                                        break;
+                                    case AddMenu.drone:
+                                        AddDrone(bl);
+                                        break;
+                                    case AddMenu.customer:
+                                        AddCustomer(bl);
+                                        break;
+                                    case AddMenu.parcel:
+                                        AddParcel(bl);
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                            catch(Exception e)
+                            {
+                                retry = true;
+                            }
                         return;
                     }
 
