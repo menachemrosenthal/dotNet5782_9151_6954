@@ -90,8 +90,6 @@ namespace IBL.BO
              return dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);
         }
     }
-
-
-};
+}
 
 

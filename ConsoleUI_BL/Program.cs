@@ -1,10 +1,5 @@
-﻿using IDAL;
+﻿using IBL.BO;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using IBL.BO;
 
 namespace ConsoleUI_BL
 {
@@ -33,16 +28,16 @@ namespace ConsoleUI_BL
                     switch (choice)
                     {
                         case MainMenu.add:
-                            Add();
+                            Add(bl);
                             break;
                         case MainMenu.update:
-                            Update();
+                            Update(bl);
                             break;
                         case MainMenu.display:
-                            Display();
+                            Display(bl);
                             break;
                         case MainMenu.lists:
-                            Lists();
+                            Lists(bl);
                             break;
                         case MainMenu.exit:
                             flag = false;
@@ -50,165 +45,146 @@ namespace ConsoleUI_BL
                         default:
                             break;
                     }
-
-                    void Add()
-                    {
-                        Console.WriteLine("\nPick one of the following add options:\n"
-                        + " Base station, press 1\n Drone, press 2\n Customer press 3\n Parcel, press 4\n");
-
-                        Enum.TryParse(Console.ReadLine(), out AddMenu choice);
-                        bool retry = false;
-                        while (!retry) {
-                            try
-                            {
-                                switch (choice)
-                                {
-                                    case AddMenu.baseStation:
-                                        AddStation(bl);
-                                        break;
-                                    case AddMenu.drone:
-                                        AddDrone(bl);
-                                        break;
-                                    case AddMenu.customer:
-                                        AddCustomer(bl);
-                                        break;
-                                    case AddMenu.parcel:
-                                        AddParcel(bl);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-                            catch(Exception e)
-                            {
-                                retry = true;
-                            }
-                        return;
-                    }
-
-                    void Update()
-                    {
-                        Console.WriteLine("\nPick one of the following update options:\n"
-                            + " Drone name, press 1\n Station, press 2\n Customer, press 3\n Sending drone to charge, press 4\n"
-                            + " Release drone from charge, press 5\n Associating parcel to drone, press 6\n"
-                            + " Parcel picked-up by drone, press 7\n Parcel provision by drone, press 8\n");
-
-                        Enum.TryParse(Console.ReadLine(), out UpdateMenu choice);
-
-                        switch (choice)
-                        {
-                            case UpdateMenu.droneName:
-                                DroneNameUpdate(bl);
-                                break;
-                            case UpdateMenu.station:
-                                StationUpdate(bl);
-                                break;
-                            case UpdateMenu.customer:
-                                CustomerUpdate(bl);
-                                break;
-                            case UpdateMenu.droneToCharge:
-                                ChargeDrone(bl);
-                                break;
-                            case UpdateMenu.releaseDrone:
-                                ReleaseDrone(bl);
-                                break;
-                            case UpdateMenu.parcelToDrone:
-                                ParcelToDrone(bl);
-                                break;
-                            case UpdateMenu.parcelPickedup:
-                                ParcelPickedupUptade(bl);
-                                break;
-                            case UpdateMenu.parcelProvision:
-                                parcelProvision(bl);
-                                break;
-                            default:
-                                break;
-                        }
-                        return;
-                    }
-
-                    void Display()
-                    {
-                        Console.WriteLine("\nPick one of the following object display options:\n"
-                            + " Base station, press 1\n Drone, press 2\n Customer, press 3\n Parcel, press 4\n");
-
-                        Enum.TryParse(Console.ReadLine(), out DisplayMenu choice);
-
-                        switch (choice)
-                        {
-                            case DisplayMenu.baseStation:
-                                DisplayBaseStation(bl);
-                                break;
-                            case DisplayMenu.drone:
-                                DisplayDrone(bl);
-                                break;
-                            case DisplayMenu.customer:
-                                DisplayCustomer(bl);
-                                break;
-                            case DisplayMenu.parcel:
-                                DisplayParcel(bl);
-                                break;
-                            default:
-                                break;
-                        }
-                        return;
-                    }
-
-                    void Lists()
-                    {
-                        Console.WriteLine("\n\nPick one of the list display options:\n"
-                            + " Base stations, press 1\n Drones, press 2\n Customers, press 3\n Parcels, press 4\n"
-                            + " Non drone associate parcels, press 5\n Unoccupied charge slots base stations, press 6\n");
-
-                        Enum.TryParse(Console.ReadLine(), out ListsMenu choice);
-
-                        switch (choice)
-                        {
-                            case ListsMenu.baseStations:
-                                PrintBaseStationList(bl);
-                                break;
-                            case ListsMenu.drones:
-                                PrintDroneList(bl);
-                                break;
-                            case ListsMenu.customers:
-                                PrintCusromerList(bl);
-                                break;
-                            case ListsMenu.parcels:
-                                PrintParcelList(bl);
-                                break;
-                            case ListsMenu.nonDroneParcels:
-                                PrintNonAssociateParcelList(bl);
-                                break;
-                            case ListsMenu.unoccupiedSlotsBaseStations:
-                                PrintFreeChargingSlotsStationList(bl);
-                                break;
-                            default:
-                                break;
-                        }
-                        return;
-                    }
                 }
-                catch (IDAL.AddExistException ex)
+                catch (Exception ex)
                 {
-                    Console.WriteLine(ex.TargetSite);
-
-                }
-                catch (IDAL.ItemNotFoundException ex)
-                {
-                    Console.WriteLine(ex);
-                }
-                catch (BL.CannotUpdateExeption ex)
-                {
-                    Console.WriteLine(ex);
                 }
             }
+        }
+
+        private static void Add(IBL.IBL bl)
+        {
+            Console.WriteLine("\nPick one of the following add options:\n"
+            + " Base station, press 1\n Drone, press 2\n Customer press 3\n Parcel, press 4\n");
+
+            Enum.TryParse(Console.ReadLine(), out AddMenu choice);
+
+            switch (choice)
+            {
+                case AddMenu.baseStation:
+                    AddStation(bl);
+                    break;
+                case AddMenu.drone:
+                    AddDrone(bl);
+                    break;
+                case AddMenu.customer:
+                    AddCustomer(bl);
+                    break;
+                case AddMenu.parcel:
+                    AddParcel(bl);
+                    break;
+                default:
+                    break;
+            }
+            return;
+        }
+
+        private static void Update(IBL.IBL bl)
+        {
+            Console.WriteLine("\nPick one of the following update options:\n"
+                + " Drone name, press 1\n Station, press 2\n Customer, press 3\n Sending drone to charge, press 4\n"
+                + " Release drone from charge, press 5\n Associating parcel to drone, press 6\n"
+                + " Parcel picked-up by drone, press 7\n Parcel provision by drone, press 8\n");
+
+            Enum.TryParse(Console.ReadLine(), out UpdateMenu choice);
+
+            switch (choice)
+            {
+                case UpdateMenu.droneName:
+                    DroneNameUpdate(bl);
+                    break;
+                case UpdateMenu.station:
+                    StationUpdate(bl);
+                    break;
+                case UpdateMenu.customer:
+                    CustomerUpdate(bl);
+                    break;
+                case UpdateMenu.droneToCharge:
+                    ChargeDrone(bl);
+                    break;
+                case UpdateMenu.releaseDrone:
+                    ReleaseDrone(bl);
+                    break;
+                case UpdateMenu.parcelToDrone:
+                    ParcelToDrone(bl);
+                    break;
+                case UpdateMenu.parcelPickedup:
+                    ParcelPickedupUptade(bl);
+                    break;
+                case UpdateMenu.parcelProvision:
+                    parcelProvision(bl);
+                    break;
+                default:
+                    break;
+            }
+            return;
+        }
+
+        private static void Display(IBL.IBL bl)
+        {
+            Console.WriteLine("\nPick one of the following object display options:\n"
+                + " Base station, press 1\n Drone, press 2\n Customer, press 3\n Parcel, press 4\n");
+
+            Enum.TryParse(Console.ReadLine(), out DisplayMenu choice);
+
+            switch (choice)
+            {
+                case DisplayMenu.baseStation:
+                    DisplayBaseStation(bl);
+                    break;
+                case DisplayMenu.drone:
+                    DisplayDrone(bl);
+                    break;
+                case DisplayMenu.customer:
+                    DisplayCustomer(bl);
+                    break;
+                case DisplayMenu.parcel:
+                    DisplayParcel(bl);
+                    break;
+                default:
+                    break;
+            }
+            return;
+        }
+
+        private static void Lists(IBL.IBL bl)
+        {
+            Console.WriteLine("\n\nPick one of the list display options:\n"
+                + " Base stations, press 1\n Drones, press 2\n Customers, press 3\n Parcels, press 4\n"
+                + " Non drone associate parcels, press 5\n Unoccupied charge slots base stations, press 6\n");
+
+            Enum.TryParse(Console.ReadLine(), out ListsMenu choice);
+
+            switch (choice)
+            {
+                case ListsMenu.baseStations:
+                    PrintBaseStationList(bl);
+                    break;
+                case ListsMenu.drones:
+                    PrintDroneList(bl);
+                    break;
+                case ListsMenu.customers:
+                    PrintCusromerList(bl);
+                    break;
+                case ListsMenu.parcels:
+                    PrintParcelList(bl);
+                    break;
+                case ListsMenu.nonDroneParcels:
+                    PrintNonAssociateParcelList(bl);
+                    break;
+                case ListsMenu.unoccupiedSlotsBaseStations:
+                    PrintFreeChargingSlotsStationList(bl);
+                    break;
+                default:
+                    break;
+            }
+            return;
         }
 
         private static void PrintFreeChargingSlotsStationList(IBL.IBL bl)
         {
             foreach (var station in bl.GetFreeChargingSlotsStationList())
                 Console.WriteLine(station);
-
         }
 
         private static void PrintNonAssociateParcelList(IBL.IBL bl)
