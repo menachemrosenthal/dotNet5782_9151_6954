@@ -4,7 +4,6 @@ using IDAL;
 
 namespace ConsoleUI
 {
-
     class Program
     {
         public enum Choice
@@ -114,12 +113,7 @@ namespace ConsoleUI
                             break;
                     }
                 }
-                catch (IDAL.AddExistException ex)
-                {
-                    Console.WriteLine(ex);
-                    
-                }
-                catch(IDAL.ItemNotFoundException ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex);
                 }

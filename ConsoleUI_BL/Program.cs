@@ -48,6 +48,7 @@ namespace ConsoleUI_BL
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex);
                 }
             }
         }
@@ -195,7 +196,7 @@ namespace ConsoleUI_BL
 
         private static void PrintParcelList(IBL.IBL bl)
         {
-            foreach (var parcel in bl.getParcelList())
+            foreach (var parcel in bl.GetParcelList())
                 Console.WriteLine(parcel);
         }
 
@@ -224,7 +225,7 @@ namespace ConsoleUI_BL
             IBL.BO.Parcel parcel = new();
             Console.WriteLine("ENTER Parcel id");
             _ = int.TryParse(Console.ReadLine(), out int ParcelId);
-            parcel = bl.getParcel(ParcelId);
+            parcel = bl.GetParcel(ParcelId);
             Console.WriteLine(parcel);
         }
 
@@ -234,7 +235,7 @@ namespace ConsoleUI_BL
             Console.WriteLine("ENTER Customer id");
             _ = int.TryParse(Console.ReadLine(), out int CustomerId);
             //customer = bl.getCustomer(CustomerId);
-            Console.WriteLine(bl.getCustomer(CustomerId));
+            Console.WriteLine(bl.GetCustomer(CustomerId));
         }
 
         private static void parcelProvision(IBL.IBL bl)
@@ -242,7 +243,7 @@ namespace ConsoleUI_BL
             Console.WriteLine("\nENTER Drone id");
             _ = int.TryParse(Console.ReadLine(), out int droneId);
 
-            bl.parcelProvisionUpdate(droneId);
+            bl.ParcelProvisionUpdate(droneId);
         }
 
         private static void DisplayDrone(IBL.IBL bl)
@@ -250,7 +251,7 @@ namespace ConsoleUI_BL
             IBL.BO.Drone drone = new();
             Console.WriteLine("ENTER Drone id");
             _ = int.TryParse(Console.ReadLine(), out int DroneId);
-            drone = bl.getDrone(DroneId);
+            drone = bl.GetDrone(DroneId);
             Console.WriteLine(drone);
         }
 
@@ -260,8 +261,8 @@ namespace ConsoleUI_BL
             Console.WriteLine("ENTER Station id");
             _ = int.TryParse(Console.ReadLine(), out int stationId);
 
-            Console.WriteLine(bl.getStation(stationId));
-            foreach (var drone in bl.getStation(stationId).DronesCharging)
+            Console.WriteLine(bl.GetStation(stationId));
+            foreach (var drone in bl.GetStation(stationId).DronesCharging)
             {
                 Console.WriteLine(drone);
             }
@@ -345,9 +346,9 @@ namespace ConsoleUI_BL
             Console.WriteLine("\nENTER Target ID");
             _ = int.TryParse(Console.ReadLine(), out int TargetId);
             Console.WriteLine("\nENTER Weight: light, medium or heavy");
-            _ = Enum.TryParse(Console.ReadLine(), out Enums.WeightCategories weight);
+            _ = Enum.TryParse(Console.ReadLine(), out WeightCategories weight);
             Console.WriteLine("\nENTER proirity: ragular, fast, urgent");
-            _ = Enum.TryParse(Console.ReadLine(), out Enums.Priorities priority);
+            _ = Enum.TryParse(Console.ReadLine(), out Priorities priority);
 
             parcel.Requested = DateTime.Now;
 
@@ -390,7 +391,7 @@ namespace ConsoleUI_BL
             Console.WriteLine("\nENTER Model");
             drone.Model = Console.ReadLine();
             Console.WriteLine("\nENTER MaxWeight: light, medium or heavy");
-            _ = Enum.TryParse(Console.ReadLine(), out Enums.WeightCategories maxWeight);
+            _ = Enum.TryParse(Console.ReadLine(), out WeightCategories maxWeight);
             Console.WriteLine("ENTER station ID to charge\n");
             _ = int.TryParse(Console.ReadLine(), out int stationId);
 

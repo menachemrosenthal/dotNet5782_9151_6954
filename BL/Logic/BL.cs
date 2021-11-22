@@ -14,8 +14,9 @@ namespace IBL.BO
         public static double CarryingMediemElectricityUse { get; set; }
         public static double CarryingHeavyElectricityUse { get; set; }
         public static double ChargePace { get; set; }
-        List<DroneToList> Drones;
-        IDal dal;
+        
+        private List<DroneToList> drones;
+        private IDal dal;
 
         public BL()
         {
@@ -28,8 +29,7 @@ namespace IBL.BO
             ChargePace = dal.BatteryUseRquest()[4];
 
             Random r = new Random();
-            Drones = new();
-           
+            drones = new();
             
             foreach (var Drone in dal.DroneList())
             {
@@ -37,12 +37,12 @@ namespace IBL.BO
                 drone.CurrentLocation = new();
                 drone.Id = Drone.Id;
                 drone.Model = Drone.Model;
-                drone.MaxWeight = (Enums.WeightCategories)Drone.MaxWeight;               
+                drone.MaxWeight = (WeightCategories)Drone.MaxWeight;               
                 Location stationLocation = new();
 
                 if (!(DroneStatus(drone.Id) == "Free"))
                 {
-                    drone.Status = Enums.DroneStatuses.sending;
+                    drone.Status = DroneStatuses.sending;
                     IDAL.DO.Parcel parcel = new();
                     parcel = dal.ParcelList().First(x => x.DroneId == Drone.Id);                    
                     drone.DeliveredParcelId = parcel.Id;
@@ -56,21 +56,21 @@ namespace IBL.BO
                     int batteryUse = (int)BatteryUseInDelivery(drone, parcel);
                     if (batteryUse < 99)
                         drone.BatteryStatus = r.Next(batteryUse, 99) + 1;
-                    Drones.Add(drone);
+                    drones.Add(drone);
                 }
 
                 if (DroneStatus(drone.Id) == "Free")
                 {
                     drone.DeliveredParcelId = 0;
-                    drone.Status = (Enums.DroneStatuses)r.Next(2);                    
+                    drone.Status = (DroneStatuses)r.Next(2);                    
 
-                    if (drone.Status == Enums.DroneStatuses.maintenance)
+                    if (drone.Status == DroneStatuses.maintenance)
                     {                        
                         IDAL.DO.Station station = new();
                         station = dal.StationList().ElementAt(r.Next((int)dal.StationList().LongCount() - 1));
                         drone.CurrentLocation = StationLocation(station);
                         drone.BatteryStatus = r.Next(0, 20);
-                        Drones.Add(drone);
+                        drones.Add(drone);
                         dal.ChargeDrone(drone.Id, station.Id);
                     }
 
@@ -79,7 +79,7 @@ namespace IBL.BO
                         if (ReceivedCustomersList().Count() > 0)
                             drone.CurrentLocation = CustomerLocation(ReceivedCustomersList().ElementAt(r.Next(ReceivedCustomersList().Count() - 1)));
                         drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99) + 1;
-                        Drones.Add(drone);
+                        drones.Add(drone);
                     }
                 }
             }
