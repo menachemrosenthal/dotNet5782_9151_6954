@@ -17,10 +17,10 @@ namespace IDAL
             private static int _createParcelNumber = 1;
             internal static int CreateParcelNumber => _createParcelNumber++;
 
-            public static double Free = 0.8;
-            public static double CarryingLight = 1.0;
-            public static double CarryingMediem = 1.2;
-            public static double CarryingHeavy = 1.4;
+            public static double Free = 0.4;
+            public static double CarryingLight = 0.5;
+            public static double CarryingMediem = 0.6;
+            public static double CarryingHeavy = 0.7;
             public static double ChargePace = 25.0;
             /// <summary>
             /// starting a project, initialize the data
@@ -87,21 +87,22 @@ namespace IDAL
                 {
 
                     Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[9].Id,
-                    TargetId = DataSource.Customers[0].Id,
+                    Senderid = Customers[9].Id,
+                    TargetId = Customers[0].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[0].Id,
                     Requested = currentDate,
                     Scheduled = currentDate,
-                    PickedUp = currentDate
+                    PickedUp = currentDate,
+                    Delivered= currentDate
                 });
 
                 Parcels.Add(new Parcel
                 {
                     Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[8].Id,
-                    TargetId = DataSource.Customers[1].Id,
+                    Senderid = Customers[8].Id,
+                    TargetId = Customers[1].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[1].Id,
@@ -113,8 +114,8 @@ namespace IDAL
                 Parcels.Add(new Parcel
                 {
                     Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[7].Id,
-                    TargetId = DataSource.Customers[2].Id,
+                    Senderid = Customers[7].Id,
+                    TargetId = Customers[2].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -123,8 +124,8 @@ namespace IDAL
                 Parcels.Add(new Parcel
                 {
                     Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[6].Id,
-                    TargetId = DataSource.Customers[3].Id,
+                    Senderid = Customers[6].Id,
+                    TargetId = Customers[3].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[2].Id,
@@ -135,8 +136,8 @@ namespace IDAL
                 Parcels.Add(new Parcel
                 {
                     Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[5].Id,
-                    TargetId = DataSource.Customers[4].Id,
+                    Senderid = Customers[5].Id,
+                    TargetId = Customers[4].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -145,8 +146,21 @@ namespace IDAL
                 Parcels.Add(new Parcel
                 {
                     Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[4].Id,
-                    TargetId = DataSource.Customers[5].Id,
+                    Senderid = Customers[4].Id,
+                    TargetId = Customers[5].Id,
+                    Weight = (WeightCategories)r.Next(3),
+                    Priority = (Priorities)r.Next(3),
+                    Requested = currentDate,
+                    Scheduled = currentDate,
+                    PickedUp = currentDate,
+                    Delivered = currentDate
+                });
+
+                Parcels.Add(new Parcel
+                {
+                    Id = CreateParcelNumber,
+                    Senderid = Customers[3].Id,
+                    TargetId = Customers[6].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -155,8 +169,8 @@ namespace IDAL
                 Parcels.Add(new Parcel
                 {
                     Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[3].Id,
-                    TargetId = DataSource.Customers[6].Id,
+                    Senderid = Customers[2].Id,
+                    TargetId = Customers[8].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -165,8 +179,8 @@ namespace IDAL
                 Parcels.Add(new Parcel
                 {
                     Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[2].Id,
-                    TargetId = DataSource.Customers[8].Id,
+                    Senderid = Customers[1].Id,
+                    TargetId = Customers[7].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
@@ -175,18 +189,8 @@ namespace IDAL
                 Parcels.Add(new Parcel
                 {
                     Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[1].Id,
-                    TargetId = DataSource.Customers[7].Id,
-                    Weight = (WeightCategories)r.Next(3),
-                    Priority = (Priorities)r.Next(3),
-                    Requested = currentDate
-                });
-
-                Parcels.Add(new Parcel
-                {
-                    Id = CreateParcelNumber,
-                    Senderid = DataSource.Customers[0].Id,
-                    TargetId = DataSource.Customers[9].Id,
+                    Senderid = Customers[0].Id,
+                    TargetId = Customers[9].Id,
                     Weight = (WeightCategories)r.Next(3),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate

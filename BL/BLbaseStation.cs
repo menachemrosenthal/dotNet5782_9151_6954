@@ -27,6 +27,29 @@ namespace IBL.BO
 
             return baseStationList;
         }
+
+        public IEnumerable<StationToList> GetFreeChargingSlotsStationList()
+        {
+            List<StationToList> baseStationList = new();
+            foreach (var station in dal.StationList())
+            {
+                if (station.ChargeSlots > 0)
+                {
+                    StationToList blStation = new()
+                    {
+                        Id = station.Id,
+                        Name = station.Name,
+                        FreeChargeSlots = station.ChargeSlots,
+                        FullChargeSlots = station.ChargeSlots + DronesInStation(station.Id).Count
+                    };
+
+                    baseStationList.Add(blStation);
+                }
+            }
+            return baseStationList;
+        }
+
+
         public void AddStation(Station station)
         {
             IDAL.DO.Station dalStation = new();
