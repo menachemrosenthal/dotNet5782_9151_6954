@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        /// <summary>
+        /// gets Customer and creates bl object
+        /// </summary>
+        /// <param name="parcelId"></param>
+        /// <returns>created Customer</returns>
         public Customer GetCustomer(int CustomerId)
         {
             IDAL.DO.Customer c1 = dal.GetCustomer(CustomerId);
@@ -33,8 +39,17 @@ namespace IBL.BO
             return customer;
         }
 
+        /// <summary>
+        /// add a Custumer
+        /// </summary>
+        /// <param name="Custumer"></param>
         public void AddCustumer(Customer customer)
         {
+            if ((customer.Location.Longitude < 34955762 / 1000000 ||
+               customer.Location.Longitude > 34959020 / 1000000) &&
+                  (customer.Location.Latitude < 31589844 / 1000000 ||
+                  customer.Location.Latitude > 32801705 / 1000000))
+                throw new ArgumentException("location was out Out Of range");
             IDAL.DO.Customer dalCustomer = new();
             dalCustomer.Id = customer.Id;
             dalCustomer.Name = customer.Name;
@@ -44,6 +59,10 @@ namespace IBL.BO
             dal.AddCustumer(dalCustomer);
         }
 
+        /// <summary>
+        /// gets list of customer
+        /// </summary>
+        /// <returns>list of customer</returns>
         public IEnumerable<CustomerToList> GetCustomerList()
         {
             return dal.CustomerList().Select(x =>
@@ -58,7 +77,11 @@ namespace IBL.BO
                     UnreceivedParcelsNum = UnreceivedParcels(x.Id)
                 });
         }
-
+        
+        /// <summary>
+        /// update customer name or phone num
+        /// </summary>
+        /// <param name="customer">customer for update</param>
         public void CustomerUpdate(Customer customer)
         {
             IDAL.DO.Customer dalCustomer = dal.GetCustomer(customer.Id);
@@ -70,6 +93,11 @@ namespace IBL.BO
             dal.CustomerUpdate(dalCustomer);
         }
 
+        /// <summary>
+        /// calculates ditance to closest station
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns></returns>
         private double CustomerClosestStationDistance(int customerId)
         {
             IDAL.DO.Customer customer = new();
@@ -77,6 +105,11 @@ namespace IBL.BO
             return LocationsDistance(CustomerLocation(customer), StationLocation(ClosestStation(CustomerLocation(customer), dal.StationList())));
         }
 
+        /// <summary>
+        /// gets number of provided parcels to customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns>number of provided parcels</returns>
         private int ProvidedParcels(int customerId)
         {
             int sum = 0;
@@ -90,6 +123,11 @@ namespace IBL.BO
             return sum;
         }
 
+        /// <summary>
+        /// gets number of unprovided parcels to customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns>number of unprovided parcels</returns>
         private int UnProvidedParcels(int customerId)
         {
             int sum = 0;
@@ -103,6 +141,11 @@ namespace IBL.BO
             return sum;
         }
 
+        /// <summary>
+        /// gets number of Received parcels to customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns>number of Received parcels</returns>
         private int ReceivedParcels(int customerId)
         {
             int sum = 0;
@@ -116,6 +159,11 @@ namespace IBL.BO
             return sum;
         }
 
+        /// <summary>
+        /// gets number of unReceived parcels to customer
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns>number of unReceived parcels</returns>
         private int UnreceivedParcels(int customerId)
         {
             int sum = 0;
@@ -129,6 +177,11 @@ namespace IBL.BO
             return sum;
         }
 
+        /// <summary>
+        /// gets CustomerInParcel by id
+        /// </summary>
+        /// <param name="CustomerId"></param>
+        /// <returns>CustomerInParcel</returns>
         private CustomerInParcel GetCustomerInParcel(int CustomerId)
         {
             CustomerInParcel customer = new();
@@ -137,12 +190,21 @@ namespace IBL.BO
             return customer;
         }
 
+        /// <summary>
+        /// gets customer location
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns>customer location</returns>
         private Location CustomerLocation(IDAL.DO.Customer customer)
         {
             Location location = new() { Longitude = customer.Longitude, Latitude = customer.Latitude };
             return location;
         }
 
+        /// <summary>
+        /// list of customers that recieved rarcels
+        /// </summary>
+        /// <returns>list of customers</returns>
         private IEnumerable<IDAL.DO.Customer> ReceivedCustomersList()
         {
             List<IDAL.DO.Customer> receivedCustomers = new();

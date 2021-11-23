@@ -1,6 +1,6 @@
 ﻿namespace IBL.BO
 {
-    public class Drone
+    public class Dronetolist
     {
         public int Id { get; set; }
         public string Model { get; set; }

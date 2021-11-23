@@ -8,8 +8,16 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        /// <summary>
+        /// get drone list
+        /// </summary>
+        /// <returns>IEnumerable of drone list</returns>
         public IEnumerable<DroneToList> GetDroneList() => drones.Select(x => x);
 
+        /// <summary>
+        /// updates that parcel was picked up
+        /// </summary>
+        /// <param name="droneId"></param>
         public void ParcelPickedupUptade(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
@@ -27,6 +35,11 @@ namespace IBL.BO
             }
         }
 
+        /// <summary>
+        /// add a drone
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <param name="stationID"></param>
         public void AddDrone(DroneToList drone, int stationID)
         {
             if (drones.Any(x => x.Id == drone.Id))
@@ -50,15 +63,30 @@ namespace IBL.BO
             dal.ChargeDrone(drone.Id, stationID);
         }
 
+        /// <summary>
+        /// update name of drone
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <param name="updateName"></param>
         public void DroneNameUpdate(int droneId, string updateName)
         {
             IDAL.DO.Drone drone = dal.DroneList().FirstOrDefault(x => x.Id == droneId);
+            DroneToList d = this.drones.FirstOrDefault(x => x.Id == droneId);
             if (drone.Id == 0)
                 throw new KeyNotFoundException(nameof(droneId));
             drone.Model = updateName;
+            d.Model = updateName;
             dal.DroneUpdate(drone);
+         
+            int index = this.drones.IndexOf(d);
+            this.drones[index] = d;
+
         }
 
+        /// <summary>
+        /// updates drone to charging state
+        /// </summary>
+        /// <param name="droneId"></param>
         public void ChargeDrone(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
@@ -88,6 +116,11 @@ namespace IBL.BO
             }
         }
 
+        /// <summary>
+        /// releases drone from chatge
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <param name="time"></param>
         public void ReleaseDrone(int droneId, TimeSpan time)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
@@ -107,6 +140,10 @@ namespace IBL.BO
             drones[index] = drone;
         }
 
+        /// <summary>
+        /// updates parcel to a drone
+        /// </summary>
+        /// <param name="droneId"></param>
         public void ParcelToDrone(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
@@ -139,11 +176,16 @@ namespace IBL.BO
             throw new UselessDroneException($"Couldn't find any match parcel for dron id: {droneId}");
         }
 
-        public Drone GetDrone(int droneId)
+        /// <summary>
+        /// gets drone and creates bl object
+        /// </summary>
+        /// <param name="parcelId"></param>
+        /// <returns>created drone</returns>
+        public Dronetolist GetDrone(int droneId)
         {
             DroneToList d = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
 
-            Drone drone = new();
+            Dronetolist drone = new();
             drone.Id = droneId;
             drone.Model = d.Model; drone.MaxWeight = d.MaxWeight;
             drone.Status = d.Status; drone.BatteryStatus = d.BatteryStatus;
@@ -154,7 +196,6 @@ namespace IBL.BO
             }
             return drone;
         }
-
 
         /// <summary>
         /// cheking drone status
@@ -179,6 +220,12 @@ namespace IBL.BO
             return "Free";
         }
 
+        /// <summary>
+        /// calculates amount of battery use needed for delivery
+        /// </summary>
+        /// <param name="drone"></param>
+        /// <param name="parcel"></param>
+        /// <returns>amount of battery use needed for delivery</returns>
         private double BatteryUseInDelivery(DroneToList drone, IDAL.DO.Parcel parcel)
         {
             double BatteryUse = LocationsDistance(drone.CurrentLocation, SenderLocation(parcel)) * FreeElectricityUse;

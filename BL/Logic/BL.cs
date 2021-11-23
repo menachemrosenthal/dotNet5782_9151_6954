@@ -31,6 +31,7 @@ namespace IBL.BO
             Random r = new Random();
             drones = new();
             
+            //update the dal drone list for bl drone list
             foreach (var Drone in dal.DroneList())
             {
                 DroneToList drone = new();
