@@ -74,15 +74,15 @@ namespace IBL.BO
             if (!string.IsNullOrWhiteSpace(nameUpdate))
                 station.Name = nameUpdate;
             if (!string.IsNullOrWhiteSpace(chargSlots) && int.TryParse(chargSlots, out int freeChargeSlots))
+            {
+                if (freeChargeSlots < 0)
+                    throw new ArgumentOutOfRangeException("The charge slots must be positive value");
                 station.ChargeSlots = freeChargeSlots - DronesInStation(stationId).Count;
+            }
             dal.StationUpdate(station);
         }
 
-        /// <summary>
-        /// gets Station and creates bl object
-        /// </summary>
-        /// <param name="StationId"></param>
-        /// <returns>created Station</returns>
+        
         public Station GetStation(int StationId)
         {
             IDAL.DO.Station dalStation = dal.GetStation(StationId);
