@@ -174,11 +174,11 @@ namespace IBL.BO
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns>created drone</returns>
-        public Dronetolist GetDrone(int droneId)
+        public Drone GetDrone(int droneId)
         {
             DroneToList d = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
 
-            Dronetolist drone = new();
+            Drone drone = new();
             drone.Id = droneId;
             drone.Model = d.Model; drone.MaxWeight = d.MaxWeight;
             drone.Status = d.Status; drone.BatteryStatus = d.BatteryStatus;
