@@ -18,6 +18,7 @@ namespace IBL
         /// <param name="drone"></param>
         /// <param name="stationID"></param>
         void AddDrone(DroneToList drone,int stationID);
+<<<<<<< HEAD
 
         /// <summary>
         /// gets drone and creates bl object
@@ -31,6 +32,9 @@ namespace IBL
         /// </summary>
         /// <param name="droneId"></param>
         /// <param name="updateName"></param>
+=======
+        Drone GetDrone(int DroneId);
+>>>>>>> b39bb1742696245ade238d89e653049547755891
         void DroneNameUpdate(int droneId, string updateName);
 
         /// <summary>

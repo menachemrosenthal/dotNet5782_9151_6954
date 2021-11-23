@@ -185,6 +185,7 @@ namespace IBL.BO
         {
             DroneToList d = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
 
+<<<<<<< HEAD
             Drone drone = new()
             {
                 Model = d.Model,
@@ -194,6 +195,13 @@ namespace IBL.BO
                 CurrentLocation = d.CurrentLocation,
                 Id = droneId
             };
+=======
+            Drone drone = new();
+            drone.Id = droneId;
+            drone.Model = d.Model; drone.MaxWeight = d.MaxWeight;
+            drone.Status = d.Status; drone.BatteryStatus = d.BatteryStatus;
+            drone.CurrentLocation = d.CurrentLocation;
+>>>>>>> b39bb1742696245ade238d89e653049547755891
             if (drone.Status == DroneStatuses.sending)
             {
                 drone.Parcel = GetParcelInTransfer(d.DeliveredParcelId);
