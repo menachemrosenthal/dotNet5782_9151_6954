@@ -8,7 +8,12 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        /// <summary>
+        /// get drone list
+        /// </summary>
+        /// <returns>IEnumerable of drone list</returns>
         public IEnumerable<DroneToList> GetDroneList() => drones.Select(x => x);
+
         /// <summary>
         /// updates that parcel was picked up
         /// </summary>
@@ -29,6 +34,7 @@ namespace IBL.BO
                 throw new CannotUpdateExeption("drone", droneId, "drone is unassociated");
             }
         }
+
         /// <summary>
         /// add a drone
         /// </summary>
@@ -154,7 +160,7 @@ namespace IBL.BO
                 //.Select(x => new { Parcel = x, Distance = LocationsDistance(SenderLocation(x), drone.CurrentLocation) })
                 .ToList()
                 .ForEach(parcel =>
-                {
+                {   
                     if (weight >= (int)parcel.Weight)
                     {
                         if (drone.BatteryStatus >= BatteryUseInDelivery(drone, parcel))
@@ -169,6 +175,7 @@ namespace IBL.BO
                 });
             throw new UselessDroneException($"Couldn't find any match parcel for dron id: {droneId}");
         }
+
         /// <summary>
         /// gets drone and creates bl object
         /// </summary>
@@ -189,8 +196,6 @@ namespace IBL.BO
             }
             return drone;
         }
-
-        //                   **************        Auxiliary functions          ***************           //
 
         /// <summary>
         /// cheking drone status
@@ -214,6 +219,7 @@ namespace IBL.BO
             }
             return "Free";
         }
+
         /// <summary>
         /// calculates amount of battery use needed for delivery
         /// </summary>

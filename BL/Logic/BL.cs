@@ -31,6 +31,7 @@ namespace IBL.BO
             Random r = new Random();
             drones = new();
             
+            //update the dal drone list for bl drone list
             foreach (var Drone in dal.DroneList())
             {
                 DroneToList drone = new();
@@ -40,6 +41,7 @@ namespace IBL.BO
                 drone.MaxWeight = (WeightCategories)Drone.MaxWeight;               
                 Location stationLocation = new();
 
+                //the drone is associated to parcel
                 if (!(DroneStatus(drone.Id) == "Free"))
                 {
                     drone.Status = DroneStatuses.sending;
@@ -62,6 +64,7 @@ namespace IBL.BO
                 if (DroneStatus(drone.Id) == "Free")
                 {
                     drone.DeliveredParcelId = 0;
+                    //randome status between free and maintenance
                     drone.Status = (DroneStatuses)r.Next(2);                    
 
                     if (drone.Status == DroneStatuses.maintenance)
@@ -74,6 +77,7 @@ namespace IBL.BO
                         dal.ChargeDrone(drone.Id, station.Id);
                     }
 
+                    //is not maintenance or associated to parcel
                     else
                     {                        
                         if (ReceivedCustomersList().Count() > 0)
@@ -85,7 +89,7 @@ namespace IBL.BO
             }
         }
 
-        public double LocationsDistance(Location l1, Location l2)
+        private double LocationsDistance(Location l1, Location l2)
         {
              return dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);
         }

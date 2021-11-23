@@ -38,28 +38,6 @@ namespace IBL.BO
         }
 
         /// <summary>
-        /// gets parcel in transfer
-        /// </summary>
-        /// <param name="parcelId"></param>
-        /// <returns>parcel in transfer</returns>
-        private ParcelInTransfer GetParcelInTransfer(int parcelId)
-        {
-            ParcelInTransfer parcel = new();
-            IDAL.DO.Parcel dalParcel = dal.GetParcel(parcelId);
-            parcel.Id = dalParcel.Id;
-
-            var parcelsStatus = GetParcelStatus(parcelId);
-            parcel.Transferred = parcelsStatus != ParcelStatuses.defined && parcelsStatus != ParcelStatuses.associated;
-
-            parcel.Priority = (Priorities)dalParcel.Priority;
-            parcel.Receiver = GetCustomerInParcel(dalParcel.TargetId);
-            parcel.Sender = GetCustomerInParcel(dalParcel.Senderid);
-            parcel.Collection = SenderLocation(dalParcel);
-            parcel.Target = TargetLocation(dalParcel);
-            return parcel;
-        }
-
-        /// <summary>
         /// updates drone that parcel was delivered
         /// </summary>
         /// <param name="droneId"></param>
@@ -95,6 +73,23 @@ namespace IBL.BO
                     Status = GetParcelStatus(parcel.Id)
                 });
         }
+
+        /// <summary>
+        /// add a parcel
+        /// </summary>
+        /// <param name="parcel"></param>
+        public void AddParcel(Parcel parcel)
+        {
+            IDAL.DO.Parcel dalParcel = new();
+            dalParcel.Senderid = parcel.Senderid;
+            dalParcel.TargetId = parcel.TargetId;
+            dalParcel.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
+            dalParcel.Priority = (IDAL.DO.Priorities)parcel.Priority;
+            dalParcel.Requested = DateTime.Now;
+            parcel.Drone = null;
+            dal.AddParcel(dalParcel);
+        }
+
         /// <summary>
         /// get list of usassociated Parceles
         /// </summary>
@@ -115,6 +110,28 @@ namespace IBL.BO
         }
 
         /// <summary>
+        /// gets parcel in transfer
+        /// </summary>
+        /// <param name="parcelId"></param>
+        /// <returns>parcel in transfer</returns>
+        private ParcelInTransfer GetParcelInTransfer(int parcelId)
+        {
+            ParcelInTransfer parcel = new();
+            IDAL.DO.Parcel dalParcel = dal.GetParcel(parcelId);
+            parcel.Id = dalParcel.Id;
+
+            var parcelsStatus = GetParcelStatus(parcelId);
+            parcel.Transferred = parcelsStatus != ParcelStatuses.defined && parcelsStatus != ParcelStatuses.associated;
+
+            parcel.Priority = (Priorities)dalParcel.Priority;
+            parcel.Receiver = GetCustomerInParcel(dalParcel.TargetId);
+            parcel.Sender = GetCustomerInParcel(dalParcel.Senderid);
+            parcel.Collection = SenderLocation(dalParcel);
+            parcel.Target = TargetLocation(dalParcel);
+            return parcel;
+        }
+
+        /// <summary>
         /// gets sender location
         /// </summary>
         /// <param name="parcel"></param>
@@ -123,6 +140,7 @@ namespace IBL.BO
         {
             return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
         }
+
         /// <summary>
         /// gets Target location
         /// </summary>
@@ -132,13 +150,12 @@ namespace IBL.BO
         {
             return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
         }
-
+      
         /// <summary>
         /// sort parcel list
         /// </summary>
         /// <param name="location"></param>
-        /// <returns>sort list by "priority" , "weight" , "closest location"</returns>
-        
+        /// <returns>sort list by "priority" , "weight" , "closest location"</returns>        
         private IDAL.DO.Parcel ClosestSender(Location location, IEnumerable<IDAL.DO.Parcel> parcels)
         {
             IDAL.DO.Parcel closestParcel = new();
@@ -153,6 +170,7 @@ namespace IBL.BO
 
             return closestParcel;
         }
+
         /// <summary>
         /// calculates distance between sender and reciever
         /// </summary>
@@ -162,21 +180,7 @@ namespace IBL.BO
         {
             return LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
         }
-        /// <summary>
-        /// add a parcel
-        /// </summary>
-        /// <param name="parcel"></param>
-        public void AddParcel(Parcel parcel)
-        {
-            IDAL.DO.Parcel dalParcel = new();
-            dalParcel.Senderid = parcel.Senderid;
-            dalParcel.TargetId = parcel.TargetId;
-            dalParcel.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
-            dalParcel.Priority = (IDAL.DO.Priorities)parcel.Priority;
-            dalParcel.Requested = DateTime.Now;
-            parcel.Drone = null;
-            dal.AddParcel(dalParcel);
-        }
+
         /// <summary>
         /// get parcel status
         /// </summary>

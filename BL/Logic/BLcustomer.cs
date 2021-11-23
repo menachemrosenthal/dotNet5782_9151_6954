@@ -38,6 +38,7 @@ namespace IBL.BO
             }
             return customer;
         }
+
         /// <summary>
         /// add a Custumer
         /// </summary>
@@ -57,6 +58,7 @@ namespace IBL.BO
             dalCustomer.Longitude = customer.Location.Longitude;
             dal.AddCustumer(dalCustomer);
         }
+
         /// <summary>
         /// gets list of customer
         /// </summary>
@@ -76,6 +78,10 @@ namespace IBL.BO
                 });
         }
         
+        /// <summary>
+        /// update customer name or phone num
+        /// </summary>
+        /// <param name="customer">customer for update</param>
         public void CustomerUpdate(Customer customer)
         {
             IDAL.DO.Customer dalCustomer = dal.GetCustomer(customer.Id);
@@ -86,6 +92,7 @@ namespace IBL.BO
                 dalCustomer.Phone = customer.Phone;
             dal.CustomerUpdate(dalCustomer);
         }
+
         /// <summary>
         /// calculates ditance to closest station
         /// </summary>
@@ -97,6 +104,7 @@ namespace IBL.BO
             customer = dal.CustomerList().First(x => x.Id == customerId);
             return LocationsDistance(CustomerLocation(customer), StationLocation(ClosestStation(CustomerLocation(customer), dal.StationList())));
         }
+
         /// <summary>
         /// gets number of provided parcels to customer
         /// </summary>
@@ -132,6 +140,7 @@ namespace IBL.BO
 
             return sum;
         }
+
         /// <summary>
         /// gets number of Received parcels to customer
         /// </summary>
@@ -149,6 +158,7 @@ namespace IBL.BO
 
             return sum;
         }
+
         /// <summary>
         /// gets number of unReceived parcels to customer
         /// </summary>
@@ -166,6 +176,7 @@ namespace IBL.BO
 
             return sum;
         }
+
         /// <summary>
         /// gets CustomerInParcel by id
         /// </summary>
@@ -178,6 +189,7 @@ namespace IBL.BO
             customer.Id = c.Id; customer.Name = c.Name;
             return customer;
         }
+
         /// <summary>
         /// gets customer location
         /// </summary>
@@ -188,6 +200,7 @@ namespace IBL.BO
             Location location = new() { Longitude = customer.Longitude, Latitude = customer.Latitude };
             return location;
         }
+
         /// <summary>
         /// list of customers that recieved rarcels
         /// </summary>
