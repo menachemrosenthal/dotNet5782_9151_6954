@@ -13,14 +13,16 @@ namespace IBL.BO
         /// <returns>created Customer</returns>
         public Customer GetCustomer(int CustomerId)
         {
-            IDAL.DO.Customer c1 = dal.GetCustomer(CustomerId);
+            IDAL.DO.Customer dalCustomer = dal.GetCustomer(CustomerId);
 
-            Customer customer = new();
-            customer.Id = c1.Id;
-            customer.Name = c1.Name;
-            customer.Phone = c1.Phone;
-            customer.Location.Latitude = c1.Latitude;
-            customer.Location.Longitude = c1.Longitude;
+            Customer customer = new()
+            {
+                Id = dalCustomer.Id,
+                Name = dalCustomer.Name,
+                Phone = dalCustomer.Phone,
+                Location = CustomerLocation(dalCustomer)
+            };
+
             foreach (var par in dal.ParcelList())
             {
                 if (par.Senderid == CustomerId)
@@ -77,7 +79,7 @@ namespace IBL.BO
                     UnreceivedParcelsNum = UnreceivedParcels(x.Id)
                 });
         }
-        
+
         /// <summary>
         /// update customer name or phone num
         /// </summary>

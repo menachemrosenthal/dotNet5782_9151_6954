@@ -12,10 +12,10 @@
         public double TransportDistance { get; set; }
         public override string ToString()
         {
-            return "Parcel number: " + Id +
-                "\nTransferred: " + Transferred + "\nPriority: " + Priority + "\nSender: " + Sender +
-                "\nReceiver: " + Receiver + "\nCollection: " + Collection +
-                "\nTarget: " + Target + "\nTransportDistance: " + TransportDistance + "\n";
+            return " Parcel number: " + Id +
+                "\n Transferred: " + Transferred + "\n Priority: " + Priority + "\n Sender: " + Sender +
+                "\n Receiver: " + Receiver + "\n Collection location: " + Collection +
+                "\n Target location: " + Target + "\n Transport distance: " + TransportDistance + "\n";
         }
     }
 }

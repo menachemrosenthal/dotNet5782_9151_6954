@@ -21,7 +21,7 @@ namespace IBL.BO
         public void ParcelPickedupUptade(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
-            if (DroneStatus(droneId) == "Associated")
+            if (GetDroneStatus(droneId) == "Associated")
             {
                 double distance = LocationsDistance(drone.CurrentLocation, SenderLocation(dal.GetParcel(drone.DeliveredParcelId)));
                 drone.BatteryStatus -= distance * FreeElectricityUse;
@@ -77,7 +77,7 @@ namespace IBL.BO
             drone.Model = updateName;
             d.Model = updateName;
             dal.DroneUpdate(drone);
-         
+
             int index = this.drones.IndexOf(d);
             this.drones[index] = d;
 
@@ -90,7 +90,7 @@ namespace IBL.BO
         public void ChargeDrone(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
-            if (DroneStatus(droneId) != "Free")
+            if (GetDroneStatus(droneId) != "Free")
                 throw new CannotUpdateExeption("drone", droneId, "drone is not free to charge");
 
             int index = drones.IndexOf(drone);
@@ -148,7 +148,7 @@ namespace IBL.BO
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
 
-            if (DroneStatus(droneId) != "Free")
+            if (GetDroneStatus(droneId) != "Free")
                 throw new ArgumentException("Drone must be free", nameof(droneId));
 
             List<IDAL.DO.Parcel> parcels = dal.ParcelList().Where(x => x.DroneId == 0).ToList();
@@ -160,7 +160,7 @@ namespace IBL.BO
                 //.Select(x => new { Parcel = x, Distance = LocationsDistance(SenderLocation(x), drone.CurrentLocation) })
                 .ToList()
                 .ForEach(parcel =>
-                {   
+                {
                     if (weight >= (int)parcel.Weight)
                     {
                         if (drone.BatteryStatus >= BatteryUseInDelivery(drone, parcel))
@@ -181,19 +181,24 @@ namespace IBL.BO
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns>created drone</returns>
-        public Dronetolist GetDrone(int droneId)
+        public Drone GetDrone(int droneId)
         {
             DroneToList d = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
 
-            Dronetolist drone = new();
-            drone.Id = droneId;
-            drone.Model = d.Model; drone.MaxWeight = d.MaxWeight;
-            drone.Status = d.Status; drone.BatteryStatus = d.BatteryStatus;
-            drone.CurrentLocation = d.CurrentLocation;
+            Drone drone = new()
+            {
+                Model = d.Model,
+                MaxWeight = d.MaxWeight,
+                Status = d.Status,
+                BatteryStatus = d.BatteryStatus,
+                CurrentLocation = d.CurrentLocation,
+                Id = droneId
+            };
             if (drone.Status == DroneStatuses.sending)
             {
                 drone.Parcel = GetParcelInTransfer(d.DeliveredParcelId);
             }
+
             return drone;
         }
 
@@ -202,7 +207,7 @@ namespace IBL.BO
         /// </summary>
         /// <param name="id">drone id for check</param>
         /// <returns>"Free" or "Associated" or "Executing"</returns>
-        private string DroneStatus(int id)
+        private string GetDroneStatus(int id)
         {
             if (drones.Any(x => x.Id == id && x.Status == DroneStatuses.maintenance))
                 return "Maintenece";

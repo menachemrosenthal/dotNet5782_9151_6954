@@ -81,8 +81,12 @@ namespace IBL.BO
             }
             dal.StationUpdate(station);
         }
-
         
+        /// <summary>
+        /// get station
+        /// </summary>
+        /// <param name="StationId">id station to get</param>
+        /// <returns>station</returns>
         public Station GetStation(int StationId)
         {
             IDAL.DO.Station dalStation = dal.GetStation(StationId);

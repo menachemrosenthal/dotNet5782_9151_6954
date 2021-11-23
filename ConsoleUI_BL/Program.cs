@@ -248,7 +248,7 @@ namespace ConsoleUI_BL
 
         private static void DisplayDrone(IBL.IBL bl)
         {
-            IBL.BO.Dronetolist drone = new();
+            IBL.BO.Drone drone = new();
             Console.WriteLine("ENTER Drone id");
             _ = int.TryParse(Console.ReadLine(), out int DroneId);
             drone = bl.GetDrone(DroneId);

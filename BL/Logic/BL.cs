@@ -42,17 +42,17 @@ namespace IBL.BO
                 Location stationLocation = new();
 
                 //the drone is associated to parcel
-                if (!(DroneStatus(drone.Id) == "Free"))
+                if (!(GetDroneStatus(drone.Id) == "Free"))
                 {
                     drone.Status = DroneStatuses.sending;
                     IDAL.DO.Parcel parcel = new();
                     parcel = dal.ParcelList().First(x => x.DroneId == Drone.Id);                    
                     drone.DeliveredParcelId = parcel.Id;
 
-                    if (DroneStatus(drone.Id) == "Associated")
+                    if (GetDroneStatus(drone.Id) == "Associated")
                         drone.CurrentLocation = StationLocation(ClosestStation(SenderLocation(parcel), dal.StationList()));
 
-                    if (DroneStatus(drone.Id) == "Executing")
+                    if (GetDroneStatus(drone.Id) == "Executing")
                         drone.CurrentLocation = SenderLocation(parcel);
 
                     int batteryUse = (int)BatteryUseInDelivery(drone, parcel);
@@ -61,7 +61,7 @@ namespace IBL.BO
                     drones.Add(drone);
                 }
 
-                if (DroneStatus(drone.Id) == "Free")
+                if (GetDroneStatus(drone.Id) == "Free")
                 {
                     drone.DeliveredParcelId = 0;
                     //randome status between free and maintenance

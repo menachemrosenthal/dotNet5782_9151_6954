@@ -12,7 +12,7 @@ namespace IBL.BO
         public double Latitude { get; set; }
         public override string ToString()
         {
-            return " Longitude " + Longitude + " , Latitude: " + Latitude + "\n";
+            return " Longitude " + Longitude + " , Latitude: " + Latitude;
         }
     }
 }

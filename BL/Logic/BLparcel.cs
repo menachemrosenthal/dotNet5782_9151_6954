@@ -19,7 +19,7 @@ namespace IBL.BO
         {
             IDAL.DO.Parcel p = dal.GetParcel(parcelId);
             Parcel parcel = new();
-            parcel.Id = p.Id; 
+            parcel.Id = p.Id;
             parcel.PickedUp = p.PickedUp;
             parcel.Priority = (Priorities)p.Priority;
             parcel.Requested = p.Requested; parcel.Scheduled = p.Scheduled;
@@ -45,7 +45,7 @@ namespace IBL.BO
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
 
-            if (DroneStatus(droneId) != "Executing")
+            if (GetDroneStatus(droneId) != "Executing")
             {
                 throw new CannotUpdateExeption("drone", droneId, "not executing");
             }
@@ -56,6 +56,7 @@ namespace IBL.BO
             drone.Status = DroneStatuses.free;
             dal.UpdateDelivery(parcel.Id);
         }
+
         /// <summary>
         /// gets list of parcels
         /// </summary>
@@ -80,13 +81,15 @@ namespace IBL.BO
         /// <param name="parcel"></param>
         public void AddParcel(Parcel parcel)
         {
-            IDAL.DO.Parcel dalParcel = new();
-            dalParcel.Senderid = parcel.Senderid;
-            dalParcel.TargetId = parcel.TargetId;
-            dalParcel.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
-            dalParcel.Priority = (IDAL.DO.Priorities)parcel.Priority;
-            dalParcel.Requested = DateTime.Now;
-            parcel.Drone = null;
+            IDAL.DO.Parcel dalParcel = new()
+            {
+                Senderid = parcel.Senderid,
+                TargetId = parcel.TargetId,
+                Weight = (IDAL.DO.WeightCategories)parcel.Weight,
+                Priority = (IDAL.DO.Priorities)parcel.Priority,
+                Requested = DateTime.Now,
+
+            };
             dal.AddParcel(dalParcel);
         }
 
@@ -128,6 +131,7 @@ namespace IBL.BO
             parcel.Sender = GetCustomerInParcel(dalParcel.Senderid);
             parcel.Collection = SenderLocation(dalParcel);
             parcel.Target = TargetLocation(dalParcel);
+            parcel.TransportDistance = SenderTaregetDistance(dalParcel);
             return parcel;
         }
 
@@ -150,7 +154,7 @@ namespace IBL.BO
         {
             return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
         }
-      
+
         /// <summary>
         /// sort parcel list
         /// </summary>

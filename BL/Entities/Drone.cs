@@ -1,6 +1,6 @@
 ﻿namespace IBL.BO
 {
-    public class Dronetolist
+    public class Drone
     {
         public int Id { get; set; }
         public string Model { get; set; }
@@ -12,9 +12,9 @@
         public override string ToString()
         {
             return "Drone: " + Model +
-                "\nID: " + Id + "\nMax weight: " + MaxWeight + "\nBatteryStatus:" + BatteryStatus
-                + "\nDroneStatuses:" + Status + "\nParcelInTransfer:" + Parcel +
-                "Location" + CurrentLocation + "\n";
+                "\n ID: " + Id + "\n Max weight: " + MaxWeight + "\n Battery status: " + BatteryStatus
+                + "\n Drone status: " + Status + "\n Parcel in transfer: \n" + Parcel +
+                " Drone current Location: " + CurrentLocation + "\n";
                 ;
         }
     }
