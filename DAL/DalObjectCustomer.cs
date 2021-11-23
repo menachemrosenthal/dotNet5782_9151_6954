@@ -18,7 +18,8 @@ namespace IDAL
                 var exist = DataSource.Customers.Any(x => x.Id == customer.Id);
                 if (exist)
                     throw new IDAL.AddExistException("Customer", customer.Id);
-                DataSource.Customers.Add(customer);
+           
+            DataSource.Customers.Add(customer);
         }
 
         /// <summary>

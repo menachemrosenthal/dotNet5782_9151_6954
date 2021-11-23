@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace IBL.BO
@@ -38,6 +39,11 @@ namespace IBL.BO
         /// <param name="station"></param>
         public void AddStation(Station station)
         {
+            if ((station.LocationOfStation.Longitude < 34955762 / 1000000 ||
+               station.LocationOfStation.Longitude > 34959020 / 1000000) &&
+                  (station.LocationOfStation.Latitude < 31589844 / 1000000 ||
+                  station.LocationOfStation.Latitude > 32801705 / 1000000))
+                throw new ArgumentException("location was out Out Of range");
             IDAL.DO.Station dalStation = new();
             dalStation.Id = station.Id;
             dalStation.Name = station.Name;

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace IBL.BO
@@ -43,6 +44,11 @@ namespace IBL.BO
         /// <param name="Custumer"></param>
         public void AddCustumer(Customer customer)
         {
+            if ((customer.Location.Longitude < 34955762 / 1000000 ||
+               customer.Location.Longitude > 34959020 / 1000000) &&
+                  (customer.Location.Latitude < 31589844 / 1000000 ||
+                  customer.Location.Latitude > 32801705 / 1000000))
+                throw new ArgumentException("location was out Out Of range");
             IDAL.DO.Customer dalCustomer = new();
             dalCustomer.Id = customer.Id;
             dalCustomer.Name = customer.Name;
