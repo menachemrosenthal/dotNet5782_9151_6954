@@ -20,7 +20,8 @@ namespace IDAL
                 var exist = DataSource.Stations.Any(x => x.Id == station.Id);
                 if (exist)
                     throw new IDAL.AddExistException("Station", station.Id);
-               
+                if (station.ChargeSlots < 0)
+                    throw new ArgumentException("station cannot have less than 0 charge slots");
                 DataSource.Stations.Add(station);
             }
             catch (IDAL.AddExistException ex)
