@@ -41,35 +41,40 @@ namespace IBL.BO
         /// <param name="station"></param>
         public void AddStation(Station station)
         {
-            if ((station.LocationOfStation.Longitude < 34955762 / 1000000 ||
-               station.LocationOfStation.Longitude > 34959020 / 1000000) &&
-                  (station.LocationOfStation.Latitude < 31589844 / 1000000 ||
-                  station.LocationOfStation.Latitude > 32801705 / 1000000))
-                throw new ArgumentException("location was out Out Of range");
-            IDAL.DO.Station dalStation = new();
-            dalStation.Id = station.Id;
-            dalStation.Name = station.Name;
-            dalStation.ChargeSlots = station.ChargeSlots;
-            dalStation.Latitude = station.LocationOfStation.Latitude;
-            dalStation.Longitude = station.LocationOfStation.Longitude;
+            if (station.LocationOfStation.Longitude < 34.955762 ||
+               station.LocationOfStation.Longitude > 34.959020)
+                throw new ArgumentOutOfRangeException("The longitude was out of range");
+
+            if (station.LocationOfStation.Latitude < 31.589844 ||
+            station.LocationOfStation.Latitude > 32.801705)
+                throw new ArgumentOutOfRangeException("The latitude was out Of range");
+
+            IDAL.DO.Station dalStation = new()
+            {
+             Id = station.Id,
+            Name = station.Name,
+            ChargeSlots = station.ChargeSlots,
+            Latitude = station.LocationOfStation.Latitude,
+            Longitude = station.LocationOfStation.Longitude,
+            };
             station.DronesCharging = null;
             dal.AddStation(dalStation);
         }
 
         /// <summary>
-        /// update station
+        /// update name or charge slots of station
         /// </summary>
-        /// <param name="stationId"></param>
-        /// <param name="nameUpdate"></param>
-        /// <param name="freeChargeSlots"></param>
-        public void StationUpdate(int stationId, string nameUpdate, string freeChargeSlots)
+        /// <param name="stationId">station id for update</param>
+        /// <param name="nameUpdate">new name</param>
+        /// <param name="chargSlots">num of charge slots</param>
+        public void StationUpdate(int stationId, string nameUpdate, string chargSlots)
         {
             IDAL.DO.Station station = dal.GetStation(stationId);
 
             if (!string.IsNullOrWhiteSpace(nameUpdate))
                 station.Name = nameUpdate;
-            if (!string.IsNullOrWhiteSpace(freeChargeSlots) && int.TryParse(freeChargeSlots, out int chargeSlots))
-                station.ChargeSlots = chargeSlots - DronesInStation(stationId).Count;
+            if (!string.IsNullOrWhiteSpace(chargSlots) && int.TryParse(chargSlots, out int freeChargeSlots))
+                station.ChargeSlots = freeChargeSlots - DronesInStation(stationId).Count;
             dal.StationUpdate(station);
         }
 
