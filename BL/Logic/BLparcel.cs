@@ -32,23 +32,6 @@ namespace IBL.BO
             return parcel;
         }
 
-        private ParcelInTransfer GetParcelInTransfer(int parcelId)
-        {
-            ParcelInTransfer parcel = new();
-            IDAL.DO.Parcel dalParcel = dal.GetParcel(parcelId);
-            parcel.Id = dalParcel.Id;
-
-            var parcelsStatus = GetParcelStatus(parcelId);
-            parcel.Transferred = parcelsStatus != ParcelStatuses.defined && parcelsStatus != ParcelStatuses.associated;
-
-            parcel.Priority = (Priorities)dalParcel.Priority;
-            parcel.Receiver = GetCustomerInParcel(dalParcel.TargetId);
-            parcel.Sender = GetCustomerInParcel(dalParcel.Senderid);
-            parcel.Collection = SenderLocation(dalParcel);
-            parcel.Target = TargetLocation(dalParcel);
-            return parcel;
-        }
-
         public void ParcelProvisionUpdate(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
@@ -79,6 +62,18 @@ namespace IBL.BO
                 });
         }
 
+        public void AddParcel(Parcel parcel)
+        {
+            IDAL.DO.Parcel dalParcel = new();
+            dalParcel.Senderid = parcel.Senderid;
+            dalParcel.TargetId = parcel.TargetId;
+            dalParcel.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
+            dalParcel.Priority = (IDAL.DO.Priorities)parcel.Priority;
+            dalParcel.Requested = DateTime.Now;
+            parcel.Drone = null;
+            dal.AddParcel(dalParcel);
+        }
+
         public IEnumerable<ParcelToList> GetNonAssociateParcelList()
         {
             return dal.ParcelList()
@@ -104,6 +99,22 @@ namespace IBL.BO
             return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
         }
 
+        private ParcelInTransfer GetParcelInTransfer(int parcelId)
+        {
+            ParcelInTransfer parcel = new();
+            IDAL.DO.Parcel dalParcel = dal.GetParcel(parcelId);
+            parcel.Id = dalParcel.Id;
+
+            var parcelsStatus = GetParcelStatus(parcelId);
+            parcel.Transferred = parcelsStatus != ParcelStatuses.defined && parcelsStatus != ParcelStatuses.associated;
+
+            parcel.Priority = (Priorities)dalParcel.Priority;
+            parcel.Receiver = GetCustomerInParcel(dalParcel.TargetId);
+            parcel.Sender = GetCustomerInParcel(dalParcel.Senderid);
+            parcel.Collection = SenderLocation(dalParcel);
+            parcel.Target = TargetLocation(dalParcel);
+            return parcel;
+        }
         /// <summary>
         /// sort parcel list
         /// </summary>
@@ -128,18 +139,6 @@ namespace IBL.BO
         private double SenderTaregetDistance(IDAL.DO.Parcel parcel)
         {
             return LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
-        }
-
-        public void AddParcel(Parcel parcel)
-        {
-            IDAL.DO.Parcel dalParcel = new();
-            dalParcel.Senderid = parcel.Senderid;
-            dalParcel.TargetId = parcel.TargetId;
-            dalParcel.Weight = (IDAL.DO.WeightCategories)parcel.Weight;
-            dalParcel.Priority = (IDAL.DO.Priorities)parcel.Priority;
-            dalParcel.Requested = DateTime.Now;
-            parcel.Drone = null;
-            dal.AddParcel(dalParcel);
         }
 
         private ParcelStatuses GetParcelStatus(int parcelId)

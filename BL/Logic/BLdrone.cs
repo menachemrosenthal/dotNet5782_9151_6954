@@ -123,7 +123,7 @@ namespace IBL.BO
                 //.Select(x => new { Parcel = x, Distance = LocationsDistance(SenderLocation(x), drone.CurrentLocation) })
                 .ToList()
                 .ForEach(parcel =>
-                {
+                {   
                     if (weight >= (int)parcel.Weight)
                     {
                         if (drone.BatteryStatus >= BatteryUseInDelivery(drone, parcel))
@@ -155,7 +155,6 @@ namespace IBL.BO
             return drone;
         }
 
-        //                   **************        Auxiliary functions          ***************           //
 
         /// <summary>
         /// cheking drone status
