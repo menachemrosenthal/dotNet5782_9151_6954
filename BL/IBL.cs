@@ -1,9 +1,6 @@
 ﻿using IBL.BO;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IBL
 {
@@ -11,7 +8,7 @@ namespace IBL
     {
         void AddStation(Station station);        
         void AddDrone(DroneToList drone,int stationID);
-        Drone getDrone(int DroneId);
+        Drone GetDrone(int DroneId);
         void DroneNameUpdate(int droneId, string updateName);
         void StationUpdate(int stationId,string nameUpdate,string freeChargeSlots);
         void CustomerUpdate(Customer customer);
@@ -21,15 +18,15 @@ namespace IBL
         void ParcelPickedupUptade(int droneId);
         double LocationsDistance(Location l1, Location l2);
         void AddCustumer(Customer customer);
-        Customer getCustomer(int CustomerId);
+        Customer GetCustomer(int CustomerId);
         void AddParcel(Parcel parcel);
-        Parcel getParcel(int parcelId);
-        Station getStation(int StationId);
-        void parcelProvisionUpdate(int droneId);
+        Parcel GetParcel(int parcelId);
+        Station GetStation(int StationId);
+        void ParcelProvisionUpdate(int droneId);
         IEnumerable<StationToList> GetBaseStationList();
-        IEnumerable<object> GetDroneList();
-        IEnumerable<object> GetCustomerList();
-        IEnumerable<ParcelToList> getParcelList();
+        IEnumerable<DroneToList> GetDroneList();
+        IEnumerable<CustomerToList> GetCustomerList();
+        IEnumerable<ParcelToList> GetParcelList();
         IEnumerable<ParcelToList> GetNonAssociateParcelList();
         IEnumerable<StationToList> GetFreeChargingSlotsStationList();
     }
