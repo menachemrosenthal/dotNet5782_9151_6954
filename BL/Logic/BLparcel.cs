@@ -10,6 +10,11 @@ namespace IBL.BO
 {
     public partial class BL : IBL
     {
+        /// <summary>
+        /// gets parcel and creates bl object
+        /// </summary>
+        /// <param name="parcelId"></param>
+        /// <returns>created paecel</returns>
         public Parcel GetParcel(int parcelId)
         {
             IDAL.DO.Parcel p = dal.GetParcel(parcelId);
@@ -32,6 +37,11 @@ namespace IBL.BO
             return parcel;
         }
 
+        /// <summary>
+        /// gets parcel in transfer
+        /// </summary>
+        /// <param name="parcelId"></param>
+        /// <returns>parcel in transfer</returns>
         private ParcelInTransfer GetParcelInTransfer(int parcelId)
         {
             ParcelInTransfer parcel = new();
@@ -49,6 +59,10 @@ namespace IBL.BO
             return parcel;
         }
 
+        /// <summary>
+        /// updates drone that parcel was delivered
+        /// </summary>
+        /// <param name="droneId"></param>
         public void ParcelProvisionUpdate(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
@@ -64,7 +78,10 @@ namespace IBL.BO
             drone.Status = DroneStatuses.free;
             dal.UpdateDelivery(parcel.Id);
         }
-
+        /// <summary>
+        /// gets list of parcels
+        /// </summary>
+        /// <returns>list of parcels</returns>
         public IEnumerable<ParcelToList> GetParcelList()
         {
             return dal.ParcelList()
@@ -78,7 +95,10 @@ namespace IBL.BO
                     Status = GetParcelStatus(parcel.Id)
                 });
         }
-
+        /// <summary>
+        /// get list of usassociated Parceles
+        /// </summary>
+        /// <returns>list of usassociated Parceles</returns>
         public IEnumerable<ParcelToList> GetNonAssociateParcelList()
         {
             return dal.ParcelList()
@@ -94,11 +114,20 @@ namespace IBL.BO
                 });
         }
 
+        /// <summary>
+        /// gets sender location
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns> sender location</returns>
         private Location SenderLocation(IDAL.DO.Parcel parcel)
         {
             return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
         }
-
+        /// <summary>
+        /// gets Target location
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns> Target location</returns>
         private Location TargetLocation(IDAL.DO.Parcel parcel)
         {
             return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
@@ -109,7 +138,7 @@ namespace IBL.BO
         /// </summary>
         /// <param name="location"></param>
         /// <returns>sort list by "priority" , "weight" , "closest location"</returns>
-
+        
         private IDAL.DO.Parcel ClosestSender(Location location, IEnumerable<IDAL.DO.Parcel> parcels)
         {
             IDAL.DO.Parcel closestParcel = new();
@@ -124,12 +153,19 @@ namespace IBL.BO
 
             return closestParcel;
         }
-
+        /// <summary>
+        /// calculates distance between sender and reciever
+        /// </summary>
+        /// <param name="parcel"></param>
+        /// <returns>distance between sender and reciever</returns>
         private double SenderTaregetDistance(IDAL.DO.Parcel parcel)
         {
             return LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
         }
-
+        /// <summary>
+        /// add a parcel
+        /// </summary>
+        /// <param name="parcel"></param>
         public void AddParcel(Parcel parcel)
         {
             IDAL.DO.Parcel dalParcel = new();
@@ -141,7 +177,11 @@ namespace IBL.BO
             parcel.Drone = null;
             dal.AddParcel(dalParcel);
         }
-
+        /// <summary>
+        /// get parcel status
+        /// </summary>
+        /// <param name="parcelId"></param>
+        /// <returns>parcel status</returns>
         private ParcelStatuses GetParcelStatus(int parcelId)
         {
             if (dal.GetParcel(parcelId).Scheduled == null)
