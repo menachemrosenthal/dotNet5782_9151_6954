@@ -76,12 +76,13 @@ namespace IDAL
 
                 return DataSource.Drones.FirstOrDefault(x => x.Id == droneId);            
         }
+
         /// <summary>
         /// get droneCharging
         /// </summary>
         /// <param name="droneId">drone id to return</param>
         /// <returns>drone object</returns>
-        public DroneCharge GetDroneCharging(int droneId)
+        private DroneCharge GetDroneCharging(int droneId)
         {
             var exist = DataSource.DronesCharge.Any(x => x.DroneId == droneId);
             if (!exist)
@@ -102,6 +103,10 @@ namespace IDAL
         /// <returns>drone list</returns>
         public IEnumerable<DroneCharge> DroneChargingList() => DataSource.DronesCharge.ToList();
 
+        /// <summary>
+        /// update drone prioritys
+        /// </summary>
+        /// <param name="drone">drone for update</param>
         public void DroneUpdate(Drone drone)
         {
             int index = DataSource.Drones.IndexOf(drone);
