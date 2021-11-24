@@ -7,7 +7,7 @@
         public override string ToString()
         {
             return " Drone In Charging: " +
-                "\n ID: " + Id +
+                "\n  ID: " + Id +
                 " , BatteryStatus: " + BatteryStatus;
                 
         }

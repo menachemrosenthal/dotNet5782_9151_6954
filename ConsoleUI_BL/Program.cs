@@ -262,10 +262,7 @@ namespace ConsoleUI_BL
             _ = int.TryParse(Console.ReadLine(), out int stationId);
 
             Console.WriteLine(bl.GetStation(stationId));
-            foreach (var drone in bl.GetStation(stationId).DronesCharging)
-            {
-                Console.WriteLine(drone);
-            }
+            
         }
 
         private static void ParcelPickedupUptade(IBL.IBL bl)
