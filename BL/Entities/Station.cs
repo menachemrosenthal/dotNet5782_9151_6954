@@ -13,10 +13,9 @@ namespace IBL.BO
         public override string ToString()
         {
             return "\nStation: " + Name +
-                "\nID: " + Id +
-                "\nCharge slots: " + ChargeSlots +
-                "Location"+LocationOfStation +
-                "List of Drones In Charging:"+DronesCharging+"\n";                
+                "\n ID: " + Id +
+                "\n Charge slots: " + ChargeSlots +
+                "\n Location" + LocationOfStation;                             
         }
     }
 }

@@ -20,22 +20,39 @@ namespace IBL.BO
                 Id = dalCustomer.Id,
                 Name = dalCustomer.Name,
                 Phone = dalCustomer.Phone,
-                Location = CustomerLocation(dalCustomer)
+                Location = CustomerLocation(dalCustomer),
+                Sended = new(),
+                Get = new()
             };
 
             foreach (var par in dal.ParcelList())
             {
                 if (par.Senderid == CustomerId)
                 {
-                    Parcel p1 = new();
-                    p1 = GetParcel(par.Id);
-                    customer.Sended.Add(p1);
+                     ParcelInCustomer parcel = new()
+                    {
+                        Id = par.Id,
+                        Weight = (WeightCategories)par.Weight,
+                        Priority = (Priorities)par.Priority,
+                        status = GetParcelStatus(par.Id),
+                        Customer = GetCustomerInParcel(par.TargetId)
+                    };
+                    
+                    customer.Sended.Add(parcel);                    
                 }
+
                 if (par.TargetId == CustomerId)
                 {
-                    Parcel p2 = new();
-                    p2 = GetParcel(par.Id);
-                    customer.Sended.Add(p2);
+                    ParcelInCustomer parcel = new()
+                    {
+                        Id = par.Id,
+                        Weight = (WeightCategories)par.Weight,
+                        Priority = (Priorities)par.Priority,
+                        status = GetParcelStatus(par.Id),
+                        Customer = GetCustomerInParcel(par.Senderid)
+                    };
+                    
+                    customer.Get.Add(parcel);
                 }
             }
             return customer;
