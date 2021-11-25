@@ -41,8 +41,8 @@ namespace IBL.BO
         /// <param name="station"></param>
         public void AddStation(Station station)
         {
-            if (station.LocationOfStation.Longitude < 34.955762 ||
-               station.LocationOfStation.Longitude > 34.959020)
+            if (station.LocationOfStation.Longitude < 34.5 ||
+               station.LocationOfStation.Longitude > 35.9)
                 throw new ArgumentOutOfRangeException("The longitude was out of range");
 
             if (station.LocationOfStation.Latitude < 31.589844 ||

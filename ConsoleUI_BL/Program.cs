@@ -349,8 +349,10 @@ namespace ConsoleUI_BL
 
             parcel.Requested = DateTime.Now;
 
-            parcel.Senderid = senderId; parcel.TargetId = TargetId;
-            parcel.Weight = weight; parcel.Priority = priority;
+            parcel.Senderid = senderId;
+            parcel.TargetId = TargetId;
+            parcel.Weight = weight; 
+            parcel.Priority = priority;
             bl.AddParcel(parcel);
         }
 
@@ -365,7 +367,7 @@ namespace ConsoleUI_BL
             station.Name = Console.ReadLine();
             Console.WriteLine("\nENTER Charge slots");
             _ = int.TryParse(Console.ReadLine(), out int chargeSlots);
-            Console.WriteLine("\nENTER longitude  from 34.955762 to 34.959020");
+            Console.WriteLine("\nENTER longitude  from 34.5 to 35.9");
             _ = double.TryParse(Console.ReadLine(), out double longitude);
             Console.WriteLine("\nENTER latitude from 31.589844 to  32.801705");
             _ = double.TryParse(Console.ReadLine(), out double lattitude);
@@ -406,13 +408,17 @@ namespace ConsoleUI_BL
             customer.Name = Console.ReadLine();
             Console.WriteLine("\nENTER phone");
             customer.Phone = Console.ReadLine();
-            Console.WriteLine("\nENTER longitude  from 34.955762 to 34.959020");
+            Console.WriteLine("\nENTER longitude  from 34.5 to 35.9");
             _ = double.TryParse(Console.ReadLine(), out double longitude);
             Console.WriteLine("\nENTER latitude from 31.589844 to  32.801705");
             _ = double.TryParse(Console.ReadLine(), out double lattitude);
 
-            customer.Id = id; customer.Location.Longitude = longitude;
-            customer.Location.Latitude = lattitude;
+            customer.Id = id;
+            customer.Location = new()
+            {
+                Longitude = longitude,
+                Latitude = lattitude
+            };
             bl.AddCustumer(customer);
 
         }

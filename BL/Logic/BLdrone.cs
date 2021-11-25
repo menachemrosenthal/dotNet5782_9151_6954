@@ -157,9 +157,10 @@ namespace IBL.BO
                 .OrderByDescending(x => x.Priority)
                 .ThenByDescending(x => x.Weight)
                 .ThenBy(x => LocationsDistance(SenderLocation(x), drone.CurrentLocation))
-                //.Select(x => new { Parcel = x, Distance = LocationsDistance(SenderLocation(x), drone.CurrentLocation) })
-                .ToList()
-                .ForEach(parcel =>
+                .Select(x => new { Parcel = x, Distance = LocationsDistance(SenderLocation(x), drone.CurrentLocation) })
+                .ToList();
+            
+                foreach(var parcel in parcels)
                 {
                     if (weight >= (int)parcel.Weight)
                     {
@@ -172,7 +173,7 @@ namespace IBL.BO
                             return;
                         }
                     }
-                });
+                };
             throw new UselessDroneException($"Couldn't find any match parcel for dron id: {droneId}");
         }
 
@@ -215,16 +216,14 @@ namespace IBL.BO
         {
             if (drones.Any(x => x.Id == id && x.Status == DroneStatuses.maintenance))
                 return "Maintenece";
-            if (!dal.ParcelList().Any(x => x.DroneId == id))
-                return "Free";
-            else
+
+            if (dal.ParcelList().Any(x => x.DroneId == id && x.Delivered == null))
             {
-                IDAL.DO.Parcel parcel = new();
-                parcel = dal.ParcelList().First(x => x.DroneId == id);
-                if (parcel.PickedUp == null)
+                IDAL.DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == id && x.PickedUp == null);
+                if (dal.ParcelList().Any(x => x.DroneId == id && x.PickedUp == null))
                     return "Associated";
-                if (parcel.Delivered == null)
-                    return "Executing";
+
+                return "Executing";
             }
             return "Free";
         }

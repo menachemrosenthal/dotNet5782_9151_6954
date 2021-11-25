@@ -64,10 +64,10 @@ namespace IBL.BO
         /// <param name="Custumer"></param>
         public void AddCustumer(Customer customer)
         {
-            if ((customer.Location.Longitude < 34955762 / 1000000 ||
-               customer.Location.Longitude > 34959020 / 1000000) &&
-                  (customer.Location.Latitude < 31589844 / 1000000 ||
-                  customer.Location.Latitude > 32801705 / 1000000))
+            if ((customer.Location.Longitude < 34.5 ||
+               customer.Location.Longitude > 35.9) ||
+                  (customer.Location.Latitude < 31.589844 ||
+                  customer.Location.Latitude > 32.801705))
                 throw new ArgumentException("location was out Out Of range");
             IDAL.DO.Customer dalCustomer = new();
             dalCustomer.Id = customer.Id;
