@@ -6,10 +6,10 @@
         public double BatteryStatus { get; set; }
         public override string ToString()
         {
-            return "Drone In Charging: " +
-                "\nID: " + Id +
-                " , BatteryStatus: "+ BatteryStatus
-                ;
+            return " Drone In Charging: " +
+                "\n  ID: " + Id +
+                " , BatteryStatus: " + BatteryStatus;
+                
         }
     }
 }

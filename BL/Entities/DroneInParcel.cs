@@ -7,9 +7,8 @@
         public Location CurrentLocation { get; set; }
         public override string ToString()
         {
-            return "\n Id: " + Id +
-                "\n BatteryStatus: " + BatteryStatus + "\n CurrentLocation: " + CurrentLocation;
-                ;
+            return "\n  Id: " + Id +
+                "\n  BatteryStatus: " + BatteryStatus + "\n  CurrentLocation: " + CurrentLocation;                
         }
     }
 }

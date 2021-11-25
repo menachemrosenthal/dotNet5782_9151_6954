@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 
 namespace IBL.BO
 {
@@ -12,11 +13,15 @@ namespace IBL.BO
         public List<DroneInCharging> DronesCharging;
         public override string ToString()
         {
+            string s = "";
+            foreach (var drone in DronesCharging)
+            {
+                s += "\n" + drone.ToString();
+            }
             return "\nStation: " + Name +
-                "\nID: " + Id +
-                "\nCharge slots: " + ChargeSlots +
-                "Location"+LocationOfStation +
-                "List of Drones In Charging:"+DronesCharging+"\n";                
+                "\n ID: " + Id +
+                "\n Charge slots: " + ChargeSlots +
+                "\n Location" + LocationOfStation + s;                             
         }
     }
 }
