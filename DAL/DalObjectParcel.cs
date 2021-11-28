@@ -93,5 +93,8 @@ namespace IDAL
         /// </summary>
         /// <returns>parcel array</returns>
         public IEnumerable<Parcel> ParcelList() => DataSource.Parcels.ToList();
+
+        public IEnumerable<Parcel> GetParcelsByCondition(Predicate<Parcel> condition)
+            => DataSource.Parcels.Where(x => condition(x)).ToList();
     }
 }

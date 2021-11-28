@@ -101,7 +101,8 @@ namespace IDAL
         /// get the drone charging list
         /// </summary>
         /// <returns>drone list</returns>
-        public IEnumerable<DroneCharge> DroneChargingList() => DataSource.DronesCharge.ToList();
+        public IEnumerable<DroneCharge> GetDroneChargingList(Predicate<DroneCharge> condition)
+            => DataSource.DronesCharge.Where(x => condition(x)).ToList();
 
         /// <summary>
         /// update drone prioritys

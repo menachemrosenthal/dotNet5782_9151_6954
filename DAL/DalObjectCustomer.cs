@@ -52,5 +52,8 @@ namespace IDAL
             int index = DataSource.Customers.IndexOf(customer);
             DataSource.Customers[index] = customer;
         }
+
+        public IEnumerable<Customer> GetCustomersByCondition(Predicate<Customer> condition)
+            => DataSource.Customers.Where(x => condition(x));
     }
 }

@@ -10,7 +10,7 @@ namespace IBL.BO
         /// gets Customer and creates bl object
         /// </summary>
         /// <param name="parcelId"></param>
-        /// <returns>created Customer</returns>
+        /// <returns>BL Customer</returns>
         public Customer GetCustomer(int CustomerId)
         {
             IDAL.DO.Customer dalCustomer = dal.GetCustomer(CustomerId);
@@ -29,7 +29,7 @@ namespace IBL.BO
             {
                 if (par.Senderid == CustomerId)
                 {
-                     ParcelInCustomer parcel = new()
+                    ParcelInCustomer parcel = new()
                     {
                         Id = par.Id,
                         Weight = (WeightCategories)par.Weight,
@@ -37,8 +37,8 @@ namespace IBL.BO
                         status = GetParcelStatus(par.Id),
                         Customer = GetCustomerInParcel(par.TargetId)
                     };
-                    
-                    customer.Sended.Add(parcel);                    
+
+                    customer.Sended.Add(parcel);
                 }
 
                 if (par.TargetId == CustomerId)
@@ -51,7 +51,7 @@ namespace IBL.BO
                         status = GetParcelStatus(par.Id),
                         Customer = GetCustomerInParcel(par.Senderid)
                     };
-                    
+
                     customer.Get.Add(parcel);
                 }
             }
@@ -69,12 +69,15 @@ namespace IBL.BO
                   (customer.Location.Latitude < 31.589844 ||
                   customer.Location.Latitude > 32.801705))
                 throw new ArgumentException("location was out Out Of range");
-            IDAL.DO.Customer dalCustomer = new();
-            dalCustomer.Id = customer.Id;
-            dalCustomer.Name = customer.Name;
-            dalCustomer.Phone = customer.Phone;
-            dalCustomer.Latitude = customer.Location.Latitude;
-            dalCustomer.Longitude = customer.Location.Longitude;
+
+            IDAL.DO.Customer dalCustomer = new()
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Phone = customer.Phone,
+                Latitude = customer.Location.Latitude,
+                Longitude = customer.Location.Longitude
+            };
             dal.AddCustumer(dalCustomer);
         }
 
@@ -119,8 +122,7 @@ namespace IBL.BO
         /// <returns></returns>
         private double CustomerClosestStationDistance(int customerId)
         {
-            IDAL.DO.Customer customer = new();
-            customer = dal.CustomerList().First(x => x.Id == customerId);
+            IDAL.DO.Customer customer = dal.CustomerList().FirstOrDefault(x => x.Id == customerId);
             return LocationsDistance(CustomerLocation(customer), StationLocation(ClosestStation(CustomerLocation(customer), dal.StationList())));
         }
 
@@ -132,12 +134,8 @@ namespace IBL.BO
         private int ProvidedParcels(int customerId)
         {
             int sum = 0;
-            foreach (var parcel in dal.ParcelList())
-            {
-                if (parcel.Senderid == customerId)
-                    if (parcel.Delivered != null)
-                        sum++;
-            }
+            foreach (var parcel in dal.GetParcelsByCondition(x => x.Senderid == customerId && x.Delivered != null))
+                sum++;
 
             return sum;
         }
@@ -150,12 +148,8 @@ namespace IBL.BO
         private int UnProvidedParcels(int customerId)
         {
             int sum = 0;
-            foreach (var parcel in dal.ParcelList())
-            {
-                if (parcel.Senderid == customerId)
-                    if (parcel.Delivered == null)
-                        sum++;
-            }
+            foreach (var parcel in dal.GetParcelsByCondition(x => x.Senderid == customerId && x.Delivered == null))
+                sum++;
 
             return sum;
         }
@@ -168,12 +162,8 @@ namespace IBL.BO
         private int ReceivedParcels(int customerId)
         {
             int sum = 0;
-            foreach (var parcel in dal.ParcelList())
-            {
-                if (parcel.TargetId == customerId)
-                    if (parcel.Delivered != null)
-                        sum++;
-            }
+            foreach (var parcel in dal.GetParcelsByCondition(x => x.TargetId == customerId && x.Delivered != null))
+                sum++;
 
             return sum;
         }
@@ -186,12 +176,8 @@ namespace IBL.BO
         private int UnreceivedParcels(int customerId)
         {
             int sum = 0;
-            foreach (var parcel in dal.ParcelList())
-            {
-                if (parcel.TargetId == customerId)
-                    if (parcel.Delivered == null)
-                        sum++;
-            }
+            foreach (var parcel in dal.GetParcelsByCondition(x => x.TargetId == customerId && x.Delivered == null))
+                sum++;
 
             return sum;
         }
@@ -203,9 +189,12 @@ namespace IBL.BO
         /// <returns>CustomerInParcel</returns>
         private CustomerInParcel GetCustomerInParcel(int CustomerId)
         {
-            CustomerInParcel customer = new();
-            IDAL.DO.Customer c = dal.GetCustomer(CustomerId);
-            customer.Id = c.Id; customer.Name = c.Name;
+            IDAL.DO.Customer dalCustomer = dal.GetCustomer(CustomerId);
+            CustomerInParcel customer = new()
+            {
+                Id = dalCustomer.Id,
+                Name = dalCustomer.Name
+            };
             return customer;
         }
 
@@ -226,13 +215,8 @@ namespace IBL.BO
         /// <returns>list of customers</returns>
         private IEnumerable<IDAL.DO.Customer> ReceivedCustomersList()
         {
-            List<IDAL.DO.Customer> receivedCustomers = new();
-            foreach (var Customer in dal.CustomerList())
-            {
-                if (dal.ParcelList().Any(x => x.TargetId == Customer.Id && x.Delivered != null))
-                    receivedCustomers.Add(Customer);
-            }
-            return receivedCustomers;
+            return dal.GetCustomersByCondition
+               (x => dal.ParcelList().Any(y => x.Id == y.TargetId && y.Delivered != null)).ToList();
         }
     }
 }
