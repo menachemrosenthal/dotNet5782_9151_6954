@@ -23,6 +23,17 @@ namespace PL
             InitializeComponent();
             BlDroneList = bl;
             DroneListView.ItemsSource = bl.GetDroneList();
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
+        }
+
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = BlDroneList.get
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

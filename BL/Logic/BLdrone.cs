@@ -198,6 +198,14 @@ namespace IBL.BO
         }
 
         /// <summary>
+        /// drone list by condition
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <returns>drone list by condition</returns>
+        public IEnumerable<DroneToList> GetDronesByCondition(Predicate<DroneToList> condition)
+                => drones.Where(x => condition(x));
+        
+        /// <summary>
         /// cheking drone status
         /// </summary>
         /// <param name="id">drone id for check</param>

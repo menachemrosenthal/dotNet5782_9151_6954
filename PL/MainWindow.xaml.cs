@@ -21,11 +21,11 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        IBL.BO.BL bl=new();
+        private IBL.BO.BL bl = new();
         public MainWindow()
         {
             InitializeComponent();
-            
+
         }
 
         private void ShowDrones_Click(object sender, RoutedEventArgs e)
