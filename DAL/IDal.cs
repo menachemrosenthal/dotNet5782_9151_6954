@@ -155,12 +155,18 @@ namespace IDAL
         /// get stations with free charge slots
         /// </summary>
         /// <returns>stations with free charge slots list</returns>
-        IEnumerable<Station> StationsWithFreeSlots();
+        //IEnumerable<Station> StationsWithFreeSlots();
 
         /// <summary>
         /// get the drone charging list
         /// </summary>
         /// <returns>drone list</returns>
-        public IEnumerable<DroneCharge> DroneChargingList();
+        public IEnumerable<DroneCharge> GetDroneChargingList(Predicate<DroneCharge> condition);
+
+        IEnumerable<Station> GetStationsByCondition(Predicate<Station> condition);
+
+        IEnumerable<Customer> GetCustomersByCondition(Predicate<Customer> condition);
+
+        IEnumerable<Parcel> GetParcelsByCondition(Predicate<Parcel> condition);
     }
 }

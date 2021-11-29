@@ -18,21 +18,28 @@ namespace IBL.BO
         public Parcel GetParcel(int parcelId)
         {
             IDAL.DO.Parcel p = dal.GetParcel(parcelId);
-            Parcel parcel = new();
-            parcel.Id = p.Id;
-            parcel.PickedUp = p.PickedUp;
-            parcel.Priority = (Priorities)p.Priority;
-            parcel.Requested = p.Requested; parcel.Scheduled = p.Scheduled;
-            parcel.Senderid = p.Senderid; parcel.TargetId = p.TargetId;
-            parcel.Weight = (WeightCategories)p.Weight;
-            parcel.Delivered = p.Delivered;
+            Parcel parcel = new()
+            {
+                Id = p.Id,
+                PickedUp = p.PickedUp,
+                Priority = (Priorities)p.Priority,
+                Requested = p.Requested,
+                Scheduled = p.Scheduled,
+                Senderid = p.Senderid,
+                TargetId = p.TargetId,
+                Weight = (WeightCategories)p.Weight,
+                Delivered = p.Delivered
+            };
+
             if (drones.Any(x => x.Id == p.DroneId))
             {
-                DroneToList d = new(); d = drones.Find(x => x.Id == p.DroneId);
-                parcel.Drone = new(); parcel.Drone.Id = d.Id;
-                parcel.Drone.CurrentLocation = new();
-                parcel.Drone.CurrentLocation = d.CurrentLocation;
-                parcel.Drone.BatteryStatus = d.BatteryStatus;
+                DroneToList d = drones.FirstOrDefault(x => x.Id == p.DroneId);
+                parcel.Drone = new()
+                {
+                    Id = d.Id,
+                    CurrentLocation = d.CurrentLocation,
+                    BatteryStatus = d.BatteryStatus
+                };
             }
             return parcel;
         }
@@ -45,11 +52,9 @@ namespace IBL.BO
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
 
-            if (GetDroneStatus(droneId) != "Executing")
-            {
+            if (GetDroneSituation(droneId) != "Executing")
                 throw new CannotUpdateExeption("drone", droneId, "not executing");
-            }
-
+                        
             IDAL.DO.Parcel parcel = dal.GetParcel(drone.DeliveredParcelId);
             drone.BatteryStatus -= SenderTaregetDistance(parcel) * dal.BatteryUseRquest()[(int)parcel.Weight];
             drone.CurrentLocation = TargetLocation(parcel);
@@ -99,8 +104,7 @@ namespace IBL.BO
         /// <returns>list of usassociated Parceles</returns>
         public IEnumerable<ParcelToList> GetNonAssociateParcelList()
         {
-            return dal.ParcelList()
-                .Where(parcel => GetParcelStatus(parcel.Id) == ParcelStatuses.defined)
+            return dal.GetParcelsByCondition(parcel => GetParcelStatus(parcel.Id) == ParcelStatuses.defined)
                 .Select(parcel => new ParcelToList
                 {
                     Id = parcel.Id,
@@ -125,7 +129,6 @@ namespace IBL.BO
 
             var parcelsStatus = GetParcelStatus(parcelId);
             parcel.Transferred = parcelsStatus != ParcelStatuses.defined && parcelsStatus != ParcelStatuses.associated;
-
             parcel.Priority = (Priorities)dalParcel.Priority;
             parcel.Receiver = GetCustomerInParcel(dalParcel.TargetId);
             parcel.Sender = GetCustomerInParcel(dalParcel.Senderid);
@@ -141,20 +144,16 @@ namespace IBL.BO
         /// <param name="parcel"></param>
         /// <returns> sender location</returns>
         private Location SenderLocation(IDAL.DO.Parcel parcel)
-        {
-            return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
-        }
-
+            => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
+        
         /// <summary>
         /// gets Target location
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns> Target location</returns>
-        private Location TargetLocation(IDAL.DO.Parcel parcel)
-        {
-            return CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
-        }
-
+        private Location TargetLocation(IDAL.DO.Parcel parcel)        
+            => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
+        
         /// <summary>
         /// sort parcel list
         /// </summary>
@@ -162,16 +161,13 @@ namespace IBL.BO
         /// <returns>sort list by "priority" , "weight" , "closest location"</returns>        
         private IDAL.DO.Parcel ClosestSender(Location location, IEnumerable<IDAL.DO.Parcel> parcels)
         {
-            IDAL.DO.Parcel closestParcel = new();
-            closestParcel = dal.ParcelList().First();
+            IDAL.DO.Parcel closestParcel = dal.ParcelList().FirstOrDefault();
             double diastance = LocationsDistance(location, SenderLocation(closestParcel));
 
-            foreach (var parcel in parcels)
-            {
+            foreach (var parcel in parcels)            
                 if (diastance > LocationsDistance(location, SenderLocation(parcel)))
                     closestParcel = parcel;
-            }
-
+            
             return closestParcel;
         }
 
@@ -181,10 +177,8 @@ namespace IBL.BO
         /// <param name="parcel"></param>
         /// <returns>distance between sender and reciever</returns>
         private double SenderTaregetDistance(IDAL.DO.Parcel parcel)
-        {
-            return LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
-        }
-
+            => LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
+                
         /// <summary>
         /// get parcel status
         /// </summary>
@@ -194,10 +188,13 @@ namespace IBL.BO
         {
             if (dal.GetParcel(parcelId).Scheduled == null)
                 return ParcelStatuses.defined;
+
             if (dal.GetParcel(parcelId).PickedUp == null)
                 return ParcelStatuses.associated;
+
             if (dal.GetParcel(parcelId).Delivered == null)
                 return ParcelStatuses.collected;
+
             return ParcelStatuses.provided;
         }
     }

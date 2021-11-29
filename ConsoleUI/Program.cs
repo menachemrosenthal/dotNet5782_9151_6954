@@ -419,7 +419,7 @@ namespace ConsoleUI
         /// </summary>
         public static void StationsWithFreeSlotsDisplay(IDAL.IDal iDal)
         {            
-            foreach (var Station in iDal.StationsWithFreeSlots())                
+            foreach (var Station in iDal.GetStationsByCondition(x => x.ChargeSlots > 0))                
                     Console.WriteLine(Station.ToString());
         }
 

@@ -30,9 +30,10 @@
                 VerticalAlignment="Stretch" 
                 Grid.Column="0"/>
             <ComboBox 
+                Name="WeightSelector"
                 Grid.Column="2" 
                 HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch"/>
+                VerticalAlignment="Stretch" SelectionChanged="WeightSelector_SelectionChanged"/>
         </Grid>
         <ListView 
             x:Name="DroneListView"

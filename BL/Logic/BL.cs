@@ -16,6 +16,7 @@ namespace IBL.BO
         public static double ChargePace { get; set; }
         
         private List<DroneToList> drones;
+
         private IDal dal;
 
         public BL()
@@ -42,17 +43,16 @@ namespace IBL.BO
                 Location stationLocation = new();
 
                 //the drone is associated to parcel
-                if (!(GetDroneStatus(drone.Id) == "Free"))
+                if (!(GetDroneSituation(drone.Id) == "Free"))
                 {
                     drone.Status = DroneStatuses.sending;
-                    IDAL.DO.Parcel parcel = new();
-                    parcel = dal.ParcelList().First(x => x.DroneId == Drone.Id);                    
+                    IDAL.DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == Drone.Id);                    
                     drone.DeliveredParcelId = parcel.Id;
 
-                    if (GetDroneStatus(drone.Id) == "Associated")
+                    if (GetDroneSituation(drone.Id) == "Associated")
                         drone.CurrentLocation = StationLocation(ClosestStation(SenderLocation(parcel), dal.StationList()));
 
-                    if (GetDroneStatus(drone.Id) == "Executing")
+                    if (GetDroneSituation(drone.Id) == "Executing")
                         drone.CurrentLocation = SenderLocation(parcel);
 
                     int batteryUse = (int)BatteryUseInDelivery(drone, parcel);
@@ -61,7 +61,7 @@ namespace IBL.BO
                     drones.Add(drone);
                 }
 
-                if (GetDroneStatus(drone.Id) == "Free")
+                if (GetDroneSituation(drone.Id) == "Free")
                 {
                     drone.DeliveredParcelId = 0;
                     //randome status between free and maintenance
@@ -82,7 +82,10 @@ namespace IBL.BO
                     {                        
                         if (ReceivedCustomersList().Count() > 0)
                             drone.CurrentLocation = CustomerLocation(ReceivedCustomersList().ElementAt(r.Next(ReceivedCustomersList().Count() - 1)));
-                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99) + 1;
+
+                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, 
+                                                    StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99) 
+                                                    + 1;
                         drones.Add(drone);
                     }
                 }
@@ -90,9 +93,7 @@ namespace IBL.BO
         }
 
         private double LocationsDistance(Location l1, Location l2)
-        {
-             return dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);
-        }
+             => dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);                
     }
 }
 

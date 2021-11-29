@@ -10,7 +10,8 @@ namespace IBL.BO
         /// gets list of stations
         /// </summary>
         /// <returns>list of stations</returns>
-        public IEnumerable<StationToList> GetBaseStationList() => dal.StationList().Select(x =>
+        public IEnumerable<StationToList> GetBaseStationList()
+            => dal.StationList().Select(x =>
                 new StationToList
                 {
                     Id = x.Id,
@@ -25,15 +26,13 @@ namespace IBL.BO
         /// </summary>
         /// <returns>list of stations</returns>
         public IEnumerable<StationToList> GetFreeChargingSlotsStationList()
-        {
-            return dal.StationList().Where(x => x.ChargeSlots > 0).Select(station => new StationToList()
+            => dal.GetStationsByCondition(x => x.ChargeSlots > 0).Select(station => new StationToList()
             {
                 Id = station.Id,
                 Name = station.Name,
                 FreeChargeSlots = station.ChargeSlots,
                 FullChargeSlots = station.ChargeSlots + DronesInStation(station.Id).Count
             });
-        }
 
         /// <summary>
         /// add a station
@@ -51,11 +50,11 @@ namespace IBL.BO
 
             IDAL.DO.Station dalStation = new()
             {
-             Id = station.Id,
-            Name = station.Name,
-            ChargeSlots = station.ChargeSlots,
-            Latitude = station.LocationOfStation.Latitude,
-            Longitude = station.LocationOfStation.Longitude,
+                Id = station.Id,
+                Name = station.Name,
+                ChargeSlots = station.ChargeSlots,
+                Latitude = station.LocationOfStation.Latitude,
+                Longitude = station.LocationOfStation.Longitude,
             };
             station.DronesCharging = null;
             dal.AddStation(dalStation);
@@ -81,7 +80,7 @@ namespace IBL.BO
             }
             dal.StationUpdate(station);
         }
-        
+
         /// <summary>
         /// get station
         /// </summary>
@@ -90,12 +89,14 @@ namespace IBL.BO
         public Station GetStation(int StationId)
         {
             IDAL.DO.Station dalStation = dal.GetStation(StationId);
-            Station station = new();
-            station.Id = dalStation.Id;
-            station.Name = dalStation.Name;
-            station.ChargeSlots = dalStation.ChargeSlots;
-            station.LocationOfStation = StationLocation(dalStation);
-            station.DronesCharging = DronesInStation(StationId);
+            Station station = new()
+            {
+                Id = dalStation.Id,
+                Name = dalStation.Name,
+                ChargeSlots = dalStation.ChargeSlots,
+                LocationOfStation = StationLocation(dalStation),
+                DronesCharging = DronesInStation(StationId)
+            };
             return station;
         }
 
@@ -106,20 +107,11 @@ namespace IBL.BO
         /// <returns>list of drones in charging</returns>
         private List<DroneInCharging> DronesInStation(int stationId)
         {
-            List<DroneInCharging> droneCharge = new();
-
-            foreach (var Charge in dal.DroneChargingList())
+            return dal.GetDroneChargingList(x => x.StationId == stationId).Select(charge => new DroneInCharging()
             {
-                if (Charge.StationId == stationId)
-                {
-                    DroneInCharging d = new();
-                    d.Id = Charge.DroneId;
-                    d.BatteryStatus = drones.Find(x => x.Id == Charge.DroneId).BatteryStatus;
-                    droneCharge.Add(d);
-                }
-            }
-
-            return droneCharge;
+                Id = charge.DroneId,
+                BatteryStatus = drones.Find(x => x.Id == charge.DroneId).BatteryStatus
+            }).ToList();
         }
 
         /// <summary>
@@ -143,12 +135,10 @@ namespace IBL.BO
             IDAL.DO.Station station = dal.StationList().First();
             double diastance = LocationsDistance(location, StationLocation(station));
 
-            foreach (var Station in stations)
-            {
+            foreach (var Station in stations)            
                 if (diastance > LocationsDistance(location, StationLocation(Station)))
                     station = Station;
-            }
-
+            
             return station;
         }
     }
