@@ -7,12 +7,25 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="13*"/>
+        </Grid.RowDefinitions>
         <Button 
             x:Name="ShowDrones"
-            Content="ShowDrones" 
+            Content="Show&#xD;&#xA;Drones" 
             HorizontalAlignment="Left" 
-            Margin="651,49,0,0" 
-            VerticalAlignment="Top" Click="ShowDrones_Click"/>
+            Margin="607,49,0,0" 
+            VerticalAlignment="Top" Click="ShowDrones_Click" Background="#FFA44813" BorderBrush="#FFCB3838" Foreground="#FFDEED20" RenderTransformOrigin="0.5,0.5" Height="63" Width="115" FontSize="18" Grid.RowSpan="2">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.504"/>
+                    <RotateTransform Angle="0.357"/>
+                    <TranslateTransform X="0.088" Y="0.001"/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
 
     </Grid>
 </Window>

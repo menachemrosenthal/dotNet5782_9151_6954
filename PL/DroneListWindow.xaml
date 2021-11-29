@@ -11,8 +11,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0"
-        VerticalAlignment="Stretch" Width="auto">
+        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -23,7 +22,7 @@
                 Name="StatusSelector"
                 HorizontalAlignment= "Stretch"
                 VerticalAlignment="Stretch"
-                Grid.Column="1"/>
+                Grid.Column="1" SelectionChanged="StatusSelector_SelectionChanged"/>
             <TextBox                
                 HorizontalAlignment="Stretch"                 
                 TextWrapping="Wrap" 
@@ -36,13 +35,10 @@
                 VerticalAlignment="Stretch" SelectionChanged="WeightSelector_SelectionChanged"/>
         </Grid>
         <ListView 
-            x:Name="DroneListView"
-            Grid.Row="1" 
-            HorizontalAlignment="Stretch" 
+            x:Name="DroneListView" 
             Height="Auto" 
-            Margin="0,0,0,0" 
-            VerticalAlignment="Stretch" 
-            Width="Auto">
+            Margin="0,69,0,0" 
+            Width="Auto" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

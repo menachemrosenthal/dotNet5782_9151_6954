@@ -11,7 +11,7 @@
         public Location CurrentLocation { get; set; }
         public override string ToString()
         {
-            return $"\nDrone: {Model} \n ID: {Id} \n Maximum weight {MaxWeight} " +
+            return $"\nDrone: {Model} \n ID: {Id} \n Maximum weight: {MaxWeight} " +
                 $"\n Battery: {BatteryStatus} \n Status: {Status.ToString()} " +
                 $"\n Delivered Parcle ID: {DeliveredParcelId} \n Location: {CurrentLocation} ";
         }
