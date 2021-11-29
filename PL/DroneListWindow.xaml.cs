@@ -28,13 +28,15 @@ namespace PL
             StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
         }
 
-        
-
-
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            IBL.BO.WeightCategories weight = (WeightCategories)WeightSelector.SelectedItem;
-            DroneListView.ItemsSource = BlDroneList.GetDronesByCondition(x => x.MaxWeight ==weight);
+            DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
+                (x => x.MaxWeight == (IBL.BO.WeightCategories)StatusSelector.SelectedItem);
+        }
+        private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {            
+            DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
+                (x => x.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedItem);
         }
     }
 }
