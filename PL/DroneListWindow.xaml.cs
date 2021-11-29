@@ -27,13 +27,9 @@ namespace PL
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedItem = BlDroneList.get
-        }
-
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
+        {            
+            DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
+                (x => x.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedItem);
         }
     }
 }
