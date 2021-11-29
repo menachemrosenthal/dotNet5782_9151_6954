@@ -34,7 +34,7 @@ namespace PL
                 (x => x.MaxWeight == (IBL.BO.WeightCategories)StatusSelector.SelectedItem);
         }
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
+        {
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
                 (x => x.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedItem);
         }
