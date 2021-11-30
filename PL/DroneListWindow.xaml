@@ -19,19 +19,24 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions >
             <ComboBox 
-                Name="StatusSelector"
+                x:Name="StatusSelector"
                 HorizontalAlignment= "Stretch"
                 VerticalAlignment="Stretch"
-                Grid.Column="1" SelectionChanged="StatusSelector_SelectionChanged"/>
+                Grid.Column="1" 
+                SelectionChanged="StatusSelector_SelectionChanged" 
+                ItemStringFormat="" FontWeight="Bold" FontStyle="Italic" ScrollViewer.CanContentScroll="False" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch"/>
             <TextBox                
                 HorizontalAlignment="Stretch"                 
                 TextWrapping="Wrap" 
                 VerticalAlignment="Stretch" 
                 Grid.Column="0"/>
             <ComboBox 
+                Name="WeightSelector"
                 Grid.Column="2" 
                 HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch"/>
+                VerticalAlignment="Stretch"
+                SelectionChanged="WeightSelector_SelectionChanged"/>
+
         </Grid>
         <ListView 
             x:Name="DroneListView" 
@@ -44,6 +49,8 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Content="Back to&#xD;&#xA;Rone list" HorizontalAlignment="Left" Margin="64,10,0,0" VerticalAlignment="Top" Height="40" Width="61" Click="Button_Click"/>
+        <Button Content="Add&#xD;&#xA;Drone&#xD;&#xA;" HorizontalAlignment="Left" Margin="659,0,0,0" VerticalAlignment="Center" Height="50" Width="76" Click="Button_Click_1"/>
 
 
     </Grid>

@@ -17,9 +17,31 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        public DroneWindow()
+        IBL.BO.BL BlDrone;
+        public DroneWindow(IBL.BO.BL bl)
         {
             InitializeComponent();
+            BlDrone = bl;
+            StationList.ItemsSource = BlDrone.GetBaseStationList();
         }
+
+        private void AddDrone_Click(object sender, RoutedEventArgs e)
+        {
+            IBL.BO.DroneToList drone = new()
+            {
+                Model = Name.Text,
+                Id = int.Parse(ID.Text),
+                MaxWeight = Enum.Parse<IBL.BO.WeightCategories>(Weight.Text)
+            };            
+            BlDrone.AddDrone(drone, int.Parse(stationId.Text));           
+        }
+
+        void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var station = (IBL.BO.StationToList)StationList.SelectedItem;
+            stationId.Text = $"{station.Id}";
+        }
+
+
     }
 }
