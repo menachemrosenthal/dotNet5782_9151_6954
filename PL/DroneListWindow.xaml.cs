@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using IBL.BO;
 
 namespace PL
 {
@@ -27,6 +28,11 @@ namespace PL
             StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
         }
 
+        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
+                (x => x.MaxWeight == (IBL.BO.WeightCategories)StatusSelector.SelectedItem);
+        }
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
