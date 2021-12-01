@@ -61,19 +61,6 @@ namespace IDAL
             DataSource.Stations[index] = station;
         }
 
-        /// <summary>
-        /// get stations with free charge slots
-        /// </summary>
-        /// <returns>stations with free charge slots list</returns>
-       /* public IEnumerable<Station> StationsWithFreeSlots()
-        {
-            List<Station> freeSlotsStations = new();
-            foreach (var Station in DataSource.Stations)
-                if (Station.ChargeSlots != 0)
-                    freeSlotsStations.Add(Station);
-
-            return freeSlotsStations;
-        }*/
 
         public IEnumerable<Station> GetStationsByCondition(Predicate<Station> condition)
         {

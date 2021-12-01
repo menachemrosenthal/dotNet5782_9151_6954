@@ -24,8 +24,8 @@ namespace PL
             InitializeComponent();
             BlDroneList = bl;
             DroneListView.ItemsSource = bl.GetDroneList();
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.WeightCategories));
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(IBL.BO.DroneStatuses));
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -33,17 +33,12 @@ namespace PL
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
                 (x => x.MaxWeight == (IBL.BO.WeightCategories)StatusSelector.SelectedItem);
         }
+
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
                 (x => x.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedItem);
-        }
-
-        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
-                (x => x.MaxWeight == (IBL.BO.WeightCategories)WeightSelector.SelectedItem);
-        }
+        }       
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -53,6 +48,12 @@ namespace PL
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             new DroneWindow(BlDroneList).Show();
+        }
+
+        private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            IBL.BO.DroneToList drone = (IBL.BO.DroneToList)DroneListView.SelectedItem;
+            new DroneWindow(BlDroneList, drone).Show();
         }
     }
 }

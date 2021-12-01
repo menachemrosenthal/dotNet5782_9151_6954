@@ -24,7 +24,9 @@
                 VerticalAlignment="Stretch"
                 Grid.Column="1" 
                 SelectionChanged="StatusSelector_SelectionChanged" 
-                ItemStringFormat="" FontWeight="Bold" FontStyle="Italic" ScrollViewer.CanContentScroll="False" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch"/>
+                ItemStringFormat="" 
+                FontWeight="Bold" 
+                FontStyle="Italic" ScrollViewer.CanContentScroll="False" VerticalContentAlignment="Top" HorizontalContentAlignment="Stretch"/>
             <TextBox                
                 HorizontalAlignment="Stretch"                 
                 TextWrapping="Wrap" 
@@ -42,7 +44,7 @@
             x:Name="DroneListView" 
             Height="Auto" 
             Margin="0,69,0,0" 
-            Width="Auto" Grid.RowSpan="2">
+            Width="Auto" Grid.RowSpan="2" MouseDoubleClick="DroneListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

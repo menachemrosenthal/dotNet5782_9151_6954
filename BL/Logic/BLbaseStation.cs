@@ -26,13 +26,7 @@ namespace IBL.BO
         /// </summary>
         /// <returns>list of stations</returns>
         public IEnumerable<StationToList> GetFreeChargingSlotsStationList()
-            => dal.GetStationsByCondition(x => x.ChargeSlots > 0).Select(station => new StationToList()
-            {
-                Id = station.Id,
-                Name = station.Name,
-                FreeChargeSlots = station.ChargeSlots,
-                FullChargeSlots = station.ChargeSlots + DronesInStation(station.Id).Count
-            });
+            => GetStationsByCondition(x => x.FreeChargeSlots > 0);
 
         /// <summary>
         /// add a station
@@ -99,6 +93,9 @@ namespace IBL.BO
             };
             return station;
         }
+
+        public IEnumerable<StationToList> GetStationsByCondition(Predicate<StationToList> condition)
+                => GetBaseStationList().Where(x => condition(x));
 
         /// <summary>
         /// list of drones charging in station

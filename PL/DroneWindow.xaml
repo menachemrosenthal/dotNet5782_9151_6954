@@ -10,24 +10,25 @@
         <Label 
             Content="ENTER THE DETALIES AND PRESS ADD DRONE" 
             HorizontalAlignment="Left" 
-            Margin="10,30,0,0" 
+            Margin="10,30,0,10" 
             FontWeight="Bold" 
             FontSize="16"/>
         <Label 
             Content="ENTER Name:" 
             HorizontalAlignment="Left" 
             Margin="24,65,0,0"/>
-        <TextBlock 
+        <Label
             HorizontalAlignment="Left"
-            Margin="30,110,0,0" Text="ENTER Id:" 
-            TextWrapping="Wrap" VerticalAlignment="Top"
+            Margin="24,105,0,0" Content="ENTER Id:" 
+            VerticalAlignment="Top"
             Width="70"/>
-        <TextBox 
+        <TextBox
             x:Name="Name"
             HorizontalAlignment="Left"
             Margin="200,70,0,0" 
             Width="120"
-            VerticalAlignment="Top"/>
+            VerticalAlignment="Top"
+            IsReadOnlyCaretVisible="False"/>
         <TextBox 
             x:Name="ID"
             HorizontalAlignment="Left" 
@@ -35,40 +36,99 @@
             Width="120"
             VerticalAlignment="Top"/>
         <Label 
-            Content="ENTER Max weight:" 
+            Content="Select Max weight:" 
             HorizontalAlignment="Left" 
             Margin="24,145,0,0" 
             VerticalAlignment="Top"/>
-        <TextBox
-            x:Name="Weight" 
-            HorizontalAlignment="Left" 
-            Margin="200,150,0,0" 
-            VerticalAlignment="Top" 
-            Width="120"/>
+        <ComboBox 
+            Name="WeightSelector" 
+            Margin="200,147,480,0"
+            VerticalAlignment="Top"
+            SelectionChanged="WeightSelector_SelectionChanged"
+            IsReadOnly="False"/>
+            
         <Label 
             Content="ENTER First charge station ID:&#xD;or pick one from the list below" 
             HorizontalAlignment="Left" 
-            Margin="24,185 ,0,0" 
+            Margin="472,185,0,0" 
             VerticalAlignment="Top" Height="42"/>
-        <TextBox 
-            x:Name="stationId" 
-            HorizontalAlignment="Left" 
-            Margin="200,190,0,0" 
-            TextWrapping="Wrap" 
-            VerticalAlignment="Top" 
-            Width="120"/>
         <Button 
             x:Name="AddDrone" 
             Content="Add&#xD;&#xA;Drone" 
             HorizontalAlignment="Left" 
-            Margin="543,79,0,0" 
+            Margin="664,10,0,0" 
             VerticalAlignment="Top" 
             Height="97" 
             Width="126" 
             Click="AddDrone_Click"/>
         <ListBox
             x:Name="StationList"
-            Margin="32,237,528,21" 
-            SelectionMode="Single" MouseDoubleClick="StationList_MouseDoubleClick"/>
+            Margin="516,227,44,31" 
+            SelectionMode="Single" 
+            MouseDoubleClick="StationList_MouseDoubleClick"/>
+        <Label           
+            Content="Battery:"
+            HorizontalAlignment="Left"
+            Margin="65,183,0,221" 
+            Width="120"
+            VerticalAlignment="Top"/>
+        <TextBox
+            x:Name="Battery"
+            HorizontalAlignment="Left"
+            Margin="200,190,0,0"
+            Width="120"
+            VerticalAlignment="Top"
+            IsReadOnly="True"/>
+        <Label           
+            Content="Status:"
+            HorizontalAlignment="Left"
+            Margin="65,219,0,184" 
+            Width="120"
+            VerticalAlignment="Top"/>
+        <TextBox
+             x:Name="Status"
+            HorizontalAlignment="Left"
+            Margin="200,226,0,0"
+            Width="120"
+            VerticalAlignment="Top"
+            IsReadOnly="True"/>
+        <Label           
+            Content="Parcel number:"
+            HorizontalAlignment="Left"
+            Margin="65,259,0,151" 
+            Width="120"
+            VerticalAlignment="Top"/>
+        <TextBox
+             x:Name="Parcel"
+            HorizontalAlignment="Left"
+            Margin="200,266,0,0"
+            Width="120"
+             VerticalAlignment="Top"
+            IsReadOnly="True"/>
+        <Label           
+            Content="Latitude:"
+            HorizontalAlignment="Left"
+            Margin="65,300,0,0" Width="120"
+            />
+        <TextBox
+             x:Name="Latitude"
+            HorizontalAlignment="Left"
+            Margin="200,308,0,0"
+            Width="120"
+             VerticalAlignment="Top"
+            IsReadOnly="True"/>
+        <Label           
+            Content="Longitude:"
+            HorizontalAlignment="Left"
+            Margin="65,337,0,0" Width="120"
+             VerticalAlignment="Top"
+            />
+        <TextBox
+             x:Name="Longitude"
+            HorizontalAlignment="Left"
+            Margin="200,343,0,0"
+            Width="120"
+            VerticalAlignment="Top"
+            IsReadOnly="True"/>
     </Grid>
 </Window>
