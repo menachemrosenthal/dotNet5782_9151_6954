@@ -38,5 +38,15 @@ namespace PL
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
                 (x => x.Status == (DroneStatuses)StatusSelector.SelectedItem);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DroneListView.ItemsSource = BlDroneList.GetDroneList();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new DroneWindow(BlDroneList).Show();
+        }
     }
 }
