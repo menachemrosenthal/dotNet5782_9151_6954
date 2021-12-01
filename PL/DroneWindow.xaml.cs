@@ -51,19 +51,31 @@ namespace PL
             Latitude.Text = $"{drone.CurrentLocation.Latitude}";
             Longitude.Text = $"{drone.CurrentLocation.Longitude}";
             StationList.UnselectAll();
-            ID.IsReadOnly = true;            
+            AddDrone.Visibility = Visibility.Hidden;
+            ID.IsReadOnly = true;
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            IBL.BO.DroneToList drone = new()
+            try
             {
-                Model = Name.Text,
-                Id = int.Parse(ID.Text),
-                MaxWeight = Enum.Parse<IBL.BO.WeightCategories>(WeightSelector.SelectedItem.ToString())
-            };
-            
-            BlDrone.AddDrone(drone, stationId);           
+                IBL.BO.DroneToList drone = new()
+                {
+                    Model = Name.Text,
+                    Id = int.Parse(ID.Text),
+                    MaxWeight = Enum.Parse<IBL.BO.WeightCategories>(WeightSelector.SelectedItem.ToString())
+                };
+
+                BlDrone.AddDrone(drone, stationId);
+                MessageBox.Show("Drone was added successfully");
+                //צריך לעדכן בחלון השני
+                this.Close();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -72,6 +84,29 @@ namespace PL
             stationId = station.Id;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            BlDrone.DroneNameUpdate(int.Parse(ID.Text),Name.Text);
+        }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            BlDrone.ChargeDrone(int.Parse(ID.Text));
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            BlDrone.ParcelToDrone(int.Parse(ID.Text));
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            BlDrone.ParcelPickedupUptade(int.Parse(ID.Text));
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            BlDrone.ParcelProvisionUpdate(int.Parse(ID.Text));
+        }
     }
 }
