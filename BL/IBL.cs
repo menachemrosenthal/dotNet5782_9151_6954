@@ -142,5 +142,6 @@ namespace IBL
         /// </summary>
         /// <returns>list of stations</returns>
         IEnumerable<StationToList> GetFreeChargingSlotsStationList();
+        IEnumerable<DroneToList> GetDronesByCondition(Predicate<DroneToList> condition);
     }
 }
