@@ -20,9 +20,11 @@ namespace PL
     {
         IBL.BO.BL BlDrone;
         int stationId;
+        WeightCategories Weight;
         public DroneWindow(IBL.BO.BL bl)
         {
             InitializeComponent();
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             BlDrone = bl;
             Battery.Text = "0";
             Status.Text = "0";
@@ -45,6 +47,7 @@ namespace PL
             Name.Text = drone.Model;
             ID.Text = $"{drone.Id}";
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            WeightSelector = Enum.GetValues(typeof(drone.MaxWeight));
             Battery.Text = $"{drone.BatteryStatus}";
             Status.Text = $"{drone.Status}";
             Parcel.Text = $"{drone.DeliveredParcelId}";
@@ -60,7 +63,7 @@ namespace PL
             {
                 Model = Name.Text,
                 Id = int.Parse(ID.Text),
-                MaxWeight = Enum.Parse<IBL.BO.WeightCategories>(WeightSelector.SelectedItem.ToString())
+                MaxWeight = Weight
             };
             
             BlDrone.AddDrone(drone, stationId);           
@@ -72,6 +75,9 @@ namespace PL
             stationId = station.Id;
         }
 
-
+        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Weight = (WeightCategories)WeightSelector.SelectedItem;
+        }
     }
 }
