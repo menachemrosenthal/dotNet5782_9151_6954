@@ -23,16 +23,18 @@
             </RichTextBox>
         </Label>
         <Label 
-            Content="ENTER Name:" 
-            HorizontalAlignment="Left" 
-            Margin="24,65,0,0"/>
-        <Label
             x:Name="nameLabel"
-            HorizontalAlignment="Left"
-            Margin="24,105,0,0" 
+            Content="ENTER Name:" 
+            HorizontalAlignment="Right" 
+            Margin="0,65,675,0"
+            VerticalAlignment="Top"/>
+        <Label
+            x:Name="IDLabel"
+            HorizontalAlignment="Right"
+            Margin="0,105,675,0" 
             Content="ENTER Id:" 
             VerticalAlignment="Top"
-            Width="70"/>
+            Width="60"/>
         <TextBox
             x:Name="Name"
             HorizontalAlignment="Left"
@@ -49,8 +51,8 @@
         <Label 
             x:Name="weightLabel"
             Content="Select Max weight:" 
-            HorizontalAlignment="Left" 
-            Margin="24,145,0,0" 
+            HorizontalAlignment="Right" 
+            Margin="0,145,675,0" 
             VerticalAlignment="Top"/>
         <ComboBox 
             Name="WeightSelector" 
@@ -80,13 +82,12 @@
             Margin="516,227,44,31" 
             SelectionMode="Single" 
             MouseDoubleClick="StationList_MouseDoubleClick"/>
-        <Label           
+        <Label
             x:Name="batteryLabel"
-            Content="Battery:"
-            HorizontalAlignment="Left"
-            Margin="65,183,0,221" 
-            Width="120"
-            VerticalAlignment="Top"/>
+            HorizontalAlignment="Right"
+            Margin="0,186,675,0"
+            VerticalAlignment="Top"
+            Content="Battery status:"/>
         <TextBox
             x:Name="Battery"
             HorizontalAlignment="Left"
@@ -97,9 +98,9 @@
         <Label           
             x:Name="statusLabel"
             Content="Status:"
-            HorizontalAlignment="Left"
-            Margin="65,219,0,184" 
-            Width="120"
+            HorizontalAlignment="Right"
+            Margin="0,219,675,0" 
+            Width="45"
             VerticalAlignment="Top"/>
         <TextBox
              x:Name="Status"
@@ -111,9 +112,9 @@
         <Label           
             x:Name="parcelLabel"
             Content="Parcel number:"
-            HorizontalAlignment="Left"
-            Margin="65,259,0,151" 
-            Width="120"
+            HorizontalAlignment="Right"
+            Margin="0,259,675,0" 
+            Width="90"
             VerticalAlignment="Top"/>
         <TextBox
              x:Name="Parcel"
@@ -125,8 +126,9 @@
         <Label           
             x:Name="latitudeLabel"
             Content="Latitude:"
-            HorizontalAlignment="Left"
-            Margin="65,300,0,0" Width="120"
+            HorizontalAlignment="Right"
+            Margin="0,300,675,0" 
+            Width="55"
             />
         <TextBox
              x:Name="Latitude"
@@ -138,8 +140,9 @@
         <Label           
             x:Name="longitudeLabel"
             Content="Longitude:"
-            HorizontalAlignment="Left"
-            Margin="65,337,0,0" Width="120"
+            HorizontalAlignment="Right"
+            Margin="0,337,675,0" 
+            Width="65"
              VerticalAlignment="Top"
             />
         <TextBox

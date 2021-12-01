@@ -51,12 +51,15 @@ namespace PL
             BlDrone = bl;
 
             Name.Text = drone.Model;
+            nameLabel.Content = "Name:";
 
             ID.Text = $"{drone.Id}";
             ID.IsReadOnly = true;
-            
+            IDLabel.Content = "ID:";
+
             WeightSelector.SelectedItem =  drone.MaxWeight.ToString();
             WeightSelector.IsReadOnly = true;
+            weightLabel.Content = "Max weight:";
 
             Battery.Text = $"{drone.BatteryStatus}";           
             Status.Text = $"{drone.Status}";
@@ -64,6 +67,7 @@ namespace PL
             Latitude.Text = $"{drone.CurrentLocation.Latitude}";
             Longitude.Text = $"{drone.CurrentLocation.Longitude}";
 
+            stationIdLabel.Visibility = Visibility.Hidden;
             StationList.Visibility = Visibility.Hidden;
             AddDrone.Visibility = Visibility.Hidden;
            
