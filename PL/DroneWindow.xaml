@@ -8,11 +8,18 @@
         Title="DroneWindow" Height="450" Width="800">
     <Grid OpacityMask="Black">
         <Label 
-            Content="ENTER THE DETALIES AND PRESS ADD DRONE" 
             HorizontalAlignment="Left" 
             Margin="10,30,0,10" 
             FontWeight="Bold" 
-            FontSize="16"/>
+            FontSize="16">
+            <RichTextBox>
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="RichTextBox"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+        </Label>
         <Label 
             Content="ENTER Name:" 
             HorizontalAlignment="Left" 
@@ -46,7 +53,7 @@
             VerticalAlignment="Top"
             SelectionChanged="WeightSelector_SelectionChanged"
             IsReadOnly="False"/>
-            
+
         <Label 
             Content="ENTER First charge station ID:&#xD;or pick one from the list below" 
             HorizontalAlignment="Left" 
@@ -130,5 +137,32 @@
             Width="120"
             VerticalAlignment="Top"
             IsReadOnly="True"/>
+        <Button 
+            Content="update drone" 
+            HorizontalAlignment="Left" 
+            Margin="550,100,0,0" 
+            VerticalAlignment="Top" 
+            Click="Button_Click"/>
+        <Button 
+            Content="charge drone" 
+            HorizontalAlignment="Left" 
+            Margin="450,100,0,0" 
+            VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Button 
+            Content="send drone to delivery" 
+            HorizontalAlignment="Left" 
+            Margin="350,150,0,0" 
+            VerticalAlignment="Top" 
+            Click="Button_Click_2"/>
+        <Button 
+            Content="parcel picked up" 
+            HorizontalAlignment="Left" 
+            Margin="599,150,0,0" 
+            VerticalAlignment="Top" Click="Button_Click_3"/>
+        <Button 
+            Content="parcel prevision" 
+            HorizontalAlignment="Left" 
+            Margin="500,150,0,0" 
+            VerticalAlignment="Top" Click="Button_Click_4"/>
     </Grid>
 </Window>
