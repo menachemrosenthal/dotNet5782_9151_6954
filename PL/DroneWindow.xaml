@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="DroneWindow" Height="450" Width="800">
+        Title="DroneWindow" 
+        Height="450"
+        Width="800">
     <Grid OpacityMask="Black">
         <Label 
             HorizontalAlignment="Left" 
@@ -25,8 +27,10 @@
             HorizontalAlignment="Left" 
             Margin="24,65,0,0"/>
         <Label
+            x:Name="nameLabel"
             HorizontalAlignment="Left"
-            Margin="24,105,0,0" Content="ENTER Id:" 
+            Margin="24,105,0,0" 
+            Content="ENTER Id:" 
             VerticalAlignment="Top"
             Width="70"/>
         <TextBox
@@ -43,6 +47,7 @@
             Width="120"
             VerticalAlignment="Top"/>
         <Label 
+            x:Name="weightLabel"
             Content="Select Max weight:" 
             HorizontalAlignment="Left" 
             Margin="24,145,0,0" 
@@ -55,10 +60,12 @@
             IsReadOnly="False"/>
 
         <Label 
-            Content="ENTER First charge station ID:&#xD;or pick one from the list below" 
+            x:Name="stationIdLabel"
+            Content="pick one station from the list to first charge" 
             HorizontalAlignment="Left" 
-            Margin="472,185,0,0" 
-            VerticalAlignment="Top" Height="42"/>
+            Margin="516,0,0,0" 
+            VerticalAlignment="Center" 
+            Height="42"/>
         <Button 
             x:Name="AddDrone" 
             Content="Add&#xD;&#xA;Drone" 
@@ -74,6 +81,7 @@
             SelectionMode="Single" 
             MouseDoubleClick="StationList_MouseDoubleClick"/>
         <Label           
+            x:Name="batteryLabel"
             Content="Battery:"
             HorizontalAlignment="Left"
             Margin="65,183,0,221" 
@@ -87,6 +95,7 @@
             VerticalAlignment="Top"
             IsReadOnly="True"/>
         <Label           
+            x:Name="statusLabel"
             Content="Status:"
             HorizontalAlignment="Left"
             Margin="65,219,0,184" 
@@ -100,6 +109,7 @@
             VerticalAlignment="Top"
             IsReadOnly="True"/>
         <Label           
+            x:Name="parcelLabel"
             Content="Parcel number:"
             HorizontalAlignment="Left"
             Margin="65,259,0,151" 
@@ -113,6 +123,7 @@
              VerticalAlignment="Top"
             IsReadOnly="True"/>
         <Label           
+            x:Name="latitudeLabel"
             Content="Latitude:"
             HorizontalAlignment="Left"
             Margin="65,300,0,0" Width="120"
@@ -125,6 +136,7 @@
              VerticalAlignment="Top"
             IsReadOnly="True"/>
         <Label           
+            x:Name="longitudeLabel"
             Content="Longitude:"
             HorizontalAlignment="Left"
             Margin="65,337,0,0" Width="120"
@@ -138,28 +150,34 @@
             VerticalAlignment="Top"
             IsReadOnly="True"/>
         <Button 
+            x:Name="NameUpdateButton"
             Content="update drone" 
             HorizontalAlignment="Left" 
             Margin="550,100,0,0" 
             VerticalAlignment="Top" 
-            Click="Button_Click"/>
+            Click="DroneNameUpdate_Click"
+            IsCancel="True"/>
         <Button 
+            x:Name="chargeButton"
             Content="charge drone" 
             HorizontalAlignment="Left" 
             Margin="450,100,0,0" 
             VerticalAlignment="Top" Click="Button_Click_1"/>
         <Button 
+            x:Name="deliveryButton"
             Content="send drone to delivery" 
             HorizontalAlignment="Left" 
             Margin="350,150,0,0" 
             VerticalAlignment="Top" 
             Click="Button_Click_2"/>
         <Button 
+            x:Name="pickedUpButton"
             Content="parcel picked up" 
             HorizontalAlignment="Left" 
             Margin="599,150,0,0" 
             VerticalAlignment="Top" Click="Button_Click_3"/>
         <Button 
+            x:Name="previsionButton"
             Content="parcel prevision" 
             HorizontalAlignment="Left" 
             Margin="500,150,0,0" 
