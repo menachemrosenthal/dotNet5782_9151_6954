@@ -210,20 +210,15 @@ namespace IBL.BO
         /// </summary>
         /// <param name="id">drone id for check</param>
         /// <returns>"Free" or "Associated" or "Executing"</returns>
-        private string GetDroneSituation(int id)
+        public string GetDroneSituation(int id)
         {
             if (drones.Any(x => x.Id == id && x.Status == DroneStatuses.maintenance))
                 return "Maintenece";
 
             if (dal.ParcelList().Any(x => x.DroneId == id && x.Delivered == null))
-            {
-                IDAL.DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == id && x.PickedUp == null);
-                if (dal.ParcelList().Any(x => x.DroneId == id && x.PickedUp == null))
-                    return "Associated";
-
-                return "Executing";
-            }
-            return "Free";
+                return dal.ParcelList().Any(x => x.DroneId == id && x.PickedUp == null) ? "Associated" : "Executing";
+            
+            return "Free";                            
         }
 
         /// <summary>

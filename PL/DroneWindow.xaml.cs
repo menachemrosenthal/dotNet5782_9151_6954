@@ -21,9 +21,11 @@ namespace PL
         IBL.BO.BL BlDrone;
         int stationId;
         WeightCategories Weight;
-        public DroneWindow(IBL.BO.BL bl)
+        DroneListWindow droneListWindow1;
+        public DroneWindow(IBL.BO.BL bl, DroneListWindow droneListWindow)
         {
             BlDrone = bl;
+            droneListWindow1 = droneListWindow;
             InitializeComponent();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();
@@ -38,17 +40,24 @@ namespace PL
             Latitude.Visibility = Visibility.Hidden;
             longitudeLabel.Visibility = Visibility.Hidden;
             Longitude.Visibility = Visibility.Hidden;
-            chargeButton.Visibility = Visibility.Hidden;
-            deliveryButton.Visibility = Visibility.Hidden;
 
-            
-            
+            NameUpdateButton.Visibility = Visibility.Hidden;
+            pickedUpButton.Visibility = Visibility.Hidden;
+            ChargeButton.Visibility = Visibility.Hidden;
+            deliveryButton.Visibility = Visibility.Hidden;
+            previsionButton.Visibility = Visibility.Hidden;
+            ReleaseButton.Visibility = Visibility.Hidden;
+            ChargingTimeLabel.Visibility = Visibility.Hidden;
+            ChargingTime.Visibility = Visibility.Hidden;
         }
 
-        public DroneWindow(IBL.BO.BL bl, IBL.BO.DroneToList drone)
+        public DroneWindow(IBL.BO.BL bl, IBL.BO.DroneToList drone, DroneListWindow droneListWindow)
         {
             InitializeComponent();
             BlDrone = bl;
+            droneListWindow1 = droneListWindow;
+
+            titelLabel.Content = "Choose frome these options";
 
             Name.Text = drone.Model;
             nameLabel.Content = "Name:";
@@ -57,6 +66,7 @@ namespace PL
             ID.IsReadOnly = true;
             IDLabel.Content = "ID:";
 
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             WeightSelector.SelectedItem =  drone.MaxWeight.ToString();
             WeightSelector.IsReadOnly = true;
             weightLabel.Content = "Max weight:";
@@ -71,6 +81,41 @@ namespace PL
             StationList.Visibility = Visibility.Hidden;
             AddDrone.Visibility = Visibility.Hidden;
            
+           if(drone.Status == DroneStatuses.maintenance)
+           {
+                ChargeButton.Visibility = Visibility.Hidden;
+                deliveryButton.Visibility = Visibility.Hidden;
+                pickedUpButton.Visibility = Visibility.Hidden;
+                previsionButton.Visibility = Visibility.Hidden;
+           }
+
+           if(drone.Status != DroneStatuses.maintenance)
+           {
+                ReleaseButton.Visibility = Visibility.Hidden;
+                ChargingTimeLabel.Visibility = Visibility.Hidden;
+                ChargingTime.Visibility = Visibility.Hidden;
+
+                if(BlDrone.GetDroneSituation(drone.Id) == "Free")
+                {
+                    pickedUpButton.Visibility = Visibility.Hidden;
+                    previsionButton.Visibility = Visibility.Hidden;
+                }
+
+                if(BlDrone.GetDroneSituation(drone.Id) == "Associated")
+                {
+                    ChargeButton.Visibility = Visibility.Hidden;
+                    deliveryButton.Visibility = Visibility.Hidden;
+                    previsionButton.Visibility = Visibility.Hidden;
+                }
+
+                if(BlDrone.GetDroneSituation(drone.Id) == "Executing")
+                {
+                    ChargeButton.Visibility = Visibility.Hidden;
+                    deliveryButton.Visibility = Visibility.Hidden;
+                    pickedUpButton.Visibility = Visibility.Hidden;
+                }
+           }
+
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
@@ -86,8 +131,8 @@ namespace PL
 
                 BlDrone.AddDrone(drone, stationId);
                 MessageBox.Show("Drone was added successfully");
-                //צריך לעדכן בחלון השני
-                this.Close();
+                droneListWindow1.DroneListView.ItemsSource = BlDrone.GetDroneList();
+                Close();
                 
             }
             catch (Exception ex)
@@ -107,22 +152,22 @@ namespace PL
             BlDrone.DroneNameUpdate(int.Parse(ID.Text),Name.Text);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Charge_Button(object sender, RoutedEventArgs e)
         {
             BlDrone.ChargeDrone(int.Parse(ID.Text));
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void ParcelAssociate_Button(object sender, RoutedEventArgs e)
         {
             BlDrone.ParcelToDrone(int.Parse(ID.Text));
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Pickedup_Button(object sender, RoutedEventArgs e)
         {
             BlDrone.ParcelPickedupUptade(int.Parse(ID.Text));
         }
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void Provision_Button(object sender, RoutedEventArgs e)
         {
             BlDrone.ParcelProvisionUpdate(int.Parse(ID.Text));
         }
@@ -130,6 +175,17 @@ namespace PL
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void ChargingRelease_Button(object sender, RoutedEventArgs e)
+        {
+            BlDrone.ReleaseDrone(int.Parse(ID.Text), TimeSpan.Parse(ChargingTime.Text));
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            droneListWindow1.DroneListView.ItemsSource = BlDrone.GetDroneList(); 
+            Close();
         }
     }
 }

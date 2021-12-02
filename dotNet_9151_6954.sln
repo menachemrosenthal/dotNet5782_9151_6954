@@ -13,9 +13,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{CE6E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI_BL", "ConsoleUI_BL\ConsoleUI_BL.csproj", "{7A725735-FECB-47C4-BE13-2E06399EB2DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{7922D5A0-6E3D-478B-B09E-ABC77D558B3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{7922D5A0-6E3D-478B-B09E-ABC77D558B3D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{CE6EC88B-8462-4B54-A36B-E2BABAE12F09} = {CE6EC88B-8462-4B54-A36B-E2BABAE12F09}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3C5DB184-ACCF-4AB2-954C-AF6ED13034F4}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
 Global
