@@ -47,13 +47,13 @@ namespace PL
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new DroneWindow(BlDroneList).Show();
+            new DroneWindow(BlDroneList, this).Show();
         }
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             IBL.BO.DroneToList drone = (IBL.BO.DroneToList)DroneListView.SelectedItem;
-            new DroneWindow(BlDroneList, drone).Show();
+            new DroneWindow(BlDroneList, drone, this).Show();
         }
     }
 }

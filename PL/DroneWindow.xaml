@@ -13,25 +13,23 @@
             HorizontalAlignment="Left" 
             Margin="10,30,0,10" 
             FontWeight="Bold" 
-            FontSize="16">
-            <RichTextBox>
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="RichTextBox"/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
-        </Label>
+            FontSize="16"/>
+        <Label
+            x:Name="titelLabel"
+            Content="Fill in the detales and click Add Drone please"
+            HorizontalAlignment="Right"
+            Margin="0,10,155,0"
+            VerticalAlignment="Top" Width="409" FontWeight="Bold" FontSize="16"/>
         <Label 
             x:Name="nameLabel"
             Content="ENTER Name:" 
             HorizontalAlignment="Right" 
-            Margin="0,65,675,0"
+            Margin="0,65,620,0"
             VerticalAlignment="Top"/>
         <Label
             x:Name="IDLabel"
             HorizontalAlignment="Right"
-            Margin="0,105,675,0" 
+            Margin="0,105,620,0" 
             Content="ENTER Id:" 
             VerticalAlignment="Top"
             Width="60"/>
@@ -52,7 +50,7 @@
             x:Name="weightLabel"
             Content="Select Max weight:" 
             HorizontalAlignment="Right" 
-            Margin="0,145,675,0" 
+            Margin="0,145,620,0" 
             VerticalAlignment="Top"/>
         <ComboBox 
             Name="WeightSelector" 
@@ -63,29 +61,29 @@
 
         <Label 
             x:Name="stationIdLabel"
-            Content="pick one station from the list to first charge" 
-            HorizontalAlignment="Left" 
-            Margin="516,0,0,0" 
-            VerticalAlignment="Center" 
-            Height="42"/>
+            Content="pick one station from the list to first charging" 
+            HorizontalAlignment="Right" 
+            Margin="0,203,431,0" 
+            VerticalAlignment="Top" 
+            Height="42" Width="254"/>
         <Button 
             x:Name="AddDrone" 
             Content="Add&#xD;&#xA;Drone" 
             HorizontalAlignment="Left" 
-            Margin="664,10,0,0" 
+            Margin="473,129,0,0" 
             VerticalAlignment="Top" 
             Height="97" 
             Width="126" 
             Click="AddDrone_Click"/>
         <ListBox
             x:Name="StationList"
-            Margin="516,227,44,31" 
+            Margin="98,232,427,26" 
             SelectionMode="Single" 
             MouseDoubleClick="StationList_MouseDoubleClick"/>
         <Label
             x:Name="batteryLabel"
             HorizontalAlignment="Right"
-            Margin="0,186,675,0"
+            Margin="0,186,620,0"
             VerticalAlignment="Top"
             Content="Battery status:"/>
         <TextBox
@@ -99,7 +97,7 @@
             x:Name="statusLabel"
             Content="Status:"
             HorizontalAlignment="Right"
-            Margin="0,219,675,0" 
+            Margin="0,219,620,0" 
             Width="45"
             VerticalAlignment="Top"/>
         <TextBox
@@ -113,7 +111,7 @@
             x:Name="parcelLabel"
             Content="Parcel number:"
             HorizontalAlignment="Right"
-            Margin="0,259,675,0" 
+            Margin="0,259,620,0" 
             Width="90"
             VerticalAlignment="Top"/>
         <TextBox
@@ -127,7 +125,7 @@
             x:Name="latitudeLabel"
             Content="Latitude:"
             HorizontalAlignment="Right"
-            Margin="0,300,675,0" 
+            Margin="0,300,620,0" 
             Width="55"
             />
         <TextBox
@@ -141,7 +139,7 @@
             x:Name="longitudeLabel"
             Content="Longitude:"
             HorizontalAlignment="Right"
-            Margin="0,337,675,0" 
+            Margin="0,337,620,0" 
             Width="65"
              VerticalAlignment="Top"
             />
@@ -154,36 +152,66 @@
             IsReadOnly="True"/>
         <Button 
             x:Name="NameUpdateButton"
-            Content="update drone" 
+            Content="Update Drone name" 
             HorizontalAlignment="Left" 
-            Margin="550,100,0,0" 
+            Margin="599,59,0,0" 
             VerticalAlignment="Top" 
             Click="DroneNameUpdate_Click"
             IsCancel="True"/>
         <Button 
-            x:Name="chargeButton"
+            x:Name="ChargeButton"
             Content="charge drone" 
             HorizontalAlignment="Left" 
-            Margin="450,100,0,0" 
-            VerticalAlignment="Top" Click="Button_Click_1"/>
+            Margin="618,119,0,0" 
+            VerticalAlignment="Top" Click="Charge_Button"/>
         <Button 
             x:Name="deliveryButton"
-            Content="send drone to delivery" 
+            Content="Send drone to delivery" 
             HorizontalAlignment="Left" 
-            Margin="350,150,0,0" 
+            Margin="593,118,0,0" 
             VerticalAlignment="Top" 
-            Click="Button_Click_2"/>
+            Click="ParcelAssociate_Button"/>
         <Button 
             x:Name="pickedUpButton"
-            Content="parcel picked up" 
+            Content="Parcel picked up" 
             HorizontalAlignment="Left" 
-            Margin="599,150,0,0" 
-            VerticalAlignment="Top" Click="Button_Click_3"/>
+            Margin="609,119,0,0" 
+            VerticalAlignment="Top" Click="Pickedup_Button"/>
         <Button 
             x:Name="previsionButton"
-            Content="parcel prevision" 
+            Content="Parcel prevision" 
             HorizontalAlignment="Left" 
-            Margin="500,150,0,0" 
-            VerticalAlignment="Top" Click="Button_Click_4"/>
+            Margin="612,123,0,0" 
+            VerticalAlignment="Top" Click="Provision_Button"/>
+        <Button 
+            x:Name="ReleaseButton"
+            Content="Charging release" 
+            HorizontalAlignment="Left" 
+            Margin="609,119,0,0" 
+            VerticalAlignment="Top" 
+            Click="ChargingRelease_Button"/>
+        <TextBox 
+            x:Name="ChargingTime"            
+            HorizontalAlignment="Left" 
+            Margin="629,236,0,0" 
+            Text="HH:MM" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="53" Height="19"/>
+        <Label 
+            x:Name="ChargingTimeLabel"
+            Content="Time of charging" 
+            HorizontalAlignment="Left" 
+            Margin="606,0,0,0" 
+            VerticalAlignment="Center" 
+            Width="105"/>
+        <Button
+            x:Name="CloseButton"
+            Content="Close window" 
+            HorizontalAlignment="Left" 
+            Margin="690,352,0,0" 
+            VerticalAlignment="Top" 
+            Width="84" 
+            Click="CloseButton_Click" Height="61"/>
     </Grid>
 </Window>
