@@ -20,21 +20,28 @@ namespace PL
     {
         IBL.BO.BL BlDrone;
         int stationId;
+        WeightCategories Weight;
         public DroneWindow(IBL.BO.BL bl)
         {
-            InitializeComponent();
             BlDrone = bl;
-            Battery.Text = "0";
-            Status.Text = "0";
-            Parcel.Text = "0";
-            Latitude.Text = "0";
-            Longitude.Text = "0";
-            Battery.IsReadOnly = true;
-            Status.IsReadOnly = true;
-            Parcel.IsReadOnly = true;
-            Latitude.IsReadOnly = true;
-            Longitude.IsReadOnly = true;
+            InitializeComponent();
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();
+            
+            batteryLabel.Visibility = Visibility.Hidden;
+            Battery.Visibility = Visibility.Hidden;
+            statusLabel.Visibility = Visibility.Hidden;
+            Status.Visibility = Visibility.Hidden;
+            parcelLabel.Visibility = Visibility.Hidden;
+            Parcel.Visibility = Visibility.Hidden;
+            latitudeLabel.Visibility = Visibility.Hidden;
+            Latitude.Visibility = Visibility.Hidden;
+            longitudeLabel.Visibility = Visibility.Hidden;
+            Longitude.Visibility = Visibility.Hidden;
+            chargeButton.Visibility = Visibility.Hidden;
+            deliveryButton.Visibility = Visibility.Hidden;
+
+            
             
         }
 
@@ -42,17 +49,28 @@ namespace PL
         {
             InitializeComponent();
             BlDrone = bl;
+
             Name.Text = drone.Model;
+            nameLabel.Content = "Name:";
+
             ID.Text = $"{drone.Id}";
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            Battery.Text = $"{drone.BatteryStatus}";
+            ID.IsReadOnly = true;
+            IDLabel.Content = "ID:";
+
+            WeightSelector.SelectedItem =  drone.MaxWeight.ToString();
+            WeightSelector.IsReadOnly = true;
+            weightLabel.Content = "Max weight:";
+
+            Battery.Text = $"{drone.BatteryStatus}";           
             Status.Text = $"{drone.Status}";
             Parcel.Text = $"{drone.DeliveredParcelId}";
             Latitude.Text = $"{drone.CurrentLocation.Latitude}";
             Longitude.Text = $"{drone.CurrentLocation.Longitude}";
-            StationList.UnselectAll();
+
+            stationIdLabel.Visibility = Visibility.Hidden;
+            StationList.Visibility = Visibility.Hidden;
             AddDrone.Visibility = Visibility.Hidden;
-            ID.IsReadOnly = true;
+           
         }
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
@@ -84,7 +102,7 @@ namespace PL
             stationId = station.Id;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void DroneNameUpdate_Click(object sender, RoutedEventArgs e)
         {
             BlDrone.DroneNameUpdate(int.Parse(ID.Text),Name.Text);
         }
@@ -107,6 +125,11 @@ namespace PL
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             BlDrone.ParcelProvisionUpdate(int.Parse(ID.Text));
+        }
+
+        private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
