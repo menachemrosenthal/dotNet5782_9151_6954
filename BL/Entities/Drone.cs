@@ -15,7 +15,7 @@
                 "\n ID: " + Id + "\n Max weight: " + MaxWeight + "\n Battery status: " + BatteryStatus
                 + "\n Drone status: " + Status + "\n Parcel in transfer: \n" + Parcel +
                 " Drone current Location: " + CurrentLocation + "\n";
-                ;
+            ;
         }
     }
 }

@@ -1,10 +1,7 @@
-﻿using System;
+﻿using BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BL;
-using IDAL.DO;
 
 namespace IBL.BO
 {
@@ -54,7 +51,7 @@ namespace IBL.BO
 
             if (GetDroneSituation(droneId) != "Executing")
                 throw new CannotUpdateExeption("drone", droneId, "not executing");
-                        
+
             IDAL.DO.Parcel parcel = dal.GetParcel(drone.DeliveredParcelId);
             drone.BatteryStatus -= SenderTaregetDistance(parcel) * dal.BatteryUseRquest()[(int)parcel.Weight];
             drone.CurrentLocation = TargetLocation(parcel);
@@ -146,15 +143,15 @@ namespace IBL.BO
         /// <returns> sender location</returns>
         private Location SenderLocation(IDAL.DO.Parcel parcel)
             => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
-        
+
         /// <summary>
         /// gets Target location
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns> Target location</returns>
-        private Location TargetLocation(IDAL.DO.Parcel parcel)        
+        private Location TargetLocation(IDAL.DO.Parcel parcel)
             => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
-        
+
         /// <summary>
         /// sort parcel list
         /// </summary>
@@ -165,10 +162,10 @@ namespace IBL.BO
             IDAL.DO.Parcel closestParcel = dal.ParcelList().FirstOrDefault();
             double diastance = LocationsDistance(location, SenderLocation(closestParcel));
 
-            foreach (var parcel in parcels)            
+            foreach (var parcel in parcels)
                 if (diastance > LocationsDistance(location, SenderLocation(parcel)))
                     closestParcel = parcel;
-            
+
             return closestParcel;
         }
 
@@ -179,7 +176,7 @@ namespace IBL.BO
         /// <returns>distance between sender and reciever</returns>
         private double SenderTaregetDistance(IDAL.DO.Parcel parcel)
             => LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
-                
+
         /// <summary>
         /// get parcel status
         /// </summary>

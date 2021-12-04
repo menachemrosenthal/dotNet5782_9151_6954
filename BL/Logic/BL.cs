@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IBL.BO
 {
@@ -14,7 +12,7 @@ namespace IBL.BO
         public static double CarryingMediemElectricityUse { get; set; }
         public static double CarryingHeavyElectricityUse { get; set; }
         public static double ChargePace { get; set; }
-        
+
         private List<DroneToList> drones;
 
         private IDal dal;
@@ -31,22 +29,32 @@ namespace IBL.BO
 
             Random r = new Random();
             drones = new();
-            
+
             //update the dal drone list for bl drone list
             foreach (IDAL.DO.Drone dalDrone in dal.DroneList())
             {
                 DroneToList drone = new();
                 drone.CurrentLocation = new();
+<<<<<<< HEAD
                 drone.Id = dalDrone.Id;
                 drone.Model = dalDrone.Model;
                 drone.MaxWeight = (WeightCategories)dalDrone.MaxWeight;               
+=======
+                drone.Id = Drone.Id;
+                drone.Model = Drone.Model;
+                drone.MaxWeight = (WeightCategories)Drone.MaxWeight;
+>>>>>>> 474592bf32ac92a22d2d000e515b85538238bc67
                 Location stationLocation = new();
 
                 //the drone is associated to parcel
                 if (!(GetDroneSituation(drone.Id) == "Free" || GetDroneSituation(drone.Id) == "Maintenece"))
                 {
                     drone.Status = DroneStatuses.sending;
+<<<<<<< HEAD
                     IDAL.DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == dalDrone.Id);                    
+=======
+                    IDAL.DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == Drone.Id);
+>>>>>>> 474592bf32ac92a22d2d000e515b85538238bc67
                     drone.DeliveredParcelId = parcel.Id;
 
                     if (GetDroneSituation(drone.Id) == "Associated")
@@ -65,9 +73,13 @@ namespace IBL.BO
                 {
                     drone.DeliveredParcelId = 0;
                     //randome status between free and maintenance
-                    drone.Status = (DroneStatuses)r.Next(2);                    
+                    drone.Status = (DroneStatuses)r.Next(2);
 
+<<<<<<< HEAD
                     if (GetDroneSituation(drone.Id) == "Maintenece")
+=======
+                    if (drone.Status == DroneStatuses.maintenance)
+>>>>>>> 474592bf32ac92a22d2d000e515b85538238bc67
                     {
                         IDAL.DO.Station station = new();
                         station = dal.StationList().ElementAt(r.Next((int)dal.StationList().LongCount() - 1));
@@ -79,12 +91,12 @@ namespace IBL.BO
 
                     //is not maintenance or associated to parcel
                     else
-                    {                        
+                    {
                         if (ReceivedCustomersList().Count() > 0)
                             drone.CurrentLocation = CustomerLocation(ReceivedCustomersList().ElementAt(r.Next(ReceivedCustomersList().Count() - 1)));
 
-                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation, 
-                                                    StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99) 
+                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation,
+                                                    StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99)
                                                     + 1;
                         drones.Add(drone);
                     }
@@ -93,7 +105,7 @@ namespace IBL.BO
         }
 
         private double LocationsDistance(Location l1, Location l2)
-             => dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);                
+             => dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);
     }
 }
 

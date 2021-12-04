@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace IDAL
+﻿namespace IDAL
 {
     namespace DO
     {
@@ -15,8 +11,8 @@ namespace IDAL
             public double Latitude { get; set; }
             public override string ToString()
             {
-                return "Station: "+Name+
-                    "\nID: "+Id+"\nCharge slots: "+ChargeSlots+"\nLongitude: "+Longitude+"\nLattitude: "+Latitude+"\n";
+                return "Station: " + Name +
+                    "\nID: " + Id + "\nCharge slots: " + ChargeSlots + "\nLongitude: " + Longitude + "\nLattitude: " + Latitude + "\n";
             }
         }
     }

@@ -285,7 +285,7 @@ namespace PL {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/PL;component/dronewindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/PL;V1.0.0.0;component/dronewindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\DroneWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
@@ -375,17 +375,17 @@ namespace PL {
             case 20:
             this.Longitude = ((System.Windows.Controls.TextBox)(target));
             return;
-            case 21:
+            case 20:
             this.NameUpdateButton = ((System.Windows.Controls.Button)(target));
             
-            #line 159 "..\..\..\DroneWindow.xaml"
+            #line 161 "..\..\..\DroneWindow.xaml"
             this.NameUpdateButton.Click += new System.Windows.RoutedEventHandler(this.DroneNameUpdate_Click);
             
             #line default
             #line hidden
             return;
-            case 22:
-            this.ChargeButton = ((System.Windows.Controls.Button)(target));
+            case 21:
+            this.chargeButton = ((System.Windows.Controls.Button)(target));
             
             #line 167 "..\..\..\DroneWindow.xaml"
             this.ChargeButton.Click += new System.Windows.RoutedEventHandler(this.Charge_Button);
@@ -395,6 +395,8 @@ namespace PL {
             return;
             case 23:
             this.associateButton = ((System.Windows.Controls.Button)(target));
+            case 22:
+            this.deliveryButton = ((System.Windows.Controls.Button)(target));
             
             #line 175 "..\..\..\DroneWindow.xaml"
             this.associateButton.Click += new System.Windows.RoutedEventHandler(this.ParcelAssociate_Button);
@@ -402,7 +404,7 @@ namespace PL {
             #line default
             #line hidden
             return;
-            case 24:
+            case 23:
             this.pickedUpButton = ((System.Windows.Controls.Button)(target));
             
             #line 183 "..\..\..\DroneWindow.xaml"

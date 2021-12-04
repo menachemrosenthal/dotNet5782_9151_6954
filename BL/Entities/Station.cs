@@ -21,7 +21,7 @@ namespace IBL.BO
             return "\nStation: " + Name +
                 "\n ID: " + Id +
                 "\n Charge slots: " + ChargeSlots +
-                "\n Location" + LocationOfStation + s;                             
+                "\n Location" + LocationOfStation + s;
         }
     }
 }

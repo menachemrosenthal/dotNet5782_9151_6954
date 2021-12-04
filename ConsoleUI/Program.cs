@@ -1,6 +1,6 @@
-﻿using System;
+﻿using IDAL;
 using IDAL.DO;
-using IDAL;
+using System;
 
 namespace ConsoleUI
 {
@@ -18,7 +18,7 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            IDal iDal= new DalObject();
+            IDal iDal = new DalObject();
 
             bool flag = true;
 
@@ -120,12 +120,12 @@ namespace ConsoleUI
             }
 
         }
-        
-	     
+
+
         /// <summary>
-                /// distance between user poin and station
-                /// </summary>
-                /// <param name="dalObject"></param>
+        /// distance between user poin and station
+        /// </summary>
+        /// <param name="dalObject"></param>
         private static void StationDistance(IDAL.IDal iDal)
         {
             Console.WriteLine("\nENTER longitude");
@@ -363,10 +363,10 @@ namespace ConsoleUI
 
                 Console.WriteLine(iDal.GetStation(stationId).ToString());
             }
-            catch(IDAL.ItemNotFoundException ex)
+            catch (IDAL.ItemNotFoundException ex)
             {
                 Console.WriteLine(ex);
-            }          
+            }
         }
 
 
@@ -418,9 +418,9 @@ namespace ConsoleUI
         /// display list of stations with free charge slots
         /// </summary>
         public static void StationsWithFreeSlotsDisplay(IDAL.IDal iDal)
-        {            
-            foreach (var Station in iDal.GetStationsByCondition(x => x.ChargeSlots > 0))                
-                    Console.WriteLine(Station.ToString());
+        {
+            foreach (var Station in iDal.GetStationsByCondition(x => x.ChargeSlots > 0))
+                Console.WriteLine(Station.ToString());
         }
 
 
@@ -437,6 +437,5 @@ namespace ConsoleUI
 }
 
 
-    
 
-  
+

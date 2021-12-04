@@ -17,7 +17,7 @@ namespace IBL
         /// </summary>
         /// <param name="drone"></param>
         /// <param name="stationID"></param>
-        void AddDrone(DroneToList drone,int stationID);
+        void AddDrone(DroneToList drone, int stationID);
 
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace IBL
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns>created drone</returns>
-        Drone GetDrone(int DroneId);     
+        Drone GetDrone(int DroneId);
         void DroneNameUpdate(int droneId, string updateName);
 
 
@@ -35,7 +35,7 @@ namespace IBL
         /// <param name="stationId">station id for update</param>
         /// <param name="nameUpdate">new name</param>
         /// <param name="chargSlots">num of charge slots</param>
-        void StationUpdate(int stationId,string nameUpdate,string freeChargeSlots);
+        void StationUpdate(int stationId, string nameUpdate, string freeChargeSlots);
 
         /// <summary>
         /// update customer name or phone num
