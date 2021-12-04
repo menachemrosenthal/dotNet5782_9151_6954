@@ -13,7 +13,6 @@ namespace PL
     {
         IBL.BO.BL BlDrone;
         int stationId;
-        WeightCategories Weight;
         DroneListWindow FatherWindow;
         public DroneWindow(IBL.BO.BL bl, DroneListWindow droneListWindow)
         {
@@ -61,7 +60,7 @@ namespace PL
             WeightSelector.IsEnabled = false;
             weightLabel.Content = "Max weight:";
 
-            Battery.Text = $"{drone.BatteryStatus}";
+            Battery.Text = $"{drone.BatteryStatus}%";
             Status.Text = $"{drone.Status}";
             Parcel.Text = $"{drone.DeliveredParcelId}";
             Latitude.Text = $"{drone.CurrentLocation.Latitude}";

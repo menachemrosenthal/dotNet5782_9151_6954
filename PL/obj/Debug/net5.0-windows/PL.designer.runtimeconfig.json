@@ -6,11 +6,7 @@
       "version": "5.0.0"
     },
     "additionalProbingPaths": [
-<<<<<<< HEAD
-      "C:\\Users\\User\\.dotnet\\store\\|arch|\\|tfm|",
-=======
       "C:\\Users\\Itzic\\.dotnet\\store\\|arch|\\|tfm|",
->>>>>>> b0b224aaf58a1f83a7988a38725c66aad1f318ae
       "C:\\Users\\Itzic\\.nuget\\packages"
     ],
     "configProperties": {
