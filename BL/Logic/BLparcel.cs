@@ -59,6 +59,7 @@ namespace IBL.BO
             drone.BatteryStatus -= SenderTaregetDistance(parcel) * dal.BatteryUseRquest()[(int)parcel.Weight];
             drone.CurrentLocation = TargetLocation(parcel);
             drone.Status = DroneStatuses.free;
+            drone.DeliveredParcelId = 0;
             dal.UpdateDelivery(parcel.Id);
         }
 

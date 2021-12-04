@@ -110,7 +110,8 @@ namespace IDAL
         /// <param name="drone">drone for update</param>
         public void DroneUpdate(Drone drone)
         {
-            int index = DataSource.Drones.IndexOf(drone);
+            var tmpDrone = DataSource.Drones.FirstOrDefault(x => x.Id == drone.Id);
+            int index = DataSource.Drones.IndexOf(tmpDrone);
             DataSource.Drones[index] = drone;
         }
         

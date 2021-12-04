@@ -50,14 +50,24 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="      All&#xA;The Drones" 
+        <Button 
+            x:Name="allDronesButton"
+            Content="      All&#xA;The Drones" 
                 HorizontalAlignment="Left" 
                 Margin="64,10,0,0" 
                 VerticalAlignment="Top" 
                 Height="40" 
                 Width="61" 
-                Click="Button_Click"/>
-        <Button Content="Add&#xD;&#xA;Drone&#xD;&#xA;" HorizontalAlignment="Left" Margin="659,0,0,0" VerticalAlignment="Center" Height="50" Width="76" Click="Button_Click_1"/>
+                Click="Button_Click"
+                Visibility="Hidden"/>
+        <Button 
+            Content="Add&#xD;&#xA;Drone&#xD;&#xA;"
+            HorizontalAlignment="Left" 
+            Margin="659,0,0,0" 
+            VerticalAlignment="Center" 
+            Height="50" 
+            Width="76" 
+            Click="Button_Click_1"/>
         <Label Content="Filter by status" HorizontalAlignment="Left" Margin="202,-5,0,0" VerticalAlignment="Top" Width="198"/>
         <Label Content="Filter by weight" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Top" Width="198"/>
 

@@ -9,17 +9,16 @@
         Height="450"
         Width="800">
     <Grid OpacityMask="Black">
-        <Label 
-            HorizontalAlignment="Left" 
-            Margin="10,30,0,10" 
-            FontWeight="Bold" 
-            FontSize="16"/>
         <Label
             x:Name="titelLabel"
             Content="Fill in the detales and click Add Drone please"
             HorizontalAlignment="Right"
             Margin="0,10,155,0"
-            VerticalAlignment="Top" Width="409" FontWeight="Bold" FontSize="16"/>
+            VerticalAlignment="Top" 
+            Width="409" 
+            FontWeight="Bold" 
+            FontSize="16"
+            Visibility="Hidden"/>
         <Label 
             x:Name="nameLabel"
             Content="ENTER Name:" 
@@ -55,31 +54,32 @@
         <ComboBox 
             Name="WeightSelector" 
             Margin="200,147,480,0"
-            VerticalAlignment="Top"
-            SelectionChanged="WeightSelector_SelectionChanged"
-            IsReadOnly="False"/>
-
+            VerticalAlignment="Top"/>
         <Label 
             x:Name="stationIdLabel"
             Content="pick one station from the list to first charging" 
             HorizontalAlignment="Right" 
             Margin="0,203,431,0" 
             VerticalAlignment="Top" 
-            Height="42" Width="254"/>
+            Height="42" 
+            Width="254"
+            Visibility="Hidden"/>
         <Button 
-            x:Name="AddDrone" 
+            x:Name="AddDroneButton" 
             Content="Add&#xD;&#xA;Drone" 
             HorizontalAlignment="Left" 
             Margin="473,129,0,0" 
             VerticalAlignment="Top" 
             Height="97" 
             Width="126" 
-            Click="AddDrone_Click"/>
+            Click="AddDrone_Click"
+            Visibility="Hidden"/>
         <ListBox
             x:Name="StationList"
             Margin="98,232,427,26" 
             SelectionMode="Single" 
-            MouseDoubleClick="StationList_MouseDoubleClick"/>
+            MouseDoubleClick="StationList_MouseDoubleClick"
+            Visibility="Hidden"/>
         <Label
             x:Name="batteryLabel"
             HorizontalAlignment="Right"
@@ -163,55 +163,67 @@
             Content="charge drone" 
             HorizontalAlignment="Left" 
             Margin="618,119,0,0" 
-            VerticalAlignment="Top" Click="Charge_Button"/>
-        <Button 
-            x:Name="deliveryButton"
-            Content="Send drone to delivery" 
-            HorizontalAlignment="Left" 
-            Margin="593,118,0,0" 
             VerticalAlignment="Top" 
-            Click="ParcelAssociate_Button"/>
+            Click="Charge_Button"
+            Visibility="Hidden"/>
+        <Button 
+            x:Name="associateButton"
+            Content="Associating drone to delivery" 
+            HorizontalAlignment="Left" 
+            Margin="593,150,0,0" 
+            VerticalAlignment="Top" 
+            Click="ParcelAssociate_Button"
+            Visibility="Hidden"/>
         <Button 
             x:Name="pickedUpButton"
             Content="Parcel picked up" 
             HorizontalAlignment="Left" 
             Margin="609,119,0,0" 
-            VerticalAlignment="Top" Click="Pickedup_Button"/>
+            VerticalAlignment="Top" 
+            Click="Pickedup_Button"
+            Visibility="Hidden"/>
         <Button 
-            x:Name="previsionButton"
-            Content="Parcel prevision" 
+            x:Name="provisionButton"
+            Content="Parcel provided" 
             HorizontalAlignment="Left" 
             Margin="612,123,0,0" 
-            VerticalAlignment="Top" Click="Provision_Button"/>
+            VerticalAlignment="Top" 
+            Click="Provision_Button"
+            Visibility="Hidden"/>
         <Button 
-            x:Name="ReleaseButton"
+            x:Name="ReleaseButton"            
             Content="Charging release" 
             HorizontalAlignment="Left" 
-            Margin="609,119,0,0" 
+            Margin="609,250,0,0" 
             VerticalAlignment="Top" 
-            Click="ChargingRelease_Button"/>
+            Click="ChargingRelease_Button"
+            Visibility="Hidden"/>
         <TextBox 
             x:Name="ChargingTime"            
             HorizontalAlignment="Left" 
-            Margin="629,236,0,0" 
+            Margin="629,150,0,0" 
             Text="HH:MM" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
-            Width="53" Height="19"/>
+            Width="53" 
+            Height="19"
+            Visibility="Hidden"/>
         <Label 
             x:Name="ChargingTimeLabel"
             Content="Time of charging" 
             HorizontalAlignment="Left" 
-            Margin="606,0,0,0" 
-            VerticalAlignment="Center" 
-            Width="105"/>
+            Margin="606,119,0,0" 
+            VerticalAlignment="Top" 
+            Width="105"
+            Visibility="Hidden"/>
         <Button
             x:Name="CloseButton"
             Content="Close window" 
             HorizontalAlignment="Left" 
-            Margin="690,352,0,0" 
+            Margin="689,319,0,0" 
             VerticalAlignment="Top" 
             Width="84" 
-            Click="CloseButton_Click" Height="61"/>
+            Click="CloseButton_Click" 
+            Height="61"/>
     </Grid>
 </Window>
