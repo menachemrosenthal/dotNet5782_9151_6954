@@ -262,7 +262,7 @@ namespace ConsoleUI_BL
             _ = int.TryParse(Console.ReadLine(), out int stationId);
 
             Console.WriteLine(bl.GetStation(stationId));
-            
+
         }
 
         private static void ParcelPickedupUptade(IBL.IBL bl)
@@ -351,7 +351,7 @@ namespace ConsoleUI_BL
 
             parcel.Senderid = senderId;
             parcel.TargetId = TargetId;
-            parcel.Weight = weight; 
+            parcel.Weight = weight;
             parcel.Priority = priority;
             bl.AddParcel(parcel);
         }

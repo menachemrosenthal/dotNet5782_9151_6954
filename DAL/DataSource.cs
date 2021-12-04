@@ -89,13 +89,13 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[9].Id,
                     TargetId = Customers[0].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[0].Id,
                     Requested = currentDate,
                     Scheduled = currentDate,
                     PickedUp = currentDate,
-                    Delivered= currentDate
+                    Delivered = currentDate
                 });
 
                 Parcels.Add(new Parcel
@@ -103,7 +103,7 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[8].Id,
                     TargetId = Customers[1].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[1].Id,
                     Requested = currentDate,
@@ -116,7 +116,7 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[7].Id,
                     TargetId = Customers[2].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
                 });
@@ -126,7 +126,7 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[6].Id,
                     TargetId = Customers[3].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[2].Id,
                     Requested = currentDate,
@@ -138,7 +138,7 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[5].Id,
                     TargetId = Customers[4].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
                 });
@@ -148,7 +148,7 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[4].Id,
                     TargetId = Customers[5].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     DroneId = Drones[3].Id,
                     Requested = currentDate,
@@ -162,7 +162,7 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[3].Id,
                     TargetId = Customers[6].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
                 });
@@ -172,7 +172,7 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[2].Id,
                     TargetId = Customers[8].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
                 });
@@ -182,7 +182,7 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[1].Id,
                     TargetId = Customers[7].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
                 });
@@ -192,7 +192,7 @@ namespace IDAL
                     Id = CreateParcelNumber,
                     Senderid = Customers[0].Id,
                     TargetId = Customers[9].Id,
-                    Weight = (WeightCategories)r.Next(1,4),
+                    Weight = (WeightCategories)r.Next(1, 4),
                     Priority = (Priorities)r.Next(3),
                     Requested = currentDate
                 });

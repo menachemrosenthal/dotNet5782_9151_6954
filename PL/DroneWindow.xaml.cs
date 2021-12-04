@@ -1,15 +1,8 @@
 ﻿using IBL.BO;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PL
 {
@@ -29,7 +22,7 @@ namespace PL
             InitializeComponent();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();
-            
+
             batteryLabel.Visibility = Visibility.Hidden;
             Battery.Visibility = Visibility.Hidden;
             statusLabel.Visibility = Visibility.Hidden;
@@ -67,11 +60,11 @@ namespace PL
             IDLabel.Content = "ID:";
 
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            WeightSelector.SelectedItem =  drone.MaxWeight.ToString();
+            WeightSelector.SelectedItem = drone.MaxWeight.ToString();
             WeightSelector.IsReadOnly = true;
             weightLabel.Content = "Max weight:";
 
-            Battery.Text = $"{drone.BatteryStatus}";           
+            Battery.Text = $"{drone.BatteryStatus}";
             Status.Text = $"{drone.Status}";
             Parcel.Text = $"{drone.DeliveredParcelId}";
             Latitude.Text = $"{drone.CurrentLocation.Latitude}";
@@ -80,41 +73,41 @@ namespace PL
             stationIdLabel.Visibility = Visibility.Hidden;
             StationList.Visibility = Visibility.Hidden;
             AddDrone.Visibility = Visibility.Hidden;
-           
-           if(drone.Status == DroneStatuses.maintenance)
-           {
+
+            if (drone.Status == DroneStatuses.maintenance)
+            {
                 ChargeButton.Visibility = Visibility.Hidden;
                 deliveryButton.Visibility = Visibility.Hidden;
                 pickedUpButton.Visibility = Visibility.Hidden;
                 previsionButton.Visibility = Visibility.Hidden;
-           }
+            }
 
-           if(drone.Status != DroneStatuses.maintenance)
-           {
+            if (drone.Status != DroneStatuses.maintenance)
+            {
                 ReleaseButton.Visibility = Visibility.Hidden;
                 ChargingTimeLabel.Visibility = Visibility.Hidden;
                 ChargingTime.Visibility = Visibility.Hidden;
 
-                if(BlDrone.GetDroneSituation(drone.Id) == "Free")
+                if (BlDrone.GetDroneSituation(drone.Id) == "Free")
                 {
                     pickedUpButton.Visibility = Visibility.Hidden;
                     previsionButton.Visibility = Visibility.Hidden;
                 }
 
-                if(BlDrone.GetDroneSituation(drone.Id) == "Associated")
+                if (BlDrone.GetDroneSituation(drone.Id) == "Associated")
                 {
                     ChargeButton.Visibility = Visibility.Hidden;
                     deliveryButton.Visibility = Visibility.Hidden;
                     previsionButton.Visibility = Visibility.Hidden;
                 }
 
-                if(BlDrone.GetDroneSituation(drone.Id) == "Executing")
+                if (BlDrone.GetDroneSituation(drone.Id) == "Executing")
                 {
                     ChargeButton.Visibility = Visibility.Hidden;
                     deliveryButton.Visibility = Visibility.Hidden;
                     pickedUpButton.Visibility = Visibility.Hidden;
                 }
-           }
+            }
 
         }
 
@@ -133,7 +126,7 @@ namespace PL
                 MessageBox.Show("Drone was added successfully");
                 droneListWindow1.DroneListView.ItemsSource = BlDrone.GetDroneList();
                 Close();
-                
+
             }
             catch (Exception ex)
             {
@@ -149,7 +142,7 @@ namespace PL
 
         private void DroneNameUpdate_Click(object sender, RoutedEventArgs e)
         {
-            BlDrone.DroneNameUpdate(int.Parse(ID.Text),Name.Text);
+            BlDrone.DroneNameUpdate(int.Parse(ID.Text), Name.Text);
         }
 
         private void Charge_Button(object sender, RoutedEventArgs e)
@@ -184,7 +177,7 @@ namespace PL
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            droneListWindow1.DroneListView.ItemsSource = BlDrone.GetDroneList(); 
+            droneListWindow1.DroneListView.ItemsSource = BlDrone.GetDroneList();
             Close();
         }
     }

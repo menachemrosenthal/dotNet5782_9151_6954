@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using IBL.BO;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using IBL.BO;
 
 namespace PL
 {
@@ -38,7 +31,7 @@ namespace PL
         {
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
                 (x => x.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedItem);
-        }       
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

@@ -158,14 +158,14 @@ namespace IBL.BO
 
             foreach (var parcel in parcels)
             {
-                if (weight >= (int)parcel.Weight && 
+                if (weight >= (int)parcel.Weight &&
                     drone.BatteryStatus >= BatteryUseInDelivery(drone, parcel))
-                {                    
-                        drone.Status = DroneStatuses.sending;
-                        drone.DeliveredParcelId = parcel.Id;
-                        dal.ParcelToDrone(parcel.Id, drone.Id);
-                        drones[drones.IndexOf(drone)] = drone;
-                        return;                    
+                {
+                    drone.Status = DroneStatuses.sending;
+                    drone.DeliveredParcelId = parcel.Id;
+                    dal.ParcelToDrone(parcel.Id, drone.Id);
+                    drones[drones.IndexOf(drone)] = drone;
+                    return;
                 }
             };
             throw new UselessDroneException($"Couldn't find any match parcel for dron id: {droneId}");
@@ -191,9 +191,9 @@ namespace IBL.BO
 
             drone.CurrentLocation = d.CurrentLocation;
 
-            if (drone.Status == DroneStatuses.sending)            
+            if (drone.Status == DroneStatuses.sending)
                 drone.Parcel = GetParcelInTransfer(d.DeliveredParcelId);
-            
+
             return drone;
         }
 
@@ -204,7 +204,7 @@ namespace IBL.BO
         /// <returns>drone list by condition</returns>
         public IEnumerable<DroneToList> GetDronesByCondition(Predicate<DroneToList> condition)
                 => drones.Where(x => condition(x));
-        
+
         /// <summary>
         /// cheking drone status
         /// </summary>
@@ -217,8 +217,8 @@ namespace IBL.BO
 
             if (dal.ParcelList().Any(x => x.DroneId == id && x.Delivered == null))
                 return dal.ParcelList().Any(x => x.DroneId == id && x.PickedUp == null) ? "Associated" : "Executing";
-            
-            return "Free";                            
+
+            return "Free";
         }
 
         /// <summary>

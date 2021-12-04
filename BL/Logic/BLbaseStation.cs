@@ -132,10 +132,10 @@ namespace IBL.BO
             IDAL.DO.Station station = dal.StationList().First();
             double diastance = LocationsDistance(location, StationLocation(station));
 
-            foreach (var Station in stations)            
+            foreach (var Station in stations)
                 if (diastance > LocationsDistance(location, StationLocation(Station)))
                     station = Station;
-            
+
             return station;
         }
     }

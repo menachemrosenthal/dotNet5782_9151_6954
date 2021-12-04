@@ -9,7 +9,7 @@
             return " Drone In Charging: " +
                 "\n  ID: " + Id +
                 " , BatteryStatus: " + BatteryStatus;
-                
+
         }
     }
 }

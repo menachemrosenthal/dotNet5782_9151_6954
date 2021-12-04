@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IBL.BO
+﻿namespace IBL.BO
 {
     public class CustomerInParcel
     {
@@ -13,5 +9,5 @@ namespace IBL.BO
             return $"\n   Name: {Name}\n   ID: {Id}";
         }
     }
-    
+
 }
