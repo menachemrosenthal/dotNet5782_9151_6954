@@ -12,6 +12,10 @@
                 return "Drone ID: " + Id +
                     "\nModel: " + Model + "\nMax weight: " + MaxWeight + "\n";
             }
+
+
+
+            // djkfvhjdk
         }
     }
 }

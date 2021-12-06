@@ -53,7 +53,7 @@ namespace IBL.BO
                 throw new CannotUpdateExeption("drone", droneId, "not executing");
 
             IDAL.DO.Parcel parcel = dal.GetParcel(drone.DeliveredParcelId);
-            drone.BatteryStatus -= SenderTaregetDistance(parcel) * dal.BatteryUseRquest()[(int)parcel.Weight];
+            drone.BatteryStatus -= SenderTaregetDistance(parcel) * dal.BatteryUseRequest()[(int)parcel.Weight];
             drone.CurrentLocation = TargetLocation(parcel);
             drone.Status = DroneStatuses.free;
             drone.DeliveredParcelId = 0;

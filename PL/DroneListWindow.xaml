@@ -11,7 +11,12 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
-        <Grid Name="UpGrid" HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto" Grid.RowSpan="2">
+        <Grid Name="UpGrid" 
+              HorizontalAlignment="Stretch" 
+              Height="auto" 
+              Grid.Row="0" 
+              VerticalAlignment="Stretch" 
+              Width="auto" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="49*"/>
@@ -30,20 +35,27 @@
                 VerticalContentAlignment="Top" 
                 HorizontalContentAlignment="Stretch" 
                 Grid.ColumnSpan="2" Margin="0,22,0,0"/>
-            <TextBox                 
-                TextWrapping="Wrap" 
-                Grid.Column="0"/>
             <ComboBox 
                 Name="WeightSelector"
                 Grid.Column="3"
                 SelectionChanged="WeightSelector_SelectionChanged"
                 Margin="0,22,0,0"/>
+            <Button 
+                Content="Close Window" 
+                Grid.Column="4" 
+                HorizontalAlignment="Center" 
+                Margin="0,520,0,0" 
+                VerticalAlignment="Top" 
+                Height="45" 
+                Width="100" Click="Button_Click_2"/>
         </Grid>
         <ListView 
             x:Name="DroneListView" 
             Height="Auto" 
-            Margin="0,69,0,0" 
-            Width="Auto" Grid.RowSpan="2" MouseDoubleClick="DroneListView_MouseDoubleClick">
+            Margin="0,69,202,0" 
+            Width="Auto" 
+            Grid.RowSpan="2" 
+            MouseDoubleClick="DroneListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -63,11 +75,11 @@
         <Button 
             Content="Add&#xD;&#xA;Drone&#xD;&#xA;"
             HorizontalAlignment="Left" 
-            Margin="659,0,0,0" 
-            VerticalAlignment="Center" 
-            Height="50" 
-            Width="76" 
-            Click="Button_Click_1"/>
+            Margin="634,106,0,0" 
+            VerticalAlignment="Top" 
+            Height="108" 
+            Width="133" 
+            Click="Button_Click_1" Grid.Row="1"/>
         <Label Content="Filter by status" HorizontalAlignment="Left" Margin="202,-5,0,0" VerticalAlignment="Top" Width="198"/>
         <Label Content="Filter by weight" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Top" Width="198"/>
 

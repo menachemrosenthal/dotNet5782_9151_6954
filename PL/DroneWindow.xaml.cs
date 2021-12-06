@@ -1,5 +1,6 @@
 ﻿using IBL.BO;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,6 +17,7 @@ namespace PL
         DroneListWindow FatherWindow;
         public DroneWindow(IBL.BO.BL bl, DroneListWindow droneListWindow)
         {
+            InitializeComponent();
             BlDrone = bl;
             FatherWindow = droneListWindow;
             InitializeComponent();
@@ -40,7 +42,7 @@ namespace PL
             StationList.Visibility = Visibility.Visible;
         }
 
-        public DroneWindow(IBL.BO.BL bl, IBL.BO.DroneToList drone, DroneListWindow droneListWindow)
+        public DroneWindow(IBL.BO.BL bl, DroneToList drone, DroneListWindow droneListWindow)
         {
             InitializeComponent();
             BlDrone = bl;
@@ -67,11 +69,7 @@ namespace PL
             Longitude.Text = $"{drone.CurrentLocation.Longitude}";
 
             if (drone.Status == DroneStatuses.maintenance)
-            {
                 ReleaseButton.Visibility = Visibility.Visible;
-                ChargingTimeLabel.Visibility = Visibility.Visible;
-                ChargingTime.Visibility = Visibility.Visible;
-            }
 
             if (BlDrone.GetDroneSituation(drone.Id) == "Free")
             {
@@ -88,25 +86,33 @@ namespace PL
 
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
-            try
+            _ = int.TryParse(ID.Text, out int id);
+            if (id > 0 && !BlDrone.GetDroneList().Any(x => x.Id == id))
             {
-                DroneToList drone = new()
+                try
                 {
-                    Model = Name.Text,
-                    Id = int.Parse(ID.Text),
-                    MaxWeight = Enum.Parse<WeightCategories>(WeightSelector.SelectedItem.ToString())
-                };
+                    DroneToList drone = new()
+                    {
+                        Model = Name.Text,
+                        Id = int.Parse(ID.Text),
+                        MaxWeight = Enum.Parse<WeightCategories>(WeightSelector.SelectedItem.ToString())
+                    };
+                   
+                    BlDrone.AddDrone(drone, stationId);
+                    _ = MessageBox.Show("Drone was added successfully");
+                    FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
+                    Close();
 
-                BlDrone.AddDrone(drone, stationId);
-                MessageBox.Show("Drone was added successfully");
-                FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
-                Close();
-                
+                }
+
+                catch (Exception ex)
+                {
+                    _ = MessageBox.Show(ex.Message);
+                }
             }
-
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                ID.Text = "Wrong ID";
             }
         }
 
@@ -129,7 +135,7 @@ namespace PL
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }            
+            }
         }
 
         private void Charge_Button(object sender, RoutedEventArgs e)
@@ -162,7 +168,7 @@ namespace PL
             {
                 MessageBox.Show(ex.Message);
             }
-           
+
         }
 
         private void Pickedup_Button(object sender, RoutedEventArgs e)
@@ -179,7 +185,7 @@ namespace PL
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         private void Provision_Button(object sender, RoutedEventArgs e)
@@ -196,14 +202,14 @@ namespace PL
             {
                 MessageBox.Show(ex.Message);
             }
-            
+
         }
 
         private void ChargingRelease_Button(object sender, RoutedEventArgs e)
         {
             try
             {
-                BlDrone.ReleaseDrone(int.Parse(ID.Text), TimeSpan.Parse(ChargingTime.Text));
+                BlDrone.ReleaseDrone(int.Parse(ID.Text));
                 MessageBox.Show("The drone was release from charging successfully");
                 FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
                 new DroneWindow(BlDrone, (DroneToList)FatherWindow.DroneListView.SelectedItem, FatherWindow).Show();
@@ -218,7 +224,7 @@ namespace PL
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList(); 
+            FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
             Close();
         }
     }

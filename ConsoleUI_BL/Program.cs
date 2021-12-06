@@ -288,7 +288,7 @@ namespace ConsoleUI_BL
             Console.WriteLine("ENTER charging time 00:00");
             _ = TimeSpan.TryParse(Console.ReadLine(), out TimeSpan time);
 
-            bl.ReleaseDrone(droneId, time);
+            bl.ReleaseDrone(droneId);
         }
 
         private static void ChargeDrone(IBL.IBL bl)

@@ -40,7 +40,7 @@ namespace IDAL
         /// electricity use array
         /// </summary>
         /// <returns>electricityUse array</returns>
-        public double[] BatteryUseRquest()
+        public double[] BatteryUseRequest()
         {
             double[] electricityUse = new double[5];
 

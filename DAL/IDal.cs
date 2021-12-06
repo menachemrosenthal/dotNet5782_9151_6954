@@ -60,7 +60,7 @@ namespace IDAL
         /// drone release from chrage
         /// </summary>
         /// <param name="droneId">drone id to release</param>
-        void EndCharge(int droneId);
+        DateTime EndCharge(int droneId);
 
         /// <summary>
         /// get station
@@ -128,7 +128,7 @@ namespace IDAL
         /// electricity use array
         /// </summary>
         /// <returns>electricityUse array</returns>
-        double[] BatteryUseRquest();
+        double[] BatteryUseRequest();
 
         /// <summary>
         /// update drone prioritys

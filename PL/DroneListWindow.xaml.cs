@@ -56,5 +56,10 @@ namespace PL
         {            
             new DroneWindow(BlDroneList, (DroneToList)DroneListView.SelectedItem, this).Show();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

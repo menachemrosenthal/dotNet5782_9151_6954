@@ -54,7 +54,7 @@ namespace IBL
         /// </summary>
         /// <param name="droneId"></param>
         /// <param name="time"></param>
-        void ReleaseDrone(int droneId, TimeSpan time);
+        void ReleaseDrone(int droneId);
 
         /// <summary>
         /// updates parcel to a drone
