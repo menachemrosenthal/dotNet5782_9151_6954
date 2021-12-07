@@ -68,16 +68,16 @@ namespace IBL.BO
         /// <param name="updateName"></param>
         public void DroneNameUpdate(int droneId, string updateName)
         {
-            IDAL.DO.Drone drone = dal.DroneList().FirstOrDefault(x => x.Id == droneId);
-            DroneToList d = this.drones.FirstOrDefault(x => x.Id == droneId);
-            if (drone.Id == 0)
+            if(!dal.DroneList().Any(x=>x.Id == droneId))
                 throw new KeyNotFoundException(nameof(droneId));
+            IDAL.DO.Drone drone = dal.DroneList().FirstOrDefault(x => x.Id == droneId);
+            DroneToList blDrone = this.drones.FirstOrDefault(x => x.Id == droneId);                           
             drone.Model = updateName;
-            d.Model = updateName;
+            blDrone.Model = updateName;
             dal.DroneUpdate(drone);
 
-            int index = this.drones.IndexOf(d);
-            this.drones[index] = d;
+            int index = drones.IndexOf(blDrone);
+            drones[index] = blDrone;
 
         }
 

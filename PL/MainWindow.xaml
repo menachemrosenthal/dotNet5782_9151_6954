@@ -16,7 +16,10 @@
             Content="Show&#xD;&#xA;Drones" 
             HorizontalAlignment="Left" 
             Margin="607,49,0,0" 
-            VerticalAlignment="Top" Click="ShowDrones_Click" Background="#FFA44813" BorderBrush="#FFCB3838" Foreground="#FFDEED20" RenderTransformOrigin="0.5,0.5" Height="63" Width="115" FontSize="18" Grid.RowSpan="2">
+            VerticalAlignment="Top" Click="ShowDrones_Click" RenderTransformOrigin="0.5,0.5" Height="92" Width="136" FontSize="24" Grid.RowSpan="2" BorderBrush="#FF5CEA16" FontWeight="Bold" Foreground="{DynamicResource {x:Static SystemColors.ActiveCaptionTextBrushKey}}">
+            <Button.Background>
+                <ImageBrush ImageSource="/drone.webp"/>
+            </Button.Background>
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -26,7 +29,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        
+
 
     </Grid>
 </Window>

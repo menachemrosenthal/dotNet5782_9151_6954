@@ -1,8 +1,12 @@
-﻿using IBL.BO;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
+using IBL.BO;
 
 namespace PL
 {
@@ -18,24 +22,29 @@ namespace PL
             BlDroneList = bl;
             DroneListView.ItemsSource = bl.GetDroneList();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));            
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
-                (x => x.MaxWeight == (IBL.BO.WeightCategories)StatusSelector.SelectedItem);
+                (x => x.MaxWeight == (WeightCategories)StatusSelector.SelectedItem);
+
+            allDronesButton.Visibility = Visibility.Visible;
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
-                (x => x.Status == (IBL.BO.DroneStatuses)StatusSelector.SelectedItem);
-        }
+                (x => x.Status == (DroneStatuses)StatusSelector.SelectedItem);
 
+            allDronesButton.Visibility = Visibility.Visible;
+        }       
+         
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DroneListView.ItemsSource = BlDroneList.GetDroneList();
+            allDronesButton.Visibility = Visibility.Hidden;            
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -44,9 +53,8 @@ namespace PL
         }
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            IBL.BO.DroneToList drone = (IBL.BO.DroneToList)DroneListView.SelectedItem;
-            new DroneWindow(BlDroneList, drone, this).Show();
+        {            
+            new DroneWindow(BlDroneList, (DroneToList)DroneListView.SelectedItem, this).Show();
         }
     }
 }

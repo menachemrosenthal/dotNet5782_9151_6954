@@ -12,7 +12,7 @@ namespace IBL.BO
         public static double CarryingMediemElectricityUse { get; set; }
         public static double CarryingHeavyElectricityUse { get; set; }
         public static double ChargePace { get; set; }
-
+        
         private List<DroneToList> drones;
 
         private IDal dal;
@@ -31,20 +31,20 @@ namespace IBL.BO
             drones = new();
 
             //update the dal drone list for bl drone list
-            foreach (var Drone in dal.DroneList())
+            foreach (IDAL.DO.Drone dalDrone in dal.DroneList())
             {
                 DroneToList drone = new();
                 drone.CurrentLocation = new();
-                drone.Id = Drone.Id;
-                drone.Model = Drone.Model;
-                drone.MaxWeight = (WeightCategories)Drone.MaxWeight;
+                drone.Id = dalDrone.Id;
+                drone.Model = dalDrone.Model;
+                drone.MaxWeight = (WeightCategories)dalDrone.MaxWeight;               
                 Location stationLocation = new();
 
                 //the drone is associated to parcel
-                if (!(GetDroneSituation(drone.Id) == "Free"))
+                if (!(GetDroneSituation(drone.Id) == "Free" || GetDroneSituation(drone.Id) == "Maintenece"))
                 {
                     drone.Status = DroneStatuses.sending;
-                    IDAL.DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == Drone.Id);
+                    IDAL.DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == dalDrone.Id);                    
                     drone.DeliveredParcelId = parcel.Id;
 
                     if (GetDroneSituation(drone.Id) == "Associated")
@@ -65,7 +65,7 @@ namespace IBL.BO
                     //randome status between free and maintenance
                     drone.Status = (DroneStatuses)r.Next(2);
 
-                    if (drone.Status == DroneStatuses.maintenance)
+                    if (GetDroneSituation(drone.Id) == "Maintenece")
                     {
                         IDAL.DO.Station station = new();
                         station = dal.StationList().ElementAt(r.Next((int)dal.StationList().LongCount() - 1));
