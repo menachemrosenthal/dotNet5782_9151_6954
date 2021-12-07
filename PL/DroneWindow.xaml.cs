@@ -98,12 +98,12 @@ namespace PL
                         Id = int.Parse(ID.Text),
                         MaxWeight = Enum.Parse<WeightCategories>(WeightSelector.SelectedItem.ToString())
                     };
-                   
+
                     BlDrone.AddDrone(drone, stationId);
                     _ = MessageBox.Show("Drone was added successfully");
                     FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
                     Close();
-
+                    return;
                 }
 
                 catch (Exception ex)
@@ -111,13 +111,16 @@ namespace PL
                     _ = MessageBox.Show(ex.Message);
                 }
             }
-            else
+            if (BlDrone.GetDroneList().Any(x => x.Id == id))
             {
-                ID.Text = "Wrong ID";
+                ID.Text = "This ID is alredy exist";
+                return;
             }
+
+            ID.Text = "Wrong ID";
         }
 
-        void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var station = (StationToList)StationList.SelectedItem;
             stationId = station.Id;
@@ -234,11 +237,11 @@ namespace PL
             _ = int.TryParse(ID.Text, out int id);
             if (id > 0 && !BlDrone.GetDroneList().Any(x => x.Id == id))
             {
-
-                ID.BorderBrush = Brushes.Green;
+                ID.Background = Brushes.LightGreen;
+                return;
             }
-            else
-                ID.BorderBrush = Brushes.Red;
+
+            ID.Background = Brushes.OrangeRed;
         }
     }
 }

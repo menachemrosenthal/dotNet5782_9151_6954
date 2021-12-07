@@ -26,15 +26,16 @@ namespace PL
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        {                        
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
-                (x => x.MaxWeight == (WeightCategories)StatusSelector.SelectedItem);
+                (x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
 
             allDronesButton.Visibility = Visibility.Visible;
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
                 (x => x.Status == (DroneStatuses)StatusSelector.SelectedItem);
 
@@ -45,7 +46,7 @@ namespace PL
         {
             DroneListView.ItemsSource = BlDroneList.GetDroneList();
             allDronesButton.Visibility = Visibility.Hidden;
-            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            WeightSelector.SelectedItem = -1;
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
         }
 
