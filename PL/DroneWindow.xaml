@@ -7,7 +7,7 @@
         Title="DroneWindow" 
         Height="450"
         Width="800">
-    <Grid OpacityMask="Black">
+    <Grid OpacityMask="Black" HorizontalAlignment="Left" VerticalAlignment="Top">
         <Label
             x:Name="titelLabel"
             Content="Fill in the detales and click Add Drone"
@@ -27,23 +27,25 @@
         <Label
             x:Name="IDLabel"
             HorizontalAlignment="Right"
-            Margin="0,105,620,0" 
+            Margin="0,104,620,0" 
             Content="ENTER Id:" 
             VerticalAlignment="Top"
-            Width="60"/>
+            Width="60" HorizontalContentAlignment="Left"/>
         <TextBox
             x:Name="Name"
             HorizontalAlignment="Left"
-            Margin="200,70,0,0" 
+            Margin="140,68,0,0" 
             Width="120"
             VerticalAlignment="Top"
             IsReadOnlyCaretVisible="False"/>
         <TextBox 
             x:Name="ID"
             HorizontalAlignment="Left" 
-            Margin="200,110,0,0" 
+            Margin="140,108,0,0" 
             Width="120"
-            VerticalAlignment="Top"/>
+            VerticalAlignment="Top" 
+            SelectionChanged="ID_SelectionChanged" 
+            />
         <Label 
             x:Name="weightLabel"
             Content="Select Max weight:" 
@@ -52,8 +54,8 @@
             VerticalAlignment="Top"/>
         <ComboBox 
             Name="WeightSelector" 
-            Margin="200,147,480,0"
-            VerticalAlignment="Top"/>
+            Margin="140,145,469,0"
+            VerticalAlignment="Top" FontFamily="Bahnschrift Light" FontWeight="Bold"/>
         <Label 
             x:Name="stationIdLabel"
             Content="pick one station from the list to first charging" 
@@ -88,7 +90,7 @@
         <TextBox
             x:Name="Battery"
             HorizontalAlignment="Left"
-            Margin="200,190,0,0"
+            Margin="140,188,0,0"
             Width="120"
             VerticalAlignment="Top"
             IsReadOnly="True"/>
@@ -102,7 +104,7 @@
         <TextBox
              x:Name="Status"
             HorizontalAlignment="Left"
-            Margin="200,226,0,0"
+            Margin="140,224,0,0"
             Width="120"
             VerticalAlignment="Top"
             IsReadOnly="True"/>
@@ -116,7 +118,7 @@
         <TextBox
              x:Name="Parcel"
             HorizontalAlignment="Left"
-            Margin="200,266,0,0"
+            Margin="140,264,0,0"
             Width="120"
              VerticalAlignment="Top"
             IsReadOnly="True"/>
@@ -130,7 +132,7 @@
         <TextBox
              x:Name="Latitude"
             HorizontalAlignment="Left"
-            Margin="200,308,0,0"
+            Margin="140,306,0,0"
             Width="120"
              VerticalAlignment="Top"
             IsReadOnly="True"/>
@@ -145,63 +147,94 @@
         <TextBox
              x:Name="Longitude"
             HorizontalAlignment="Left"
-            Margin="200,343,0,0"
+            Margin="140,341,0,0"
             Width="120"
             VerticalAlignment="Top"
             IsReadOnly="True"/>
         <Button 
             x:Name="NameUpdateButton"
-            Content="Update Drone name" 
+            Content="&#xD;&#xA;Update Drone name" 
             HorizontalAlignment="Left" 
-            Margin="599,59,0,0" 
+            Margin="322,65,0,0" 
             VerticalAlignment="Top" 
-            Click="DroneNameUpdate_Click"
-            IsCancel="True"/>
+            Click="DroneNameUpdate_Click"            
+            Height="40" 
+            Width="122" 
+            FontWeight="Heavy"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Top" 
+            FontFamily="Segoe UI Historic"/>
         <Button 
             x:Name="ChargeButton"
             Content="charge drone" 
             HorizontalAlignment="Left" 
-            Margin="618,119,0,0" 
+            Margin="322,181,0,0" 
             VerticalAlignment="Top" 
             Click="Charge_Button"
-            Visibility="Hidden"/>
+            Visibility="Visible" 
+            Width="122"
+            Height="31"
+            FontFamily="Segoe UI Emoji" 
+            FontWeight="Bold"/>
         <Button 
             x:Name="associateButton"
-            Content="Associating drone to delivery" 
+            Content=" drone to delivery&#xD;&#xA;Associating" 
             HorizontalAlignment="Left" 
-            Margin="593,150,0,0" 
+            Margin="495,133,0,0" 
             VerticalAlignment="Top" 
             Click="ParcelAssociate_Button"
-            Visibility="Hidden"/>
+            Visibility="Hidden"
+            Height="119"
+            Width="144" 
+            Background="#FFDD1A1A" 
+            FontFamily="Bodoni MT Condensed"
+            FontSize="24"/>
         <Button 
             x:Name="pickedUpButton"
-            Content="Parcel picked up" 
+            Content="Parcel&#xD;&#xA; picked up" 
             HorizontalAlignment="Left" 
-            Margin="609,119,0,0" 
+            Margin="495,133,0,0" 
             VerticalAlignment="Top" 
             Click="Pickedup_Button"
-            Visibility="Hidden"/>
+            Visibility="Hidden" Height="119" Width="144" Background="#FFE60C0C" FontFamily="Bodoni MT Condensed" FontSize="36"/>
         <Button 
             x:Name="provisionButton"
-            Content="Parcel provided" 
+            Content="Parcel&#xD;&#xA; provided" 
             HorizontalAlignment="Left" 
-            Margin="612,123,0,0" 
+            Margin="495,133,0,0" 
             VerticalAlignment="Top" 
             Click="Provision_Button"
-            Visibility="Hidden"/>
+            Visibility="Hidden"
+            Height="119"
+            Width="144" 
+            Background="#FFEE0A0A" 
+            FontSize="36" 
+            FontFamily="Bodoni MT Condensed" 
+            FontWeight="Bold" FontStyle="Italic" 
+            HorizontalContentAlignment="Center" 
+            VerticalContentAlignment="Center"/>
         <Button 
             x:Name="ReleaseButton"            
-            Content="Charging release" 
+            Content="Charging&#xD;&#xA; release" 
             HorizontalAlignment="Left" 
-            Margin="609,250,0,0" 
             VerticalAlignment="Top" 
             Click="ChargingRelease_Button"
-            Visibility="Hidden"/>
+            Margin="495,133,0,0" 
+            Visibility="Hidden"
+            Height="121" 
+            Width="144" 
+            FontStretch="Normal" 
+            FontStyle="Normal" 
+            FontSize="36" 
+            FontFamily="Bodoni MT Condensed" 
+            FontWeight="Bold" 
+            HorizontalContentAlignment="Center" 
+            Background="#FFE61111"/>
         <Button
             x:Name="CloseButton"
             Content="Close window" 
             HorizontalAlignment="Left" 
-            Margin="689,319,0,0" 
+            Margin="641,279,0,0" 
             VerticalAlignment="Top" 
             Width="84" 
             Click="CloseButton_Click" 

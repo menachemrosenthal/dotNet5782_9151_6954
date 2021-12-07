@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace PL
 {
@@ -55,7 +56,7 @@ namespace PL
 
             ID.Text = $"{drone.Id}";
             ID.IsReadOnly = true;
-            IDLabel.Content = "ID:";
+            IDLabel.Content = "           ID:";
 
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             WeightSelector.SelectedValue = drone.MaxWeight;
@@ -226,6 +227,18 @@ namespace PL
         {
             FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
             Close();
+        }
+
+        private void ID_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            _ = int.TryParse(ID.Text, out int id);
+            if (id > 0 && !BlDrone.GetDroneList().Any(x => x.Id == id))
+            {
+
+                ID.BorderBrush = Brushes.Green;
+            }
+            else
+                ID.BorderBrush = Brushes.Red;
         }
     }
 }
