@@ -29,17 +29,27 @@
                 Grid.Column="1" 
                 SelectionChanged="StatusSelector_SelectionChanged" 
                 ItemStringFormat="" 
-                FontWeight="Bold" 
+                FontWeight="Normal" 
                 FontStyle="Italic" 
                 ScrollViewer.CanContentScroll="False" 
                 VerticalContentAlignment="Top" 
                 HorizontalContentAlignment="Stretch" 
-                Grid.ColumnSpan="2" Margin="0,22,0,0"/>
+                Grid.ColumnSpan="2" 
+                Margin="0,22,0,0" Background="{x:Null}" FontFamily="Segoe UI Variable Display Semibold" FontSize="14">
+                <ComboBox.Foreground>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FFE45B5B" 
+                                      Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Foreground>
+            </ComboBox>
             <ComboBox 
                 Name="WeightSelector"
                 Grid.Column="3"
                 SelectionChanged="WeightSelector_SelectionChanged"
-                Margin="0,22,0,0"/>
+                Margin="0,22,0,0" 
+                HorizontalAlignment="Stretch" Background="{x:Null}" FontFamily="Segoe UI Variable Display Semibold" FontWeight="Bold" FontSize="14"/>
             <Button 
                 Content="Close Window" 
                 Grid.Column="4" 
@@ -47,7 +57,7 @@
                 Margin="0,520,0,0" 
                 VerticalAlignment="Top" 
                 Height="45" 
-                Width="100" Click="Button_Click_2"/>
+                Width="100" Click="Button_Click_2" FontFamily="Segoe UI Black" Background="#FFF4F5FA"/>
         </Grid>
         <ListView 
             x:Name="DroneListView" 
@@ -55,7 +65,7 @@
             Margin="0,69,202,0" 
             Width="Auto" 
             Grid.RowSpan="2" 
-            MouseDoubleClick="DroneListView_MouseDoubleClick">
+            MouseDoubleClick="DroneListView_MouseDoubleClick" FontFamily="Aharoni" FontWeight="Bold" FontSize="14">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -79,7 +89,7 @@
             VerticalAlignment="Top" 
             Height="108" 
             Width="133" 
-            Click="Button_Click_1" Grid.Row="1"/>
+            Click="Button_Click_1" Grid.Row="1" Background="#FF3656D5" FontFamily="Baskerville Old Face" FontSize="36"/>
         <Label Content="Filter by status" HorizontalAlignment="Left" Margin="202,-5,0,0" VerticalAlignment="Top" Width="198"/>
         <Label Content="Filter by weight" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Top" Width="198"/>
 
