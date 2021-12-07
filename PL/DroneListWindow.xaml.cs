@@ -22,7 +22,7 @@ namespace PL
             BlDroneList = bl;
             DroneListView.ItemsSource = bl.GetDroneList();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));            
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -44,7 +44,9 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DroneListView.ItemsSource = BlDroneList.GetDroneList();
-            allDronesButton.Visibility = Visibility.Hidden;            
+            allDronesButton.Visibility = Visibility.Hidden;
+            WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -55,6 +57,11 @@ namespace PL
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {            
             new DroneWindow(BlDroneList, (DroneToList)DroneListView.SelectedItem, this).Show();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace IDAL
             /// </summary>
             internal static void Initialize()
             {
-                Random r = new Random();
+                Random r = new();
                 DateTime currentDate = DateTime.Now;
 
                 //initialize stations

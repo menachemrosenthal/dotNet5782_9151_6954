@@ -1,4 +1,6 @@
-﻿namespace IDAL
+﻿using System;
+
+namespace IDAL
 {
     namespace DO
     {
@@ -6,6 +8,7 @@
         {
             public int DroneId { get; set; }
             public int StationId { get; set; }
+            public DateTime time { get; set; }
         }
     }
 }

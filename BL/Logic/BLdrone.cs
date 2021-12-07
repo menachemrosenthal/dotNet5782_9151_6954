@@ -12,7 +12,7 @@ namespace IBL.BO
         /// get drone list
         /// </summary>
         /// <returns>IEnumerable of drone list</returns>
-        public IEnumerable<DroneToList> GetDroneList() => drones.Select(x => x).ToList();
+        public IEnumerable<DroneToList> GetDroneList() => drones.ToList();
 
         /// <summary>
         /// updates that parcel was picked up
@@ -30,7 +30,9 @@ namespace IBL.BO
                 return;
             }
             else
+            {
                 throw new CannotUpdateExeption("drone", droneId, "drone is unassociated");
+            }
         }
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace IBL.BO
             if (!dal.StationList().Any(x => x.Id == stationID))
                 throw new KeyNotFoundException(nameof(stationID));
 
-            Random r = new Random();
+            Random r = new();
             drone.BatteryStatus = r.Next(20, 40);
             drone.CurrentLocation = new();
             drone.CurrentLocation = StationLocation(dal.GetStation(stationID));
@@ -117,21 +119,22 @@ namespace IBL.BO
         /// </summary>
         /// <param name="droneId"></param>
         /// <param name="time"></param>
-        public void ReleaseDrone(int droneId, TimeSpan time)
+        public void ReleaseDrone(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
 
             if (drone.Status != DroneStatuses.maintenance)
                 throw new CannotUpdateExeption("drone", droneId, "not in maintenance to be released");
 
+            var time =  DateTime.Now - dal.EndCharge(droneId);
             double timeToDouble = time.TotalMinutes;
             timeToDouble /= 60;
-            drone.BatteryStatus = ChargePace * timeToDouble;
+            drone.BatteryStatus += ChargePace * timeToDouble;
             if (drone.BatteryStatus > 100)
                 drone.BatteryStatus = 100;
 
             drone.Status = DroneStatuses.free;
-            dal.EndCharge(droneId);
+            
             int index = drones.IndexOf(drone);
             drones[index] = drone;
         }
@@ -152,9 +155,9 @@ namespace IBL.BO
             parcels
                 .OrderByDescending(x => x.Priority)
                 .ThenByDescending(x => x.Weight)
-                .ThenBy(x => LocationsDistance(SenderLocation(x), drone.CurrentLocation))
+                .ThenBy(x => LocationsDistance(SenderLocation(x), drone.CurrentLocation));
                 //.Select(x => new { Parcel = x, Distance = LocationsDistance(SenderLocation(x), drone.CurrentLocation) })
-                .ToList();
+                
 
             foreach (var parcel in parcels)
             {
@@ -213,7 +216,7 @@ namespace IBL.BO
         public string GetDroneSituation(int id)
         {
             if (drones.Any(x => x.Id == id && x.Status == DroneStatuses.maintenance))
-                return "Maintenece";
+                return "Maintenance";
 
             if (dal.ParcelList().Any(x => x.DroneId == id && x.Delivered == null))
                 return dal.ParcelList().Any(x => x.DroneId == id && x.PickedUp == null) ? "Associated" : "Executing";
@@ -230,7 +233,7 @@ namespace IBL.BO
         private double BatteryUseInDelivery(DroneToList drone, IDAL.DO.Parcel parcel)
         {
             double BatteryUse = LocationsDistance(drone.CurrentLocation, SenderLocation(parcel)) * FreeElectricityUse
-            + SenderTaregetDistance(parcel) * dal.BatteryUseRquest()[(int)parcel.Weight]
+            + SenderTaregetDistance(parcel) * dal.BatteryUseRequest()[(int)parcel.Weight]
             + CustomerClosestStationDistance(parcel.TargetId) * FreeElectricityUse;
 
             return BatteryUse;

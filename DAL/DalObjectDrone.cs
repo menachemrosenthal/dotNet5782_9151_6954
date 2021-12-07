@@ -34,7 +34,7 @@ namespace IDAL
             if (!(exist = DataSource.Stations.Any(x => x.Id == stationId)))
                 throw new IDAL.ItemNotFoundException("Station", stationId);
 
-            DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId });
+            DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId, time = DateTime.Now });
 
             var station = DataSource.Stations.First(x => x.Id == stationId);
             var index = DataSource.Stations.IndexOf(station);
@@ -46,19 +46,21 @@ namespace IDAL
         /// drone release from chrage
         /// </summary>
         /// <param name="droneId">drone id to release</param>
-        public void EndCharge(int droneId)
+        public DateTime EndCharge(int droneId)
         {
             //drone status update
             var exist = DataSource.DronesCharge.Any(x => x.DroneId == droneId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Drone", droneId, "in the drones charge");
+                throw new ItemNotFoundException("Drone", droneId, "in the drones charge");
 
             var droneCharge = DataSource.DronesCharge.First(x => x.DroneId == droneId);
             var station = DataSource.Stations.First(x => x.Id == droneCharge.StationId);
             var index = DataSource.Stations.IndexOf(station);
+            var time = droneCharge.time;
             station.ChargeSlots++;
             DataSource.Stations[index] = station;
             DataSource.DronesCharge.Remove(droneCharge);
+            return time;
         }
 
         /// <summary>
