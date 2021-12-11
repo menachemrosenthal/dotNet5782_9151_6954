@@ -126,7 +126,7 @@ namespace IBL.BO
             if (drone.Status != DroneStatuses.maintenance)
                 throw new CannotUpdateExeption("drone", droneId, "not in maintenance to be released");
 
-            var time =  DateTime.Now - dal.EndCharge(droneId);
+            var time =  dal.EndCharge(droneId);
             double timeToDouble = time.TotalMinutes;
             timeToDouble /= 60;
             drone.BatteryStatus += ChargePace * timeToDouble;

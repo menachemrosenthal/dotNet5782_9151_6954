@@ -15,46 +15,30 @@ namespace PL
     {
         IBL.BO.BL BlDrone;
         int stationId;
+        DroneToList Drone;
         DroneListWindow FatherWindow;
         public DroneWindow(IBL.BO.BL bl, DroneListWindow droneListWindow)
         {
             InitializeComponent();
             BlDrone = bl;
-            FatherWindow = droneListWindow;
-            InitializeComponent();
+            FatherWindow = droneListWindow;     
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();
-
-            batteryLabel.Visibility = Visibility.Hidden;
-            Battery.Visibility = Visibility.Hidden;
-            statusLabel.Visibility = Visibility.Hidden;
-            Status.Visibility = Visibility.Hidden;
-            parcelLabel.Visibility = Visibility.Hidden;
-            Parcel.Visibility = Visibility.Hidden;
-            latitudeLabel.Visibility = Visibility.Hidden;
-            Latitude.Visibility = Visibility.Hidden;
-            longitudeLabel.Visibility = Visibility.Hidden;
-            Longitude.Visibility = Visibility.Hidden;
+            StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();            
 
             NameUpdateButton.Visibility = Visibility.Hidden;
-            AddDroneButton.Visibility = Visibility.Visible;
-
-            stationIdLabel.Visibility = Visibility.Visible;
-            StationList.Visibility = Visibility.Visible;
+            AddDroneButton.Visibility = Visibility.Visible;            
         }
 
         public DroneWindow(IBL.BO.BL bl, DroneToList drone, DroneListWindow droneListWindow)
-        {
+        {            
             InitializeComponent();
             BlDrone = bl;
             FatherWindow = droneListWindow;
-
-            titelLabel.Content = "Choose frome these options";
-
-            Name.Text = drone.Model;
+            droneView.DataContext = drone;
+            Drone = drone;
+            
             nameLabel.Content = "Name:";
-
-            ID.Text = $"{drone.Id}";
+            
             ID.IsReadOnly = true;
             IDLabel.Content = "           ID:";
 
@@ -62,12 +46,6 @@ namespace PL
             WeightSelector.SelectedValue = drone.MaxWeight;
             WeightSelector.IsEnabled = false;
             weightLabel.Content = "Max weight:";
-
-            Battery.Text = $"{drone.BatteryStatus}%";
-            Status.Text = $"{drone.Status}";
-            Parcel.Text = $"{drone.DeliveredParcelId}";
-            Latitude.Text = $"{drone.CurrentLocation.Latitude}";
-            Longitude.Text = $"{drone.CurrentLocation.Longitude}";
 
             if (drone.Status == DroneStatuses.maintenance)
                 ReleaseButton.Visibility = Visibility.Visible;
@@ -101,6 +79,7 @@ namespace PL
 
                     BlDrone.AddDrone(drone, stationId);
                     _ = MessageBox.Show("Drone was added successfully");
+                    
                     FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
                     Close();
                     return;
@@ -132,9 +111,7 @@ namespace PL
             {
                 BlDrone.DroneNameUpdate(int.Parse(ID.Text), Name.Text);
                 MessageBox.Show("The Name was update successfully");
-                FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
-                new DroneWindow(BlDrone, (DroneToList)FatherWindow.DroneListView.SelectedItem, FatherWindow).Show();
-                Close();
+                FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();                             
             }
             catch (Exception ex)
             {
@@ -236,7 +213,7 @@ namespace PL
         {
             _ = int.TryParse(ID.Text, out int id);
             if (id > 0 && !BlDrone.GetDroneList().Any(x => x.Id == id))
-            {
+            {                
                 ID.Background = Brushes.LightGreen;
                 return;
             }

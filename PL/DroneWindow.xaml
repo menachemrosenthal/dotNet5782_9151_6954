@@ -2,22 +2,17 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         mc:Ignorable="d"
         Title="DroneWindow" 
         Height="450"
         Width="800">
-    <Grid OpacityMask="Black" HorizontalAlignment="Left" VerticalAlignment="Top">
-        <Label
-            x:Name="titelLabel"
-            Content="Fill in the detales and click Add Drone"
-            HorizontalAlignment="Right"
-            Margin="0,10,155,0"
-            VerticalAlignment="Top" 
-            Width="409" 
-            FontWeight="Bold" 
-            FontSize="16"
-            Visibility="Hidden"/>
+    <Grid x:Name="droneView"
+    OpacityMask="Black" HorizontalAlignment="Left" VerticalAlignment="Top">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="48*"/>
+        </Grid.RowDefinitions>
         <Label 
             x:Name="nameLabel"
             Content="ENTER Name:" 
@@ -37,7 +32,8 @@
             Margin="140,68,0,0" 
             Width="120"
             VerticalAlignment="Top"
-            IsReadOnlyCaretVisible="False"/>
+            IsReadOnlyCaretVisible="False"
+            Text="{Binding Path=Model}"/>
         <TextBox 
             x:Name="ID"
             HorizontalAlignment="Left" 
@@ -45,7 +41,7 @@
             Width="120"
             VerticalAlignment="Top" 
             SelectionChanged="ID_SelectionChanged" 
-            />
+            Text="{Binding Path=Id}"/>
         <Label 
             x:Name="weightLabel"
             Content="Select Max weight:" 
@@ -55,7 +51,8 @@
         <ComboBox 
             Name="WeightSelector" 
             Margin="140,145,469,0"
-            VerticalAlignment="Top" FontFamily="Bahnschrift Light" FontWeight="Bold"/>
+            VerticalAlignment="Top"
+            FontFamily="Bahnschrift Light" FontWeight="Bold"/>
         <Label 
             x:Name="stationIdLabel"
             Content="pick one station from the list to first charging" 
@@ -64,7 +61,8 @@
             VerticalAlignment="Top" 
             Height="42" 
             Width="254"
-            Visibility="Hidden"/>
+            Visibility="{Binding ElementName=AddDroneButton, Path=Visibility}"
+            Grid.RowSpan="2"/>
         <Button 
             x:Name="AddDroneButton" 
             Content="Add&#xD;&#xA;Drone" 
@@ -74,83 +72,97 @@
             Height="97" 
             Width="126" 
             Click="AddDrone_Click"
-            Visibility="Hidden"/>
+            Visibility="Hidden" Grid.RowSpan="2"/>
         <ListBox
             x:Name="StationList"
-            Margin="98,232,427,26" 
+            Margin="98,13,427,26" 
             SelectionMode="Single" 
             MouseDoubleClick="StationList_MouseDoubleClick"
-            Visibility="Hidden"/>
+            Visibility="{Binding ElementName=AddDroneButton, Path=Visibility}" Grid.Row="1"/>
         <Label
             x:Name="batteryLabel"
             HorizontalAlignment="Right"
             Margin="0,186,620,0"
             VerticalAlignment="Top"
-            Content="Battery status:"/>
+            Content="Battery status:"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
         <TextBox
             x:Name="Battery"
             HorizontalAlignment="Left"
             Margin="140,188,0,0"
             Width="120"
             VerticalAlignment="Top"
-            IsReadOnly="True"/>
+            IsReadOnly="True"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
+            Text="{Binding Path=BatteryStatus}"/>
         <Label           
             x:Name="statusLabel"
             Content="Status:"
             HorizontalAlignment="Right"
-            Margin="0,219,620,0" 
+            Margin="0,0,620,0" 
             Width="45"
-            VerticalAlignment="Top"/>
+            VerticalAlignment="Top" Grid.Row="1"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
         <TextBox
              x:Name="Status"
             HorizontalAlignment="Left"
-            Margin="140,224,0,0"
+            Margin="140,5,0,0"
             Width="120"
             VerticalAlignment="Top"
-            IsReadOnly="True"/>
+            IsReadOnly="True" Grid.Row="1"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
+            Text="{Binding Path=Status, UpdateSourceTrigger=PropertyChanged}"/>
         <Label           
             x:Name="parcelLabel"
             Content="Parcel number:"
             HorizontalAlignment="Right"
-            Margin="0,259,620,0" 
+            Margin="0,40,620,0" 
             Width="90"
-            VerticalAlignment="Top"/>
+            VerticalAlignment="Top" Grid.Row="1"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
         <TextBox
              x:Name="Parcel"
             HorizontalAlignment="Left"
-            Margin="140,264,0,0"
+            Margin="140,45,0,0"
             Width="120"
              VerticalAlignment="Top"
-            IsReadOnly="True"/>
+            IsReadOnly="True" Grid.Row="1"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
+            Text="{Binding Path=DeliveredParcelId}"/>
         <Label           
             x:Name="latitudeLabel"
             Content="Latitude:"
             HorizontalAlignment="Right"
-            Margin="0,300,620,0" 
-            Width="55"
+            Margin="0,81,620,0" 
+            Width="55" Grid.Row="1"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
             />
         <TextBox
              x:Name="Latitude"
             HorizontalAlignment="Left"
-            Margin="140,306,0,0"
+            Margin="140,87,0,0"
             Width="120"
              VerticalAlignment="Top"
-            IsReadOnly="True"/>
+            IsReadOnly="True" Grid.Row="1"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
+            Text="{Binding Path=CurrentLocation.Latitude}"/>
         <Label           
             x:Name="longitudeLabel"
             Content="Longitude:"
             HorizontalAlignment="Right"
-            Margin="0,337,620,0" 
+            Margin="0,118,620,0" 
             Width="65"
-             VerticalAlignment="Top"
-            />
+             VerticalAlignment="Top" Grid.Row="1"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
         <TextBox
              x:Name="Longitude"
             HorizontalAlignment="Left"
-            Margin="140,341,0,0"
+            Margin="140,122,0,0"
             Width="120"
             VerticalAlignment="Top"
-            IsReadOnly="True"/>
+            IsReadOnly="True" Grid.Row="1"
+            Visibility="{Binding ElementName=Battery, Path=Visibility}"
+            Text="{Binding Path=CurrentLocation.Longitude}"/>
         <Button 
             x:Name="NameUpdateButton"
             Content="&#xD;&#xA;Update Drone name" 
@@ -188,7 +200,7 @@
             Width="144" 
             Background="#FFDD1A1A" 
             FontFamily="Bodoni MT Condensed"
-            FontSize="24"/>
+            FontSize="24" Grid.RowSpan="2"/>
         <Button 
             x:Name="pickedUpButton"
             Content="Parcel&#xD;&#xA; picked up" 
@@ -196,7 +208,7 @@
             Margin="495,133,0,0" 
             VerticalAlignment="Top" 
             Click="Pickedup_Button"
-            Visibility="Hidden" Height="119" Width="144" Background="#FFE60C0C" FontFamily="Bodoni MT Condensed" FontSize="36"/>
+            Visibility="Hidden" Height="119" Width="144" Background="#FFE60C0C" FontFamily="Bodoni MT Condensed" FontSize="36" Grid.RowSpan="2"/>
         <Button 
             x:Name="provisionButton"
             Content="Parcel&#xD;&#xA; provided" 
@@ -212,7 +224,7 @@
             FontFamily="Bodoni MT Condensed" 
             FontWeight="Bold" FontStyle="Italic" 
             HorizontalContentAlignment="Center" 
-            VerticalContentAlignment="Center"/>
+            VerticalContentAlignment="Center" Grid.RowSpan="2"/>
         <Button 
             x:Name="ReleaseButton"            
             Content="Charging&#xD;&#xA; release" 
@@ -229,15 +241,16 @@
             FontFamily="Bodoni MT Condensed" 
             FontWeight="Bold" 
             HorizontalContentAlignment="Center" 
-            Background="#FFE61111"/>
+            Background="#FFE61111" Grid.RowSpan="2"/>
         <Button
             x:Name="CloseButton"
             Content="Close window" 
             HorizontalAlignment="Left" 
-            Margin="641,279,0,0" 
+            Margin="641,60,0,0" 
             VerticalAlignment="Top" 
             Width="84" 
             Click="CloseButton_Click" 
-            Height="61"/>
+            Height="61" Grid.Row="1"/>
     </Grid>
 </Window>
+
