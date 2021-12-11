@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace IDAL
 {
-    public partial class DalObject : IDAL.IDal
+    internal partial class DalObject : IDAL.IDal
     {
         /// <summary>
         /// add a drone to the Drones array

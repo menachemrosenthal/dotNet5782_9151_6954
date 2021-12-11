@@ -9,4 +9,19 @@ C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.csproj
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\ref\DAL.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.pdb
+<<<<<<< HEAD
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
+=======
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.AssemblyInfo.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\ref\DAL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.pdb
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\bin\Debug\net5.0\DAL.deps.json
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\bin\Debug\net5.0\DAL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\bin\Debug\net5.0\ref\DAL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\DAL\bin\Debug\net5.0\DAL.pdb
+>>>>>>> b728c3d6baba3b9282c1de7d6dfc5a0634296969

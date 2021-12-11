@@ -2,16 +2,17 @@
 
 namespace IDAL
 {
-    public partial class DalObject : IDAL.IDal
+    internal partial class DalObject : IDAL.IDal
     {
+        static readonly DalObject instance = new DalObject();
+        internal static DalObject Instance { get { return instance; } }
         /// <summary>
         /// constructor
         /// </summary>
-        public DalObject()
+        private DalObject()
         {
             DataSource.Config.Initialize();
         }
-
         /// <summary>
         /// distance calculation between to geographic points
         /// </summary>
