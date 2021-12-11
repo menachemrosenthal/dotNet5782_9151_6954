@@ -17,9 +17,11 @@ namespace IBL.BO
 
         private IDal dal;
 
-        public BL()
+        static readonly BL instance = new();
+        internal static BL Instance { get { return instance; } }
+        private BL()
         {
-            dal = new DalObject();
+            dal = DAL.DalFactory.GetDal("DalObject");
 
             FreeElectricityUse = dal.BatteryUseRequest()[0];
             CarryingLightElectricityUse = dal.BatteryUseRequest()[1];
