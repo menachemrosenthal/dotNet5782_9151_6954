@@ -1,5 +1,4 @@
-﻿namespace IDAL
-{
+﻿
     namespace DO
     {
         public struct Drone
@@ -18,5 +17,5 @@
             // djkfvhjdk
         }
     }
-}
+
 

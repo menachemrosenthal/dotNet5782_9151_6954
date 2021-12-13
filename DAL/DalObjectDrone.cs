@@ -1,11 +1,11 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IDAL
+namespace DalApi
 {
-    internal partial class DalObject : IDAL.IDal
+    internal partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a drone to the Drones array
@@ -15,7 +15,7 @@ namespace IDAL
         {
             var exist = DataSource.Drones.Any(x => x.Id == drone.Id);
             if (exist)
-                throw new IDAL.AddExistException("Drone", drone.Id);
+                throw new DalApi.AddExistException("Drone", drone.Id);
             DataSource.Drones.Add(drone);
         }
 
@@ -28,11 +28,11 @@ namespace IDAL
         {
             var exist = DataSource.Drones.Any(x => x.Id == droneId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Drone", droneId);
+                throw new DalApi.ItemNotFoundException("Drone", droneId);
 
 
             if (!(exist = DataSource.Stations.Any(x => x.Id == stationId)))
-                throw new IDAL.ItemNotFoundException("Station", stationId);
+                throw new DalApi.ItemNotFoundException("Station", stationId);
 
             DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId, time = DateTime.Now });
 
@@ -72,7 +72,7 @@ namespace IDAL
         {
             var exist = DataSource.Drones.Any(x => x.Id == droneId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Drone", droneId);
+                throw new DalApi.ItemNotFoundException("Drone", droneId);
 
             return DataSource.Drones.FirstOrDefault(x => x.Id == droneId);
         }
@@ -86,7 +86,7 @@ namespace IDAL
         {
             var exist = DataSource.DronesCharge.Any(x => x.DroneId == droneId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Drone", droneId);
+                throw new DalApi.ItemNotFoundException("Drone", droneId);
 
             return DataSource.DronesCharge.FirstOrDefault(x => x.DroneId == droneId);
         }

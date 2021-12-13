@@ -1,5 +1,4 @@
-﻿namespace IDAL
-{
+﻿
     namespace DO
     {
         public enum Options { add, update, display, viewLists }
@@ -7,4 +6,4 @@
         public enum Priorities { ragular, fast, urgent }
 
     }
-}
+

@@ -1,5 +1,4 @@
-﻿namespace IDAL
-{
+﻿
     namespace DO
     {
         public struct Station
@@ -16,6 +15,6 @@
             }
         }
     }
-}
+
 
 

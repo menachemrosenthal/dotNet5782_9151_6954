@@ -42,7 +42,7 @@ namespace IBL.BO
             station.LocationOfStation.Latitude > 32.801705)
                 throw new ArgumentOutOfRangeException("The latitude was out Of range");
 
-            IDAL.DO.Station dalStation = new()
+            DO.Station dalStation = new()
             {
                 Id = station.Id,
                 Name = station.Name,
@@ -62,7 +62,7 @@ namespace IBL.BO
         /// <param name="chargSlots">num of charge slots</param>
         public void StationUpdate(int stationId, string nameUpdate, string chargSlots)
         {
-            IDAL.DO.Station station = dal.GetStation(stationId);
+            DO.Station station = dal.GetStation(stationId);
 
             if (!string.IsNullOrWhiteSpace(nameUpdate))
                 station.Name = nameUpdate;
@@ -82,7 +82,7 @@ namespace IBL.BO
         /// <returns>station</returns>
         public Station GetStation(int StationId)
         {
-            IDAL.DO.Station dalStation = dal.GetStation(StationId);
+            DO.Station dalStation = dal.GetStation(StationId);
             Station station = new()
             {
                 Id = dalStation.Id,
@@ -116,7 +116,7 @@ namespace IBL.BO
         /// </summary>
         /// <param name="station"></param>
         /// <returns>location of station</returns>
-        private Location StationLocation(IDAL.DO.Station station)
+        private Location StationLocation(DO.Station station)
         {
             return new() { Longitude = station.Longitude, Latitude = station.Latitude };
         }
@@ -127,9 +127,9 @@ namespace IBL.BO
         /// <param name="location"></param>
         /// <param name="stations"></param>
         /// <returns>closest station</returns>
-        private IDAL.DO.Station ClosestStation(Location location, IEnumerable<IDAL.DO.Station> stations)
+        private DO.Station ClosestStation(Location location, IEnumerable<DO.Station> stations)
         {
-            IDAL.DO.Station station = dal.StationList().First();
+            DO.Station station = dal.StationList().First();
             double diastance = LocationsDistance(location, StationLocation(station));
 
             foreach (var Station in stations)

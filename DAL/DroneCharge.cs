@@ -1,7 +1,6 @@
 ﻿using System;
 
-namespace IDAL
-{
+
     namespace DO
     {
         public struct DroneCharge
@@ -11,6 +10,6 @@ namespace IDAL
             public DateTime time { get; set; }
         }
     }
-}
+
 
 

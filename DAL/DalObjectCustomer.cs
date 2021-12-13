@@ -1,11 +1,11 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IDAL
+namespace DalApi
 {
-    internal partial class DalObject : IDAL.IDal
+    internal partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a customer to the Customers array array
@@ -15,7 +15,7 @@ namespace IDAL
         {
             var exist = DataSource.Customers.Any(x => x.Id == customer.Id);
             if (exist)
-                throw new IDAL.AddExistException("Customer", customer.Id);
+                throw new DalApi.AddExistException("Customer", customer.Id);
 
             DataSource.Customers.Add(customer);
         }
@@ -29,7 +29,7 @@ namespace IDAL
         {
             var exist = DataSource.Customers.Any(x => x.Id == customerId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Customer", customerId);
+                throw new DalApi.ItemNotFoundException("Customer", customerId);
 
             return DataSource.Customers.FirstOrDefault(x => x.Id == customerId);
 

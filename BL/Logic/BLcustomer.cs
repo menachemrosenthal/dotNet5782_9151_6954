@@ -13,7 +13,7 @@ namespace IBL.BO
         /// <returns>BL Customer</returns>
         public Customer GetCustomer(int CustomerId)
         {
-            IDAL.DO.Customer dalCustomer = dal.GetCustomer(CustomerId);
+            DO.Customer dalCustomer = dal.GetCustomer(CustomerId);
 
             Customer customer = new()
             {
@@ -70,7 +70,7 @@ namespace IBL.BO
                   customer.Location.Latitude > 32.801705))
                 throw new ArgumentException("location was out Out Of range");
 
-            IDAL.DO.Customer dalCustomer = new()
+            DO.Customer dalCustomer = new()
             {
                 Id = customer.Id,
                 Name = customer.Name,
@@ -106,7 +106,7 @@ namespace IBL.BO
         /// <param name="customer">customer for update</param>
         public void CustomerUpdate(Customer customer)
         {
-            IDAL.DO.Customer dalCustomer = dal.GetCustomer(customer.Id);
+            DO.Customer dalCustomer = dal.GetCustomer(customer.Id);
 
             if (!string.IsNullOrWhiteSpace(customer.Name))
                 dalCustomer.Name = customer.Name;
@@ -122,7 +122,7 @@ namespace IBL.BO
         /// <returns></returns>
         private double CustomerClosestStationDistance(int customerId)
         {
-            IDAL.DO.Customer customer = dal.CustomerList().FirstOrDefault(x => x.Id == customerId);
+            DO.Customer customer = dal.CustomerList().FirstOrDefault(x => x.Id == customerId);
             return LocationsDistance(CustomerLocation(customer), StationLocation(ClosestStation(CustomerLocation(customer), dal.StationList())));
         }
 
@@ -189,7 +189,7 @@ namespace IBL.BO
         /// <returns>CustomerInParcel</returns>
         private CustomerInParcel GetCustomerInParcel(int CustomerId)
         {
-            IDAL.DO.Customer dalCustomer = dal.GetCustomer(CustomerId);
+            DO.Customer dalCustomer = dal.GetCustomer(CustomerId);
             CustomerInParcel customer = new()
             {
                 Id = dalCustomer.Id,
@@ -203,7 +203,7 @@ namespace IBL.BO
         /// </summary>
         /// <param name="customer"></param>
         /// <returns>customer location</returns>
-        private Location CustomerLocation(IDAL.DO.Customer customer)
+        private Location CustomerLocation(DO.Customer customer)
         {
             Location location = new() { Longitude = customer.Longitude, Latitude = customer.Latitude };
             return location;
@@ -213,7 +213,7 @@ namespace IBL.BO
         /// list of customers that recieved rarcels
         /// </summary>
         /// <returns>list of customers</returns>
-        private IEnumerable<IDAL.DO.Customer> ReceivedCustomersList()
+        private IEnumerable<DO.Customer> ReceivedCustomersList()
         {
             return dal.GetCustomersByCondition
                (x => dal.ParcelList().Any(y => x.Id == y.TargetId && y.Delivered != null)).ToList();

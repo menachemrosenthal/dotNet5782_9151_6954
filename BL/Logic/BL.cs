@@ -1,4 +1,4 @@
-﻿using IDAL;
+﻿using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace IBL.BO
             drones = new();
 
             //update the dal drone list for bl drone list
-            foreach (IDAL.DO.Drone dalDrone in dal.DroneList())
+            foreach (DO.Drone dalDrone in dal.DroneList())
             {
                 DroneToList drone = new();
                 drone.CurrentLocation = new();
@@ -47,7 +47,7 @@ namespace IBL.BO
                 if (GetDroneSituation(drone.Id) is not ("Free" or "Maintenance"))
                 {
                     drone.Status = DroneStatuses.sending;
-                    IDAL.DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == dalDrone.Id);
+                    DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == dalDrone.Id);
                     drone.DeliveredParcelId = parcel.Id;
 
                     if (GetDroneSituation(drone.Id) == "Associated")
@@ -70,7 +70,7 @@ namespace IBL.BO
 
                     if (GetDroneSituation(drone.Id) == "Maintenance")
                     {
-                        IDAL.DO.Station station = new();
+                        DO.Station station = new();
                         station = dal.StationList().ElementAt(r.Next((int)dal.StationList().LongCount() - 1));
                         drone.CurrentLocation = StationLocation(station);
                         drone.BatteryStatus = r.Next(0, 20);                        

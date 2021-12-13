@@ -1,11 +1,11 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IDAL
+namespace DalApi
 {
-    internal partial class DalObject : IDAL.IDal
+    internal partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a parcel to the parcels array
@@ -27,11 +27,11 @@ namespace IDAL
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Parcel", parcelId);
+                throw new DalApi.ItemNotFoundException("Parcel", parcelId);
 
             if (!(exist = DataSource.Drones.Any(x => x.Id == droneId)))
 
-                throw new IDAL.ItemNotFoundException("Drone", droneId);
+                throw new DalApi.ItemNotFoundException("Drone", droneId);
 
             var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
             var index = DataSource.Parcels.IndexOf(parcel);
@@ -48,7 +48,7 @@ namespace IDAL
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Parcel", parcelId);
+                throw new DalApi.ItemNotFoundException("Parcel", parcelId);
 
             var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
             var index = DataSource.Parcels.IndexOf(parcel);
@@ -64,7 +64,7 @@ namespace IDAL
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Parcel", parcelId);
+                throw new DalApi.ItemNotFoundException("Parcel", parcelId);
 
             var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
             var index = DataSource.Parcels.IndexOf(parcel);
@@ -81,7 +81,7 @@ namespace IDAL
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Parcel", parcelId);
+                throw new DalApi.ItemNotFoundException("Parcel", parcelId);
 
             return DataSource.Parcels.FirstOrDefault(x => x.Id == parcelId);
         }
