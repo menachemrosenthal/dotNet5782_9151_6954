@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlApi;
 
 namespace BL
 {
     public static class BlFactory
     {
-        public static IBL.IBL GetBl()
+        public static BlApi.IBL GetBl()
         {
-            return IBL.BO.BL.Instance;
+            return BO.BL.Instance;
         }
     }
 }

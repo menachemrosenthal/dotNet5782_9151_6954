@@ -23,7 +23,6 @@ C:\Users\User\source\repos\dotNet5782_9151_6954\BL\obj\Debug\net5.0\BL.Generated
 C:\Users\User\source\repos\dotNet5782_9151_6954\BL\obj\Debug\net5.0\BL.AssemblyInfoInputs.cache
 C:\Users\User\source\repos\dotNet5782_9151_6954\BL\obj\Debug\net5.0\BL.AssemblyInfo.cs
 C:\Users\User\source\repos\dotNet5782_9151_6954\BL\obj\Debug\net5.0\BL.csproj.CoreCompileInputs.cache
-C:\Users\User\source\repos\dotNet5782_9151_6954\BL\obj\Debug\net5.0\BL.csproj.CopyComplete
 C:\Users\User\source\repos\dotNet5782_9151_6954\BL\obj\Debug\net5.0\BL.dll
 C:\Users\User\source\repos\dotNet5782_9151_6954\BL\obj\Debug\net5.0\ref\BL.dll
 C:\Users\User\source\repos\dotNet5782_9151_6954\BL\obj\Debug\net5.0\BL.pdb

@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Linq;
 using System.Windows;
@@ -13,11 +13,11 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        IBL.BO.BL BlDrone;
+        BO.BL BlDrone;
         int stationId;
         DroneToList Drone;
         DroneListWindow FatherWindow;
-        public DroneWindow(IBL.BO.BL bl, DroneListWindow droneListWindow)
+        public DroneWindow(BO.BL bl, DroneListWindow droneListWindow)
         {
             InitializeComponent();
             BlDrone = bl;
@@ -29,7 +29,7 @@ namespace PL
             AddDroneButton.Visibility = Visibility.Visible;            
         }
 
-        public DroneWindow(IBL.BO.BL bl, DroneToList drone, DroneListWindow droneListWindow)
+        public DroneWindow(BO.BL bl, DroneToList drone, DroneListWindow droneListWindow)
         {            
             InitializeComponent();
             BlDrone = bl;

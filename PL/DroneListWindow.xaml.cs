@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using IBL.BO;
+using BO;
 
 namespace PL
 {
@@ -15,8 +15,8 @@ namespace PL
     /// </summary>
     public partial class DroneListWindow : Window
     {
-        IBL.BO.BL BlDroneList;
-        public DroneListWindow(IBL.BO.BL bl)
+        BO.BL BlDroneList;
+        public DroneListWindow(BO.BL bl)
         {
             InitializeComponent();
             BlDroneList = bl;

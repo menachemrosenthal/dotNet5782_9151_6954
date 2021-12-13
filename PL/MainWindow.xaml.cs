@@ -8,7 +8,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IBL.BO.BL bl = (IBL.BO.BL)BL.BlFactory.GetBl();
+        private BO.BL bl = (BO.BL)BL.BlFactory.GetBl();
         public MainWindow()
         {
             InitializeComponent();

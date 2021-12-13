@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-namespace IBL.BO
+namespace BO
 {
     public class Station
     {
