@@ -46,7 +46,7 @@ namespace IDAL
         /// drone release from chrage
         /// </summary>
         /// <param name="droneId">drone id to release</param>
-        public DateTime EndCharge(int droneId)
+        public TimeSpan EndCharge(int droneId)
         {
             //drone status update
             var exist = DataSource.DronesCharge.Any(x => x.DroneId == droneId);
@@ -60,7 +60,7 @@ namespace IDAL
             station.ChargeSlots++;
             DataSource.Stations[index] = station;
             DataSource.DronesCharge.Remove(droneCharge);
-            return time;
+            return time - DateTime.Now;
         }
 
         /// <summary>

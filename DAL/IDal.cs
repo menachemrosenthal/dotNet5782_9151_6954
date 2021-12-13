@@ -47,7 +47,7 @@ namespace IDAL
         /// parcel delivery time update
         /// </summary>
         /// <param name="parcelId">parcel id</param>
-        void UpdateDelivery(int parcelId);
+         void UpdateDelivery(int parcelId);
 
         /// <summary>
         /// send a drone to station for charge
@@ -60,7 +60,7 @@ namespace IDAL
         /// drone release from chrage
         /// </summary>
         /// <param name="droneId">drone id to release</param>
-        DateTime EndCharge(int droneId);
+        TimeSpan EndCharge(int droneId);
 
         /// <summary>
         /// get station
