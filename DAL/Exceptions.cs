@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DO
+namespace DalApi
 {
     [Serializable]
     public class AddExistException : Exception

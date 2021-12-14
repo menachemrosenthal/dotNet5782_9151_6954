@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 ﻿using DO;
 using BlApi;
+=======
+﻿using DalApi;
+>>>>>>> 60c7c1960c7f71ee42faade92869590d2ba321ea
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlApi;
 
 namespace BO
 {
@@ -18,8 +23,19 @@ namespace BO
 
         private IDal dal;
 
-        static readonly BL instance = new();
-        internal static BL Instance { get { return instance; } }
+        //static readonly BL instance = new();
+        //internal static BL Instance { get { return instance; } }
+
+        private class Nested
+        {
+            static Nested()
+            {
+            }
+
+            internal static readonly BL instance = new BL();
+        }
+        public static BL Instance { get { return Nested.instance; } }
+
         private BL()
         {
             dal = DAL.DalFactory.GetDal("DalObject");

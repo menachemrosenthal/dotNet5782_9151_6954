@@ -1,16 +1,21 @@
-﻿namespace DO
-{
-    public struct Drone
+﻿
+    namespace DO
     {
-        public int Id { get; set; }
-        public string Model { get; set; }
-        public WeightCategories MaxWeight { get; set; }
-        public override string ToString()
+        public struct Drone
         {
-            return "Drone ID: " + Id +
-                "\nModel: " + Model + "\nMax weight: " + MaxWeight + "\n";
+            public int Id { get; set; }
+            public string Model { get; set; }
+            public WeightCategories MaxWeight { get; set; }
+            public override string ToString()
+            {
+                return "Drone ID: " + Id +
+                    "\nModel: " + Model + "\nMax weight: " + MaxWeight + "\n";
+            }
+
+
+
+            // djkfvhjdk
         }
     }
-}
 
 

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DO
+namespace DalApi
 {
-    internal partial class DalObject : IDal
+    internal partial class DalObject : DalApi.IDal
     {
         /// <summary>
         /// add a drone to the Drones array
@@ -15,7 +15,7 @@ namespace DO
         {
             var exist = DataSource.Drones.Any(x => x.Id == drone.Id);
             if (exist)
-                throw new DO.AddExistException("Drone", drone.Id);
+                throw new DalApi.AddExistException("Drone", drone.Id);
             DataSource.Drones.Add(drone);
         }
 
@@ -28,11 +28,11 @@ namespace DO
         {
             var exist = DataSource.Drones.Any(x => x.Id == droneId);
             if (!exist)
-                throw new DO.ItemNotFoundException("Drone", droneId);
+                throw new DalApi.ItemNotFoundException("Drone", droneId);
 
 
             if (!(exist = DataSource.Stations.Any(x => x.Id == stationId)))
-                throw new DO.ItemNotFoundException("Station", stationId);
+                throw new DalApi.ItemNotFoundException("Station", stationId);
 
             DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId, time = DateTime.Now });
 
@@ -72,7 +72,7 @@ namespace DO
         {
             var exist = DataSource.Drones.Any(x => x.Id == droneId);
             if (!exist)
-                throw new DO.ItemNotFoundException("Drone", droneId);
+                throw new DalApi.ItemNotFoundException("Drone", droneId);
 
             return DataSource.Drones.FirstOrDefault(x => x.Id == droneId);
         }
@@ -86,7 +86,7 @@ namespace DO
         {
             var exist = DataSource.DronesCharge.Any(x => x.DroneId == droneId);
             if (!exist)
-                throw new DO.ItemNotFoundException("Drone", droneId);
+                throw new DalApi.ItemNotFoundException("Drone", droneId);
 
             return DataSource.DronesCharge.FirstOrDefault(x => x.DroneId == droneId);
         }

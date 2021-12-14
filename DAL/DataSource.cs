@@ -1,7 +1,7 @@
 ﻿using DO;
 using System;
 using System.Collections.Generic;
-namespace DO
+namespace DalApi
 {
     class DataSource
     {

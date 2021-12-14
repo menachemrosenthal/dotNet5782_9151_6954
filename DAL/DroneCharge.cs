@@ -1,13 +1,15 @@
 ﻿using System;
 
-namespace DO
-{
-    public struct DroneCharge
+
+    namespace DO
     {
-        public int DroneId { get; set; }
-        public int StationId { get; set; }
-        public DateTime time { get; set; }
+        public struct DroneCharge
+        {
+            public int DroneId { get; set; }
+            public int StationId { get; set; }
+            public DateTime time { get; set; }
+        }
     }
-}
+
 
 

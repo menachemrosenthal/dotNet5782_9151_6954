@@ -1,5 +1,5 @@
 ﻿namespace BO
-{   
+{
     public enum ParcelStatuses
     {
         defined,
