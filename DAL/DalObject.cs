@@ -4,8 +4,19 @@ namespace DalApi
 {
     internal partial class DalObject : DalApi.IDal
     {
-        static readonly DalObject instance = new DalObject();
-        internal static DalObject Instance { get { return instance; } }
+        //static readonly DalObject instance = new DalObject();
+        //internal static DalObject Instance { get { return instance; } }
+
+        public static DalObject Instance { get { return Nested.instance; } }
+
+        private class Nested
+        {
+            static Nested()
+            {
+            }
+
+            internal static readonly DalObject instance = new DalObject();
+        }
         /// <summary>
         /// constructor
         /// </summary>
