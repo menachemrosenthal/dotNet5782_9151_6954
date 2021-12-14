@@ -1,8 +1,8 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Collections.Generic;
 
-namespace IBL
+namespace BlApi
 {
     public interface IBL
     {
@@ -19,15 +19,19 @@ namespace IBL
         /// <param name="stationID"></param>
         void AddDrone(DroneToList drone, int stationID);
 
-
         /// <summary>
         /// gets drone and creates bl object
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns>created drone</returns>
         Drone GetDrone(int DroneId);
-        void DroneNameUpdate(int droneId, string updateName);
 
+        /// <summary>
+        /// drone name update
+        /// </summary>
+        /// <param name="droneId">drone id for update</param>
+        /// <param name="updateName">the new name</param>
+        void DroneNameUpdate(int droneId, string updateName);
 
         /// <summary>
         /// update name or charge slots of station
@@ -142,6 +146,8 @@ namespace IBL
         /// </summary>
         /// <returns>list of stations</returns>
         IEnumerable<StationToList> GetFreeChargingSlotsStationList();
+
+
         IEnumerable<DroneToList> GetDronesByCondition(Predicate<DroneToList> condition);
     }
 }

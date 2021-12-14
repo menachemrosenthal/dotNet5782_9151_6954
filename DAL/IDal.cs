@@ -1,8 +1,8 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 
-namespace IDAL
+namespace DO
 {
     public interface IDal
     {

@@ -1,4 +1,4 @@
-﻿using IBL.BO;
+﻿using BO;
 using System;
 using System.Linq;
 using System.Windows;
@@ -13,14 +13,14 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
-        IBL.BO.BL BlDrone;
+        BO.BL BlDrone;
         int stationId;
-        DroneToList Drone;
+        BO.Drone drone;
         DroneListWindow FatherWindow;
-        public DroneWindow(IBL.BO.BL bl, DroneListWindow droneListWindow)
+        public DroneWindow(BO.BL bl, DroneListWindow droneListWindow)
         {
             InitializeComponent();
-            BlDrone = bl;
+            BlDrone = (BO.BL)BL.BlFactory.GetBl();
             FatherWindow = droneListWindow;     
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();            
@@ -29,13 +29,15 @@ namespace PL
             AddDroneButton.Visibility = Visibility.Visible;            
         }
 
-        public DroneWindow(IBL.BO.BL bl, DroneToList drone, DroneListWindow droneListWindow)
+        public DroneWindow(BO.BL bl, DroneToList droneToList, DroneListWindow droneListWindow)
         {            
             InitializeComponent();
-            BlDrone = bl;
+            BlDrone = (BO.BL)BL.BlFactory.GetBl();
             FatherWindow = droneListWindow;
+            drone = BlDrone.GetDrone(droneToList.Id);
             droneView.DataContext = drone;
-            Drone = drone;
+            if(drone.Parcel != null)
+                parcel.Text = drone.Parcel.ToString();
             
             nameLabel.Content = "Name:";
             
@@ -43,23 +45,23 @@ namespace PL
             IDLabel.Content = "           ID:";
 
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            WeightSelector.SelectedValue = drone.MaxWeight;
+            WeightSelector.SelectedValue = droneToList.MaxWeight;
             WeightSelector.IsEnabled = false;
             weightLabel.Content = "Max weight:";
 
-            if (drone.Status == DroneStatuses.maintenance)
+            if (droneToList.Status == DroneStatuses.maintenance)
                 ReleaseButton.Visibility = Visibility.Visible;
 
-            if (BlDrone.GetDroneSituation(drone.Id) == "Free")
+            if (BlDrone.GetDroneSituation(droneToList.Id) == "Free")
             {
                 ChargeButton.Visibility = Visibility.Visible;
                 associateButton.Visibility = Visibility.Visible;
             }
 
-            if (BlDrone.GetDroneSituation(drone.Id) == "Associated")
+            if (BlDrone.GetDroneSituation(droneToList.Id) == "Associated")
                 pickedUpButton.Visibility = Visibility.Visible;
 
-            if (BlDrone.GetDroneSituation(drone.Id) == "Executing")
+            if (BlDrone.GetDroneSituation(droneToList.Id) == "Executing")
                 provisionButton.Visibility = Visibility.Visible;
         }
 

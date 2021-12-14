@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlApi;
 
-namespace IBL.BO
+namespace BO
 {
     public partial class BL : IBL
     {
@@ -14,7 +15,7 @@ namespace IBL.BO
         /// <returns>created paecel</returns>
         public Parcel GetParcel(int parcelId)
         {
-            IDAL.DO.Parcel p = dal.GetParcel(parcelId);
+            DO.Parcel p = dal.GetParcel(parcelId);
             Parcel parcel = new()
             {
                 Id = p.Id,
@@ -52,7 +53,7 @@ namespace IBL.BO
             if (GetDroneSituation(droneId) != "Executing")
                 throw new CannotUpdateExeption("drone", droneId, "not executing");
 
-            IDAL.DO.Parcel parcel = dal.GetParcel(drone.DeliveredParcelId);
+            DO.Parcel parcel = dal.GetParcel(drone.DeliveredParcelId);
             drone.BatteryStatus -= SenderTaregetDistance(parcel) * dal.BatteryUseRequest()[(int)parcel.Weight];
             drone.CurrentLocation = TargetLocation(parcel);
             drone.Status = DroneStatuses.free;
@@ -84,12 +85,12 @@ namespace IBL.BO
         /// <param name="parcel"></param>
         public void AddParcel(Parcel parcel)
         {
-            IDAL.DO.Parcel dalParcel = new()
+            DO.Parcel dalParcel = new()
             {
                 Senderid = parcel.Senderid,
                 TargetId = parcel.TargetId,
-                Weight = (IDAL.DO.WeightCategories)parcel.Weight,
-                Priority = (IDAL.DO.Priorities)parcel.Priority,
+                Weight = (DO.WeightCategories)parcel.Weight,
+                Priority = (DO.Priorities)parcel.Priority,
                 Requested = DateTime.Now,
 
             };
@@ -122,7 +123,7 @@ namespace IBL.BO
         private ParcelInTransfer GetParcelInTransfer(int parcelId)
         {
             ParcelInTransfer parcel = new();
-            IDAL.DO.Parcel dalParcel = dal.GetParcel(parcelId);
+            DO.Parcel dalParcel = dal.GetParcel(parcelId);
             parcel.Id = dalParcel.Id;
 
             var parcelsStatus = GetParcelStatus(parcelId);
@@ -141,7 +142,7 @@ namespace IBL.BO
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns> sender location</returns>
-        private Location SenderLocation(IDAL.DO.Parcel parcel)
+        private Location SenderLocation(DO.Parcel parcel)
             => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
 
         /// <summary>
@@ -149,7 +150,7 @@ namespace IBL.BO
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns> Target location</returns>
-        private Location TargetLocation(IDAL.DO.Parcel parcel)
+        private Location TargetLocation(DO.Parcel parcel)
             => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
 
         /// <summary>
@@ -157,9 +158,9 @@ namespace IBL.BO
         /// </summary>
         /// <param name="location"></param>
         /// <returns>sort list by "priority" , "weight" , "closest location"</returns>        
-        private IDAL.DO.Parcel ClosestSender(Location location, IEnumerable<IDAL.DO.Parcel> parcels)
+        private DO.Parcel ClosestSender(Location location, IEnumerable<DO.Parcel> parcels)
         {
-            IDAL.DO.Parcel closestParcel = dal.ParcelList().FirstOrDefault();
+            DO.Parcel closestParcel = dal.ParcelList().FirstOrDefault();
             double diastance = LocationsDistance(location, SenderLocation(closestParcel));
 
             foreach (var parcel in parcels)
@@ -174,7 +175,7 @@ namespace IBL.BO
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>distance between sender and reciever</returns>
-        private double SenderTaregetDistance(IDAL.DO.Parcel parcel)
+        private double SenderTaregetDistance(DO.Parcel parcel)
             => LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
 
         /// <summary>

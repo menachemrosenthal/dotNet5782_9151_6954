@@ -1,4 +1,4 @@
-﻿namespace IBL.BO
+﻿namespace BO
 {
     public class Location
     {
@@ -6,7 +6,7 @@
         public double Latitude { get; set; }
         public override string ToString()
         {
-            return " Longitude " + Longitude + " , Latitude: " + Latitude;
+            return " Latitude: " + Latitude + " Longitude: " + Longitude;
         }
     }
 }

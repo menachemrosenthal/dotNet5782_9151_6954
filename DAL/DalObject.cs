@@ -1,11 +1,13 @@
 ﻿using System;
 
-namespace IDAL
+namespace DO
 {
-    internal partial class DalObject : IDAL.IDal
+    internal partial class DalObject : IDal
     {
         static readonly DalObject instance = new DalObject();
+         
         internal static DalObject Instance { get { return instance; } }
+
         /// <summary>
         /// constructor
         /// </summary>

@@ -1,10 +1,8 @@
-﻿namespace IDAL
+﻿namespace DO
 {
-    namespace DO
-    {
-        public enum Options { add, update, display, viewLists }
-        public enum WeightCategories { light = 1, medium, heavy }
-        public enum Priorities { ragular, fast, urgent }
+    public enum Options { add, update, display, viewLists }
+    public enum WeightCategories { light = 1, medium, heavy }
+    public enum Priorities { ragular, fast, urgent }
 
-    }
 }
+

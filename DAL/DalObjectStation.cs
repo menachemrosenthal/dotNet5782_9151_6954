@@ -1,11 +1,11 @@
-﻿using IDAL.DO;
+﻿using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IDAL
+namespace DO
 {
-    internal partial class DalObject : IDAL.IDal
+    internal partial class DalObject : IDal
     {
         /// <summary>
         /// add a station to the stations array
@@ -17,12 +17,12 @@ namespace IDAL
             {
                 var exist = DataSource.Stations.Any(x => x.Id == station.Id);
                 if (exist)
-                    throw new IDAL.AddExistException("Station", station.Id);
+                    throw new DO.AddExistException("Station", station.Id);
                 if (station.ChargeSlots < 0)
                     throw new ArgumentException("station cannot have less than 0 charge slots");
                 DataSource.Stations.Add(station);
             }
-            catch (IDAL.AddExistException ex)
+            catch (DO.AddExistException ex)
             {
                 Console.WriteLine(ex);
                 return;
@@ -38,7 +38,7 @@ namespace IDAL
         {
             var exist = DataSource.Stations.Any(x => x.Id == stationId);
             if (!exist)
-                throw new IDAL.ItemNotFoundException("Station", stationId);
+                throw new DO.ItemNotFoundException("Station", stationId);
 
             return DataSource.Stations.FirstOrDefault(x => x.Id == stationId);
         }

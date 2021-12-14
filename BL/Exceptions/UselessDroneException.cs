@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BL.Exceptions
+namespace BO
 {
     public class UselessDroneException : Exception
     {
