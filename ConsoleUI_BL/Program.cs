@@ -1,4 +1,5 @@
-﻿using BlApi.BO;
+﻿using BlApi;
+using BO;
 using System;
 
 namespace ConsoleUI_BL
@@ -10,9 +11,11 @@ namespace ConsoleUI_BL
         public enum UpdateMenu { droneName = 1, station, customer, droneToCharge, releaseDrone, parcelToDrone, parcelPickedup, parcelProvision }
         public enum DisplayMenu { baseStation = 1, drone, customer, parcel }
         public enum ListsMenu { baseStations = 1, drones, customers, parcels, nonDroneParcels, unoccupiedSlotsBaseStations }
+       
         static void Main(string[] args)
         {
-            BlApi.IBL bl = new BlApi.BO.BL();
+            IBL bl = new BL.BlFactory();
+
             bool flag = true;
 
             Console.WriteLine("Welcome to Drone Deliveries!");
@@ -222,7 +225,7 @@ namespace ConsoleUI_BL
 
         private static void DisplayParcel(BlApi.IBL bl)
         {
-            BlApi.BO.Parcel parcel = new();
+            BO.Parcel parcel = new();
             Console.WriteLine("ENTER Parcel id");
             _ = int.TryParse(Console.ReadLine(), out int ParcelId);
             parcel = bl.GetParcel(ParcelId);
@@ -231,7 +234,7 @@ namespace ConsoleUI_BL
 
         private static void DisplayCustomer(BlApi.IBL bl)
         {
-            BlApi.BO.Customer customer = new();
+            BO.Customer customer = new();
             Console.WriteLine("ENTER Customer id");
             _ = int.TryParse(Console.ReadLine(), out int CustomerId);
             //customer = bl.getCustomer(CustomerId);
@@ -248,7 +251,7 @@ namespace ConsoleUI_BL
 
         private static void DisplayDrone(BlApi.IBL bl)
         {
-            BlApi.BO.Drone drone = new();
+            BO.Drone drone = new();
             Console.WriteLine("ENTER Drone id");
             _ = int.TryParse(Console.ReadLine(), out int DroneId);
             drone = bl.GetDrone(DroneId);
@@ -257,7 +260,7 @@ namespace ConsoleUI_BL
 
         private static void DisplayBaseStation(BlApi.IBL bl)
         {
-            BlApi.BO.Station station = new();
+            BO.Station station = new();
             Console.WriteLine("ENTER Station id");
             _ = int.TryParse(Console.ReadLine(), out int stationId);
 

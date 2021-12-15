@@ -1,9 +1,8 @@
-﻿using BL;
-using BL.Exceptions;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlApi;
+using Entities;
 
 namespace BO
 {
@@ -191,9 +190,7 @@ namespace BO
                 BatteryStatus = d.BatteryStatus,
                 CurrentLocation = d.CurrentLocation,
                 Id = droneId
-            };
-
-            drone.CurrentLocation = d.CurrentLocation;
+            };            
 
             if (drone.Status == DroneStatuses.sending)
                 drone.Parcel = GetParcelInTransfer(d.DeliveredParcelId);

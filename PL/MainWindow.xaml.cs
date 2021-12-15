@@ -12,7 +12,6 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-
         }
 
         private void ShowDrones_Click(object sender, RoutedEventArgs e)

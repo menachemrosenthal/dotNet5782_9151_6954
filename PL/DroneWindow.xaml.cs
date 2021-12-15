@@ -15,12 +15,12 @@ namespace PL
     {
         BO.BL BlDrone;
         int stationId;
-        DroneToList Drone;
+        BO.Drone drone;
         DroneListWindow FatherWindow;
         public DroneWindow(BO.BL bl, DroneListWindow droneListWindow)
         {
             InitializeComponent();
-            BlDrone = bl;
+            BlDrone = (BO.BL)BL.BlFactory.GetBl();
             FatherWindow = droneListWindow;     
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();            
@@ -30,12 +30,14 @@ namespace PL
         }
 
         public DroneWindow(BO.BL bl, DroneToList drone, DroneListWindow droneListWindow)
-        {            
+        {
             InitializeComponent();
-            BlDrone = bl;
+            BlDrone = (BO.BL)BL.BlFactory.GetBl();
             FatherWindow = droneListWindow;
+            drone = BlDrone.GetDrone(droneToList.Id);
             droneView.DataContext = drone;
-            Drone = drone;
+            if(drone.Parcel != null)
+                parcel.Text = drone.Parcel.ToString();
             
             nameLabel.Content = "Name:";
             
@@ -43,23 +45,23 @@ namespace PL
             IDLabel.Content = "           ID:";
 
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            WeightSelector.SelectedValue = drone.MaxWeight;
+            WeightSelector.SelectedValue = droneToList.MaxWeight;
             WeightSelector.IsEnabled = false;
             weightLabel.Content = "Max weight:";
 
-            if (drone.Status == DroneStatuses.maintenance)
+            if (droneToList.Status == DroneStatuses.maintenance)
                 ReleaseButton.Visibility = Visibility.Visible;
 
-            if (BlDrone.GetDroneSituation(drone.Id) == "Free")
+            if (BlDrone.GetDroneSituation(droneToList.Id) == "Free")
             {
                 ChargeButton.Visibility = Visibility.Visible;
                 associateButton.Visibility = Visibility.Visible;
             }
 
-            if (BlDrone.GetDroneSituation(drone.Id) == "Associated")
+            if (BlDrone.GetDroneSituation(droneToList.Id) == "Associated")
                 pickedUpButton.Visibility = Visibility.Visible;
 
-            if (BlDrone.GetDroneSituation(drone.Id) == "Executing")
+            if (BlDrone.GetDroneSituation(droneToList.Id) == "Executing")
                 provisionButton.Visibility = Visibility.Visible;
         }
 

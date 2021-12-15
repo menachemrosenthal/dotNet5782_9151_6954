@@ -19,7 +19,7 @@ namespace PL
         public DroneListWindow(BO.BL bl)
         {
             InitializeComponent();
-            BlDroneList = bl;
+            BlDroneList = (BO.BL)BL.BlFactory.GetBl();
             DroneListView.ItemsSource = bl.GetDroneList();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));

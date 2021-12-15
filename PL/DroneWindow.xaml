@@ -5,54 +5,54 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"        
         mc:Ignorable="d"
         Title="DroneWindow" 
-        Height="450"
+        Height="479"
         Width="800">
     <Grid x:Name="droneView"
-    OpacityMask="Black" HorizontalAlignment="Left" VerticalAlignment="Top">
+    OpacityMask="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Height="432" Margin="-22,0,0,0" Width="815">
         <Grid.RowDefinitions>
-            <RowDefinition Height="73*"/>
-            <RowDefinition Height="48*"/>
+            <RowDefinition Height="212*"/>
+            <RowDefinition Height="217*"/>
         </Grid.RowDefinitions>
         <Label 
             x:Name="nameLabel"
             Content="ENTER Name:" 
-            HorizontalAlignment="Right" 
-            Margin="0,65,620,0"
-            VerticalAlignment="Top"/>
+            HorizontalAlignment="Left" 
+            Margin="48,10,0,0"
+            VerticalAlignment="Top" Height="26" Width="82"/>
         <Label
             x:Name="IDLabel"
-            HorizontalAlignment="Right"
-            Margin="0,104,620,0" 
+            HorizontalAlignment="Left"
+            Margin="71,49,0,0" 
             Content="ENTER Id:" 
             VerticalAlignment="Top"
-            Width="60" HorizontalContentAlignment="Left"/>
+            Width="60" HorizontalContentAlignment="Left" Height="25"/>
         <TextBox
             x:Name="Name"
             HorizontalAlignment="Left"
-            Margin="140,68,0,0" 
+            Margin="140,14,0,0" 
             Width="120"
             VerticalAlignment="Top"
             IsReadOnlyCaretVisible="False"
-            Text="{Binding Path=Model}"/>
+            Text="{Binding Path=Model}" Height="18"/>
         <TextBox 
             x:Name="ID"
             HorizontalAlignment="Left" 
-            Margin="140,108,0,0" 
+            Margin="140,53,0,0" 
             Width="120"
             VerticalAlignment="Top" 
             SelectionChanged="ID_SelectionChanged" 
-            Text="{Binding Path=Id}"/>
+            Text="{Binding Path=Id}" Height="17"/>
         <Label 
             x:Name="weightLabel"
             Content="Select Max weight:" 
-            HorizontalAlignment="Right" 
-            Margin="0,145,620,0" 
-            VerticalAlignment="Top"/>
+            HorizontalAlignment="Left" 
+            Margin="22,86,0,0" 
+            VerticalAlignment="Top" Height="26" Width="109"/>
         <ComboBox 
             Name="WeightSelector" 
-            Margin="140,145,469,0"
+            Margin="140,90,469,0"
             VerticalAlignment="Top"
-            FontFamily="Bahnschrift Light" FontWeight="Bold"/>
+            FontFamily="Bahnschrift Light" FontWeight="Bold" Height="20"/>
         <Label 
             x:Name="stationIdLabel"
             Content="pick one station from the list to first charging" 
@@ -81,96 +81,79 @@
             Visibility="{Binding ElementName=AddDroneButton, Path=Visibility}" Grid.Row="1"/>
         <Label
             x:Name="batteryLabel"
-            HorizontalAlignment="Right"
-            Margin="0,186,620,0"
+            HorizontalAlignment="Left"
+            Margin="46,128,0,0"
             VerticalAlignment="Top"
             Content="Battery status:"
-            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" Height="26" Width="85"/>
         <TextBox
             x:Name="Battery"
             HorizontalAlignment="Left"
-            Margin="140,188,0,0"
+            Margin="140,132,0,0"
             Width="120"
             VerticalAlignment="Top"
             IsReadOnly="True"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=BatteryStatus}"/>
+            Text="{Binding Path=BatteryStatus}" Height="18"/>
         <Label           
             x:Name="statusLabel"
             Content="Status:"
-            HorizontalAlignment="Right"
-            Margin="0,0,620,0" 
+            HorizontalAlignment="Left"
+            Margin="86,162,0,0" 
             Width="45"
-            VerticalAlignment="Top" Grid.Row="1"
-            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
+            VerticalAlignment="Top"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" Height="26"/>
         <TextBox
              x:Name="Status"
             HorizontalAlignment="Left"
-            Margin="140,5,0,0"
+            Margin="140,168,0,0"
             Width="120"
             VerticalAlignment="Top"
-            IsReadOnly="True" Grid.Row="1"
+            IsReadOnly="True"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=Status, UpdateSourceTrigger=PropertyChanged}"/>
-        <Label           
-            x:Name="parcelLabel"
-            Content="Parcel number:"
-            HorizontalAlignment="Right"
-            Margin="0,40,620,0" 
-            Width="90"
-            VerticalAlignment="Top" Grid.Row="1"
-            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
-        <TextBox
-             x:Name="Parcel"
-            HorizontalAlignment="Left"
-            Margin="140,45,0,0"
-            Width="120"
-             VerticalAlignment="Top"
-            IsReadOnly="True" Grid.Row="1"
-            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=DeliveredParcelId}"/>
+            Text="{Binding Path=Status, UpdateSourceTrigger=PropertyChanged}" Height="18"/>
         <Label           
             x:Name="latitudeLabel"
             Content="Latitude:"
             HorizontalAlignment="Right"
-            Margin="0,81,620,0" 
+            Margin="0,155,672,-74" 
             Width="55" Grid.Row="1"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
             />
         <TextBox
              x:Name="Latitude"
             HorizontalAlignment="Left"
-            Margin="140,87,0,0"
+            Margin="147,156,0,0"
             Width="120"
              VerticalAlignment="Top"
             IsReadOnly="True" Grid.Row="1"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=CurrentLocation.Latitude}"/>
+            Text="{Binding Path=CurrentLocation.Latitude}" Height="18"/>
         <Label           
             x:Name="longitudeLabel"
             Content="Longitude:"
-            HorizontalAlignment="Right"
-            Margin="0,118,620,0" 
-            Width="65"
+            HorizontalAlignment="Left"
+            Margin="78,190,0,0" 
+            Width="74"
              VerticalAlignment="Top" Grid.Row="1"
-            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" Height="26"/>
         <TextBox
              x:Name="Longitude"
             HorizontalAlignment="Left"
-            Margin="140,122,0,0"
+            Margin="147,194,0,0"
             Width="120"
             VerticalAlignment="Top"
             IsReadOnly="True" Grid.Row="1"
             Visibility="{Binding ElementName=Battery, Path=Visibility}"
-            Text="{Binding Path=CurrentLocation.Longitude}"/>
+            Text="{Binding Path=CurrentLocation.Longitude}" Height="18"/>
         <Button 
             x:Name="NameUpdateButton"
             Content="&#xD;&#xA;Update Drone name" 
             HorizontalAlignment="Left" 
-            Margin="322,65,0,0" 
+            Margin="275,4,0,0" 
             VerticalAlignment="Top" 
             Click="DroneNameUpdate_Click"            
-            Height="40" 
+            Height="38" 
             Width="122" 
             FontWeight="Heavy"
             HorizontalContentAlignment="Center"
@@ -180,7 +163,7 @@
             x:Name="ChargeButton"
             Content="charge drone" 
             HorizontalAlignment="Left" 
-            Margin="322,181,0,0" 
+            Margin="275,125,0,0" 
             VerticalAlignment="Top" 
             Click="Charge_Button"
             Visibility="Hidden" 
@@ -251,6 +234,29 @@
             Width="84" 
             Click="CloseButton_Click" 
             Height="61" Grid.Row="1"/>
+        <TextBlock 
+            x:Name="parcel" 
+            Margin="131,198,427,98"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
+            Text="{Binding Path=Parcel.ToString}" Grid.RowSpan="2" FontSize="8" Background="Black" Foreground="#FFF7EFEF" FontWeight="Bold"/>
+        <Label 
+            Content="Current location:" 
+            HorizontalAlignment="Left" 
+            Margin="86,124,0,0" 
+            Grid.Row="1" 
+            VerticalAlignment="Top" 
+            Width="144"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" Height="26"/>
+        <Label 
+            Content="Transferred&#xA;Parcel:" 
+            HorizontalAlignment="Left" 
+            Margin="58,10,0,0" Grid.Row="1" 
+            VerticalAlignment="Top" 
+            Height="50" 
+            Width="73" 
+            HorizontalContentAlignment="Center" 
+            VerticalContentAlignment="Center"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
     </Grid>
 </Window>
 
