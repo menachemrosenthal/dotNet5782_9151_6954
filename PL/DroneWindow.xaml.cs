@@ -29,8 +29,8 @@ namespace PL
             AddDroneButton.Visibility = Visibility.Visible;            
         }
 
-        public DroneWindow(BO.BL bl, DroneToList drone, DroneListWindow droneListWindow)
-        {
+        public DroneWindow(BO.BL bl, DroneToList droneToList, DroneListWindow droneListWindow)
+        {            
             InitializeComponent();
             BlDrone = (BO.BL)BL.BlFactory.GetBl();
             FatherWindow = droneListWindow;
