@@ -15,53 +15,53 @@ namespace PL
     {
         BO.BL BlDrone;
         int stationId;
-        BO.Drone drone;
+        Drone drone;
         DroneListWindow FatherWindow;
         public DroneWindow(BO.BL bl, DroneListWindow droneListWindow)
         {
             InitializeComponent();
             BlDrone = bl;
-            FatherWindow = droneListWindow;     
+            FatherWindow = droneListWindow;
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();            
+            StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();
 
             NameUpdateButton.Visibility = Visibility.Hidden;
-            AddDroneButton.Visibility = Visibility.Visible;            
+            AddDroneButton.Visibility = Visibility.Visible;
         }
 
-        public DroneWindow(BO.BL bl, DroneToList droneToList, DroneListWindow droneListWindow)
-        {            
+        public DroneWindow(BO.BL bl, int droneId, DroneListWindow droneListWindow = null)
+        {
             InitializeComponent();
             BlDrone = bl;
             FatherWindow = droneListWindow;
-            drone = BlDrone.GetDrone(droneToList.Id);
+            drone = BlDrone.GetDrone(droneId);
             droneView.DataContext = drone;
-            if(drone.Parcel != null)
+            if (drone.Parcel != null)
                 parcel.Text = drone.Parcel.ToString();
-            
+
             nameLabel.Content = "Name:";
-            
+
             ID.IsReadOnly = true;
             IDLabel.Content = "           ID:";
 
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            WeightSelector.SelectedValue = droneToList.MaxWeight;
+            WeightSelector.SelectedValue = drone.MaxWeight;
             WeightSelector.IsEnabled = false;
             weightLabel.Content = "Max weight:";
 
-            if (droneToList.Status == DroneStatuses.maintenance)
+            if (drone.Status == DroneStatuses.maintenance)
                 ReleaseButton.Visibility = Visibility.Visible;
 
-            if (BlDrone.GetDroneSituation(droneToList.Id) == "Free")
+            if (BlDrone.GetDroneSituation(drone.Id) == "Free")
             {
                 ChargeButton.Visibility = Visibility.Visible;
                 associateButton.Visibility = Visibility.Visible;
             }
 
-            if (BlDrone.GetDroneSituation(droneToList.Id) == "Associated")
+            if (BlDrone.GetDroneSituation(drone.Id) == "Associated")
                 pickedUpButton.Visibility = Visibility.Visible;
 
-            if (BlDrone.GetDroneSituation(droneToList.Id) == "Executing")
+            if (BlDrone.GetDroneSituation(drone.Id) == "Executing")
                 provisionButton.Visibility = Visibility.Visible;
         }
 
@@ -81,7 +81,7 @@ namespace PL
 
                     BlDrone.AddDrone(drone, stationId);
                     _ = MessageBox.Show("Drone was added successfully");
-                    
+
                     FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
                     Close();
                     return;
@@ -113,7 +113,7 @@ namespace PL
             {
                 BlDrone.DroneNameUpdate(int.Parse(ID.Text), Name.Text);
                 MessageBox.Show("The Name was update successfully");
-                FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();                             
+                FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
             }
             catch (Exception ex)
             {
@@ -128,7 +128,7 @@ namespace PL
                 BlDrone.ChargeDrone(int.Parse(ID.Text));
                 MessageBox.Show("The Drone was sent for charging successfully");
                 FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
-                new DroneWindow(BlDrone, (DroneToList)FatherWindow.DroneListView.SelectedItem, FatherWindow).Show();
+                new DroneWindow(BlDrone, drone.Id, FatherWindow).Show();
                 Close();
             }
             catch (Exception ex)
@@ -144,7 +144,7 @@ namespace PL
                 BlDrone.ParcelToDrone(int.Parse(ID.Text));
                 MessageBox.Show("The drone associated with a parcel successfully");
                 FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
-                new DroneWindow(BlDrone, (DroneToList)FatherWindow.DroneListView.SelectedItem, FatherWindow).Show();
+                new DroneWindow(BlDrone, drone.Id, FatherWindow).Show();
                 Close();
             }
             catch (Exception ex)
@@ -161,7 +161,7 @@ namespace PL
                 BlDrone.ParcelPickedupUptade(int.Parse(ID.Text));
                 MessageBox.Show("The parcel was pickedup successfully");
                 FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
-                new DroneWindow(BlDrone, (DroneToList)FatherWindow.DroneListView.SelectedItem, FatherWindow).Show();
+                new DroneWindow(BlDrone, drone.Id, FatherWindow).Show();
                 Close();
             }
             catch (Exception ex)
@@ -178,7 +178,7 @@ namespace PL
                 BlDrone.ParcelProvisionUpdate(int.Parse(ID.Text));
                 MessageBox.Show("The parcel provided successfully");
                 FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
-                new DroneWindow(BlDrone, (DroneToList)FatherWindow.DroneListView.SelectedItem, FatherWindow).Show();
+                new DroneWindow(BlDrone, drone.Id, FatherWindow).Show();
                 Close();
             }
             catch (Exception ex)
@@ -194,8 +194,9 @@ namespace PL
             {
                 BlDrone.ReleaseDrone(int.Parse(ID.Text));
                 MessageBox.Show("The drone was release from charging successfully");
-                FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
-                new DroneWindow(BlDrone, (DroneToList)FatherWindow.DroneListView.SelectedItem, FatherWindow).Show();
+                if (FatherWindow != null)
+                    FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
+                new DroneWindow(BlDrone, drone.Id, FatherWindow).Show();
                 Close();
             }
             catch (Exception ex)
@@ -207,7 +208,8 @@ namespace PL
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
+            if (FatherWindow != null)
+                FatherWindow.DroneListView.ItemsSource = BlDrone.GetDroneList();
             Close();
         }
 
@@ -215,7 +217,7 @@ namespace PL
         {
             _ = int.TryParse(ID.Text, out int id);
             if (id > 0 && !BlDrone.GetDroneList().Any(x => x.Id == id))
-            {                
+            {
                 ID.Background = Brushes.LightGreen;
                 return;
             }

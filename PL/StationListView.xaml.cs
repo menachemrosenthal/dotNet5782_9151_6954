@@ -29,7 +29,7 @@ namespace PL
 
         private void stationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new StationWindow(GetBL, (BO.StationToList)stationList.SelectedItem, this);
+            new StationWindow(GetBL, (BO.StationToList)stationList.SelectedItem, this).Show();
         }
     }
 }

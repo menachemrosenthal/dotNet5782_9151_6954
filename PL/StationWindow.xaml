@@ -9,14 +9,14 @@
     <Grid>
         <Grid x:Name="stationView">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="54*"/>
+                <RowDefinition Height="54*"/>
+                <RowDefinition Height="54*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="69*"/>
+                <RowDefinition Height="54*"/>
+                <RowDefinition Height="54*"/>
+                <RowDefinition Height="54*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -30,24 +30,70 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
                 Grid.Row="1"
-                Grid.Column="0"  />
+                Grid.Column="0" Height="26" Margin="144,0,0,0" Width="56" FontWeight="Bold" HorizontalContentAlignment="Right"  />
             <TextBox 
                 x:Name ="name"
-                Grid.Row="1"
                 Grid.Column="1"
-                Text="{Binding Path=Name}"/>
+                Text="{Binding Path=Name}" Margin="0,54,0,0" Grid.RowSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Label
                 x:Name="idLabel"
                 Content="ID:"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Grid.Row="2"
-                Grid.Column="0"  />
+                Grid.Row="1"
+                Grid.Column="0" Height="26" Margin="0,54,0,0" Width="91" FontWeight="Bold" Grid.RowSpan="2" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"  />
             <TextBox 
                 x:Name ="id"
-                Grid.Row="2"
+                Grid.Row="1"
                 Grid.Column="1"
-                Text="{Binding Path=Name}"/>
+                Text="{Binding Path=Name}" Margin="0,54,0,0" Grid.RowSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label
+                x:Name="locationLabel"
+                Content="Location:"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Grid.Row="3" Height="26" Width="58" FontWeight="Bold"  />
+            <Label
+                x:Name="latLongLabel"
+                Content="Latitude:&#xD;&#xA;&#xA;Longitude:"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Grid.Row="4"
+                Grid.Column="0" Height="69" Margin="109,0,0,0" Width="91"  />
+            <TextBox 
+                x:Name ="latitude"
+                Grid.Row="4"
+                Grid.Column="1"
+                Text="{Binding Path=LocationOfStation.Latitude}" Margin="0,1,0,35" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <TextBox 
+                x:Name ="longitude"
+                Grid.Row="4"
+                Grid.Column="1"
+                Text="{Binding Path=LocationOfStation.Longitude}" Margin="0,35,0,2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <Label
+                x:Name="slotsLabel"
+                Content="Charge slots:"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Grid.Row="5"
+                Grid.Column="0" Height="26" Margin="100,0,0,0" Width="100" FontWeight="Bold" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"  />
+            <TextBox
+                x:Name ="slots"
+                Grid.Row="5"
+                Grid.Column="1"
+                Text="{Binding Path=ChargeSlots}" Margin="0,0,0,54" Grid.RowSpan="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="Gray" Background="{x:Null}"/>
+            <Label
+                x:Name="dronesLabel"
+                Content="Drones in charging:"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Grid.Row="6"
+                Grid.Column="0" Height="26" Margin="0,36,0,0" Width="129" FontWeight="Bold" HorizontalContentAlignment="Right" Grid.RowSpan="2"  />
+            <ListView 
+                x:Name ="drones"
+                Grid.Row="6"
+                Grid.Column="1"
+                ItemsSource="{Binding Path=DronesCharging}" Grid.RowSpan="2" MouseDoubleClick="drones_MouseDoubleClick"/>
         </Grid>
     </Grid>
 </Window>

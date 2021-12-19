@@ -33,6 +33,13 @@ namespace PL
             GetBL = bl;
             station = GetBL.GetStation(stationToList.Id);
             stationView.DataContext = station;
+            drones.ItemsSource = station.DronesCharging;
+        }
+
+        private void drones_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.DroneInCharging drone = (BO.DroneInCharging)drones.SelectedItem;
+            new DroneWindow(GetBL, drone.Id).Show();
         }
     }
 }
