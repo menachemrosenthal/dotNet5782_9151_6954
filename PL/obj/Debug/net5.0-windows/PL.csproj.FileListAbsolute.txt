@@ -63,11 +63,14 @@ C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.A
 C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.AssemblyInfo.cs
 C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.csproj.CoreCompileInputs.cache
 C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.genruntimeconfig.cache
-<<<<<<< HEAD
 C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\CustomerListWindow.g.cs
 C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\CustomerListWindow.baml
 C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\CostomerWindow.g.cs
 C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\CostomerWindow.baml
-=======
 >>>>>>> 670e35d5895e83aaf11be5832ae5e7ffbebbb10d
 >>>>>>> 4c2e8e277a0e673a4be97d0bafd353b5defdbbc8
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\StationListView.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\StationWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\StationListView.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\StationWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.csproj.CopyComplete

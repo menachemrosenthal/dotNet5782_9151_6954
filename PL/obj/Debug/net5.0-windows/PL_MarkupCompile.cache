@@ -9,25 +9,12 @@ PL
 none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
-<<<<<<< HEAD
-C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\App.xaml
-51044308397
-
-7457940273
-1951340098878
-DroneListWindow.xaml;DroneWindow.xaml;MainWindow.xaml;StationListView.xaml;StationWindow.xaml;
-=======
 C:\Users\User\source\repos\dotNet5782_9151_6954\PL\App.xaml
-5395134145
+71226517172
 
-7-1768602557
+9-751160724
 195-382394517
-<<<<<<< HEAD
-CostomerWindow.xaml;CustomerListWindow.xaml;DroneListWindow.xaml;DroneWindow.xaml;MainWindow.xaml;
-=======
-DroneListWindow.xaml;DroneWindow.xaml;MainWindow.xaml;
->>>>>>> 670e35d5895e83aaf11be5832ae5e7ffbebbb10d
->>>>>>> 4c2e8e277a0e673a4be97d0bafd353b5defdbbc8
+CostomerWindow.xaml;CustomerListWindow.xaml;DroneListWindow.xaml;DroneWindow.xaml;MainWindow.xaml;StationListView.xaml;StationWindow.xaml;
 
 False
 
