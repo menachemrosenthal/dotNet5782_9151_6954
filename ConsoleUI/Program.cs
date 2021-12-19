@@ -18,7 +18,7 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            IDal iDal = new DAL.DalFactory();
+            IDal iDal = DAL.DalFactory.GetDal("DalObject");
 
             bool flag = true;
 
