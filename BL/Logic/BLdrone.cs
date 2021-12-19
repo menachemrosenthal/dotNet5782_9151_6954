@@ -52,10 +52,10 @@ namespace BO
             drone.CurrentLocation = StationLocation(dal.GetStation(stationID));
             drone.Status = DroneStatuses.maintenance;
 
-            DO.Drone daldrone = new();
+            DalApi.Drone daldrone = new();
             daldrone.Id = drone.Id;
             daldrone.Model = drone.Model;
-            daldrone.MaxWeight = (DO.WeightCategories)drone.MaxWeight;
+            daldrone.MaxWeight = (DalApi.WeightCategories)drone.MaxWeight;
 
             drones.Add(drone);
             dal.AddDrone(daldrone);
@@ -71,7 +71,7 @@ namespace BO
         {
             if(!dal.DroneList().Any(x=>x.Id == droneId))
                 throw new KeyNotFoundException(nameof(droneId));
-            DO.Drone drone = dal.DroneList().FirstOrDefault(x => x.Id == droneId);
+            DalApi.Drone drone = dal.DroneList().FirstOrDefault(x => x.Id == droneId);
             DroneToList blDrone = this.drones.FirstOrDefault(x => x.Id == droneId);                           
             drone.Model = updateName;
             blDrone.Model = updateName;
@@ -149,7 +149,7 @@ namespace BO
             if (GetDroneSituation(droneId) != "Free")
                 throw new ArgumentException("Drone must be free", nameof(droneId));
 
-            List<DO.Parcel> parcels = dal.GetParcelsByCondition(x => x.DroneId == 0).ToList();
+            List<DalApi.Parcel> parcels = dal.GetParcelsByCondition(x => x.DroneId == 0).ToList();
             int weight = (int)drone.MaxWeight;
             parcels
                 .OrderByDescending(x => x.Priority)
@@ -227,7 +227,7 @@ namespace BO
         /// <param name="drone"></param>
         /// <param name="parcel"></param>
         /// <returns>amount of battery use needed for delivery</returns>
-        private double BatteryUseInDelivery(DroneToList drone, DO.Parcel parcel)
+        private double BatteryUseInDelivery(DroneToList drone, DalApi.Parcel parcel)
         {
             double BatteryUse = LocationsDistance(drone.CurrentLocation, SenderLocation(parcel)) * FreeElectricityUse
             + SenderTaregetDistance(parcel) * dal.BatteryUseRequest()[(int)parcel.Weight]

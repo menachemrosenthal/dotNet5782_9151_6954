@@ -1,9 +1,9 @@
-﻿using DO;
+using BlApi;
 ﻿using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BlApi;
+
 
 namespace BO
 {
@@ -46,7 +46,7 @@ namespace BO
             drones = new();
 
             //update the dal drone list for bl drone list
-            foreach (DO.Drone dalDrone in dal.DroneList())
+            foreach (DalApi.Drone dalDrone in dal.DroneList())
             {
                 DroneToList drone = new();
                 drone.CurrentLocation = new();
@@ -60,7 +60,7 @@ namespace BO
                 if (GetDroneSituation(drone.Id) is not ("Free" or "Maintenance"))
                 {
                     drone.Status = DroneStatuses.sending;
-                    DO.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == dalDrone.Id);
+                    DalApi.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == dalDrone.Id);
                     drone.DeliveredParcelId = parcel.Id;
 
                     if (GetDroneSituation(drone.Id) == "Associated")
@@ -83,7 +83,7 @@ namespace BO
 
                     if (GetDroneSituation(drone.Id) == "Maintenance")
                     {
-                        DO.Station station = new();
+                        DalApi.Station station = new();
                         station = dal.StationList().ElementAt(r.Next((int)dal.StationList().LongCount() - 1));
                         drone.CurrentLocation = StationLocation(station);
                         drone.BatteryStatus = r.Next(0, 20);                        

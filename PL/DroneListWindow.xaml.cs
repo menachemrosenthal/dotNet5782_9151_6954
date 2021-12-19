@@ -22,7 +22,7 @@ namespace PL
             BlDroneList = (BO.BL)BL.BlFactory.GetBl();
             DroneListView.ItemsSource = bl.GetDroneList();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));            
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)

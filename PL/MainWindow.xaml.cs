@@ -19,6 +19,11 @@ namespace PL
             new DroneListWindow(bl).Show();
         }
 
+        private void stationsButton_Click(object sender, RoutedEventArgs e)
+        {
+            new StationListView(bl).Show();
+        }
+
         private void CustomerListButton_Click(object sender, RoutedEventArgs e)
         {
             new CustomerListWindow(bl).Show();

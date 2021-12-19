@@ -43,7 +43,7 @@ namespace BO
             station.LocationOfStation.Latitude > 32.801705)
                 throw new ArgumentOutOfRangeException("The latitude was out Of range");
 
-            DO.Station dalStation = new()
+            DalApi.Station dalStation = new()
             {
                 Id = station.Id,
                 Name = station.Name,
@@ -63,7 +63,7 @@ namespace BO
         /// <param name="chargSlots">num of charge slots</param>
         public void StationUpdate(int stationId, string nameUpdate, string chargSlots)
         {
-            DO.Station station = dal.GetStation(stationId);
+            DalApi.Station station = dal.GetStation(stationId);
 
             if (!string.IsNullOrWhiteSpace(nameUpdate))
                 station.Name = nameUpdate;
@@ -83,7 +83,7 @@ namespace BO
         /// <returns>station</returns>
         public Station GetStation(int StationId)
         {
-            DO.Station dalStation = dal.GetStation(StationId);
+            DalApi.Station dalStation = dal.GetStation(StationId);
             Station station = new()
             {
                 Id = dalStation.Id,
@@ -117,7 +117,7 @@ namespace BO
         /// </summary>
         /// <param name="station"></param>
         /// <returns>location of station</returns>
-        private Location StationLocation(DO.Station station)
+        private Location StationLocation(DalApi.Station station)
         {
             return new() { Longitude = station.Longitude, Latitude = station.Latitude };
         }
@@ -128,9 +128,9 @@ namespace BO
         /// <param name="location"></param>
         /// <param name="stations"></param>
         /// <returns>closest station</returns>
-        private DO.Station ClosestStation(Location location, IEnumerable<DO.Station> stations)
+        private DalApi.Station ClosestStation(Location location, IEnumerable<DalApi.Station> stations)
         {
-            DO.Station station = dal.StationList().First();
+            DalApi.Station station = dal.StationList().First();
             double diastance = LocationsDistance(location, StationLocation(station));
 
             foreach (var Station in stations)
