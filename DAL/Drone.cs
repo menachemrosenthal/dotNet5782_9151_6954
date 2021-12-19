@@ -1,5 +1,5 @@
 ﻿
-    namespace DO
+    namespace DalApi
     {
         public struct Drone
         {

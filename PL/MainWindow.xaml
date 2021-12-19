@@ -29,6 +29,9 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        <Button 
+            x:Name="stationsButton"
+            Content="Show&#xD;&#xA;Stations" HorizontalAlignment="Left" Margin="443,47,0,0" VerticalAlignment="Top" Height="95" Width="136" Grid.RowSpan="2" FontWeight="Bold" FontSize="24" FontFamily="Aharoni" Click="stationsButton_Click"/>
 
 
     </Grid>

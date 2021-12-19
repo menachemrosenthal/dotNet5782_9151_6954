@@ -15,7 +15,7 @@ namespace BO
         /// <returns>created paecel</returns>
         public Parcel GetParcel(int parcelId)
         {
-            DO.Parcel p = dal.GetParcel(parcelId);
+            DalApi.Parcel p = dal.GetParcel(parcelId);
             Parcel parcel = new()
             {
                 Id = p.Id,
@@ -53,7 +53,7 @@ namespace BO
             if (GetDroneSituation(droneId) != "Executing")
                 throw new CannotUpdateExeption("drone", droneId, "not executing");
 
-            DO.Parcel parcel = dal.GetParcel(drone.DeliveredParcelId);
+            DalApi.Parcel parcel = dal.GetParcel(drone.DeliveredParcelId);
             drone.BatteryStatus -= SenderTaregetDistance(parcel) * dal.BatteryUseRequest()[(int)parcel.Weight];
             drone.CurrentLocation = TargetLocation(parcel);
             drone.Status = DroneStatuses.free;
@@ -85,12 +85,12 @@ namespace BO
         /// <param name="parcel"></param>
         public void AddParcel(Parcel parcel)
         {
-            DO.Parcel dalParcel = new()
+            DalApi.Parcel dalParcel = new()
             {
                 Senderid = parcel.Senderid,
                 TargetId = parcel.TargetId,
-                Weight = (DO.WeightCategories)parcel.Weight,
-                Priority = (DO.Priorities)parcel.Priority,
+                Weight = (DalApi.WeightCategories)parcel.Weight,
+                Priority = (DalApi.Priorities)parcel.Priority,
                 Requested = DateTime.Now,
 
             };
@@ -123,7 +123,7 @@ namespace BO
         private ParcelInTransfer GetParcelInTransfer(int parcelId)
         {
             ParcelInTransfer parcel = new();
-            DO.Parcel dalParcel = dal.GetParcel(parcelId);
+            DalApi.Parcel dalParcel = dal.GetParcel(parcelId);
             parcel.Id = dalParcel.Id;
 
             var parcelsStatus = GetParcelStatus(parcelId);
@@ -142,7 +142,7 @@ namespace BO
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns> sender location</returns>
-        private Location SenderLocation(DO.Parcel parcel)
+        private Location SenderLocation(DalApi.Parcel parcel)
             => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace BO
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns> Target location</returns>
-        private Location TargetLocation(DO.Parcel parcel)
+        private Location TargetLocation(DalApi.Parcel parcel)
             => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
 
         /// <summary>
@@ -158,9 +158,9 @@ namespace BO
         /// </summary>
         /// <param name="location"></param>
         /// <returns>sort list by "priority" , "weight" , "closest location"</returns>        
-        private DO.Parcel ClosestSender(Location location, IEnumerable<DO.Parcel> parcels)
+        private DalApi.Parcel ClosestSender(Location location, IEnumerable<DalApi.Parcel> parcels)
         {
-            DO.Parcel closestParcel = dal.ParcelList().FirstOrDefault();
+            DalApi.Parcel closestParcel = dal.ParcelList().FirstOrDefault();
             double diastance = LocationsDistance(location, SenderLocation(closestParcel));
 
             foreach (var parcel in parcels)
@@ -175,7 +175,7 @@ namespace BO
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>distance between sender and reciever</returns>
-        private double SenderTaregetDistance(DO.Parcel parcel)
+        private double SenderTaregetDistance(DalApi.Parcel parcel)
             => LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
 
         /// <summary>

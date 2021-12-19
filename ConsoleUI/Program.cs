@@ -1,4 +1,5 @@
-﻿using DO;
+﻿using DalApi;
+using DalApi;
 using System;
 
 namespace ConsoleUI
@@ -125,7 +126,7 @@ namespace ConsoleUI
         /// distance between user poin and station
         /// </summary>
         /// <param name="dalObject"></param>
-        private static void StationDistance(DO.IDal iDal)
+        private static void StationDistance(DalApi.IDal iDal)
         {
             Console.WriteLine("\nENTER longitude");
             double.TryParse(Console.ReadLine(), out double longitude);
@@ -144,7 +145,7 @@ namespace ConsoleUI
         /// distance between user point and customer
         /// </summary>
         /// <param name="dalObject"></param>
-        public static void CustomerDistance(DO.IDal iDal)
+        public static void CustomerDistance(DalApi.IDal iDal)
         {
             Console.WriteLine("\nENTER longitude");
             double.TryParse(Console.ReadLine(), out double longitude);
@@ -163,7 +164,7 @@ namespace ConsoleUI
         /// <summary>
         /// add a station
         /// </summary>
-        public static void AddStation(DO.IDal iDal)
+        public static void AddStation(DalApi.IDal iDal)
         {
             Station station = new();
 
@@ -186,7 +187,7 @@ namespace ConsoleUI
         /// <summary>
         /// add a drone
         /// </summary>
-        public static void AddDrone(DO.IDal iDal)
+        public static void AddDrone(DalApi.IDal iDal)
         {
             Drone drone = new();
 
@@ -206,7 +207,7 @@ namespace ConsoleUI
         /// <summary>
         /// adds a customer
         /// </summary>
-        public static void AddCustomer(DO.IDal iDal)
+        public static void AddCustomer(DalApi.IDal iDal)
         {
             Customer customer = new();
 
@@ -230,7 +231,7 @@ namespace ConsoleUI
         /// <summary>
         /// adds a parcel
         /// </summary>
-        public static void AddParcel(DO.IDal iDal)
+        public static void AddParcel(DalApi.IDal iDal)
         {
             Parcel parcel = new();
             Console.WriteLine("\nENTER sender ID");
@@ -252,7 +253,7 @@ namespace ConsoleUI
         /// <summary>
         /// apply a parcel to a drone
         /// </summary>
-        public static void SetParcelToDrone(DO.IDal iDal)
+        public static void SetParcelToDrone(DalApi.IDal iDal)
         {
             Console.WriteLine("\nENTER parcel ID");
             _ = int.TryParse(Console.ReadLine(), out int parcelId);
@@ -266,7 +267,7 @@ namespace ConsoleUI
         /// <summary>
         /// updates the time of pickup
         /// </summary>
-        public static void ParcelPickup(DO.IDal dalObject)
+        public static void ParcelPickup(DalApi.IDal dalObject)
         {
             Console.WriteLine("\nEnter ID of parcel");
             _ = int.TryParse(Console.ReadLine(), out int parcelId);
@@ -278,7 +279,7 @@ namespace ConsoleUI
         /// <summary>
         /// updates time of delivery
         /// </summary>
-        public static void ParcelDelivered(DO.IDal dalObject)
+        public static void ParcelDelivered(DalApi.IDal dalObject)
         {
             Console.WriteLine("\nEnter id of parcel");
             _ = int.TryParse(Console.ReadLine(), out int parcelId);
@@ -290,7 +291,7 @@ namespace ConsoleUI
         /// <summary>
         /// drone finished charging, updates status 
         /// </summary>
-        private static void FinishCharge(DO.IDal dalObject)
+        private static void FinishCharge(DalApi.IDal dalObject)
         {
             Console.WriteLine("\nENTER id of drone");
             _ = int.TryParse(Console.ReadLine(), out int droneId);
@@ -302,7 +303,7 @@ namespace ConsoleUI
         /// <summary>
         /// display parcel
         /// </summary>
-        public static void ParcelDisplay(DO.IDal dalObject)
+        public static void ParcelDisplay(DalApi.IDal dalObject)
         {
             Console.WriteLine("\nEnter ID of the Parcel");
             _ = int.TryParse(Console.ReadLine(), out int parcelId);
@@ -314,7 +315,7 @@ namespace ConsoleUI
         /// <summary>
         /// charging a drone, updates status to charging
         /// </summary>
-        public static void DroneCharge(DO.IDal dalObject)
+        public static void DroneCharge(DalApi.IDal dalObject)
         {
             Console.WriteLine("\nENTER id of drone");
             _ = int.TryParse(Console.ReadLine(), out int droneId);
@@ -329,7 +330,7 @@ namespace ConsoleUI
         /// <summary>
         /// display customer
         /// </summary>
-        public static void CustomerDisplay(DO.IDal dalObject)
+        public static void CustomerDisplay(DalApi.IDal dalObject)
         {
             Console.WriteLine("\nEnter ID of the costumer");
             _ = int.TryParse(Console.ReadLine(), out int id);
@@ -341,7 +342,7 @@ namespace ConsoleUI
         /// <summary>
         /// dispay drone
         /// </summary>
-        public static void DroneDisplay(DO.IDal Dal)
+        public static void DroneDisplay(DalApi.IDal Dal)
         {
             Console.WriteLine("\nEnter ID of the drone");
             _ = int.TryParse(Console.ReadLine(), out int droneId);
@@ -353,7 +354,7 @@ namespace ConsoleUI
         /// <summary>
         /// display station
         /// </summary>
-        public static void StationDisplay(DO.IDal iDal)
+        public static void StationDisplay(DalApi.IDal iDal)
         {
             try
             {
@@ -362,7 +363,7 @@ namespace ConsoleUI
 
                 Console.WriteLine(iDal.GetStation(stationId).ToString());
             }
-            catch (DO.ItemNotFoundException ex)
+            catch (DalApi.ItemNotFoundException ex)
             {
                 Console.WriteLine(ex);
             }
@@ -372,7 +373,7 @@ namespace ConsoleUI
         /// <summary>
         /// display the list of stations
         /// </summary>
-        public static void StationListDisplay(DO.IDal iDal)
+        public static void StationListDisplay(DalApi.IDal iDal)
         {
             foreach (var Station in iDal.StationList())
                 Console.WriteLine(Station.ToString());
@@ -383,7 +384,7 @@ namespace ConsoleUI
         /// <summary>
         /// display the list of Drones
         /// </summary>
-        public static void DroneListDisplay(DO.IDal iDal)
+        public static void DroneListDisplay(DalApi.IDal iDal)
         {
             foreach (var Drone in iDal.DroneList())
                 Console.WriteLine(Drone.ToString());
@@ -394,7 +395,7 @@ namespace ConsoleUI
         /// <summary>
         /// display the list of Customers
         /// </summary>
-        public static void CustomerListDisplay(DO.IDal iDal)
+        public static void CustomerListDisplay(DalApi.IDal iDal)
         {
             foreach (var Customer in iDal.CustomerList())
                 Console.WriteLine(Customer.ToString());
@@ -405,7 +406,7 @@ namespace ConsoleUI
         /// <summary>
         /// display the list of parcels
         /// </summary>
-        public static void ParcelListDisplay(DO.IDal iDal)
+        public static void ParcelListDisplay(DalApi.IDal iDal)
         {
             foreach (var Parcel in iDal.ParcelList())
                 Console.WriteLine(Parcel.ToString());
@@ -416,7 +417,7 @@ namespace ConsoleUI
         /// <summary>
         /// display list of stations with free charge slots
         /// </summary>
-        public static void StationsWithFreeSlotsDisplay(DO.IDal iDal)
+        public static void StationsWithFreeSlotsDisplay(DalApi.IDal iDal)
         {
             foreach (var Station in iDal.GetStationsByCondition(x => x.ChargeSlots > 0))
                 Console.WriteLine(Station.ToString());
@@ -426,7 +427,7 @@ namespace ConsoleUI
         /// <summary>
         /// display list pf unassosiated parcels
         /// </summary>
-        public static void UnassosiatedParcelListDisplay(DO.IDal iDal)
+        public static void UnassosiatedParcelListDisplay(DalApi.IDal iDal)
         {
             foreach (var Parcel in iDal.ParcelList())
                 if (Parcel.DroneId != 0)

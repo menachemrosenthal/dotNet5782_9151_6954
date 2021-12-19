@@ -14,7 +14,7 @@ namespace BO
         /// <returns>BL Customer</returns>
         public Customer GetCustomer(int CustomerId)
         {
-            DO.Customer dalCustomer = dal.GetCustomer(CustomerId);
+            DalApi.Customer dalCustomer = dal.GetCustomer(CustomerId);
 
             Customer customer = new()
             {
@@ -71,7 +71,7 @@ namespace BO
                   customer.Location.Latitude > 32.801705))
                 throw new ArgumentException("location was out Out Of range");
 
-            DO.Customer dalCustomer = new()
+            DalApi.Customer dalCustomer = new()
             {
                 Id = customer.Id,
                 Name = customer.Name,
@@ -107,7 +107,7 @@ namespace BO
         /// <param name="customer">customer for update</param>
         public void CustomerUpdate(Customer customer)
         {
-            DO.Customer dalCustomer = dal.GetCustomer(customer.Id);
+            DalApi.Customer dalCustomer = dal.GetCustomer(customer.Id);
 
             if (!string.IsNullOrWhiteSpace(customer.Name))
                 dalCustomer.Name = customer.Name;
@@ -123,7 +123,7 @@ namespace BO
         /// <returns></returns>
         private double CustomerClosestStationDistance(int customerId)
         {
-            DO.Customer customer = dal.CustomerList().FirstOrDefault(x => x.Id == customerId);
+            DalApi.Customer customer = dal.CustomerList().FirstOrDefault(x => x.Id == customerId);
             return LocationsDistance(CustomerLocation(customer), StationLocation(ClosestStation(CustomerLocation(customer), dal.StationList())));
         }
 
@@ -190,7 +190,7 @@ namespace BO
         /// <returns>CustomerInParcel</returns>
         private CustomerInParcel GetCustomerInParcel(int CustomerId)
         {
-            DO.Customer dalCustomer = dal.GetCustomer(CustomerId);
+            DalApi.Customer dalCustomer = dal.GetCustomer(CustomerId);
             CustomerInParcel customer = new()
             {
                 Id = dalCustomer.Id,
@@ -204,7 +204,7 @@ namespace BO
         /// </summary>
         /// <param name="customer"></param>
         /// <returns>customer location</returns>
-        private Location CustomerLocation(DO.Customer customer)
+        private Location CustomerLocation(DalApi.Customer customer)
         {
             Location location = new() { Longitude = customer.Longitude, Latitude = customer.Latitude };
             return location;
@@ -214,7 +214,7 @@ namespace BO
         /// list of customers that recieved rarcels
         /// </summary>
         /// <returns>list of customers</returns>
-        private IEnumerable<DO.Customer> ReceivedCustomersList()
+        private IEnumerable<DalApi.Customer> ReceivedCustomersList()
         {
             return dal.GetCustomersByCondition
                (x => dal.ParcelList().Any(y => x.Id == y.TargetId && y.Delivered != null)).ToList();

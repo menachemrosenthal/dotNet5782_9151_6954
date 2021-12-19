@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-    namespace DO
+    namespace DalApi
     {
         public struct DroneCharge
         {

@@ -1,5 +1,5 @@
 ﻿
-    namespace DO
+    namespace DalApi
     {
         public enum Options { add, update, display, viewLists }
         public enum WeightCategories { light = 1, medium, heavy }
