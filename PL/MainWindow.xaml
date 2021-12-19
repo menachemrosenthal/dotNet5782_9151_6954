@@ -29,6 +29,18 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        <Button 
+            x:Name="CustomerListButton"
+            Content="Customers" 
+            HorizontalAlignment="Left" 
+            Margin="400,47,0,0" 
+            VerticalAlignment="Top" 
+            Height="100" 
+            Width="133" 
+            Grid.RowSpan="2" 
+            FontWeight="Bold" 
+            FontSize="25" Click="CustomerListButton_Click"
+            />
 
 
     </Grid>

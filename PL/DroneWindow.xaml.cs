@@ -20,8 +20,8 @@ namespace PL
         public DroneWindow(BO.BL bl, DroneListWindow droneListWindow)
         {
             InitializeComponent();
-            BlDrone = (BO.BL)BL.BlFactory.GetBl();
-            FatherWindow = droneListWindow;     
+            BlDrone = bl;
+            FatherWindow = droneListWindow;
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StationList.ItemsSource = BlDrone.GetFreeChargingSlotsStationList();            
 
@@ -32,7 +32,7 @@ namespace PL
         public DroneWindow(BO.BL bl, DroneToList droneToList, DroneListWindow droneListWindow)
         {            
             InitializeComponent();
-            BlDrone = (BO.BL)BL.BlFactory.GetBl();
+            BlDrone = bl;
             FatherWindow = droneListWindow;
             drone = BlDrone.GetDrone(droneToList.Id);
             droneView.DataContext = drone;

@@ -1,4 +1,5 @@
-﻿using DO;
+﻿using DalApi;
+using DO;
 using System;
 
 namespace ConsoleUI
@@ -17,7 +18,7 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            IDal iDal = new DAL.DalFactory();
+            IDal iDal = DAL.DalFactory.GetDal("DalObject");
 
             bool flag = true;
 
