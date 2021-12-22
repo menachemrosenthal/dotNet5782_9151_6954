@@ -47,7 +47,8 @@ namespace DalApi
         /// <param name="customer">customer for update</param>
         public void CustomerUpdate(Customer customer)
         {
-            int index = DataSource.Customers.IndexOf(customer);
+            Customer tmpCustomer= GetCustomer(customer.Id);
+            int index = DataSource.Customers.IndexOf(tmpCustomer);
             DataSource.Customers[index] = customer;
         }
 

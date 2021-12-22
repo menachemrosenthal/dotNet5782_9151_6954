@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,6 +34,8 @@ namespace PL
             allDronesButton.Visibility = Visibility.Visible;
         }
 
+        public event EventHandler DroneChanged;
+
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
@@ -58,12 +61,27 @@ namespace PL
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
-            new DroneWindow(BlDroneList, drone.Id, this).Show();
+            DroneWindow droneWindow = new(BlDroneList, drone.Id);
+            droneWindow.Show();
+            droneWindow.DroneChanged += UpdateDroneList;
+        }
+
+        public void UpdateDroneList(object s, EventArgs e)
+        {
+            DroneListView.ItemsSource = BlDroneList.GetDroneList();            
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            Close();
+            Close();            
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            var drones = from drone in BlDroneList.GetDroneList()
+                         orderby drone.Status
+                         select drone;
+            DroneListView.ItemsSource = drones;
         }
     }
 }

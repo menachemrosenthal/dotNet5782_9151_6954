@@ -20,7 +20,10 @@
             Grid.Row="1" MouseDoubleClick="stationList_MouseDoubleClick">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Name}"/>
+                    <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Full charge slots" Width="120" DisplayMemberBinding="{Binding FullChargeSlots}"/>
+                    <GridViewColumn Header="Free charge slots" Width="120" DisplayMemberBinding="{Binding FreeChargeSlots}"/>
                 </GridView>
             </ListView.View>
         </ListView>

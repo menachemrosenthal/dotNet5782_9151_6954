@@ -12,11 +12,8 @@
             <RowDefinition Height="400*"/>
         </Grid.RowDefinitions>
         <Grid Name="UpGrid" 
-              HorizontalAlignment="Stretch" 
               Height="auto" 
-              Grid.Row="0" 
-              VerticalAlignment="Stretch" 
-              Width="auto" Grid.RowSpan="2">
+              Width="auto" Margin="0,-5,0,5" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="49*"/>
@@ -54,10 +51,20 @@
                 Content="Close Window" 
                 Grid.Column="4" 
                 HorizontalAlignment="Center" 
-                Margin="0,520,0,0" 
+                Margin="0,521,0,0" 
                 VerticalAlignment="Top" 
                 Height="45" 
                 Width="100" Click="Button_Click_2" FontFamily="Segoe UI Black" Background="#FFF4F5FA"/>
+            <Button 
+                Content="Add&#xD;&#xA;Drone&#xD;&#xA;"
+                HorizontalAlignment="Center" 
+                Margin="0,106,0,0" 
+                VerticalAlignment="Top" 
+                Height="108" 
+                Width="133" 
+                Click="Button_Click_1" Grid.Column="4"
+                Background="#FF3656D5" FontFamily="Baskerville Old Face" FontSize="36"/>
+            <Button Content="Grouping by Status" Grid.Column="4" HorizontalAlignment="Center" Margin="0,454,0,0" VerticalAlignment="Top" Width="116" Click="Button_Click_3"/>
         </Grid>
         <ListView 
             x:Name="DroneListView" 
@@ -65,10 +72,16 @@
             Margin="0,69,202,0" 
             Width="Auto" 
             Grid.RowSpan="2" 
-            MouseDoubleClick="DroneListView_MouseDoubleClick" FontFamily="Aharoni" FontWeight="Bold" FontSize="14">
+            MouseDoubleClick="DroneListView_MouseDoubleClick" FontFamily="Aharoni" FontWeight="Bold" FontSize="14"
+            ItemsSource="{Binding bl.GetDroneList, Mode=OneWay}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding Status}"/>
+                    <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Model}"/>
+                    <GridViewColumn Header="ID" Width="60" DisplayMemberBinding="{Binding Id}"/>
+                    <GridViewColumn Header="Max Weight" Width="100" DisplayMemberBinding="{Binding MaxWeight}"/>
+                    <GridViewColumn Header="Battery" Width="70" DisplayMemberBinding="{Binding BatteryStatus}"/>
+                    <GridViewColumn Header="Parcel ID" Width="80" DisplayMemberBinding="{Binding DeliveredParcelId}"/>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -82,16 +95,8 @@
                 Width="112" 
                 Click="Button_Click"
                 Visibility="Hidden"/>
-        <Button 
-            Content="Add&#xD;&#xA;Drone&#xD;&#xA;"
-            HorizontalAlignment="Left" 
-            Margin="634,106,0,0" 
-            VerticalAlignment="Top" 
-            Height="108" 
-            Width="133" 
-            Click="Button_Click_1" Grid.Row="1" Background="#FF3656D5" FontFamily="Baskerville Old Face" FontSize="36"/>
         <Label Content="Filter by status" HorizontalAlignment="Left" Margin="202,-5,0,0" VerticalAlignment="Top" Width="198"/>
-        <Label Content="Filter by weight" HorizontalAlignment="Left" Margin="400,0,0,0" VerticalAlignment="Top" Width="198"/>
+        <Label Content="Filter by weight" HorizontalAlignment="Left" Margin="400,-5,0,0" VerticalAlignment="Top" Width="198"/>
 
 
     </Grid>

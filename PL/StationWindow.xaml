@@ -85,6 +85,7 @@
             <Label
                 x:Name="dronesLabel"
                 Content="Drones in charging:"
+                Visibility="{Binding ElementName=drones, Path=Visibility}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Grid.Row="6"
