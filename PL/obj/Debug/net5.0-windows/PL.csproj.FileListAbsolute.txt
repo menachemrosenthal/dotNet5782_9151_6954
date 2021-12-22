@@ -36,3 +36,89 @@ C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\ref\PL.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.pdb
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.genruntimeconfig.cache
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\DroneWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\DroneListWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\DroneWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\MainWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\App.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL_MarkupCompile.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL_MarkupCompile.lref
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\ref\PL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.pdb
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\PL.exe
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\PL.deps.json
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\PL.runtimeconfig.json
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\PL.runtimeconfig.dev.json
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\PL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\ref\PL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\PL.pdb
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\BL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\DAL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\BL.pdb
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\bin\Debug\net5.0-windows\DAL.pdb
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\DroneListWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\MainWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.g.resources
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.AssemblyInfo.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.genruntimeconfig.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\CustomerListWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\CustomerListWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\CostomerWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\CostomerWindow.baml
+>>>>>>> 670e35d5895e83aaf11be5832ae5e7ffbebbb10d
+>>>>>>> 4c2e8e277a0e673a4be97d0bafd353b5defdbbc8
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\StationListView.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\StationWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\StationListView.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\StationWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.csproj.CopyComplete
+>>>>>>> aba37a2e228eed66194ce3e513d48dbede7e176f
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\PL.exe
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\PL.deps.json
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\PL.runtimeconfig.json
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\PL.runtimeconfig.dev.json
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\PL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\ref\PL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\PL.pdb
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\BL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\DAL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\BL.pdb
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\DAL.pdb
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\DroneWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\CostomerWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\CustomerListWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\DroneListWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\DroneWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\MainWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\StationListView.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\StationWindow.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\App.g.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL_MarkupCompile.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL_MarkupCompile.lref
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\CostomerWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\CustomerListWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\DroneListWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\MainWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\StationListView.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\StationWindow.baml
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.g.resources
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.AssemblyInfo.cs
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.csproj.CopyComplete
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\ref\PL.dll
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.pdb
+C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\PL.genruntimeconfig.cache
+>>>>>>> 0dd0ddbeac92f4f91cc3544e690cb89e047f4ecf
