@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace PL
     public partial class StationListView : Window
     {
         BO.BL GetBL;
+        ICollectionView mainView;
         public StationListView(BO.BL bL)
         {
             InitializeComponent();
@@ -30,6 +32,31 @@ namespace PL
         private void stationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new StationWindow(GetBL, (BO.StationToList)stationList.SelectedItem, this).Show();
+        }
+
+        private void groupingButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainView = (CollectionView)CollectionViewSource.GetDefaultView(stationList.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("FreeChargeSlots");
+            mainView.GroupDescriptions.Add(groupDescription);
+        }
+
+        private void standartListButton_Click(object sender, RoutedEventArgs e)
+        {
+            stationList.ItemsSource = GetBL.GetBaseStationList();
+            mainView = null;
+        }
+
+        private void UpdateWindow(object sender, RoutedEventArgs e)
+        {
+            stationList.ItemsSource = GetBL.GetBaseStationList();
+
+            if (mainView != null)
+            {
+                mainView = (CollectionView)CollectionViewSource.GetDefaultView(stationList.ItemsSource);
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("FreeChargeSlots");
+                mainView.GroupDescriptions.Add(groupDescription);
+            }
         }
     }
 }

@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="DroneListWindow" Height="640" Width="800">
     <Grid Name="MainGrid">
@@ -14,39 +13,20 @@
         <Grid Name="UpGrid" 
               Height="auto" 
               Width="auto" Margin="0,-5,0,5" Grid.RowSpan="2">
+            <Grid.BindingGroup>
+                <BindingGroup/>
+            </Grid.BindingGroup>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="49*"/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="121*"/>
+                <ColumnDefinition Width="77*"/>
+                <ColumnDefinition Width="102*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions >
-            <ComboBox 
-                x:Name="StatusSelector"
-                Grid.Column="1" 
-                SelectionChanged="StatusSelector_SelectionChanged" 
-                ItemStringFormat="" 
-                FontWeight="Normal" 
-                FontStyle="Italic" 
-                ScrollViewer.CanContentScroll="False" 
-                VerticalContentAlignment="Top" 
-                HorizontalContentAlignment="Stretch" 
-                Grid.ColumnSpan="2" 
-                Margin="0,22,0,0" Background="{x:Null}" FontFamily="Segoe UI Variable Display Semibold" FontSize="14">
-                <ComboBox.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="#FFE45B5B" 
-                                      Offset="1"/>
-                    </LinearGradientBrush>
-                </ComboBox.Foreground>
-            </ComboBox>
-            <ComboBox 
-                Name="WeightSelector"
-                Grid.Column="3"
-                SelectionChanged="WeightSelector_SelectionChanged"
-                Margin="0,22,0,0" 
-                HorizontalAlignment="Stretch" Background="{x:Null}" FontFamily="Segoe UI Variable Display Semibold" FontWeight="Bold" FontSize="14"/>
+            <Label Content="Filter by status" HorizontalAlignment="Left" Margin="130,10,0,0" VerticalAlignment="Top" Width="102" Grid.Column="0" Height="26"/>
+
+            <Label Content="Filter by weight" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Width="104" 
+                   Grid.Column="2" Height="26"/>
             <Button 
                 Content="Close Window" 
                 Grid.Column="4" 
@@ -57,14 +37,31 @@
                 Width="100" Click="Button_Click_2" FontFamily="Segoe UI Black" Background="#FFF4F5FA"/>
             <Button 
                 Content="Add&#xD;&#xA;Drone&#xD;&#xA;"
-                HorizontalAlignment="Center" 
-                Margin="0,106,0,0" 
+                HorizontalAlignment="Right" 
+                Margin="0,100,27,0" 
                 VerticalAlignment="Top" 
                 Height="108" 
                 Width="133" 
                 Click="Button_Click_1" Grid.Column="4"
                 Background="#FF3656D5" FontFamily="Baskerville Old Face" FontSize="36"/>
-            <Button Content="Grouping by Status" Grid.Column="4" HorizontalAlignment="Center" Margin="0,454,0,0" VerticalAlignment="Top" Width="116" Click="Button_Click_3"/>
+            <Button x:Name="groupingButton" 
+                    Content="Grouping by Status"
+                    Grid.Column="4"
+                    HorizontalAlignment="Right" 
+                    Margin="0,450,40,0" 
+                    VerticalAlignment="Top"
+                    Width="116" 
+                    Click="Button_Click_3" Height="20"/>
+            <Button 
+                x:Name="allDronesButton"
+                Content="Standart Drone list" 
+                HorizontalAlignment="Right" 
+                Margin="0,408,40,0" 
+                VerticalAlignment="Top" 
+                Height="24" 
+                Width="116"
+                Click="Button_Click"
+                Visibility="Hidden" Grid.Column="4"/>
         </Grid>
         <ListView 
             x:Name="DroneListView" 
@@ -72,32 +69,55 @@
             Margin="0,69,202,0" 
             Width="Auto" 
             Grid.RowSpan="2" 
-            MouseDoubleClick="DroneListView_MouseDoubleClick" FontFamily="Aharoni" FontWeight="Bold" FontSize="14"
-            ItemsSource="{Binding bl.GetDroneList, Mode=OneWay}">
+            MouseDoubleClick="DroneListView_MouseDoubleClick" FontFamily="Arial"
+            ItemsSource="{Binding bl.GetDroneList, Mode=OneWay}" SelectionChanged="DroneListView_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding Status}"/>
-                    <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Model}"/>
+                    <GridViewColumn Header="Status" Width="120" DisplayMemberBinding="{Binding Status}"/>
+                    <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding Model}"/>
                     <GridViewColumn Header="ID" Width="60" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Max Weight" Width="100" DisplayMemberBinding="{Binding MaxWeight}"/>
-                    <GridViewColumn Header="Battery" Width="70" DisplayMemberBinding="{Binding BatteryStatus}"/>
+                    <GridViewColumn Header="Max Weight" Width="120" DisplayMemberBinding="{Binding MaxWeight}"/>
+                    <GridViewColumn Header="Battery" Width="100" DisplayMemberBinding="{Binding BatteryStatus}"/>
                     <GridViewColumn Header="Parcel ID" Width="80" DisplayMemberBinding="{Binding DeliveredParcelId}"/>
                 </GridView>
             </ListView.View>
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
         </ListView>
-        <Button 
-            x:Name="allDronesButton"
-            Content="      All&#xA;The Drones" 
-                HorizontalAlignment="Left" 
-                Margin="40,24,0,0" 
-                VerticalAlignment="Top" 
-                Height="40" 
-                Width="112" 
-                Click="Button_Click"
-                Visibility="Hidden"/>
-        <Label Content="Filter by status" HorizontalAlignment="Left" Margin="202,-5,0,0" VerticalAlignment="Top" Width="198"/>
-        <Label Content="Filter by weight" HorizontalAlignment="Left" Margin="400,-5,0,0" VerticalAlignment="Top" Width="198"/>
-
-
+        <ComboBox 
+                Name="WeightSelector"                
+                Grid.Row="0"
+                SelectionChanged="WeightSelector_SelectionChanged"
+                Width="104"
+                VerticalAlignment="Top"
+                Margin="0,30,-200,0"
+                Background="{x:Null}" 
+                FontFamily="Segoe UI Variable Display Semibold" FontWeight="Bold" FontSize="14"/>
+        <ComboBox
+                x:Name="StatusSelector"                
+                Grid.Row="0" 
+                Text="Status filter"
+                SelectionChanged="StatusSelector_SelectionChanged"                 
+                ScrollViewer.CanContentScroll="False" 
+                VerticalContentAlignment="Top"
+            Width="120"
+            HorizontalAlignment="Left"
+                Margin="121,30,0,15" 
+                Background="{x:Null}" FontFamily="Segoe UI Variable Display Semibold" FontSize="14">
+            <ComboBox.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FFE45B5B" 
+                                      Offset="1"/>
+                </LinearGradientBrush>
+            </ComboBox.Foreground>
+        </ComboBox>
     </Grid>
 </Window>
