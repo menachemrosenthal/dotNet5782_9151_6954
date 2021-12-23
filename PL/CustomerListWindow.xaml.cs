@@ -31,12 +31,19 @@ namespace PL
 
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new CostomerWindow(BlCustomerList, (CustomerToList)CustomerListView.SelectedItem,this).Show();
+            CostomerWindow customerWindow = new (BlCustomerList, (CustomerToList)CustomerListView.SelectedItem);
+            customerWindow.Show();
+            customerWindow.CustomerChanged += UpdateWindow;
         }
 
         private void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
             new CostomerWindow(BlCustomerList,this).Show();
+        }
+
+        private void UpdateWindow(object sender, EventArgs e)
+        {
+            CustomerListView.ItemsSource = BlCustomerList.GetCustomerList();
         }
     }
 }

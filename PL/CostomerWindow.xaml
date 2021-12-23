@@ -67,7 +67,8 @@
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Text= "{Binding Path=Location.Longitude}"
-            Width="120"/>
+            Width="120"
+                 IsReadOnly="{Binding ElementName=Id, Path=IsReadOnly}"/>
         <Button 
             x:Name="UpdateButton"
             Content="Update Customer" 
@@ -81,17 +82,19 @@
             VerticalContentAlignment="Top" 
             FontFamily="Segoe UI Historic" Click="UpdateButton_Click"/>
         <ListBox x:Name="SendedParcels"
-            Margin="140,146,419,151"/>
+            Margin="140,146,419,151"
+                 Visibility="{Binding ElementName=UpdateButton, Path=Visibility}"/>
         <ListBox x:Name="RecievedParcels"
-            Margin="140,284,419,0"/>
+            Margin="140,284,419,0"
+            Visibility="{Binding ElementName=UpdateButton, Path=Visibility}"/>
         <TextBox x:Name="LatitudeTextBox"
             HorizontalAlignment="Left" 
             Margin="140,121,0,0" 
             TextWrapping="Wrap" 
             VerticalAlignment="Top" 
             Width="120"
-            Text= "{Binding Path=Location.Latitude}"/>
-
+            Text= "{Binding Path=Location.Latitude}"
+            IsReadOnly="{Binding ElementName=Id, Path=IsReadOnly}"/>
         <Label x:Name="LongitudeLabel" 
             Content="Longitude" 
             HorizontalAlignment="Left" 
@@ -114,12 +117,14 @@
             Content="Sended Parcels" 
                HorizontalAlignment="Left" 
                Margin="46,146,0,0" VerticalAlignment="Top" 
-               RenderTransformOrigin="0.55,1.332"/>
+               RenderTransformOrigin="0.55,1.332"
+               Visibility="{Binding ElementName=UpdateButton, Path=Visibility}"/>
         <Label x:Name="RecievedLabel"
             Content="Recieved Parcels" 
                HorizontalAlignment="Left" 
                Margin="36,284,0,0" 
-               VerticalAlignment="Top"/>
+               VerticalAlignment="Top"
+               Visibility="{Binding ElementName=UpdateButton, Path=Visibility}"/>
 
 
     </Grid>
