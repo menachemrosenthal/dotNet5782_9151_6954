@@ -32,14 +32,17 @@ namespace PL
             InitializeComponent();
             GetBL = bl;
             station = GetBL.GetStation(stationToList.Id);
-            stationView.DataContext = station;
+            DataContext = station;
+            if (station.DronesCharging.Count == 0)
+                drones.Visibility = Visibility.Hidden;
             drones.ItemsSource = station.DronesCharging;
         }
 
         private void drones_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.DroneInCharging drone = (BO.DroneInCharging)drones.SelectedItem;
-            new DroneWindow(GetBL, drone.Id).Show();
+            new DroneWindow(GetBL, drone.Id).Show();           
         }
+
     }
 }

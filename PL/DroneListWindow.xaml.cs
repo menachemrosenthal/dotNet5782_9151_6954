@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,54 +18,100 @@ namespace PL
     public partial class DroneListWindow : Window
     {
         BO.BL BlDroneList;
+        ICollectionView mainView;
         public DroneListWindow(BO.BL bl)
         {
             InitializeComponent();
             BlDroneList = (BO.BL)BL.BlFactory.GetBl();
             DroneListView.ItemsSource = bl.GetDroneList();
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));            
+            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            //mainView = null;
         }
 
         private void WeightSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {                        
+        {
+            if(WeightSelector.SelectedItem!=null)
+            { 
             DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
                 (x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
-
             allDronesButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void StatusSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
-                (x => x.Status == (DroneStatuses)StatusSelector.SelectedItem);
-
+            if (StatusSelector.SelectedItem != null)
+            { 
+                DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
+                    (x => x.Status == (DroneStatuses)StatusSelector.SelectedItem);
             allDronesButton.Visibility = Visibility.Visible;
-        }       
-         
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DroneListView.ItemsSource = BlDroneList.GetDroneList();
             allDronesButton.Visibility = Visibility.Hidden;
-            WeightSelector.SelectedItem = -1;
-            StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
+            groupingButton.Visibility = Visibility.Visible;
+            WeightSelector.SelectedItem = null;
+            StatusSelector.SelectedItem = null;
+            if (mainView != null)
+                mainView.GroupDescriptions.Clear();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new DroneWindow(BlDroneList, this).Show();
+            DroneWindow droneWindow = new(BlDroneList);
+            droneWindow.Show();
+            droneWindow.DroneChanged += UpdateDroneList;
         }
 
         private void DroneListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DroneToList drone = (DroneToList)DroneListView.SelectedItem;
-            new DroneWindow(BlDroneList, drone.Id, this).Show();
+            DroneWindow droneWindow = new(BlDroneList, drone.Id);
+            droneWindow.Show();
+            droneWindow.DroneChanged += UpdateDroneList;
+        }
+
+        public void UpdateDroneList(object s, EventArgs e)
+        {
+            DroneListView.ItemsSource = BlDroneList.GetDroneList();
+
+            if (StatusSelector.SelectedItem != null)
+                DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
+                (x => x.Status == (DroneStatuses)StatusSelector.SelectedItem);
+
+            if (WeightSelector.SelectedItem != null)
+                DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
+                    (x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
+
+            if (mainView != null)
+            {
+                mainView = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+                mainView.GroupDescriptions.Add(groupDescription);
+            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            mainView = (CollectionView)CollectionViewSource.GetDefaultView(DroneListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Status");
+            mainView.GroupDescriptions.Add(groupDescription);
+            groupingButton.Visibility = Visibility.Hidden;
+            allDronesButton.Visibility = Visibility.Visible;
+        }
+
+        private void DroneListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

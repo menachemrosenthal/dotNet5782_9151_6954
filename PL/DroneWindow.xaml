@@ -52,7 +52,9 @@
             Name="WeightSelector" 
             Margin="140,90,469,0"
             VerticalAlignment="Top"
-            FontFamily="Bahnschrift Light" FontWeight="Bold" Height="20"/>
+            FontFamily="Bahnschrift Light" 
+            FontWeight="Bold" 
+            Height="20"/>
         <Label 
             x:Name="stationIdLabel"
             Content="pick one station from the list to first charging" 
@@ -94,7 +96,7 @@
             VerticalAlignment="Top"
             IsReadOnly="True"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=BatteryStatus}" Height="18"/>
+            Text="{Binding Path=BatteryStatus,UpdateSourceTrigger=PropertyChanged}" Height="18"/>
         <Label           
             x:Name="statusLabel"
             Content="Status:"
@@ -111,7 +113,7 @@
             VerticalAlignment="Top"
             IsReadOnly="True"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=Status, UpdateSourceTrigger=PropertyChanged}" Height="18"/>
+            Text="{Binding Path=Status}" Height="18"/>
         <Label           
             x:Name="latitudeLabel"
             Content="Latitude:"
@@ -128,7 +130,7 @@
              VerticalAlignment="Top"
             IsReadOnly="True" Grid.Row="1"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=CurrentLocation.Latitude}" Height="18"/>
+            Text="{Binding Path=CurrentLocation.Latitude,UpdateSourceTrigger=PropertyChanged}" Height="18"/>
         <Label           
             x:Name="longitudeLabel"
             Content="Longitude:"
@@ -145,7 +147,7 @@
             VerticalAlignment="Top"
             IsReadOnly="True" Grid.Row="1"
             Visibility="{Binding ElementName=Battery, Path=Visibility}"
-            Text="{Binding Path=CurrentLocation.Longitude}" Height="18"/>
+            Text="{Binding Path=CurrentLocation.Longitude,UpdateSourceTrigger=PropertyChanged}" Height="18"/>
         <Button 
             x:Name="NameUpdateButton"
             Content="&#xD;&#xA;Update Drone name" 
