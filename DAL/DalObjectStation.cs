@@ -55,7 +55,8 @@ namespace DalApi
         /// <param name="station">station for update</param>
         public void StationUpdate(Station station)
         {
-            int index = DataSource.Stations.IndexOf(station);
+            var dalStation = GetStation(station.Id);
+            int index = DataSource.Stations.IndexOf(dalStation);
             DataSource.Stations[index] = station;
         }
 

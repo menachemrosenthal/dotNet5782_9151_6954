@@ -39,9 +39,12 @@ namespace BO
                station.LocationOfStation.Longitude > 35.9)
                 throw new ArgumentOutOfRangeException("The longitude was out of range");
 
-            if (station.LocationOfStation.Latitude < 31.589844 ||
-            station.LocationOfStation.Latitude > 32.801705)
+            if (station.LocationOfStation.Latitude < 31.5898 ||
+            station.LocationOfStation.Latitude > 32.802)
                 throw new ArgumentOutOfRangeException("The latitude was out Of range");
+
+            if (dal.StationList().Any(x => x.Id == station.Id))
+                throw new DuplicateItemException($"Station Id: {station.Id} exists already.");
 
             DalApi.Station dalStation = new()
             {
@@ -95,6 +98,11 @@ namespace BO
             return station;
         }
 
+        /// <summary>
+        /// station list by condition
+        /// </summary>
+        /// <param name="condition">condition for selcet stations</param>
+        /// <returns>IEnumerable of stations by condition</returns>
         public IEnumerable<StationToList> GetStationsByCondition(Predicate<StationToList> condition)
                 => GetBaseStationList().Where(x => condition(x));
 
