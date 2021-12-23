@@ -20,8 +20,7 @@ namespace PL
     public partial class StationWindow : Window
     {
         BO.BL GetBL;
-        BO.Station Station;
-        public event EventHandler StationChanged;
+        BO.Station Station;        
 
         public StationWindow(BO.BL bl)
         {
@@ -39,8 +38,8 @@ namespace PL
             InitializeComponent();
             GetBL = bl;
             Station = GetBL.GetStation(stationId);
-            StationChanged += UpdateWindow;
-            StationChanged(this, EventArgs.Empty);
+            bl.StationChanged += UpdateWindow;
+            UpdateWindow(this, EventArgs.Empty);
             id.IsEnabled = false;
         }
 
@@ -60,9 +59,7 @@ namespace PL
         private void Drones_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.DroneInCharging drone = (BO.DroneInCharging)drones.SelectedItem;
-            DroneWindow droneWindow = new DroneWindow(GetBL, drone.Id);
-            droneWindow.Show();
-            droneWindow.DroneChanged += StationChanged;
+            new DroneWindow(GetBL, drone.Id).Show();
         }
 
         private void Id_SelectionChanged(object sender, RoutedEventArgs e)
@@ -81,8 +78,7 @@ namespace PL
         {
             try
             {
-                GetBL.StationUpdate(int.Parse(id.Text), name.Text, slots.Text);
-                StationChanged(this, EventArgs.Empty);
+                GetBL.StationUpdate(int.Parse(id.Text), name.Text, slots.Text);                
                 _ = MessageBox.Show("The Station was updated successfully");
             }
             catch (Exception ex)
@@ -96,7 +92,7 @@ namespace PL
 
         private void AddBUtton_Click(object sender, RoutedEventArgs e)
         {
-           
+
 
             try
             {
@@ -112,8 +108,7 @@ namespace PL
                     }
                 };
 
-                GetBL.AddStation(station);
-                StationChanged(this, EventArgs.Empty);
+                GetBL.AddStation(station);                
                 _ = MessageBox.Show("The Station was added successfully");
                 Close();
             }
@@ -121,16 +116,16 @@ namespace PL
             {
                 if (id.Background == Brushes.OrangeRed)
                     id.Text = "wrong ID";
-                
+
                 if (latitud.Background == Brushes.OrangeRed)
                     latitud.Text = "wrong Latitude";
 
                 if (longitude.Background == Brushes.OrangeRed)
                     longitude.Text = "wrong Longitude";
-                
+
                 if (slots.Background == Brushes.OrangeRed)
                     slots.Text = "wrong num of charging slots";
-     
+
                 _ = MessageBox.Show(ex.Message);
             }
         }
@@ -161,7 +156,7 @@ namespace PL
 
         private void Slots_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            
+
             if (_ = int.TryParse(slots.Text, out int chargSlts) && chargSlts > 0)
             {
                 slots.Background = Brushes.LightGreen;

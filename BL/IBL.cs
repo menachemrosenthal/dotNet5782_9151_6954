@@ -6,6 +6,19 @@ namespace BlApi
 {
     public interface IBL
     {
+        public event EventHandler StationChanged;
+        public event EventHandler ParcelChanged;
+
+        /// <summary>
+        /// when changing happens or new customer added
+        /// </summary>o
+        public event EventHandler CustomerChanged;
+
+        /// <summary>
+        /// when changing happens or new drone added
+        /// </summary>
+        public event EventHandler DroneChanged;
+
         /// <summary>
         /// add a station
         /// </summary>

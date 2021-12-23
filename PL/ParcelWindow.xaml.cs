@@ -39,5 +39,10 @@ namespace PL
             parcel = BlParcel.GetParcel(parcelToList.Id);
             DataContext = parcel;
         }
+
+        private void AddParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

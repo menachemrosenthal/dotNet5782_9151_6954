@@ -16,10 +16,7 @@ namespace PL
         BO.BL BlDrone;
         int stationId;
         Drone drone;
-       
-        public event EventHandler DroneChanged;
-        
-        
+                               
         public DroneWindow(BO.BL bl)
         {
             InitializeComponent();
@@ -38,8 +35,8 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             WeightSelector.SelectedValue = drone.MaxWeight;
             WeightSelector.IsEnabled = false;
-            DroneChanged += UpdateWindow;
-            DroneChanged(this, EventArgs.Empty);           
+            bl.DroneChanged += UpdateWindow;
+            UpdateWindow(this, EventArgs.Empty);           
         }
 
         public void UpdateWindow(object s, EventArgs e)
@@ -86,8 +83,7 @@ namespace PL
                         MaxWeight = Enum.Parse<WeightCategories>(WeightSelector.SelectedItem.ToString())
                     };
 
-                    BlDrone.AddDrone(drone, stationId);
-                    DroneChanged(this, EventArgs.Empty);
+                    BlDrone.AddDrone(drone, stationId);                    
                     _ = MessageBox.Show("The Drone was added successfully");                    
                     Close();
                     return;
@@ -117,8 +113,7 @@ namespace PL
         {
             try
             {
-                BlDrone.DroneNameUpdate(int.Parse(ID.Text), Name.Text);
-                DroneChanged(this, EventArgs.Empty);
+                BlDrone.DroneNameUpdate(int.Parse(ID.Text), Name.Text);                
                 MessageBox.Show("The Name was update successfully");                
             }
             catch (Exception ex)
@@ -132,8 +127,7 @@ namespace PL
             try
             {
                 BlDrone.ChargeDrone(int.Parse(ID.Text));
-                MessageBox.Show("The Drone was sent for charging successfully");
-                DroneChanged(this, EventArgs.Empty);
+                MessageBox.Show("The Drone was sent for charging successfully");                
             }
             catch (Exception ex)
             {
@@ -145,8 +139,7 @@ namespace PL
         {
             try
             {
-                BlDrone.ParcelToDrone(int.Parse(ID.Text));
-                DroneChanged(this, EventArgs.Empty);
+                BlDrone.ParcelToDrone(int.Parse(ID.Text));                
                 MessageBox.Show("The drone associated with a parcel successfully");
             }
             catch (Exception ex)
@@ -160,8 +153,7 @@ namespace PL
         {
             try
             {
-                BlDrone.ParcelPickedupUptade(int.Parse(ID.Text));
-                DroneChanged(this, EventArgs.Empty);
+                BlDrone.ParcelPickedupUptade(int.Parse(ID.Text));                
                 MessageBox.Show("The parcel was pickedup successfully");                
             }
             catch (Exception ex)
@@ -175,8 +167,7 @@ namespace PL
         {
             try
             {
-                BlDrone.ParcelProvisionUpdate(int.Parse(ID.Text));
-                DroneChanged(this, EventArgs.Empty);
+                BlDrone.ParcelProvisionUpdate(int.Parse(ID.Text));               
                 MessageBox.Show("The parcel provided successfully");                
             }
             catch (Exception ex)
@@ -191,8 +182,7 @@ namespace PL
             try
             {
                 BlDrone.ReleaseDrone(int.Parse(ID.Text));
-                MessageBox.Show("The drone was release from charging successfully");
-                DroneChanged(this, EventArgs.Empty);
+                MessageBox.Show("The drone was release from charging successfully");                
             }
             catch (Exception ex)
             {

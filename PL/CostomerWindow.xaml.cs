@@ -21,13 +21,12 @@ namespace PL
     public partial class CostomerWindow : Window
     {
         private BO.BL blCustomerList;
-        Customer Customer;
-        public event EventHandler CustomerChanged;
-        public CostomerWindow(BO.BL bl, CustomerListWindow customerListWindow)
+        Customer Customer;        
+
+        public CostomerWindow(BO.BL bl)
         {
             InitializeComponent();
-
-            blCustomerList = bl;
+            blCustomerList = bl;            
             UpdateButton.Visibility = Visibility.Hidden;
         }
 
@@ -37,8 +36,8 @@ namespace PL
             AddButton.Visibility = Visibility.Hidden;
             blCustomerList = bl;
             Customer = blCustomerList.GetCustomer(customerToList.Id);
-            CustomerChanged += UpdateWindow;
-            CustomerChanged(this, EventArgs.Empty);
+            bl.CustomerChanged += UpdateWindow;           
+            UpdateWindow(this, EventArgs.Empty);            
             Id.IsReadOnly = true;
         }
 
@@ -63,9 +62,7 @@ namespace PL
                     };
 
                     blCustomerList.AddCustumer(customer1);
-                    _ = MessageBox.Show("Customer was added successfully");
-
-                    CustomerChanged(this, EventArgs.Empty);
+                    _ = MessageBox.Show("Customer was added successfully");                    
                     Close();
                     return;
                 }
@@ -88,8 +85,7 @@ namespace PL
         {
             try
             {
-                blCustomerList.CustomerUpdate(Customer);
-                CustomerChanged(this, EventArgs.Empty);
+                blCustomerList.CustomerUpdate(Customer);                
                 MessageBox.Show("The Customer was updated successfully");
             }
             catch (Exception ex)

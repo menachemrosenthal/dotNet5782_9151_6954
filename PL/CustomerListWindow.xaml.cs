@@ -27,18 +27,17 @@ namespace PL
             InitializeComponent();
             BlCustomerList = bl;
             CustomerListView.ItemsSource = bl.GetCustomerList();
+            bl.CustomerChanged += UpdateWindow;
         }
 
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            CostomerWindow customerWindow = new (BlCustomerList, (CustomerToList)CustomerListView.SelectedItem);
-            customerWindow.Show();
-            customerWindow.CustomerChanged += UpdateWindow;
+            new CostomerWindow(BlCustomerList, (CustomerToList)CustomerListView.SelectedItem).Show();                        
         }
 
         private void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
-            new CostomerWindow(BlCustomerList,this).Show();
+            new CostomerWindow(BlCustomerList).Show();
         }
 
         private void UpdateWindow(object sender, EventArgs e)

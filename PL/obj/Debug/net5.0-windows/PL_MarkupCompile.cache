@@ -4,26 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\
+C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\
 PL
 none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
-<<<<<<< HEAD
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\App.xaml
-8638424946
-
-10-1494526068
-1951340098878
-CostomerWindow.xaml;CustomerListWindow.xaml;DroneListWindow.xaml;DroneWindow.xaml;MainWindow.xaml;ParcelListWindow.xaml;StationListView.xaml;StationWindow.xaml;
-=======
-C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\App.xaml
 9-1278786541
 
 11-426975772
-1951140760950
+1951340098878
 CostomerWindow.xaml;CustomerListWindow.xaml;DroneListWindow.xaml;DroneWindow.xaml;MainWindow.xaml;ParcelListWindow.xaml;ParcelWindow.xaml;StationListView.xaml;StationWindow.xaml;
->>>>>>> d9fb129a565eb831dfd55dc6d7c868d66e801d5d
 
 False
 

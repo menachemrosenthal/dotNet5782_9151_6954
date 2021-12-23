@@ -7,6 +7,8 @@ namespace BO
 {
     public partial class BL : IBL
     {
+        public event EventHandler CustomerChanged;
+
         /// <summary>
         /// gets Customer and creates bl object
         /// </summary>
@@ -80,6 +82,8 @@ namespace BO
                 Longitude = customer.Location.Longitude
             };
             dal.AddCustumer(dalCustomer);
+            if (CustomerChanged != null)
+                CustomerChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -111,13 +115,18 @@ namespace BO
 
             if (!string.IsNullOrWhiteSpace(customer.Name))
                 dalCustomer.Name = customer.Name;
+
             if (!string.IsNullOrWhiteSpace(customer.Phone))
                 dalCustomer.Phone = customer.Phone;
+
             dal.CustomerUpdate(dalCustomer);
+
+            if (CustomerChanged != null)
+                CustomerChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
-        /// calculates ditance to closest station
+        /// calculates distance to closest station
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>

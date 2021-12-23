@@ -8,6 +8,8 @@ namespace BO
 {
     public partial class BL : IBL
     {
+        public event EventHandler ParcelChanged;
+
         /// <summary>
         /// gets parcel and creates bl object
         /// </summary>
@@ -59,6 +61,12 @@ namespace BO
             drone.Status = DroneStatuses.free;
             drone.DeliveredParcelId = 0;
             dal.UpdateDelivery(parcel.Id);
+
+            if (DroneChanged != null)
+                DroneChanged(this, EventArgs.Empty);
+
+            if (ParcelChanged != null)
+                ParcelChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -95,6 +103,9 @@ namespace BO
 
             };
             dal.AddParcel(dalParcel);
+
+            if (ParcelChanged != null)
+                ParcelChanged(this, EventArgs.Empty);
         }
 
         /// <summary>

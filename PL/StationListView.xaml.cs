@@ -26,6 +26,7 @@ namespace PL
         {
             InitializeComponent();
             GetBL = bL;
+            bL.StationChanged += UpdateWindow;
             stationList.ItemsSource = GetBL.GetBaseStationList();
             
         }
@@ -33,9 +34,7 @@ namespace PL
         private void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.StationToList station = (BO.StationToList)stationList.SelectedItem;
-            StationWindow stationWindow = new (GetBL, station.Id);
-            stationWindow.Show();
-            stationWindow.StationChanged += UpdateWindow;
+            new StationWindow(GetBL, station.Id).Show();                        
         }
 
         private void GroupingButton_Click(object sender, EventArgs e)
@@ -69,9 +68,7 @@ namespace PL
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            StationWindow station = new(GetBL);
-            station.Show();
-            station.StationChanged += UpdateWindow;
+            new StationWindow (GetBL).Show();                        
         }
     }
 }
