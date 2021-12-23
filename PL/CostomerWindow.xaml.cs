@@ -44,9 +44,13 @@ namespace PL
             AddButton.Visibility = Visibility.Hidden;
             blCustomerList = bl;
             customer = blCustomerList.GetCustomer(customerToList.Id);
-            this.DataContext = customer;
+            DataContext = customer;
             RecievedParcels.ItemsSource = customer.Get;
             SendedParcels.ItemsSource = customer.Sended;
+            Id.IsReadOnly = true;
+            Longitude.IsReadOnly = true;
+            LatitudeTextBox.IsReadOnly = true;
+
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)

@@ -44,6 +44,20 @@
             FontWeight="Bold" 
             FontSize="25" Click="CustomerListButton_Click"
             />
+        <Button 
+            x:Name="ParcelListButton"
+            Content="Parcels" 
+            HorizontalAlignment="Left" 
+            Margin="51,47,0,0" 
+            VerticalAlignment="Top" 
+            Height="100" 
+            Width="133" 
+            Grid.RowSpan="2" 
+            FontWeight="Bold" 
+            FontSize="25" 
+            Click="ParcelListButton_Click" 
+            RenderTransformOrigin="0.469,0.509"
+            />
 
 
     </Grid>
