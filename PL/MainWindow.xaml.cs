@@ -28,5 +28,10 @@ namespace PL
         {
             new CustomerListWindow(bl).Show();
         }
+
+        private void ParcelListButton_Click(object sender, RoutedEventArgs e)
+        {
+            new ParcelListWindow(bl).Show();
+        }
     }
 }
