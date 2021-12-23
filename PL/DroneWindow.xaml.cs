@@ -72,9 +72,6 @@ namespace PL
                 provisionButton.Visibility = Visibility.Visible;            
         }
 
-        
-        
-
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             _ = int.TryParse(ID.Text, out int id);
@@ -91,7 +88,7 @@ namespace PL
 
                     BlDrone.AddDrone(drone, stationId);
                     DroneChanged(this, EventArgs.Empty);
-                    _ = MessageBox.Show("Drone was added successfully");                    
+                    _ = MessageBox.Show("The Drone was added successfully");                    
                     Close();
                     return;
                 }

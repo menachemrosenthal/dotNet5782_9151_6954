@@ -27,27 +27,35 @@ namespace PL
             InitializeComponent();
             GetBL = bL;
             stationList.ItemsSource = GetBL.GetBaseStationList();
+            
         }
 
-        private void stationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new StationWindow(GetBL, (BO.StationToList)stationList.SelectedItem, this).Show();
+            BO.StationToList station = (BO.StationToList)stationList.SelectedItem;
+            StationWindow stationWindow = new (GetBL, station.Id);
+            stationWindow.Show();
+            stationWindow.StationChanged += UpdateWindow;
         }
 
-        private void groupingButton_Click(object sender, RoutedEventArgs e)
+        private void GroupingButton_Click(object sender, EventArgs e)
         {
             mainView = (CollectionView)CollectionViewSource.GetDefaultView(stationList.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription("FreeChargeSlots");
             mainView.GroupDescriptions.Add(groupDescription);
+            standartListButton.Visibility = Visibility.Visible;
+            groupingButton.Visibility = Visibility.Hidden;
         }
 
-        private void standartListButton_Click(object sender, RoutedEventArgs e)
+        private void StandartListButton_Click(object sender, EventArgs e)
         {
             stationList.ItemsSource = GetBL.GetBaseStationList();
             mainView = null;
+            groupingButton.Visibility = Visibility.Visible;
+            standartListButton.Visibility = Visibility.Hidden;
         }
 
-        private void UpdateWindow(object sender, RoutedEventArgs e)
+        private void UpdateWindow(object sender, EventArgs e)
         {
             stationList.ItemsSource = GetBL.GetBaseStationList();
 
@@ -57,6 +65,13 @@ namespace PL
                 PropertyGroupDescription groupDescription = new PropertyGroupDescription("FreeChargeSlots");
                 mainView.GroupDescriptions.Add(groupDescription);
             }
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            StationWindow station = new(GetBL);
+            station.Show();
+            station.StationChanged += UpdateWindow;
         }
     }
 }
