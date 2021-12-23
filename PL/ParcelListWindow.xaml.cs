@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL
 {
@@ -33,7 +34,13 @@ namespace PL
 
         private void AddParcel_Click(object sender, RoutedEventArgs e)
         {
+            new ParcelWindow(BlParcelList, this).Show();
+        }
 
+        private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ParcelToList parcelToList = (ParcelToList)ParcelListView.SelectedItem;
+            new ParcelWindow(BlParcelList, parcelToList, this).Show();
         }
     }
 }

@@ -70,7 +70,7 @@
             Width="Auto" 
             Grid.RowSpan="2" 
             MouseDoubleClick="DroneListView_MouseDoubleClick" FontFamily="Arial"
-            ItemsSource="{Binding bl.GetDroneList, Mode=OneWay}" SelectionChanged="DroneListView_SelectionChanged">
+            ItemsSource="{Binding bl.GetDroneList, Mode=OneWay}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Status" Width="120" DisplayMemberBinding="{Binding Status}"/>

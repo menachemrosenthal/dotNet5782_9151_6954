@@ -22,6 +22,9 @@
     <Compile Update="ParcelListWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ParcelWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="StationListView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -46,6 +49,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ParcelListWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ParcelWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="StationListView.xaml">

@@ -8,7 +8,8 @@
         Title="ParcelListWindow" Height="450" Width="800">
     <Grid>
         <ListView x:Name="ParcelListView"
-            Margin="0,83,167,0">
+            Margin="0,83,167,0"
+            MouseDoubleClick="ParcelListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
