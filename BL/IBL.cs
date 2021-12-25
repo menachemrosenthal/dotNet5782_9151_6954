@@ -6,18 +6,12 @@ namespace BlApi
 {
     public interface IBL
     {
-        public event EventHandler StationChanged;
-        public event EventHandler ParcelChanged;
-
         /// <summary>
-        /// when changing happens or new customer added
-        /// </summary>o
-        public event EventHandler CustomerChanged;
-
-        /// <summary>
-        /// when changing happens or new drone added
+        /// registration of event handler to fit event handler
         /// </summary>
-        public event EventHandler DroneChanged;
+        /// <param name="e">even handler to registration</param>
+        /// <param name="obj">name of object his changing we wont to know</param>
+        public void EventRegistration(EventHandler e, string obj);
 
         /// <summary>
         /// add a station

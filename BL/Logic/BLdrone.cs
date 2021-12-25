@@ -6,8 +6,11 @@ using BlApi;
 namespace BO
 {
     public partial class BL : IBL
-    {        
-        public event EventHandler DroneChanged;
+    {
+        /// <summary>
+        /// when changing happens or drone was added
+        /// </summary>
+        private event EventHandler DroneChanged;
 
         /// <summary>
         /// get drone list
@@ -29,11 +32,7 @@ namespace BO
                 drone.CurrentLocation = SenderLocation(dal.GetParcel(drone.DeliveredParcelId));
                 dal.UpdatePickup(drone.DeliveredParcelId);
 
-                if (DroneChanged != null)
-                    DroneChanged(this, EventArgs.Empty);
-
-                if (ParcelChanged != null)
-                    ParcelChanged(this, EventArgs.Empty);
+                EventsAction();
 
                 return;
             }
@@ -70,8 +69,7 @@ namespace BO
             dal.AddDrone(daldrone);
             dal.ChargeDrone(drone.Id, stationID);
 
-            if (DroneChanged != null)
-                DroneChanged(this, EventArgs.Empty);
+            EventsAction();
         }
 
         /// <summary>
@@ -92,8 +90,7 @@ namespace BO
             int index = drones.IndexOf(blDrone);
             drones[index] = blDrone;
 
-            if (DroneChanged != null)
-                DroneChanged(this, EventArgs.Empty);
+            EventsAction();
         }
 
         /// <summary>
@@ -121,10 +118,8 @@ namespace BO
                 drones[index] = drone;
                 dal.ChargeDrone(droneId, ClosestStation(location, dal.StationList()).Id);
 
-                if (DroneChanged != null)
-                    DroneChanged(this, EventArgs.Empty);
-                if (StationChanged != null)
-                    StationChanged(this, EventArgs.Empty);
+                EventsAction();
+
                 return;
             }
             else
@@ -155,11 +150,7 @@ namespace BO
             int index = drones.IndexOf(drone);
             drones[index] = drone;
 
-            if (DroneChanged != null)
-                DroneChanged(this, EventArgs.Empty);
-
-            if (StationChanged != null)
-                StationChanged(this, EventArgs.Empty);
+            EventsAction();
         }
 
         /// <summary>
@@ -192,11 +183,7 @@ namespace BO
                     dal.ParcelToDrone(parcel.Id, drone.Id);
                     drones[drones.IndexOf(drone)] = drone;
 
-                    if (DroneChanged != null)
-                        DroneChanged(this, EventArgs.Empty);
-
-                    if (ParcelChanged != null)
-                        ParcelChanged(this, EventArgs.Empty);
+                    EventsAction();
 
                     return;
                 }

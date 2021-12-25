@@ -20,8 +20,8 @@ namespace PL
     public partial class StationWindow : Window
     {
         BO.BL GetBL;
-        BO.Station Station;        
-
+        BO.Station Station;
+        event EventHandler StationChanged;
         public StationWindow(BO.BL bl)
         {
             InitializeComponent();
@@ -38,7 +38,8 @@ namespace PL
             InitializeComponent();
             GetBL = bl;
             Station = GetBL.GetStation(stationId);
-            bl.StationChanged += UpdateWindow;
+            StationChanged += UpdateWindow;
+            GetBL.EventRegistration(StationChanged, "Station");
             UpdateWindow(this, EventArgs.Empty);
             id.IsEnabled = false;
         }

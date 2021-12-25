@@ -81,15 +81,6 @@
                     <GridViewColumn Header="Parcel ID" Width="80" DisplayMemberBinding="{Binding DeliveredParcelId}"/>
                 </GridView>
             </ListView.View>
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
         </ListView>
         <ComboBox 
                 Name="WeightSelector"                
@@ -107,8 +98,8 @@
                 SelectionChanged="StatusSelector_SelectionChanged"                 
                 ScrollViewer.CanContentScroll="False" 
                 VerticalContentAlignment="Top"
-            Width="120"
-            HorizontalAlignment="Left"
+                Width="120"
+                 HorizontalAlignment="Left"
                 Margin="121,30,0,15" 
                 Background="{x:Null}" FontFamily="Segoe UI Variable Display Semibold" FontSize="14">
             <ComboBox.Foreground>

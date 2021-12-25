@@ -1,5 +1,5 @@
 using BlApi;
-﻿using DalApi;
+using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +21,31 @@ namespace BO
 
         //static readonly BL instance = new();
         //internal static BL Instance { get { return instance; } }
+        public static BL Instance { get { return Nested.instance; } }
+
+        public void EventRegistration(EventHandler e, string obj)
+        {
+            if (obj == "Drone")
+                DroneChanged += e;
+            if (obj == "Station")
+                StationChanged += e;
+            if (obj == "Customer")
+                CustomerChanged += e;
+            if (obj == "Parcel")
+                ParcelChanged += e;
+        }
+
+        private void EventsAction()
+        {
+            if (StationChanged != null)
+                StationChanged(this, EventArgs.Empty);
+            if (DroneChanged != null)
+                DroneChanged(this, EventArgs.Empty);
+            if (CustomerChanged != null)
+                CustomerChanged(this, EventArgs.Empty);
+            if (ParcelChanged != null)
+                ParcelChanged(this, EventArgs.Empty);
+        }
 
         private class Nested
         {
@@ -30,7 +55,6 @@ namespace BO
 
             internal static readonly BL instance = new BL();
         }
-        public static BL Instance { get { return Nested.instance; } }
 
         private BL()
         {
@@ -71,7 +95,7 @@ namespace BO
 
                     int batteryUse = (int)BatteryUseInDelivery(drone, parcel);
                     if (batteryUse < 99)
-                        drone.BatteryStatus = r.Next(batteryUse, 99) + 1;                                        
+                        drone.BatteryStatus = r.Next(batteryUse, 99) + 1;
                 }
 
                 else
@@ -86,8 +110,8 @@ namespace BO
                         DalApi.Station station = new();
                         station = dal.StationList().ElementAt(r.Next((int)dal.StationList().LongCount() - 1));
                         drone.CurrentLocation = StationLocation(station);
-                        drone.BatteryStatus = r.Next(0, 20);                        
-                        dal.ChargeDrone(drone.Id, station.Id);                        
+                        drone.BatteryStatus = r.Next(0, 20);
+                        dal.ChargeDrone(drone.Id, station.Id);
                     }
 
                     //is not maintenance or associated to parcel
@@ -100,7 +124,7 @@ namespace BO
 
                         drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation,
                                                     StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99)
-                                                    + 1;                        
+                                                    + 1;
                     }
                 }
             }

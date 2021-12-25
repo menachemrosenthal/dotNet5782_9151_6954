@@ -22,12 +22,14 @@ namespace PL
     public partial class CustomerListWindow : Window
     {
         BO.BL BlCustomerList;
+        event EventHandler CustomerListChanged;
         public CustomerListWindow(BO.BL bl)
         {
             InitializeComponent();
             BlCustomerList = bl;
             CustomerListView.ItemsSource = bl.GetCustomerList();
-            bl.CustomerChanged += UpdateWindow;
+            CustomerListChanged += UpdateWindow;
+            BlCustomerList.EventRegistration(CustomerListChanged, "Customer");
         }
 
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)

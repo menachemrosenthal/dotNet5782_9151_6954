@@ -31,7 +31,10 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontWeight="Bold" FontSize="14" Text="{Binding Name}"/>
+                                <TextBlock Text=" Free charge slots" FontSize="14" FontWeight="Bold"/>
+                            </StackPanel>
                         </DataTemplate>
                     </GroupStyle.HeaderTemplate>
                 </GroupStyle>

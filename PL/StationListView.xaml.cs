@@ -22,13 +22,14 @@ namespace PL
     {
         BO.BL GetBL;
         ICollectionView mainView;
+        event EventHandler StationListChanged;
         public StationListView(BO.BL bL)
         {
             InitializeComponent();
             GetBL = bL;
-            bL.StationChanged += UpdateWindow;
+            StationListChanged += UpdateWindow;
+            GetBL.EventRegistration(StationListChanged, "Station");
             stationList.ItemsSource = GetBL.GetBaseStationList();
-            
         }
 
         private void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)

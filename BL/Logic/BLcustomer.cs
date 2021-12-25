@@ -7,7 +7,10 @@ namespace BO
 {
     public partial class BL : IBL
     {
-        public event EventHandler CustomerChanged;
+        /// <summary>
+        /// when changing happens or customer was added
+        /// </summary>
+        private event EventHandler CustomerChanged;
 
         /// <summary>
         /// gets Customer and creates bl object
@@ -82,8 +85,7 @@ namespace BO
                 Longitude = customer.Location.Longitude
             };
             dal.AddCustumer(dalCustomer);
-            if (CustomerChanged != null)
-                CustomerChanged(this, EventArgs.Empty);
+            EventsAction();
         }
 
         /// <summary>
@@ -121,8 +123,7 @@ namespace BO
 
             dal.CustomerUpdate(dalCustomer);
 
-            if (CustomerChanged != null)
-                CustomerChanged(this, EventArgs.Empty);
+            EventsAction();
         }
 
         /// <summary>

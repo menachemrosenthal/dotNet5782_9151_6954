@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,8 @@ namespace PL
     public partial class ParcelListWindow : Window
     {
         BO.BL BlParcelList;
+        event EventHandler ParcelListChanged;
+        ICollectionView mainView;
         /// <summary>
         /// constructor
         /// </summary>
@@ -39,8 +42,25 @@ namespace PL
 
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ParcelToList parcelToList = (ParcelToList)ParcelListView.SelectedItem;
-            new ParcelWindow(BlParcelList, parcelToList, this).Show();
+            if (ParcelListView.SelectedItem != null)
+            {
+                ParcelToList parcelToList = (ParcelToList)ParcelListView.SelectedItem;
+                new ParcelWindow(BlParcelList, parcelToList, this).Show();
+            }
+        }
+
+        private void SenderGruping_Click(object sender, RoutedEventArgs e)
+        {
+            mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("Senderid");
+            mainView.GroupDescriptions.Add(groupDescription);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription("TargetId");
+            mainView.GroupDescriptions.Add(groupDescription);
         }
     }
 }

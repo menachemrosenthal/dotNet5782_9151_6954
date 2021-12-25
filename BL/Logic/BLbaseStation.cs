@@ -7,7 +7,10 @@ namespace BO
 {
     public partial class BL : IBL
     {
-        public event EventHandler StationChanged;
+        /// <summary>
+        /// when changing happens or station was added
+        /// </summary>
+        private event EventHandler StationChanged;
 
         /// <summary>
         /// gets list of stations
@@ -58,8 +61,8 @@ namespace BO
             };
             station.DronesCharging = null;
             dal.AddStation(dalStation);
-            if (StationChanged != null)
-                StationChanged(this, EventArgs.Empty);
+
+            EventsAction();
         }
 
         /// <summary>
@@ -81,8 +84,7 @@ namespace BO
                 station.ChargeSlots = freeChargeSlots - DronesInStation(stationId).Count;
             }
             dal.StationUpdate(station);
-            if (StationChanged != null)
-                StationChanged(this, EventArgs.Empty);
+            EventsAction();
         }
 
         /// <summary>

@@ -21,7 +21,8 @@ namespace PL
     public partial class CostomerWindow : Window
     {
         private BO.BL blCustomerList;
-        Customer Customer;        
+        Customer Customer;
+        event EventHandler CustomerChanged;
 
         public CostomerWindow(BO.BL bl)
         {
@@ -36,7 +37,8 @@ namespace PL
             AddButton.Visibility = Visibility.Hidden;
             blCustomerList = bl;
             Customer = blCustomerList.GetCustomer(customerToList.Id);
-            bl.CustomerChanged += UpdateWindow;           
+            CustomerChanged += UpdateWindow;
+            blCustomerList.EventRegistration(CustomerChanged, "Customer");
             UpdateWindow(this, EventArgs.Empty);            
             Id.IsReadOnly = true;
         }

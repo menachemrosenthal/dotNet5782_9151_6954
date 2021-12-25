@@ -8,7 +8,10 @@ namespace BO
 {
     public partial class BL : IBL
     {
-        public event EventHandler ParcelChanged;
+        /// <summary>
+        /// when changing happens or parcel was added
+        /// </summary>
+        private event EventHandler ParcelChanged;
 
         /// <summary>
         /// gets parcel and creates bl object
@@ -62,11 +65,7 @@ namespace BO
             drone.DeliveredParcelId = 0;
             dal.UpdateDelivery(parcel.Id);
 
-            if (DroneChanged != null)
-                DroneChanged(this, EventArgs.Empty);
-
-            if (ParcelChanged != null)
-                ParcelChanged(this, EventArgs.Empty);
+            EventsAction();
         }
 
         /// <summary>
@@ -99,13 +98,12 @@ namespace BO
                 TargetId = parcel.TargetId,
                 Weight = (DalApi.WeightCategories)parcel.Weight,
                 Priority = (DalApi.Priorities)parcel.Priority,
+                DroneId = 0,
                 Requested = DateTime.Now,
-
             };
             dal.AddParcel(dalParcel);
 
-            if (ParcelChanged != null)
-                ParcelChanged(this, EventArgs.Empty);
+            EventsAction();
         }
 
         /// <summary>

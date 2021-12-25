@@ -16,6 +16,7 @@ namespace PL
         BO.BL BlDrone;
         int stationId;
         Drone drone;
+        event EventHandler DroneChanged;
                                
         public DroneWindow(BO.BL bl)
         {
@@ -35,7 +36,8 @@ namespace PL
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             WeightSelector.SelectedValue = drone.MaxWeight;
             WeightSelector.IsEnabled = false;
-            bl.DroneChanged += UpdateWindow;
+            DroneChanged += UpdateWindow;
+            BlDrone.EventRegistration(DroneChanged, "Drone");
             UpdateWindow(this, EventArgs.Empty);           
         }
 
