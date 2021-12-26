@@ -92,6 +92,12 @@ namespace BO
         /// <param name="parcel"></param>
         public void AddParcel(Parcel parcel)
         {
+            if (GetCustomerList().Any(x => x.Id == parcel.Senderid))
+                throw new KeyNotFoundException(nameof(parcel.Senderid));
+
+            if (GetCustomerList().Any(x => x.Id == parcel.TargetId))
+                throw new KeyNotFoundException(nameof(parcel.TargetId));
+
             DalApi.Parcel dalParcel = new()
             {
                 Senderid = parcel.Senderid,

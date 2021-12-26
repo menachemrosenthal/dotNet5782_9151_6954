@@ -49,9 +49,6 @@ namespace PL
             drone = BlDrone.GetDrone(drone.Id);
             DataContext = drone;
 
-            if (drone.Parcel != null)
-                parcel.Text = drone.Parcel.ToString();
-
             ReleaseButton.Visibility = Visibility.Hidden;
             ChargeButton.Visibility = Visibility.Hidden;
             associateButton.Visibility = Visibility.Hidden;
@@ -59,14 +56,17 @@ namespace PL
             provisionButton.Visibility = Visibility.Hidden;
             parcel.Visibility = Visibility.Visible;
 
-            if (drone.Status == DroneStatuses.maintenance)            
-                ReleaseButton.Visibility = Visibility.Visible;                            
+            if (drone.Status == DroneStatuses.maintenance)
+            {
+                ReleaseButton.Visibility = Visibility.Visible;
+                parcel.Visibility = Visibility.Hidden;
+            }
 
             if (BlDrone.GetDroneSituation(drone.Id) == "Free")
             {
                 ChargeButton.Visibility = Visibility.Visible;
                 associateButton.Visibility = Visibility.Visible;
-                parcel.Visibility = Visibility.Hidden;                
+                parcel.Visibility = Visibility.Hidden;
             }
 
             if (BlDrone.GetDroneSituation(drone.Id) == "Associated")
@@ -218,7 +218,7 @@ namespace PL
             }
         }
 
-        private void parcel_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void parcel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (drone.Parcel != null)
                 new ParcelWindow(BlDrone, drone.Parcel.Id).Show();

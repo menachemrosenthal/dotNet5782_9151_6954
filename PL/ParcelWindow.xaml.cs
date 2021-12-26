@@ -32,6 +32,9 @@ namespace PL
             UpdatePickedUpButton.Visibility = Visibility.Hidden;
             DeleteParcelButton.Visibility = Visibility.Hidden;
             AddParcelButton.Visibility = Visibility.Visible;
+            PriorityTextbox.ItemsSource = Enum.GetValues(typeof(Priorities));
+            WeightTextbox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            IdTextbox.IsReadOnly = false;
         }
         public ParcelWindow(BO.BL bl, int parcelId)
         {
@@ -42,21 +45,48 @@ namespace PL
             ParcelChanged += UpdateWindow;
             BlParcel.EventRegistration(ParcelChanged, "Parcel");
             DataContext = parcel;
-            if (parcel.Drone != null)
-                DroneInParcelTextbox.Text = parcel.Drone.ToString();
+            PriorityTextbox.ItemsSource = Enum.GetValues(typeof(Priorities));
+            PriorityTextbox.SelectedValue = parcel.Priority;
+            PriorityTextbox.IsEnabled = false;
+            WeightTextbox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
+            WeightTextbox.SelectedValue = parcel.Weight;
+            WeightTextbox.IsEnabled = false;
         }
 
         private void UpdateWindow(object sender, EventArgs e)
         {
             parcel = BlParcel.GetParcel(parcel.Id);
             DataContext = parcel;
+
             if (parcel.Drone != null)
                 DroneInParcelTextbox.Text = parcel.Drone.ToString();
         }
 
         private void AddParcelButton_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                Parcel parcel = new()
+                {
+                    Senderid = int.Parse(SenderIdTextbox.Text),
+                    TargetId = int.Parse(TargetIdTextbox.Text),
+                    Weight = (WeightCategories)WeightTextbox.SelectedItem,
+                    Priority = (Priorities)PriorityTextbox.SelectedItem
+                };
 
+                BlParcel.AddParcel(parcel);
+                MessageBox.Show("The Parcel was added successfully");
+                Close();
+            }
+
+            catch (Exception ex)
+            {
+                if (SenderIdTextbox.Background == Brushes.OrangeRed)
+                    SenderIdTextbox.Text = "wrong id";
+                if (TargetIdTextbox.Background == Brushes.OrangeRed)
+                    TargetIdTextbox.Text = "wrong id";
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void DroneInParcelTextbox_MouseLeave(object sender, MouseEventArgs e)
@@ -69,9 +99,40 @@ namespace PL
             DroneInParcelTextbox.Background = Brushes.LightBlue;
         }
 
-        private void DroneInParcelTextbox_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void DroneInParcelTextbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             new DroneWindow(BlParcel, parcel.Drone.Id).Show();
+        }
+
+        private void SenderIdTextbox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            if (!SenderIdTextbox.IsReadOnly)
+            {
+                _ = int.TryParse(SenderIdTextbox.Text, out int id);
+                if (id > 0 && BlParcel.GetCustomerList().Any(x => x.Id == id))
+                {
+                    SenderIdTextbox.Background = Brushes.LightGreen;
+                    return;
+                }
+
+                SenderIdTextbox.Background = Brushes.OrangeRed;
+            }
+        }
+
+        private void TargetIdTextbox_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
+            if (!TargetIdTextbox.IsReadOnly)
+            {
+                _ = int.TryParse(TargetIdTextbox.Text, out int id);
+                if (id > 0 && BlParcel.GetCustomerList().Any(x => x.Id == id))
+                {
+                    TargetIdTextbox.Background = Brushes.LightGreen;
+                    return;
+                }
+
+                TargetIdTextbox.Background = Brushes.OrangeRed;
+            }
         }
     }
 }

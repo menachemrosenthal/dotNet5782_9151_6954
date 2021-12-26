@@ -238,11 +238,12 @@
             Width="84" 
             Click="CloseButton_Click" 
             Height="61" Grid.Row="1"/>
-        <TextBlock 
+        <TextBox 
             x:Name="parcel" 
             Margin="131,198,427,98"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=Parcel.ToString}" Grid.RowSpan="2" FontSize="8" Background="Black" Foreground="#FFF7EFEF" FontWeight="Bold" MouseLeftButtonDown="parcel_MouseLeftButtonDown"/>
+            Grid.RowSpan="2" FontSize="8" Background="Black" Foreground="#FFF7EFEF" FontWeight="Bold"
+            Text="{Binding Parcel, Mode=OneWay}" MouseDoubleClick="parcel_MouseDoubleClick"/>
         <Label 
             Content="Current location:" 
             HorizontalAlignment="Left" 
