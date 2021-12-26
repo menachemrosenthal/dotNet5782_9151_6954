@@ -96,7 +96,7 @@ namespace BO
                     int batteryUse = (int)BatteryUseInDelivery(drone, parcel);
                     if (batteryUse < 99)
                         drone.BatteryStatus = r.Next(batteryUse, 99) + 1;
-                }
+                 }
 
                 else
                 {

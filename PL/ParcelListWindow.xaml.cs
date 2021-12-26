@@ -37,7 +37,7 @@ namespace PL
 
         private void AddParcel_Click(object sender, RoutedEventArgs e)
         {
-            new ParcelWindow(BlParcelList, this).Show();
+            new ParcelWindow(BlParcelList).Show();
         }
 
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -45,7 +45,7 @@ namespace PL
             if (ParcelListView.SelectedItem != null)
             {
                 ParcelToList parcelToList = (ParcelToList)ParcelListView.SelectedItem;
-                new ParcelWindow(BlParcelList, parcelToList, this).Show();
+                new ParcelWindow(BlParcelList, parcelToList.Id).Show();
             }
         }
 

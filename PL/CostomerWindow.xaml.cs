@@ -37,6 +37,7 @@ namespace PL
             AddButton.Visibility = Visibility.Hidden;
             blCustomerList = bl;
             Customer = blCustomerList.GetCustomer(customerToList.Id);
+            nameLabel.Content = "Name";
             CustomerChanged += UpdateWindow;
             blCustomerList.EventRegistration(CustomerChanged, "Customer");
             UpdateWindow(this, EventArgs.Empty);            
@@ -102,6 +103,19 @@ namespace PL
             DataContext = Customer;
             RecievedParcels.ItemsSource = Customer.Get;
             SendedParcels.ItemsSource = Customer.Sended;
+        }
+
+        private void SendedParcels_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ParcelInCustomer parcel = (ParcelInCustomer)SendedParcels.SelectedItem;
+            new ParcelWindow(blCustomerList, parcel.Id).Show();
+        }
+
+        private void RecievedParcels_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            ParcelInCustomer parcel = (ParcelInCustomer)RecievedParcels.SelectedItem;
+            new ParcelWindow(blCustomerList, parcel.Id).Show();
         }
     }
 }

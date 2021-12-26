@@ -23,7 +23,7 @@ namespace PL
         BO.BL BlParcel;
         Parcel parcel;
         event EventHandler ParcelChanged;
-        public ParcelWindow(BO.BL bl, ParcelListWindow droneListWindow)
+        public ParcelWindow(BO.BL bl)
         {
             InitializeComponent();
             BlParcel = bl;
@@ -33,12 +33,12 @@ namespace PL
             DeleteParcelButton.Visibility = Visibility.Hidden;
             AddParcelButton.Visibility = Visibility.Visible;
         }
-        public ParcelWindow(BO.BL bl, ParcelToList parcelToList, ParcelListWindow droneListWindow)
+        public ParcelWindow(BO.BL bl, int parcelId)
         {
             InitializeComponent();
             BlParcel = bl;
             AddParcelButton.Visibility = Visibility.Hidden;
-            parcel = BlParcel.GetParcel(parcelToList.Id);
+            parcel = BlParcel.GetParcel(parcelId);
             ParcelChanged += UpdateWindow;
             BlParcel.EventRegistration(ParcelChanged, "Parcel");
             DataContext = parcel;

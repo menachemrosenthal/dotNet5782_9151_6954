@@ -27,11 +27,11 @@ namespace DalApi
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
             if (!exist)
-                throw new DalApi.ItemNotFoundException("Parcel", parcelId);
+                throw new ItemNotFoundException("Parcel", parcelId);
 
             if (!(exist = DataSource.Drones.Any(x => x.Id == droneId)))
 
-                throw new DalApi.ItemNotFoundException("Drone", droneId);
+                throw new ItemNotFoundException("Drone", droneId);
 
             var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
             var index = DataSource.Parcels.IndexOf(parcel);
@@ -48,7 +48,7 @@ namespace DalApi
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
             if (!exist)
-                throw new DalApi.ItemNotFoundException("Parcel", parcelId);
+                throw new ItemNotFoundException("Parcel", parcelId);
 
             var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
             var index = DataSource.Parcels.IndexOf(parcel);
@@ -64,7 +64,7 @@ namespace DalApi
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
             if (!exist)
-                throw new DalApi.ItemNotFoundException("Parcel", parcelId);
+                throw new ItemNotFoundException("Parcel", parcelId);
 
             var parcel = DataSource.Parcels.First(x => x.Id == parcelId);
             var index = DataSource.Parcels.IndexOf(parcel);

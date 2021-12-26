@@ -83,10 +83,10 @@
             FontFamily="Segoe UI Historic" Click="UpdateButton_Click"/>
         <ListBox x:Name="SendedParcels"
             Margin="140,146,419,151"
-                 Visibility="{Binding ElementName=UpdateButton, Path=Visibility}"/>
+                 Visibility="{Binding ElementName=UpdateButton, Path=Visibility}" MouseDoubleClick="SendedParcels_MouseDoubleClick"/>
         <ListBox x:Name="RecievedParcels"
             Margin="140,284,419,0"
-            Visibility="{Binding ElementName=UpdateButton, Path=Visibility}"/>
+            Visibility="{Binding ElementName=UpdateButton, Path=Visibility}" MouseDoubleClick="RecievedParcels_MouseDoubleClick"/>
         <TextBox x:Name="LatitudeTextBox"
             HorizontalAlignment="Left" 
             Margin="140,121,0,0" 
