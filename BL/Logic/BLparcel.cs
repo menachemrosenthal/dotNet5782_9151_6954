@@ -92,11 +92,11 @@ namespace BO
         /// <param name="parcel"></param>
         public void AddParcel(Parcel parcel)
         {
-            if (GetCustomerList().Any(x => x.Id == parcel.Senderid))
-                throw new KeyNotFoundException(nameof(parcel.Senderid));
+            if (!dal.CustomerList().Any(x => x.Id == parcel.Senderid))
+                throw new KeyNotFoundException("No Custumer ID match");
 
-            if (GetCustomerList().Any(x => x.Id == parcel.TargetId))
-                throw new KeyNotFoundException(nameof(parcel.TargetId));
+            if (!dal.CustomerList().Any(x => x.Id == parcel.TargetId))
+                throw new KeyNotFoundException("Custumer ID not found");
 
             DalApi.Parcel dalParcel = new()
             {
@@ -167,23 +167,6 @@ namespace BO
         /// <returns> Target location</returns>
         private Location TargetLocation(DalApi.Parcel parcel)
             => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
-
-        /// <summary>
-        /// sort parcel list
-        /// </summary>
-        /// <param name="location"></param>
-        /// <returns>sort list by "priority" , "weight" , "closest location"</returns>        
-        private DalApi.Parcel ClosestSender(Location location, IEnumerable<DalApi.Parcel> parcels)
-        {
-            DalApi.Parcel closestParcel = dal.ParcelList().FirstOrDefault();
-            double diastance = LocationsDistance(location, SenderLocation(closestParcel));
-
-            foreach (var parcel in parcels)
-                if (diastance > LocationsDistance(location, SenderLocation(parcel)))
-                    closestParcel = parcel;
-
-            return closestParcel;
-        }
 
         /// <summary>
         /// calculates distance between sender and reciever

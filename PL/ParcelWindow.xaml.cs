@@ -101,6 +101,7 @@ namespace PL
 
         private void DroneInParcelTextbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            
             new DroneWindow(BlParcel, parcel.Drone.Id).Show();
         }
 
