@@ -34,7 +34,8 @@ namespace PL
 
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new CostomerWindow(BlCustomerList, (CustomerToList)CustomerListView.SelectedItem).Show();                        
+            CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
+            new CostomerWindow(BlCustomerList, customer.Id).Show();                        
         }
 
         private void AddCustomer_Click(object sender, RoutedEventArgs e)

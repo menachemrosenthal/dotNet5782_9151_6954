@@ -112,6 +112,22 @@ namespace BO
             EventsAction();
         }
 
+
+        public void ParcelDelete(int id)
+        {
+            try
+            {
+                dal.ParcelDelete(id);
+                EventsAction();
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("The parcel is associated", ex);
+            }
+
+
+        }
+
         /// <summary>
         /// get list of usassociated Parceles
         /// </summary>

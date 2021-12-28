@@ -7,11 +7,18 @@ namespace BlApi
     public interface IBL
     {
         /// <summary>
-        /// registration of event handler to fit event handler
+        /// registration of event handler to suitable event handler
         /// </summary>
         /// <param name="e">even handler to registration</param>
         /// <param name="obj">name of object his changing we wont to know</param>
         public void EventRegistration(EventHandler e, string obj);
+
+        /// <summary>
+        /// deleting event from suitable even handler
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="obj"></param>
+        void EventDelete(EventHandler e, string obj);
 
         /// <summary>
         /// add a station
@@ -97,6 +104,12 @@ namespace BlApi
         /// </summary>
         /// <param name="parcel"></param>
         void AddParcel(Parcel parcel);
+
+        /// <summary>
+        /// delete parcel if the parcel not associated to drone
+        /// </summary>
+        /// <param name="id"></param>
+        void ParcelDelete(int id);
 
         /// <summary>
         /// gets parcel and creates bl object

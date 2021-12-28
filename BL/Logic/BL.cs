@@ -35,6 +35,21 @@ namespace BO
                 ParcelChanged += e;
         }
 
+        public void EventDelete(EventHandler e, string obj)
+        {
+            if (obj == "Drone")
+                DroneChanged -= e;
+            if (obj == "Station")
+                StationChanged -= e;
+            if (obj == "Customer")
+                CustomerChanged -= e;
+            if (obj == "Parcel")
+                ParcelChanged -= e;
+        }
+
+        /// <summary>
+        /// running the events
+        /// </summary>
         private void EventsAction()
         {
             if (StationChanged != null)

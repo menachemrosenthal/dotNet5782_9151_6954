@@ -18,6 +18,18 @@ namespace DalApi
             return parcel.Id;
         }
 
+
+        public void ParcelDelete(int id)
+        {
+            Parcel parcel = GetParcel(id);
+            if (parcel.DroneId == 0)
+            {
+                DataSource.Parcels.Remove(parcel);
+            }
+
+            else throw new ArgumentException("The parcel is associated");                
+        }
+
         /// <summary>
         /// connect parcel to drone
         /// </summary>

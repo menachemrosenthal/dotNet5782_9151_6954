@@ -28,7 +28,7 @@ namespace DalApi
         /// add a parcel to the parcels array
         /// </summary>
         /// <param name="parcel">the parcel to add</param>
-        int AddParcel(Parcel parcel);
+        int AddParcel(Parcel parcel);        
 
         /// <summary>
         /// connect parcel to drone
@@ -123,6 +123,12 @@ namespace DalApi
         /// <param name="lon2">object longitude</param>
         /// <returns>distance in kilometer</returns>
         double DistanceCalculate(double lat1, double lon1, double lat2, double lon2);
+
+        /// <summary>
+        /// delete parcel if is not associated to drone
+        /// </summary>
+        /// <param name="id">parcel number</param>
+        void ParcelDelete(int id);
 
         /// <summary>
         /// electricity use array
