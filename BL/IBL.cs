@@ -7,6 +7,13 @@ namespace BlApi
     public interface IBL
     {
         /// <summary>
+        /// registration of event handler to fit event handler
+        /// </summary>
+        /// <param name="e">even handler to registration</param>
+        /// <param name="obj">name of object his changing we wont to know</param>
+        public void EventRegistration(EventHandler e, string obj);
+
+        /// <summary>
         /// add a station
         /// </summary>
         /// <param name="station"></param>

@@ -22,20 +22,20 @@ namespace PL
     {
         BO.BL GetBL;
         ICollectionView mainView;
+        event EventHandler StationListChanged;
         public StationListView(BO.BL bL)
         {
             InitializeComponent();
             GetBL = bL;
+            StationListChanged += UpdateWindow;
+            GetBL.EventRegistration(StationListChanged, "Station");
             stationList.ItemsSource = GetBL.GetBaseStationList();
-            
         }
 
         private void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.StationToList station = (BO.StationToList)stationList.SelectedItem;
-            StationWindow stationWindow = new (GetBL, station.Id);
-            stationWindow.Show();
-            stationWindow.StationChanged += UpdateWindow;
+            new StationWindow(GetBL, station.Id).Show();                        
         }
 
         private void GroupingButton_Click(object sender, EventArgs e)
@@ -69,9 +69,7 @@ namespace PL
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            StationWindow station = new(GetBL);
-            station.Show();
-            station.StationChanged += UpdateWindow;
+            new StationWindow (GetBL).Show();                        
         }
     }
 }

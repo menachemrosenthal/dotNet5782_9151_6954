@@ -9,6 +9,11 @@ namespace BO
     public partial class BL : IBL
     {
         /// <summary>
+        /// when changing happens or parcel was added
+        /// </summary>
+        private event EventHandler ParcelChanged;
+
+        /// <summary>
         /// gets parcel and creates bl object
         /// </summary>
         /// <param name="parcelId"></param>
@@ -59,6 +64,8 @@ namespace BO
             drone.Status = DroneStatuses.free;
             drone.DeliveredParcelId = 0;
             dal.UpdateDelivery(parcel.Id);
+
+            EventsAction();
         }
 
         /// <summary>
@@ -85,16 +92,24 @@ namespace BO
         /// <param name="parcel"></param>
         public void AddParcel(Parcel parcel)
         {
+            if (!dal.CustomerList().Any(x => x.Id == parcel.Senderid))
+                throw new KeyNotFoundException("No Custumer ID match");
+
+            if (!dal.CustomerList().Any(x => x.Id == parcel.TargetId))
+                throw new KeyNotFoundException("Custumer ID not found");
+
             DalApi.Parcel dalParcel = new()
             {
                 Senderid = parcel.Senderid,
                 TargetId = parcel.TargetId,
                 Weight = (DalApi.WeightCategories)parcel.Weight,
                 Priority = (DalApi.Priorities)parcel.Priority,
+                DroneId = 0,
                 Requested = DateTime.Now,
-
             };
             dal.AddParcel(dalParcel);
+
+            EventsAction();
         }
 
         /// <summary>
@@ -152,23 +167,6 @@ namespace BO
         /// <returns> Target location</returns>
         private Location TargetLocation(DalApi.Parcel parcel)
             => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
-
-        /// <summary>
-        /// sort parcel list
-        /// </summary>
-        /// <param name="location"></param>
-        /// <returns>sort list by "priority" , "weight" , "closest location"</returns>        
-        private DalApi.Parcel ClosestSender(Location location, IEnumerable<DalApi.Parcel> parcels)
-        {
-            DalApi.Parcel closestParcel = dal.ParcelList().FirstOrDefault();
-            double diastance = LocationsDistance(location, SenderLocation(closestParcel));
-
-            foreach (var parcel in parcels)
-                if (diastance > LocationsDistance(location, SenderLocation(parcel)))
-                    closestParcel = parcel;
-
-            return closestParcel;
-        }
 
         /// <summary>
         /// calculates distance between sender and reciever

@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public override string ToString()
         {
-            return $"\n   Name: {Name}\n   ID: {Id}";
+            return $" Name: {Name} , ID: {Id}";
         }
     }
 

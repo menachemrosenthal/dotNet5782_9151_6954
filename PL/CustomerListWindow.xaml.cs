@@ -22,21 +22,29 @@ namespace PL
     public partial class CustomerListWindow : Window
     {
         BO.BL BlCustomerList;
+        event EventHandler CustomerListChanged;
         public CustomerListWindow(BO.BL bl)
         {
             InitializeComponent();
             BlCustomerList = bl;
             CustomerListView.ItemsSource = bl.GetCustomerList();
+            CustomerListChanged += UpdateWindow;
+            BlCustomerList.EventRegistration(CustomerListChanged, "Customer");
         }
 
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new CostomerWindow(BlCustomerList, (CustomerToList)CustomerListView.SelectedItem,this).Show();
+            new CostomerWindow(BlCustomerList, (CustomerToList)CustomerListView.SelectedItem).Show();                        
         }
 
         private void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
-            new CostomerWindow(BlCustomerList,this).Show();
+            new CostomerWindow(BlCustomerList).Show();
+        }
+
+        private void UpdateWindow(object sender, EventArgs e)
+        {
+            CustomerListView.ItemsSource = BlCustomerList.GetCustomerList();
         }
     }
 }
