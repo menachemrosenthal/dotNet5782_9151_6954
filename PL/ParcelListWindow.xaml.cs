@@ -38,6 +38,9 @@ namespace PL
             weightFilter.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             statusFilter.ItemsSource = Enum.GetValues(typeof(ParcelStatuses));
             priorityFilter.ItemsSource = Enum.GetValues(typeof(Priorities));
+            DateCombobox.Items.Add("Scheduled"); DateCombobox.Items.Add("Delivered");
+            DateCombobox.Items.Add("Requested"); DateCombobox.Items.Add("PickedUp");
+
         }
 
         private void UpdateWindow(object sender, EventArgs e)
@@ -148,6 +151,38 @@ namespace PL
             {
                 ParcelListView.ItemsSource = from parcel in BlParcelList.GetParcelList()
                                              where parcel.Priority == (Priorities)priorityFilter.SelectedItem
+                                             select parcel;
+            }
+        }
+
+        private void FilterByDate_Click(object sender, RoutedEventArgs e)
+        {
+            if ((string)DateCombobox.SelectedItem == "Requested")
+            {
+                ParcelListView.ItemsSource = from parcel in BlParcelList.GetParcelList()
+                                             where BlParcelList.GetParcel(parcel.Id).Requested >= FirstDate.SelectedDate &&
+                                                    BlParcelList.GetParcel(parcel.Id).Requested <= LastDate.SelectedDate
+                                             select parcel;
+            }
+            if ((string)DateCombobox.SelectedItem == "Scheduled")
+            {
+                ParcelListView.ItemsSource = from parcel in BlParcelList.GetParcelList()
+                                             where BlParcelList.GetParcel(parcel.Id).Scheduled >= FirstDate.SelectedDate &&
+                                                    BlParcelList.GetParcel(parcel.Id).Scheduled <= LastDate.SelectedDate
+                                             select parcel;
+            }
+            if ((string)DateCombobox.SelectedItem == "PickedUp")
+            {
+                ParcelListView.ItemsSource = from parcel in BlParcelList.GetParcelList()
+                                             where BlParcelList.GetParcel(parcel.Id).PickedUp >= FirstDate.SelectedDate &&
+                                                    BlParcelList.GetParcel(parcel.Id).PickedUp <= LastDate.SelectedDate
+                                             select parcel;
+            }
+            if ((string)DateCombobox.SelectedItem == "Delivered")
+            {
+                ParcelListView.ItemsSource = from parcel in BlParcelList.GetParcelList()
+                                             where BlParcelList.GetParcel(parcel.Id).Delivered >= FirstDate.SelectedDate &&
+                                                    BlParcelList.GetParcel(parcel.Id).Delivered <= LastDate.SelectedDate
                                              select parcel;
             }
         }

@@ -37,49 +37,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-<<<<<<< HEAD
-        <Label x:Name="IdLabel" Content="Id:" HorizontalAlignment="Left" Margin="88,34,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="SenderIdLabel" Content="Sender Id:" HorizontalAlignment="Left" Margin="88,65,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="TargetIdLabel" Content="Target Id:" HorizontalAlignment="Left" Margin="88,96,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="WeightLabel" Content="Weight:" HorizontalAlignment="Left" Margin="88,127,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="PriorityLabel" Content="Priority:" HorizontalAlignment="Left" Margin="88,158,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="DroneInParcelLabel" Content="Drone:" HorizontalAlignment="Left" Margin="88,191,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="RequestedTimeLabel" Content="Requested Time:" HorizontalAlignment="Left" Margin="88,222,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="ScheduledTimeLabel" Content="Scheduled Time:" HorizontalAlignment="Left" Margin="88,253,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="PickedUpTimeLabel" Content="Picked Up Time:" HorizontalAlignment="Left" Margin="88,297,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="DeliveredTimeLabel" Content="Delivered Time Label:" HorizontalAlignment="Left" Margin="88,328,0,0" VerticalAlignment="Top"/>
 
-        <TextBox x:Name="DeliveredTimeTextbox" HorizontalAlignment="Left" Margin="206,332,0,0" 
-                 Text="{Binding Path=Delivered}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="PickedUpTimeTextbox" HorizontalAlignment="Left" Margin="206,305,0,0" 
-                 Text="{Binding Path=PickedUp}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="ScheduledTimeTextbox" HorizontalAlignment="Left" Margin="206,257,0,0" 
-                 Text="{Binding Path=Scheduled}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="RequestedTimeTextbox" HorizontalAlignment="Left" Margin="206,226,0,0" 
-                 Text="{Binding Path=Requested}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="DroneInParcelTextbox" HorizontalAlignment="Left" Margin="206,195,0,0" 
-                 Text="{Binding Path=Drone}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="PriorityTextbox"  HorizontalAlignment="Left" Margin="206,162,0,0" 
-                 Text="{Binding Path=Priority}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="WeightTextbox" HorizontalAlignment="Left" Margin="206,131,0,0" 
-                 Text="{Binding Path=Weight}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="TargetIdTextbox" HorizontalAlignment="Left" Margin="206,100,0,0" 
-                 Text="{Binding Path=TargetId}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="SenderIdTextbox" HorizontalAlignment="Left" Margin="206,69,0,0" 
-                 Text="{Binding Path=Senderid}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="IdTextbox" HorizontalAlignment="Left" Margin="206,38,0,0" 
-                 Text="{Binding Path=Id}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="AddParcelButton" Content="Add Parcel" HorizontalAlignment="Left" 
-                Margin="428,37,0,0" VerticalAlignment="Top" />
-        <Button x:Name="UpdateParcelButton" Content="Update Parcel" HorizontalAlignment="Left" 
-            Margin="428,76,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="DeleteParcelButton" Content="Delete Parcel" HorizontalAlignment="Left" 
-            Margin="428,107,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="UpdateDeliveryButton" Content="Update Parcel Delivery" HorizontalAlignment="Left" 
-            Margin="428,140,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="UpdatePickedUpButton" Content="Update Parcel C" HorizontalAlignment="Left" 
-            Margin="428,171,0,0" VerticalAlignment="Top"/>
-=======
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -165,7 +123,7 @@
         <Button x:Name="DeleteParcelButton" Content="Delete Parcel" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="4" Grid.Column="3"/>
         <Button x:Name="UpdateDeliveryButton" Content="Update Parcel Delivery" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="6" Grid.Column="3"/>
         <Button x:Name="UpdatePickedUpButton" Content="Update Parcel C" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="8" Grid.Column="3"/>
->>>>>>> ec01664a20c08d5d7ab3d8127501821cb921c7d6
+
 
     </Grid>
 </Window>
