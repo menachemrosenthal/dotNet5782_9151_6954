@@ -23,15 +23,27 @@ namespace PL
         private BO.BL blCustomerList;
         Customer Customer;
         event EventHandler CustomerChanged;
-
+        /// <summary>
+        /// constractor
+        /// </summary>
+        /// <param name="bl"></param>
         public CostomerWindow(BO.BL bl)
         {
             InitializeComponent();
             blCustomerList = bl;            
             UpdateButton.Visibility = Visibility.Hidden;
         }
+<<<<<<< HEAD
+        /// <summary>
+        /// update window contsractor
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="customerToList">seledcted item</param>
+        public CostomerWindow(BO.BL bl, CustomerToList customerToList)
+=======
 
         public CostomerWindow(BO.BL bl, int customerId)
+>>>>>>> 05d6e1b95f21d3b3106265f4f4b6f404c6a27118
         {
             InitializeComponent();
             AddButton.Visibility = Visibility.Hidden;
@@ -43,7 +55,11 @@ namespace PL
             UpdateWindow(this, EventArgs.Empty);            
             Id.IsReadOnly = true;
         }
-
+        /// <summary>
+        /// add a customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             _ = int.TryParse(Id.Text, out int id);
@@ -83,7 +99,11 @@ namespace PL
 
             Id.Text = "Wrong ID";
         }
-
+        /// <summary>
+        /// update a customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -96,7 +116,11 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// updates the window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateWindow(object sender, EventArgs e)
         {
             Customer = blCustomerList.GetCustomer(Customer.Id);
@@ -104,13 +128,21 @@ namespace PL
             RecievedParcels.ItemsSource = Customer.Get;
             SendedParcels.ItemsSource = Customer.Sended;
         }
-
+        /// <summary>
+        /// opens sent parcel window for selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendedParcels_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ParcelInCustomer parcel = (ParcelInCustomer)SendedParcels.SelectedItem;
             new ParcelWindow(blCustomerList, parcel.Id).Show();
         }
-
+        /// <summary>
+        /// opens recieved parcel window for selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RecievedParcels_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
 

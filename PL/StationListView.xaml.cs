@@ -23,6 +23,10 @@ namespace PL
         BO.BL GetBL;
         ICollectionView mainView;
         event EventHandler StationListChanged;
+        /// <summary>
+        /// constractor
+        /// </summary>
+        /// <param name="bL"></param>
         public StationListView(BO.BL bL)
         {
             InitializeComponent();
@@ -31,13 +35,21 @@ namespace PL
             GetBL.EventRegistration(StationListChanged, "Station");
             stationList.ItemsSource = GetBL.GetBaseStationList();
         }
-
+        /// <summary>
+        /// open station window by selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.StationToList station = (BO.StationToList)stationList.SelectedItem;
             new StationWindow(GetBL, station.Id).Show();
         }
-
+        /// <summary>
+        /// grouping
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GroupingButton_Click(object sender, EventArgs e)
         {
             if (mainView == null)
@@ -48,14 +60,22 @@ namespace PL
                 standartListButton.Visibility = Visibility.Visible;
             }
         }
-
+        /// <summary>
+        /// return to standared list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StandartListButton_Click(object sender, EventArgs e)
         {
             stationList.ItemsSource = GetBL.GetBaseStationList();
             mainView = null;
             standartListButton.Visibility = Visibility.Hidden;
         }
-
+        /// <summary>
+        /// update window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateWindow(object sender, EventArgs e)
         {
             stationList.ItemsSource = GetBL.GetBaseStationList();
@@ -67,7 +87,11 @@ namespace PL
                 mainView.GroupDescriptions.Add(groupDescription);
             }
         }
-
+        /// <summary>
+        /// open station window to add
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             new StationWindow(GetBL).Show();

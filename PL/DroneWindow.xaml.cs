@@ -17,7 +17,10 @@ namespace PL
         int stationId;
         Drone drone;
         event EventHandler DroneChanged;
-
+        /// <summary>
+        /// constractor
+        /// </summary>
+        /// <param name="bl"></param>
         public DroneWindow(BO.BL bl)
         {
             InitializeComponent();
@@ -27,7 +30,11 @@ namespace PL
             NameUpdateButton.Visibility = Visibility.Hidden;
             AddDroneButton.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// constractor by selected item
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="droneId">id of selected drone</param>
         public DroneWindow(BO.BL bl, int droneId)
         {
             InitializeComponent();
@@ -43,7 +50,11 @@ namespace PL
             BlDrone.EventRegistration(DroneChanged, "Drone");
             UpdateWindow(this, EventArgs.Empty);
         }
-
+        /// <summary>
+        /// update window(refresh)
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="e"></param>
         public void UpdateWindow(object s, EventArgs e)
         {
             drone = BlDrone.GetDrone(drone.Id);
@@ -75,7 +86,11 @@ namespace PL
             if (BlDrone.GetDroneSituation(drone.Id) == "Executing")
                 provisionButton.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// add drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddDrone_Click(object sender, RoutedEventArgs e)
         {
             _ = int.TryParse(ID.Text, out int id);
@@ -109,13 +124,21 @@ namespace PL
 
             ID.Text = "Wrong ID";
         }
-
+        /// <summary>
+        /// assign a drone to a station
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var station = (StationToList)StationList.SelectedItem;
             stationId = station.Id;
         }
-
+        /// <summary>
+        /// update drone name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DroneNameUpdate_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -128,7 +151,11 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// charge drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Charge_Button(object sender, RoutedEventArgs e)
         {
             try
@@ -141,7 +168,11 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// associate a parcel to a drone
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ParcelAssociate_Button(object sender, RoutedEventArgs e)
         {
             try
@@ -155,7 +186,11 @@ namespace PL
             }
 
         }
-
+        /// <summary>
+        /// update that parcel was picked up
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Pickedup_Button(object sender, RoutedEventArgs e)
         {
             try
@@ -169,7 +204,11 @@ namespace PL
             }
 
         }
-
+        /// <summary>
+        /// update that parcel was provided
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Provision_Button(object sender, RoutedEventArgs e)
         {
             try
@@ -183,7 +222,11 @@ namespace PL
             }
 
         }
-
+        /// <summary>
+        /// release drone from charging
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChargingRelease_Button(object sender, RoutedEventArgs e)
         {
             try
@@ -197,12 +240,20 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// close window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
-
+        /// <summary>
+        /// changes backround acustomed with mistake
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ID_SelectionChanged(object sender, RoutedEventArgs e)
         {
             if (ID.IsReadOnly == false)
@@ -217,7 +268,11 @@ namespace PL
                 ID.Background = Brushes.OrangeRed;
             }
         }
-
+        /// <summary>
+        /// open parcel window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void parcel_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (drone.Parcel != null)
