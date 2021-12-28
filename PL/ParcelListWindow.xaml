@@ -78,42 +78,44 @@
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Height="80" Width="100" Click="AddParcel_Click" Margin="0,0,50,0"/>
-        <Button
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Height="220" Width="120" HorizontalAlignment="Center">
+            <Button
             x:Name="senderGruping"
-            Content="Gruping by Sender" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Bottom" Width="120" Click="SenderGruping_Click" Grid.Row="1" Grid.Column="1" Margin="0,0,0,40"/>
-        <Button
+            Content="Gruping by Sender"              
+            Width="120" Click="SenderGruping_Click" Margin="0,0,0,0"/>
+            <Button
             x:Name="targetGrouping"
             Content="Gruping by Target" 
-            HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="120" Click="TargetGrouping_Click" Grid.Row="1" Grid.Column="1"/>
-        <Label x:Name="weightLabel" Content="Weight filter" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="1" Margin="0,60,0,0"/>
-        <ComboBox
+            Width="120" Click="TargetGrouping_Click"/>
+            <Label x:Name="weightLabel" Content="Weight filter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <ComboBox
                 x:Name="weightFilter"
                 ScrollViewer.CanContentScroll="False"
                 HorizontalAlignment="Center" Width="100"
-                SelectionChanged="WeightFilter_SelectionChanged" Height="20" VerticalAlignment="Top" Margin="0,90,0,20" Grid.Column="1" Grid.Row="1"/>
-        <Label x:Name="statusLabel" Content="Status filter" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,120,0,0" Grid.Row="1"/>
-        <ComboBox 
+                SelectionChanged="WeightFilter_SelectionChanged" Height="20" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Margin="-3,0,0,0"/>
+            <Label x:Name="statusLabel" Content="Status filter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <ComboBox 
             x:Name="statusFilter"
             ScrollViewer.CanContentScroll="False"
-            HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Grid.Column="1" SelectionChanged="StatusFilter_SelectionChanged" Grid.Row="1" Margin="-4,150,0,0"/>
-        <Label x:Name="priorityLabel" Content="Priority filter" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center"/>
-        <ComboBox x:Name="priorityFilter" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Height="20" Margin="0,30,0,0" SelectionChanged="priorityFilter_SelectionChanged"/>
+            Width="100" SelectionChanged="StatusFilter_SelectionChanged" Margin="-0,0,0,0"/>
+            <Label x:Name="priorityLabel" Content="Priority filter" HorizontalAlignment="Center"/>
+            <ComboBox x:Name="priorityFilter" HorizontalAlignment="Center" Width="100" Height="20" Margin="0,0,0,0" SelectionChanged="priorityFilter_SelectionChanged"/>
+        </StackPanel>
         <Button x:Name="standartListButton" 
                 Content="Standart list" 
                 HorizontalAlignment="Right"
                 Width="100" Height="76" 
                 VerticalAlignment="Center" 
                 Click="StandartListButton_Click" Margin="0,0,20,0"/>
-        <Button
+        <StackPanel Orientation="Vertical" Grid.Column="1" Height="190" Width="117" Grid.RowSpan="2" VerticalAlignment="Top">
+            <Button
             x:Name="FilterByDate"
             Content="Filter By Date" 
-            Width="120" Margin="156,10,0,0" Click="FilterByDate_Click" HorizontalAlignment="Left"/>
-        <DatePicker x:Name="FirstDate" HorizontalAlignment="Left" Margin="105,55,0,0" VerticalAlignment="Top"/>
-        <DatePicker x:Name="LastDate" HorizontalAlignment="Left" Margin="212,55,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="DateCombobox" HorizontalAlignment="Left" Margin="319,62,0,0" VerticalAlignment="Top" Width="120"/>
-
+            Width="115" Click="FilterByDate_Click" VerticalAlignment="Center" Height="35"/>
+            <DatePicker x:Name="FirstDate"/>
+            <DatePicker x:Name="LastDate" />
+            <ComboBox x:Name="DateCombobox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        </StackPanel>
 
     </Grid>
 </Window>
