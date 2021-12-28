@@ -8,7 +8,7 @@
         Title="StationListView" Height="450" Width="800">
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="LightGray"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Britannic Bold"/>
@@ -54,7 +54,11 @@
                     <GridViewColumn Header="Name" Width="100" DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="ID" Width="100" DisplayMemberBinding="{Binding Id}"/>
                     <GridViewColumn Header="Full charge slots" Width="120" DisplayMemberBinding="{Binding FullChargeSlots}"/>
-                    <GridViewColumn Header="Free charge slots" Width="120" DisplayMemberBinding="{Binding FreeChargeSlots}"/>
+                    <GridViewColumn Width="120" DisplayMemberBinding="{Binding FreeChargeSlots}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Content="Free charge slots" ToolTip="Grouping by number of free charge slots" Click="GroupingButton_Click"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.GroupStyle>
@@ -70,14 +74,6 @@
                 </GroupStyle>
             </ListView.GroupStyle>
         </ListView>
-        <Button 
-            x:Name="groupingButton"
-            Grid.Column="0"
-            Grid.Row="0"
-            Content="Grouping" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center" 
-            Width="106" Click="GroupingButton_Click"/>
         <Button
             x:Name="addButton"
             Content="Add Station" 

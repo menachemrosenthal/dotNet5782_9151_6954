@@ -65,21 +65,24 @@ namespace PL
 
         private void Id_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            _ = int.TryParse(id.Text, out int Id);
-            if (Id > 0 && !GetBL.GetBaseStationList().Any(x => x.Id == Id))
+            if (id.IsReadOnly == false)
             {
-                id.Background = Brushes.LightGreen;
-                return;
-            }
+                _ = int.TryParse(id.Text, out int Id);
+                if (Id > 0 && !GetBL.GetBaseStationList().Any(x => x.Id == Id))
+                {
+                    id.Background = Brushes.LightGreen;
+                    return;
+                }
 
-            id.Background = Brushes.OrangeRed;
+                id.Background = Brushes.OrangeRed;
+            }
         }
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                GetBL.StationUpdate(int.Parse(id.Text), name.Text, slots.Text);                
+                GetBL.StationUpdate(int.Parse(id.Text), name.Text, slots.Text);
                 _ = MessageBox.Show("The Station was updated successfully");
             }
             catch (Exception ex)
@@ -109,7 +112,7 @@ namespace PL
                     }
                 };
 
-                GetBL.AddStation(station);                
+                GetBL.AddStation(station);
                 _ = MessageBox.Show("The Station was added successfully");
                 Close();
             }
@@ -133,31 +136,35 @@ namespace PL
 
         private void Latitude_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            _ = double.TryParse(latitud.Text, out double lat);
-            if (lat is >= 31.5898 and <= 32.802)
+            if (latitud.IsReadOnly == false)
             {
-                latitud.Background = Brushes.LightGreen;
-                return;
-            }
+                _ = double.TryParse(latitud.Text, out double lat);
+                if (lat is >= 31.5898 and <= 32.802)
+                {
+                    latitud.Background = Brushes.LightGreen;
+                    return;
+                }
 
-            latitud.Background = Brushes.OrangeRed;
+                latitud.Background = Brushes.OrangeRed;
+            }
         }
 
         private void Longitude_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            _ = double.TryParse(longitude.Text, out double lon);
-            if (lon is >= 34.5 and <= 35.9)
-            {
-                longitude.Background = Brushes.LightGreen;
-                return;
+            if (longitude.IsReadOnly == false)
+            {                
+                _ = double.TryParse(longitude.Text, out double lon);
+                if (lon is >= 34.5 and <= 35.9)
+                {
+                    longitude.Background = Brushes.LightGreen;
+                    return;
+                }
+                longitude.Background = Brushes.OrangeRed;
             }
-
-            longitude.Background = Brushes.OrangeRed;
         }
 
         private void Slots_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-
+        {            
             if (_ = int.TryParse(slots.Text, out int chargSlts) && chargSlts > 0)
             {
                 slots.Background = Brushes.LightGreen;

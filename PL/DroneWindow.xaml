@@ -69,7 +69,8 @@
             Width="100"
             VerticalAlignment="Center"
             IsReadOnlyCaretVisible="False"
-            Text="{Binding Path=Model}" Height="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            Text="{Binding Path=Model}" Height="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            ToolTip="Enter new name for update name and press update"/>
         <TextBox 
             x:Name="ID"
             HorizontalAlignment="Right" 
@@ -176,7 +177,7 @@
             Text="{Binding Path=CurrentLocation.Longitude,UpdateSourceTrigger=PropertyChanged}" Height="20"/>
         <Button 
             x:Name="NameUpdateButton"
-            Content="Update Drone name" 
+            Content="Update" 
             Click="DroneNameUpdate_Click"            
             Height="40" 
             Width="140" 

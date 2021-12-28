@@ -9,7 +9,7 @@
         Title="ParcelListWindow" Height="450" Width="800">
     <Window.Resources>
         <Style TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="LightGray"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Britannic Bold"/>
@@ -53,8 +53,16 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Parcel number" Width="80" DisplayMemberBinding="{Binding Id}"/>
-                    <GridViewColumn Header="Sender ID" Width="100" DisplayMemberBinding="{Binding Senderid}"/>
-                    <GridViewColumn Header="Target ID" Width="100" DisplayMemberBinding="{Binding TargetId}"/>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Senderid}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Content="Sender ID" ToolTip="Grouping By Sender" Click="SenderGruping_Click"/>
+                        </GridViewColumn.Header>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding TargetId}">
+                        <GridViewColumn.Header>
+                            <GridViewColumnHeader Content="Target ID" ToolTip="Grouping By Reciver" Click="TargetGrouping_Click"/>
+                        </GridViewColumn.Header>
+                     </GridViewColumn>
                     <GridViewColumn Header="Weight" Width="80" DisplayMemberBinding="{Binding Weight}"/>
                     <GridViewColumn Header="Priority" Width="80" DisplayMemberBinding="{Binding Priority}"/>
                     <GridViewColumn Header="Status" Width="80" DisplayMemberBinding="{Binding Status}"/>
@@ -78,15 +86,7 @@
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Height="80" Width="100" Click="AddParcel_Click" Margin="0,0,50,0"/>
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Height="220" Width="120" HorizontalAlignment="Center">
-            <Button
-            x:Name="senderGruping"
-            Content="Gruping by Sender"              
-            Width="120" Click="SenderGruping_Click" Margin="0,0,0,0"/>
-            <Button
-            x:Name="targetGrouping"
-            Content="Gruping by Target" 
-            Width="120" Click="TargetGrouping_Click"/>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" Height="150" Width="120" HorizontalAlignment="Center" Grid.Column="1" Grid.RowSpan="2">
             <Label x:Name="weightLabel" Content="Weight filter" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <ComboBox
                 x:Name="weightFilter"
@@ -107,7 +107,7 @@
                 Width="100" Height="76" 
                 VerticalAlignment="Center" 
                 Click="StandartListButton_Click" Margin="0,0,20,0"/>
-        <StackPanel Orientation="Vertical" Grid.Column="1" Height="190" Width="117" Grid.RowSpan="2" VerticalAlignment="Top">
+        <StackPanel Orientation="Vertical" Grid.Column="1" Height="190" Width="117" Grid.RowSpan="2" VerticalAlignment="Center" Grid.Row="1">
             <Button
             x:Name="FilterByDate"
             Content="Filter By Date" 

@@ -46,20 +46,7 @@ namespace PL
         private void UpdateWindow(object sender, EventArgs e)
         {
             ParcelListView.ItemsSource = BlParcelList.GetParcelList();
-
-            if (senderGruping.Visibility == Visibility.Hidden)
-            {
-                mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
-                PropertyGroupDescription groupDescription = new PropertyGroupDescription("Senderid");
-                mainView.GroupDescriptions.Add(groupDescription);
-            }
-
-            if (targetGrouping.Visibility == Visibility.Visible)
-            {
-                mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
-                PropertyGroupDescription groupDescription = new PropertyGroupDescription("Senderid");
-                mainView.GroupDescriptions.Add(groupDescription);
-            }
+            mainView = null;
 
             if (weightFilter.SelectedItem != null)
             {
@@ -98,21 +85,23 @@ namespace PL
         }
 
         private void SenderGruping_Click(object sender, RoutedEventArgs e)
-        {             
-            mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
-            PropertyGroupDescription groupDescription = new("Senderid");
-            mainView.GroupDescriptions.Add(groupDescription);
-            senderGruping.Visibility = Visibility.Hidden;
-            targetGrouping.Visibility = Visibility.Hidden;
+        {
+            if (mainView == null)
+            {
+                mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
+                PropertyGroupDescription groupDescription = new("Senderid");
+                mainView.GroupDescriptions.Add(groupDescription);
+            }
         }
 
         private void TargetGrouping_Click(object sender, RoutedEventArgs e)
-        {            
-            mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
-            PropertyGroupDescription groupDescription = new("TargetId");
-            mainView.GroupDescriptions.Add(groupDescription);
-            targetGrouping.Visibility = Visibility.Hidden;
-            senderGruping.Visibility = Visibility.Hidden;
+        {
+            if (mainView == null)
+            {
+                mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
+                PropertyGroupDescription groupDescription = new("TargetId");
+                mainView.GroupDescriptions.Add(groupDescription);
+            }
         }
 
         private void StandartListButton_Click(object sender, RoutedEventArgs e)
@@ -121,8 +110,8 @@ namespace PL
             weightFilter.SelectedItem = null;
             statusFilter.SelectedItem = null;
             priorityFilter.SelectedItem = null;
-            senderGruping.Visibility = Visibility.Visible;
-            targetGrouping.Visibility = Visibility.Visible;
+            mainView = null;
+            mainView = null;
         }
 
         private void WeightFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)

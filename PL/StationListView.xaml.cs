@@ -35,23 +35,24 @@ namespace PL
         private void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.StationToList station = (BO.StationToList)stationList.SelectedItem;
-            new StationWindow(GetBL, station.Id).Show();                        
+            new StationWindow(GetBL, station.Id).Show();
         }
 
         private void GroupingButton_Click(object sender, EventArgs e)
         {
-            mainView = (CollectionView)CollectionViewSource.GetDefaultView(stationList.ItemsSource);
-            PropertyGroupDescription groupDescription = new PropertyGroupDescription("FreeChargeSlots");
-            mainView.GroupDescriptions.Add(groupDescription);
-            standartListButton.Visibility = Visibility.Visible;
-            groupingButton.Visibility = Visibility.Hidden;
+            if (mainView == null)
+            {
+                mainView = (CollectionView)CollectionViewSource.GetDefaultView(stationList.ItemsSource);
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("FreeChargeSlots");
+                mainView.GroupDescriptions.Add(groupDescription);
+                standartListButton.Visibility = Visibility.Visible;
+            }
         }
 
         private void StandartListButton_Click(object sender, EventArgs e)
         {
             stationList.ItemsSource = GetBL.GetBaseStationList();
             mainView = null;
-            groupingButton.Visibility = Visibility.Visible;
             standartListButton.Visibility = Visibility.Hidden;
         }
 
@@ -62,14 +63,14 @@ namespace PL
             if (mainView != null)
             {
                 mainView = (CollectionView)CollectionViewSource.GetDefaultView(stationList.ItemsSource);
-                PropertyGroupDescription groupDescription = new PropertyGroupDescription("FreeChargeSlots");
+                PropertyGroupDescription groupDescription = new PropertyGroupDescription("FreeChargeSlots>0");
                 mainView.GroupDescriptions.Add(groupDescription);
             }
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            new StationWindow (GetBL).Show();                        
+            new StationWindow(GetBL).Show();
         }
     }
 }
