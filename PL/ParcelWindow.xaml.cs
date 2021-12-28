@@ -31,10 +31,6 @@ namespace PL
         {
             InitializeComponent();
             BlParcel = bl;
-            UpdateParcelButton.Visibility = Visibility.Hidden;
-            UpdateDeliveryButton.Visibility = Visibility.Hidden;
-            UpdatePickedUpButton.Visibility = Visibility.Hidden;
-            DeleteParcelButton.Visibility = Visibility.Hidden;
             AddParcelButton.Visibility = Visibility.Visible;
             PriorityTextbox.ItemsSource = Enum.GetValues(typeof(Priorities));
             WeightTextbox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
@@ -49,17 +45,16 @@ namespace PL
         {
             InitializeComponent();
             BlParcel = bl;
-            AddParcelButton.Visibility = Visibility.Hidden;
             parcel = BlParcel.GetParcel(parcelId);
             ParcelChanged += UpdateWindow;
             BlParcel.EventRegistration(ParcelChanged, "Parcel");
-            DataContext = parcel;
             PriorityTextbox.ItemsSource = Enum.GetValues(typeof(Priorities));
             PriorityTextbox.SelectedValue = parcel.Priority;
             PriorityTextbox.IsEnabled = false;
             WeightTextbox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             WeightTextbox.SelectedValue = parcel.Weight;
             WeightTextbox.IsEnabled = false;
+            UpdateWindow(this, EventArgs.Empty);
         }
         /// <summary>
         /// update window
@@ -68,10 +63,15 @@ namespace PL
         /// <param name="e"></param>
         private void UpdateWindow(object sender, EventArgs e)
         {
-            parcel = BlParcel.GetParcel(parcel.Id);
+            if (BlParcel.GetParcel(parcel.Id) != null)
+                parcel = BlParcel.GetParcel(parcel.Id);
+
             DataContext = parcel;
 
-            if (parcel.Drone != null)
+            if (parcel.Drone == null)
+                DeleteParcelButton.Visibility = Visibility.Visible;
+
+            else
                 DroneInParcelTextbox.Text = parcel.Drone.ToString();
         }
         /// <summary>
@@ -105,6 +105,7 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
+<<<<<<< HEAD
         /// <summary>
         /// change color by event
         /// </summary>
@@ -128,9 +129,12 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+=======
+
+>>>>>>> 05d6e1b95f21d3b3106265f4f4b6f404c6a27118
         private void DroneInParcelTextbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
+
             new DroneWindow(BlParcel, parcel.Drone.Id).Show();
         }
         /// <summary>
@@ -171,6 +175,33 @@ namespace PL
 
                 TargetIdTextbox.Background = Brushes.OrangeRed;
             }
+        }
+
+        private void DeleteParcelButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                BlParcel.EventDelete(ParcelChanged, "Parcel");
+                BlParcel.ParcelDelete(parcel.Id);
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void SenderIdTextbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (SenderIdTextbox.IsReadOnly)
+                new CostomerWindow(BlParcel, int.Parse(SenderIdTextbox.Text)).Show();
+        }
+
+        private void TargetIdTextbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (TargetIdTextbox.IsReadOnly)
+                new CostomerWindow(BlParcel, int.Parse(TargetIdTextbox.Text)).Show();
         }
     }
 }

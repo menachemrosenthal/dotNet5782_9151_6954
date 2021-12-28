@@ -33,17 +33,22 @@ namespace PL
             blCustomerList = bl;            
             UpdateButton.Visibility = Visibility.Hidden;
         }
+<<<<<<< HEAD
         /// <summary>
         /// update window contsractor
         /// </summary>
         /// <param name="bl"></param>
         /// <param name="customerToList">seledcted item</param>
         public CostomerWindow(BO.BL bl, CustomerToList customerToList)
+=======
+
+        public CostomerWindow(BO.BL bl, int customerId)
+>>>>>>> 05d6e1b95f21d3b3106265f4f4b6f404c6a27118
         {
             InitializeComponent();
             AddButton.Visibility = Visibility.Hidden;
             blCustomerList = bl;
-            Customer = blCustomerList.GetCustomer(customerToList.Id);
+            Customer = blCustomerList.GetCustomer(customerId);
             nameLabel.Content = "Name";
             CustomerChanged += UpdateWindow;
             blCustomerList.EventRegistration(CustomerChanged, "Customer");

@@ -8,7 +8,7 @@
         public override string ToString()
         {
             return "Id: " + Id +
-                " BatteryStatus: " + BatteryStatus + "\nCurrent Location: " + CurrentLocation;
+                " BatteryStatus: " + BatteryStatus + "\nCurrent Location:\n" + CurrentLocation;
         }
     }
 }

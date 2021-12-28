@@ -42,7 +42,8 @@ namespace PL
         /// <param name="e"></param>
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new CostomerWindow(BlCustomerList, (CustomerToList)CustomerListView.SelectedItem).Show();                        
+            CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
+            new CostomerWindow(BlCustomerList, customer.Id).Show();                        
         }
         /// <summary>
         /// opens add customer window
