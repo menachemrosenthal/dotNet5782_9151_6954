@@ -39,7 +39,7 @@
         <TextBox x:Name="IdTextbox" HorizontalAlignment="Left" Margin="206,38,0,0" 
                  Text="{Binding Path=Id}" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="AddParcelButton" Content="Add Parcel" HorizontalAlignment="Left" 
-                Margin="428,37,0,0" VerticalAlignment="Top" Click="AddParcelButton_Click"/>
+                Margin="428,37,0,0" VerticalAlignment="Top" />
         <Button x:Name="UpdateParcelButton" Content="Update Parcel" HorizontalAlignment="Left" 
             Margin="428,76,0,0" VerticalAlignment="Top"/>
         <Button x:Name="DeleteParcelButton" Content="Delete Parcel" HorizontalAlignment="Left" 
