@@ -22,6 +22,10 @@ namespace PL
         BO.BL GetBL;
         BO.Station Station;
         event EventHandler StationChanged;
+        /// <summary>
+        /// constractor
+        /// </summary>
+        /// <param name="bl"></param>
         public StationWindow(BO.BL bl)
         {
             InitializeComponent();
@@ -32,7 +36,11 @@ namespace PL
             slotsLabel.Content = "Charging slots:";
             slots.VerticalAlignment = VerticalAlignment.Center;
         }
-
+        /// <summary>
+        /// construtor by selected item
+        /// </summary>
+        /// <param name="bl"></param>
+        /// <param name="stationId">selected item</param>
         public StationWindow(BO.BL bl, int stationId)
         {
             InitializeComponent();
@@ -43,7 +51,11 @@ namespace PL
             UpdateWindow(this, EventArgs.Empty);
             id.IsEnabled = false;
         }
-
+        /// <summary>
+        /// update window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateWindow(object sender, EventArgs e)
         {
             Station = GetBL.GetStation(Station.Id);
@@ -57,12 +69,21 @@ namespace PL
 
             drones.Visibility = Visibility.Hidden;
         }
+        /// <summary>
+        /// open drone window by selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Drones_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.DroneInCharging drone = (BO.DroneInCharging)drones.SelectedItem;
             new DroneWindow(GetBL, drone.Id).Show();
         }
-
+        /// <summary>
+        /// change color
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Id_SelectionChanged(object sender, RoutedEventArgs e)
         {
             _ = int.TryParse(id.Text, out int Id);
@@ -74,7 +95,11 @@ namespace PL
 
             id.Background = Brushes.OrangeRed;
         }
-
+        /// <summary>
+        /// update station
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -90,7 +115,11 @@ namespace PL
                 _ = MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// add station
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddBUtton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -130,7 +159,11 @@ namespace PL
                 _ = MessageBox.Show(ex.Message);
             }
         }
-
+        /// <summary>
+        /// change color
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Latitude_SelectionChanged(object sender, RoutedEventArgs e)
         {
             _ = double.TryParse(latitud.Text, out double lat);
@@ -142,7 +175,11 @@ namespace PL
 
             latitud.Background = Brushes.OrangeRed;
         }
-
+        /// <summary>
+        /// change color
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Longitude_SelectionChanged(object sender, RoutedEventArgs e)
         {
             _ = double.TryParse(longitude.Text, out double lon);
@@ -154,7 +191,11 @@ namespace PL
 
             longitude.Background = Brushes.OrangeRed;
         }
-
+        /// <summary>
+        /// change color
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Slots_SelectionChanged(object sender, RoutedEventArgs e)
         {
 

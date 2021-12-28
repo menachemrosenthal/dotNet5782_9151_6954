@@ -42,7 +42,11 @@ namespace PL
             DateCombobox.Items.Add("Requested"); DateCombobox.Items.Add("PickedUp");
 
         }
-
+        /// <summary>
+        /// update window(refresh)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UpdateWindow(object sender, EventArgs e)
         {
             ParcelListView.ItemsSource = BlParcelList.GetParcelList();
@@ -82,12 +86,20 @@ namespace PL
                                              select parcel;
             }
         }
-
+        /// <summary>
+        /// open parcel window to add parcel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddParcel_Click(object sender, RoutedEventArgs e)
         {
             new ParcelWindow(BlParcelList).Show();
         }
-
+        /// <summary>
+        /// open parcel window by selected item
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ParcelListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (ParcelListView.SelectedItem != null)
@@ -96,7 +108,11 @@ namespace PL
                 new ParcelWindow(BlParcelList, parcelToList.Id).Show();
             }
         }
-
+        /// <summary>
+        /// group by sender
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SenderGruping_Click(object sender, RoutedEventArgs e)
         {             
             mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
@@ -105,7 +121,11 @@ namespace PL
             senderGruping.Visibility = Visibility.Hidden;
             targetGrouping.Visibility = Visibility.Hidden;
         }
-
+        /// <summary>
+        /// group by target
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TargetGrouping_Click(object sender, RoutedEventArgs e)
         {            
             mainView = (CollectionView)CollectionViewSource.GetDefaultView(ParcelListView.ItemsSource);
@@ -114,7 +134,11 @@ namespace PL
             targetGrouping.Visibility = Visibility.Hidden;
             senderGruping.Visibility = Visibility.Hidden;
         }
-
+        /// <summary>
+        /// refreshes list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StandartListButton_Click(object sender, RoutedEventArgs e)
         {
             ParcelListView.ItemsSource = BlParcelList.GetParcelList();
@@ -124,7 +148,11 @@ namespace PL
             senderGruping.Visibility = Visibility.Visible;
             targetGrouping.Visibility = Visibility.Visible;
         }
-
+        /// <summary>
+        /// filter by weight
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void WeightFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (weightFilter.SelectedItem != null)
@@ -134,7 +162,11 @@ namespace PL
                                              select parcel;
             }
         }
-
+        /// <summary>
+        /// filter by status
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StatusFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (statusFilter.SelectedItem != null)
@@ -145,6 +177,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// filter by priority
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void priorityFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (priorityFilter.SelectedItem != null)
@@ -154,7 +191,11 @@ namespace PL
                                              select parcel;
             }
         }
-
+        /// <summary>
+        /// filter by date
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FilterByDate_Click(object sender, RoutedEventArgs e)
         {
             if ((string)DateCombobox.SelectedItem == "Requested")
