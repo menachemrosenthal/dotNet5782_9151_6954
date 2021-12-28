@@ -8,7 +8,11 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// BL access
+        /// </summary>
         private BO.BL bl = (BO.BL)BL.BlFactory.GetBl();
+
         /// <summary>
         /// constractor
         /// </summary>
@@ -16,6 +20,7 @@ namespace PL
         {
             InitializeComponent();
         }
+
         /// <summary>
         /// open drone list window
         /// </summary>
@@ -25,6 +30,7 @@ namespace PL
         {
             new DroneListWindow(bl).Show();
         }
+
         /// <summary>
         /// open station list window
         /// </summary>
@@ -34,6 +40,7 @@ namespace PL
         {
             new StationListView(bl).Show();
         }
+
         /// <summary>
         /// open customer list window
         /// </summary>
@@ -43,6 +50,7 @@ namespace PL
         {
             new CustomerListWindow(bl).Show();
         }
+
         /// <summary>
         /// open parcel list window
         /// </summary>

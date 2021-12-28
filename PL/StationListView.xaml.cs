@@ -20,9 +20,21 @@ namespace PL
     /// </summary>
     public partial class StationListView : Window
     {
+        /// <summary>
+        /// BL access
+        /// </summary>
         BO.BL GetBL;
+
+        /// <summary>
+        /// ienumerable for grouping
+        /// </summary>
         ICollectionView mainView;
+
+        /// <summary>
+        /// when station list changes
+        /// </summary>
         event EventHandler StationListChanged;
+
         /// <summary>
         /// constractor
         /// </summary>
@@ -35,6 +47,7 @@ namespace PL
             GetBL.EventRegistration(StationListChanged, "Station");
             stationList.ItemsSource = GetBL.GetBaseStationList();
         }
+
         /// <summary>
         /// open station window by selected item
         /// </summary>
@@ -45,6 +58,7 @@ namespace PL
             BO.StationToList station = (BO.StationToList)stationList.SelectedItem;
             new StationWindow(GetBL, station.Id).Show();
         }
+
         /// <summary>
         /// grouping
         /// </summary>
@@ -60,6 +74,7 @@ namespace PL
                 standartListButton.Visibility = Visibility.Visible;
             }
         }
+
         /// <summary>
         /// return to standared list
         /// </summary>
@@ -71,6 +86,7 @@ namespace PL
             mainView = null;
             standartListButton.Visibility = Visibility.Hidden;
         }
+
         /// <summary>
         /// update window
         /// </summary>
@@ -87,6 +103,7 @@ namespace PL
                 mainView.GroupDescriptions.Add(groupDescription);
             }
         }
+
         /// <summary>
         /// open station window to add
         /// </summary>

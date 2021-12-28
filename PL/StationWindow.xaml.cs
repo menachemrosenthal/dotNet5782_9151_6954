@@ -19,9 +19,21 @@ namespace PL
     /// </summary>
     public partial class StationWindow : Window
     {
+        /// <summary>
+        /// BL access
+        /// </summary>
         BO.BL GetBL;
+
+        /// <summary>
+        /// station for data context
+        /// </summary>
         BO.Station Station;
+
+        /// <summary>
+        /// when staion is changed
+        /// </summary>
         event EventHandler StationChanged;
+
         /// <summary>
         /// constractor
         /// </summary>
@@ -36,6 +48,7 @@ namespace PL
             slotsLabel.Content = "Charging slots:";
             slots.VerticalAlignment = VerticalAlignment.Center;
         }
+
         /// <summary>
         /// construtor by selected item
         /// </summary>
@@ -51,6 +64,7 @@ namespace PL
             UpdateWindow(this, EventArgs.Empty);
             id.IsEnabled = false;
         }
+
         /// <summary>
         /// update window
         /// </summary>
@@ -69,6 +83,7 @@ namespace PL
 
             drones.Visibility = Visibility.Hidden;
         }
+
         /// <summary>
         /// open drone window by selected item
         /// </summary>
@@ -79,6 +94,7 @@ namespace PL
             BO.DroneInCharging drone = (BO.DroneInCharging)drones.SelectedItem;
             new DroneWindow(GetBL, drone.Id).Show();
         }
+
         /// <summary>
         /// change color
         /// </summary>
@@ -98,6 +114,7 @@ namespace PL
                 id.Background = Brushes.OrangeRed;
             }
         }
+
         /// <summary>
         /// update station
         /// </summary>
@@ -118,6 +135,7 @@ namespace PL
                 _ = MessageBox.Show(ex.Message);
             }
         }
+
         /// <summary>
         /// add station
         /// </summary>
@@ -162,6 +180,7 @@ namespace PL
                 _ = MessageBox.Show(ex.Message);
             }
         }
+
         /// <summary>
         /// change color
         /// </summary>
@@ -181,6 +200,7 @@ namespace PL
                 latitud.Background = Brushes.OrangeRed;
             }
         }
+
         /// <summary>
         /// change color
         /// </summary>
@@ -199,6 +219,7 @@ namespace PL
                 longitude.Background = Brushes.OrangeRed;
             }
         }
+
         /// <summary>
         /// change color
         /// </summary>

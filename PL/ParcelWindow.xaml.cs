@@ -20,9 +20,21 @@ namespace PL
     /// </summary>
     public partial class ParcelWindow : Window
     {
+        /// <summary>
+        /// BL access
+        /// </summary>
         BO.BL BlParcel;
+
+        /// <summary>
+        /// parcel for data context
+        /// </summary>
         Parcel parcel;
+
+        /// <summary>
+        /// when changing happens in parcel
+        /// </summary>
         event EventHandler ParcelChanged;
+
         /// <summary>
         /// costructor
         /// </summary>
@@ -36,6 +48,7 @@ namespace PL
             WeightTextbox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             IdTextbox.IsReadOnly = false;
         }
+
         /// <summary>
         /// constructor by selected item
         /// </summary>
@@ -56,6 +69,7 @@ namespace PL
             WeightTextbox.IsEnabled = false;
             UpdateWindow(this, EventArgs.Empty);
         }
+
         /// <summary>
         /// update window
         /// </summary>
@@ -74,6 +88,7 @@ namespace PL
             else
                 DroneInParcelTextbox.Text = parcel.Drone.ToString();
         }
+
         /// <summary>
         /// add parcel
         /// </summary>
@@ -105,16 +120,7 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
-<<<<<<< HEAD
-        /// <summary>
-        /// change color by event
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void DroneInParcelTextbox_MouseLeave(object sender, MouseEventArgs e)
-        {
-            DroneInParcelTextbox.Background = Brushes.White;
-        }
+
         /// <summary>
         /// change color by event
         /// </summary>
@@ -124,19 +130,17 @@ namespace PL
         {
             DroneInParcelTextbox.Background = Brushes.LightBlue;
         }
+
         /// <summary>
         /// open drone window by selected item
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-=======
-
->>>>>>> 05d6e1b95f21d3b3106265f4f4b6f404c6a27118
         private void DroneInParcelTextbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
             new DroneWindow(BlParcel, parcel.Drone.Id).Show();
         }
+
         /// <summary>
         /// change color acustomed to mistake
         /// </summary>
@@ -156,6 +160,7 @@ namespace PL
                 SenderIdTextbox.Background = Brushes.OrangeRed;
             }
         }
+
         /// <summary>
         /// change color acustomed to mistake
         /// </summary>
@@ -177,6 +182,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// delete parcel if it not associated
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DeleteParcelButton_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -192,12 +202,22 @@ namespace PL
 
         }
 
+        /// <summary>
+        /// open customer window of sender
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SenderIdTextbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (SenderIdTextbox.IsReadOnly)
                 new CostomerWindow(BlParcel, int.Parse(SenderIdTextbox.Text)).Show();
         }
 
+        /// <summary>
+        /// open customer window of reciver
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TargetIdTextbox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (TargetIdTextbox.IsReadOnly)

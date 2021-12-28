@@ -23,6 +23,7 @@ namespace PL
     {
         BO.BL BlCustomerList;
         event EventHandler CustomerListChanged;
+
         /// <summary>
         /// consractor
         /// </summary>
@@ -35,6 +36,7 @@ namespace PL
             CustomerListChanged += UpdateWindow;
             BlCustomerList.EventRegistration(CustomerListChanged, "Customer");
         }
+
         /// <summary>
         /// opens customer window by selected item
         /// </summary>
@@ -45,6 +47,7 @@ namespace PL
             CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
             new CostomerWindow(BlCustomerList, customer.Id).Show();                        
         }
+
         /// <summary>
         /// opens add customer window
         /// </summary>
@@ -54,6 +57,7 @@ namespace PL
         {
             new CostomerWindow(BlCustomerList).Show();
         }
+
         /// <summary>
         /// updates the window(refresh)
         /// </summary>

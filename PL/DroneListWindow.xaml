@@ -63,7 +63,7 @@
                 Margin="0,521,0,0" 
                 VerticalAlignment="Top" 
                 Height="45" 
-                Width="100" Click="Button_Click_2" FontFamily="Segoe UI Black" Background="#FFF4F5FA"/>
+                Width="100" Click="CloseButton_Click" FontFamily="Segoe UI Black" Background="#FFF4F5FA"/>
             <Button 
                 Content="Add&#xD;&#xA;Drone&#xD;&#xA;"
                 HorizontalAlignment="Right" 
@@ -71,7 +71,7 @@
                 VerticalAlignment="Top" 
                 Height="108" 
                 Width="133" 
-                Click="Button_Click_1" Grid.Column="4"
+                Click="AddDroneButton_Click_1" Grid.Column="4"
                 FontFamily="Baskerville Old Face" FontSize="36"/>
             <Button 
                 x:Name="allDronesButton"
@@ -81,7 +81,7 @@
                 VerticalAlignment="Top" 
                 Height="24" 
                 Width="116"
-                Click="Button_Click"
+                Click="StandartList_Click"
                 Visibility="Hidden" Grid.Column="4"/>
         </Grid>
         <ListView 

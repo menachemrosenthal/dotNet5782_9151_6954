@@ -21,9 +21,21 @@ namespace PL
     /// </summary>
     public partial class ParcelListWindow : Window
     {
+        /// <summary>
+        /// BL access
+        /// </summary>
         BO.BL BlParcelList;
+
+        /// <summary>
+        /// when changing happens 
+        /// </summary>
         event EventHandler ParcelListChanged;
+
+        /// <summary>
+        /// ienumerable for grouping
+        /// </summary>
         ICollectionView mainView;
+
         /// <summary>
         /// constructor
         /// </summary>
@@ -42,6 +54,7 @@ namespace PL
             DateCombobox.Items.Add("Requested"); DateCombobox.Items.Add("PickedUp");
 
         }
+
         /// <summary>
         /// update window(refresh)
         /// </summary>
@@ -73,6 +86,7 @@ namespace PL
                                              select parcel;
             }
         }
+
         /// <summary>
         /// open parcel window to add parcel
         /// </summary>
@@ -82,6 +96,7 @@ namespace PL
         {
             new ParcelWindow(BlParcelList).Show();
         }
+
         /// <summary>
         /// open parcel window by selected item
         /// </summary>
@@ -95,6 +110,7 @@ namespace PL
                 new ParcelWindow(BlParcelList, parcelToList.Id).Show();
             }
         }
+
         /// <summary>
         /// group by sender
         /// </summary>
@@ -109,6 +125,7 @@ namespace PL
                 mainView.GroupDescriptions.Add(groupDescription);
             }
         }
+
         /// <summary>
         /// group by target
         /// </summary>
@@ -123,6 +140,7 @@ namespace PL
                 mainView.GroupDescriptions.Add(groupDescription);
             }
         }
+
         /// <summary>
         /// refreshes list
         /// </summary>
@@ -137,6 +155,7 @@ namespace PL
             mainView = null;
             mainView = null;
         }
+
         /// <summary>
         /// filter by weight
         /// </summary>
@@ -151,6 +170,7 @@ namespace PL
                                              select parcel;
             }
         }
+
         /// <summary>
         /// filter by status
         /// </summary>
@@ -180,6 +200,7 @@ namespace PL
                                              select parcel;
             }
         }
+
         /// <summary>
         /// filter by date
         /// </summary>

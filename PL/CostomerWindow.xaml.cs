@@ -33,17 +33,13 @@ namespace PL
             blCustomerList = bl;            
             UpdateButton.Visibility = Visibility.Hidden;
         }
-<<<<<<< HEAD
+
         /// <summary>
         /// update window contsractor
         /// </summary>
         /// <param name="bl"></param>
-        /// <param name="customerToList">seledcted item</param>
-        public CostomerWindow(BO.BL bl, CustomerToList customerToList)
-=======
-
+        /// <param name="customerToList">seledcted item</param>        
         public CostomerWindow(BO.BL bl, int customerId)
->>>>>>> 05d6e1b95f21d3b3106265f4f4b6f404c6a27118
         {
             InitializeComponent();
             AddButton.Visibility = Visibility.Hidden;
@@ -55,6 +51,7 @@ namespace PL
             UpdateWindow(this, EventArgs.Empty);            
             Id.IsReadOnly = true;
         }
+
         /// <summary>
         /// add a customer
         /// </summary>
@@ -99,8 +96,9 @@ namespace PL
 
             Id.Text = "Wrong ID";
         }
+
         /// <summary>
-        /// update a customer
+        /// update a customer name
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -116,6 +114,7 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
+
         /// <summary>
         /// updates the window
         /// </summary>
@@ -128,6 +127,7 @@ namespace PL
             RecievedParcels.ItemsSource = Customer.Get;
             SendedParcels.ItemsSource = Customer.Sended;
         }
+
         /// <summary>
         /// opens sent parcel window for selected item
         /// </summary>
@@ -138,6 +138,7 @@ namespace PL
             ParcelInCustomer parcel = (ParcelInCustomer)SendedParcels.SelectedItem;
             new ParcelWindow(blCustomerList, parcel.Id).Show();
         }
+
         /// <summary>
         /// opens recieved parcel window for selected item
         /// </summary>

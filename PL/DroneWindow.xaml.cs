@@ -13,10 +13,26 @@ namespace PL
     /// </summary>
     public partial class DroneWindow : Window
     {
+        /// <summary>
+        /// BL access
+        /// </summary>
         BO.BL BlDrone;
+
+        /// <summary>
+        /// station id of the station to put the new drone
+        /// </summary>
         int stationId;
+
+        /// <summary>
+        /// drone for data context
+        /// </summary>
         Drone drone;
+
+        /// <summary>
+        /// when changing happens in drone
+        /// </summary>
         event EventHandler DroneChanged;
+
         /// <summary>
         /// constractor
         /// </summary>
@@ -30,6 +46,7 @@ namespace PL
             NameUpdateButton.Visibility = Visibility.Hidden;
             AddDroneButton.Visibility = Visibility.Visible;
         }
+
         /// <summary>
         /// constractor by selected item
         /// </summary>
@@ -50,6 +67,7 @@ namespace PL
             BlDrone.EventRegistration(DroneChanged, "Drone");
             UpdateWindow(this, EventArgs.Empty);
         }
+
         /// <summary>
         /// update window(refresh)
         /// </summary>
@@ -86,6 +104,7 @@ namespace PL
             if (BlDrone.GetDroneSituation(drone.Id) == "Executing")
                 provisionButton.Visibility = Visibility.Visible;
         }
+
         /// <summary>
         /// add drone
         /// </summary>
@@ -124,6 +143,7 @@ namespace PL
 
             ID.Text = "Wrong ID";
         }
+
         /// <summary>
         /// assign a drone to a station
         /// </summary>
@@ -134,6 +154,7 @@ namespace PL
             var station = (StationToList)StationList.SelectedItem;
             stationId = station.Id;
         }
+
         /// <summary>
         /// update drone name
         /// </summary>
@@ -151,6 +172,7 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
+
         /// <summary>
         /// charge drone
         /// </summary>
@@ -168,6 +190,7 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
+
         /// <summary>
         /// associate a parcel to a drone
         /// </summary>
@@ -186,6 +209,7 @@ namespace PL
             }
 
         }
+
         /// <summary>
         /// update that parcel was picked up
         /// </summary>
@@ -204,6 +228,7 @@ namespace PL
             }
 
         }
+
         /// <summary>
         /// update that parcel was provided
         /// </summary>
@@ -222,6 +247,7 @@ namespace PL
             }
 
         }
+
         /// <summary>
         /// release drone from charging
         /// </summary>
@@ -240,6 +266,7 @@ namespace PL
                 MessageBox.Show(ex.Message);
             }
         }
+
         /// <summary>
         /// close window
         /// </summary>
@@ -249,6 +276,7 @@ namespace PL
         {
             Close();
         }
+
         /// <summary>
         /// changes backround acustomed with mistake
         /// </summary>
@@ -268,6 +296,7 @@ namespace PL
                 ID.Background = Brushes.OrangeRed;
             }
         }
+
         /// <summary>
         /// open parcel window
         /// </summary>
