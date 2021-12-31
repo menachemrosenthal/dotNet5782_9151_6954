@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace DalApi
 {
     public static class DalFactory
     {
@@ -15,8 +15,10 @@ namespace DAL
             {
                 return DalObject.Instance;
             }
-            //if(type == "DalXml")
-            //  return new DalXml();
+            if (type == "DalXml")
+            {
+                return DalXml.Instance;
+            }
             throw new ArgumentException("no type matches given argument");
         }
     }
