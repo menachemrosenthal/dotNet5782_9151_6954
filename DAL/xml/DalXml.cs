@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DalApi;
 using System.Xml.Linq;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace DalApi
 {
@@ -25,19 +27,41 @@ namespace DalApi
             XElement customersRoot;
             string cPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml";
             customersRoot = new XElement("Customers");
-            customersRoot.Save(cPath);
+            //customersRoot.Save(cPath);
             XElement dronesRoot;
             string dPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml";
             dronesRoot = new XElement("Drones");
-            dronesRoot.Save(dPath);
+            //dronesRoot.Save(dPath);
             XElement parcelsRoot;
             string pPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ParcelXml.xml";
             parcelsRoot = new XElement("Parcels");
-            parcelsRoot.Save(pPath);
+            //parcelsRoot.Save(pPath);
             XElement stationsRoot;
             string sPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\StationXml.xml";
             stationsRoot = new XElement("Stations");
-            stationsRoot.Save(sPath);
+            //stationsRoot.Save(sPath);
+            XElement droneChargesRoot;
+            string dchPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml";
+            droneChargesRoot = new XElement("DroneCharge");
+
+
+            DataSource.Config.Initialize();
+            XmlSerializer x = new XmlSerializer(DataSource.Customers.GetType());
+            FileStream fs = new FileStream(cPath, FileMode.Create);
+            x.Serialize(fs, DataSource.Customers);            
+            x = new XmlSerializer(DataSource.Drones.GetType());
+            fs = new FileStream(dPath, FileMode.Create);
+            x.Serialize(fs, DataSource.Drones);
+            x = new XmlSerializer(DataSource.Parcels.GetType());
+            fs = new FileStream(pPath, FileMode.Create);
+            x.Serialize(fs, DataSource.Parcels);
+            x = new XmlSerializer(DataSource.Stations.GetType());
+            fs = new FileStream(sPath, FileMode.Create);
+            x.Serialize(fs, DataSource.Stations);
+            x = new XmlSerializer(DataSource.DronesCharge.GetType());
+            fs = new FileStream(dchPath, FileMode.Create);
+            x.Serialize(fs, DataSource.DronesCharge);
+
         }
 
         public void AddStation(Station station)

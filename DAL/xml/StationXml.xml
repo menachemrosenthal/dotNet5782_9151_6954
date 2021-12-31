@@ -1,2 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Stations />
+<?xml version="1.0"?>
+<ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Station>
+    <Id>3770</Id>
+    <Name>Station 641</Name>
+    <ChargeSlots>2</ChargeSlots>
+    <Longitude>34.958514</Longitude>
+    <Latitude>32.381889</Latitude>
+  </Station>
+  <Station>
+    <Id>6822</Id>
+    <Name>Station 519</Name>
+    <ChargeSlots>6</ChargeSlots>
+    <Longitude>34.956307</Longitude>
+    <Latitude>32.111501</Latitude>
+  </Station>
+</ArrayOfStation>

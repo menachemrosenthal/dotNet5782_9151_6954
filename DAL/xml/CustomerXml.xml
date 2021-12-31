@@ -1,2 +1,73 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Customers />
+<?xml version="1.0"?>
+<ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Customer>
+    <Id>798872893</Id>
+    <Name>person 0</Name>
+    <Phone>053-1881621</Phone>
+    <Longitude>34.957147</Longitude>
+    <Latitude>31.965938</Latitude>
+  </Customer>
+  <Customer>
+    <Id>384480674</Id>
+    <Name>person 1</Name>
+    <Phone>058-4480086</Phone>
+    <Longitude>34.957983</Longitude>
+    <Latitude>32.647768</Latitude>
+  </Customer>
+  <Customer>
+    <Id>787212017</Id>
+    <Name>person 2</Name>
+    <Phone>053-4758738</Phone>
+    <Longitude>34.957185</Longitude>
+    <Latitude>32.364755</Latitude>
+  </Customer>
+  <Customer>
+    <Id>556734369</Id>
+    <Name>person 3</Name>
+    <Phone>052-2267799</Phone>
+    <Longitude>34.957223</Longitude>
+    <Latitude>32.598962</Latitude>
+  </Customer>
+  <Customer>
+    <Id>496938089</Id>
+    <Name>person 4</Name>
+    <Phone>051-0149850</Phone>
+    <Longitude>34.957309</Longitude>
+    <Latitude>31.760523</Latitude>
+  </Customer>
+  <Customer>
+    <Id>371367315</Id>
+    <Name>person 5</Name>
+    <Phone>059-2636354</Phone>
+    <Longitude>34.956702</Longitude>
+    <Latitude>32.258466</Latitude>
+  </Customer>
+  <Customer>
+    <Id>580141481</Id>
+    <Name>person 6</Name>
+    <Phone>059-4284028</Phone>
+    <Longitude>34.957226</Longitude>
+    <Latitude>31.867646</Latitude>
+  </Customer>
+  <Customer>
+    <Id>267914216</Id>
+    <Name>person 7</Name>
+    <Phone>050-6233420</Phone>
+    <Longitude>34.956117</Longitude>
+    <Latitude>32.465237</Latitude>
+  </Customer>
+  <Customer>
+    <Id>180847611</Id>
+    <Name>person 8</Name>
+    <Phone>054-9707789</Phone>
+    <Longitude>34.956644</Longitude>
+    <Latitude>32.224309</Latitude>
+  </Customer>
+  <Customer>
+    <Id>240009106</Id>
+    <Name>person 9</Name>
+    <Phone>050-7162874</Phone>
+    <Longitude>34.957447</Longitude>
+    <Latitude>32.140359</Latitude>
+  </Customer>
+</ArrayOfCustomer>
