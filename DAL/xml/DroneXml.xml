@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Drone>
+    <Id>80</Id>
+    <Model>Ferari</Model>
+    <MaxWeight>medium</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>43</Id>
+    <Model>Mercedes</Model>
+    <MaxWeight>medium</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>9</Id>
+    <Model>Mitsubishi</Model>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
+  <Drone>
+    <Id>80</Id>
+    <Model>Toyota</Model>
+    <MaxWeight>light</MaxWeight>
+  </Drone>
+</ArrayOfDrone>
