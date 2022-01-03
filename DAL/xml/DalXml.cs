@@ -27,15 +27,17 @@ namespace DalApi
         internal static XElement stationsRoot;
         internal static XElement droneChargesRoot;
         internal static XElement customersRoot;
+        internal static XElement configRoot;
         DalXml()
         {
             
-            string cPath, dPath, pPath, sPath, dchPath;
+            string cPath, dPath, pPath, sPath, dchPath, configPath;
             cPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml";
             dPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml";
             pPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ParcelXml.xml";
             sPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\StationXml.xml";
             dchPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml";
+            configPath= @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ConfigXml.xml";
 
             if (true/*files dont exist*/)
             {
@@ -61,6 +63,7 @@ namespace DalApi
                 x = new XmlSerializer(DataSource.DronesCharge.GetType());
                 fs = new FileStream(dchPath, FileMode.Create);
                 x.Serialize(fs, DataSource.DronesCharge);
+
             }
                 
             customersRoot = XElement.Load(cPath);
@@ -78,12 +81,20 @@ namespace DalApi
 
         public void AddDrone(Drone drone)
         {
-            throw new NotImplementedException();
+            XElement dr;
+            dr = dronesRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == drone.Id);
+            if (!dr.IsEmpty)
+                throw new DalApi.AddExistException("Drone", drone.Id);
+            dronesRoot.Add(dr);
         }
 
         public void AddCustumer(Customer customer)
         {
-            throw new NotImplementedException();
+            XElement c;
+            c = customersRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == customer.Id);
+            if (!c.IsEmpty)
+                throw new DalApi.AddExistException("Drone", customer.Id);
+            customersRoot.Add(c);
         }
 
         public int AddParcel(Parcel parcel)
@@ -93,7 +104,14 @@ namespace DalApi
 
         public void ParcelToDrone(int parcelId, int droneId)
         {
-            throw new NotImplementedException();
+            XElement p,d;
+            p = parcelsRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == parcelId);
+            if (!p.IsEmpty)
+                throw new ItemNotFoundException("Parcel", parcelId);
+            d = dronesRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == droneId);
+            if (!d.IsEmpty)
+                throw new ItemNotFoundException("Drone", droneId);
+            p.Element("DroneId").Value = droneId.ToString();
         }
 
         public void UpdatePickup(int parcelId)
