@@ -181,7 +181,18 @@ namespace DalApi
         /// <param name="droneId">drone id to release</param>
         public TimeSpan EndCharge(int droneId)
         {
-            
+            XElement d,s;
+            d = dronesRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == droneId);
+            if (!d.IsEmpty)
+                throw new ItemNotFoundException("Drone", droneId);
+            //drone status update
+            s = stationsRoot.Elements().FirstOrDefault(x => x.Attribute("Id").Value == d.Attribute("Id").Value);
+            string time = Convert.ToDateTime(d.Attribute("time").Value).ToString();
+            d.Remove();
+            int c = int.Parse(s.Element("ChargeSlots").Value) + 1;
+            s.Element("ChargeSlots").Value = c.ToString();
+            DateTime dt = Convert.ToDateTime(time);
+            return dt - DateTime.Now;
         }
 
 
