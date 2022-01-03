@@ -194,7 +194,7 @@ namespace DalApi
             DateTime dt = Convert.ToDateTime(time);
             return dt - DateTime.Now;
         }
-
+        
 
         public Station GetStation(int stationId)
         {
