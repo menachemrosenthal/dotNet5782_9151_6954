@@ -88,7 +88,7 @@ namespace DalApi
             if (!dr.IsEmpty)
                 throw new DalApi.AddExistException("Drone", drone.Id);
             XmlSerializer x = new(drone.GetType());
-            StreamWriter st = new (dPath);
+            StreamWriter st = new (DronePath);
             x.Serialize(st, drone);
         }
 
@@ -99,7 +99,7 @@ namespace DalApi
             if (!c.IsEmpty)
                 throw new DalApi.AddExistException("Drone", customer.Id);
             XmlSerializer x = new(customer.GetType());
-            StreamWriter st = new(sPath);
+            StreamWriter st = new(StationPath);
             x.Serialize(st, customer);
         }
 
@@ -172,7 +172,7 @@ namespace DalApi
                 throw new ItemNotFoundException("Station", stationId);
             DroneCharge dronecharge = new() { DroneId = droneId, StationId = stationId, time = DateTime.Now };
             XmlSerializer x = new(dronecharge.GetType());
-            StreamWriter st = new(dchPath);
+            StreamWriter st = new(DroneChargePath);
             x.Serialize(st, dronecharge);
             int c = int.Parse(s.Element("ChargeSlots").Value) - 1;
             s.Element("ChargeSlots").Value = c.ToString();
