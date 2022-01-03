@@ -28,10 +28,16 @@ namespace DalApi
         internal static XElement droneChargesRoot;
         internal static XElement customersRoot;
         internal static XElement configRoot;
+        internal static string cPath;
+        internal static string dPath;
+        internal static string pPath;
+        internal static string sPath;
+        internal static string dchPath;
+        internal static string configPath;
+
         DalXml()
         {
             
-            string cPath, dPath, pPath, sPath, dchPath, configPath;
             cPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml";
             dPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml";
             pPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ParcelXml.xml";
@@ -85,7 +91,9 @@ namespace DalApi
             dr = dronesRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == drone.Id);
             if (!dr.IsEmpty)
                 throw new DalApi.AddExistException("Drone", drone.Id);
-            dronesRoot.Add(dr);
+            XmlSerializer x = new(drone.GetType());
+            StreamWriter st = new (dPath);
+            x.Serialize(st, drone);
         }
 
         public void AddCustumer(Customer customer)
@@ -94,7 +102,9 @@ namespace DalApi
             c = customersRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == customer.Id);
             if (!c.IsEmpty)
                 throw new DalApi.AddExistException("Drone", customer.Id);
-            customersRoot.Add(c);
+            XmlSerializer x = new(customer.GetType());
+            StreamWriter st = new(sPath);
+            x.Serialize(st, customer);
         }
 
         public int AddParcel(Parcel parcel)
@@ -114,25 +124,66 @@ namespace DalApi
             p.Element("DroneId").Value = droneId.ToString();
         }
 
+        /// <summary>
+        /// the time of pickup a parcel by drone update
+        /// </summary>
+        /// <param name="parcelId">parcel id</param>
         public void UpdatePickup(int parcelId)
         {
-            throw new NotImplementedException();
+            XElement p;
+            p = parcelsRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == parcelId);
+            if (!p.IsEmpty)
+                throw new ItemNotFoundException("Parcel", parcelId);
+
+            p.Element("PickedUp").Value = DateTime.Now.ToString();
         }
 
+        /// <summary>
+        /// parcel delivery time update
+        /// </summary>
+        /// <param name="parcelId">parcel id</param>
         public void UpdateDelivery(int parcelId)
         {
-            throw new NotImplementedException();
+            XElement p;
+            p = parcelsRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == parcelId);
+            if (!p.IsEmpty)
+                throw new ItemNotFoundException("Parcel", parcelId);
+
+            p.Element("Delivered").Value = DateTime.Now.ToString();
         }
 
+        /// <summary>
+        /// send a drone to station for charge
+        /// </summary>
+        /// <param name="droneId">drone id</param>
+        /// <param name="stationId">station id</param>
         public void ChargeDrone(int droneId, int stationId)
         {
-            throw new NotImplementedException();
+            XElement d,s;
+            d = dronesRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == droneId);
+            if (!d.IsEmpty)
+                throw new ItemNotFoundException("Drone", droneId);
+            s = stationsRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == stationId);
+            if (!s.IsEmpty)
+                throw new ItemNotFoundException("Station", stationId);
+            DroneCharge dronecharge = new() { DroneId = droneId, StationId = stationId, time = DateTime.Now };
+            XmlSerializer x = new(dronecharge.GetType());
+            StreamWriter st = new(dchPath);
+            x.Serialize(st, dronecharge);
+            int c = int.Parse(s.Element("ChargeSlots").Value) - 1;
+            s.Element("ChargeSlots").Value = c.ToString();
         }
 
+
+        /// <summary>
+        /// drone release from chrage
+        /// </summary>
+        /// <param name="droneId">drone id to release</param>
         public TimeSpan EndCharge(int droneId)
         {
-            throw new NotImplementedException();
+            
         }
+
 
         public Station GetStation(int stationId)
         {
