@@ -2,7 +2,7 @@
 
 namespace DalApi
 {
-    internal partial class DalObject : DalApi.IDal
+    internal partial class DalObject : IDal
     {
         //static readonly DalObject instance = new DalObject();
         //internal static DalObject Instance { get { return instance; } }

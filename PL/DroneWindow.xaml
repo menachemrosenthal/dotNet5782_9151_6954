@@ -9,7 +9,7 @@
         Width="800">
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="LightGray"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="Britannic Bold"/>
@@ -17,7 +17,7 @@
             <Setter Property="Width" Value="auto"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Foreground" Value="Black"></Setter>
+            <Setter Property="Foreground" Value="Black"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="#FFF0C00C"/>
@@ -84,7 +84,7 @@
             FontWeight="Bold"
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" Grid.Row="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Width="110"/>
-        <ComboBox 
+        <ComboBox             
             Name="WeightSelector"
             VerticalAlignment="Center"
             FontFamily="Bahnschrift Light" 
@@ -113,14 +113,16 @@
             Margin="98,13,427,26" 
             SelectionMode="Single" 
             MouseDoubleClick="StationList_MouseDoubleClick"
-            Visibility="{Binding ElementName=AddDroneButton, Path=Visibility}" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="5"/>
+            Visibility="{Binding ElementName=AddDroneButton, Path=Visibility}" 
+            Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Grid.ColumnSpan="5"/>
         <Label
             x:Name="batteryLabel"
             FontWeight="Bold"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
             Content="Battery status:"
-            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" Grid.Row="4" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="110"/>
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" 
+            Grid.Row="4" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" Width="110"/>
         <TextBox
             x:Name="Battery"
             HorizontalAlignment="Right"
@@ -136,7 +138,8 @@
             HorizontalAlignment="Left" 
             Width="110"
             VerticalAlignment="Center"
-            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" Height="26" Grid.Row="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" 
+            Height="26" Grid.Row="3" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
         <TextBox
              x:Name="Status"
             HorizontalAlignment="Right"
@@ -150,7 +153,8 @@
             Content="Latitude:"
             HorizontalAlignment="Center" 
             Width="55" Grid.Row="5"
-            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" VerticalAlignment="Top" HorizontalContentAlignment="Right" VerticalContentAlignment="Top"
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" 
+            VerticalAlignment="Top" HorizontalContentAlignment="Right" VerticalContentAlignment="Top"
             />
         <TextBox
              x:Name="Latitude"
@@ -166,7 +170,8 @@
             HorizontalAlignment="Center" 
             Width="74"
              VerticalAlignment="Bottom" Grid.Row="5"
-            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" Height="26" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+            Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}" 
+            Height="26" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
         <TextBox
              x:Name="Longitude"
             HorizontalAlignment="Right"
@@ -174,7 +179,8 @@
             VerticalAlignment="Bottom"
             IsReadOnly="True" Grid.Row="5"
             Visibility="{Binding ElementName=Battery, Path=Visibility}"
-            Text="{Binding Path=CurrentLocation.Longitude,UpdateSourceTrigger=PropertyChanged}" Height="20"/>
+            Text="{Binding Path=CurrentLocation.Longitude,UpdateSourceTrigger=PropertyChanged}" 
+            Height="20"/>
         <Button 
             x:Name="NameUpdateButton"
             Content="Update" 
@@ -184,8 +190,9 @@
             FontWeight="Heavy"
             HorizontalContentAlignment="Center"
             VerticalContentAlignment="Center" 
-            FontFamily="Segoe UI Historic" HorizontalAlignment="Center" Grid.Column="1" VerticalAlignment="Center" Padding="0,0,0,0"/>
-        <Button 
+            FontFamily="Segoe UI Historic" HorizontalAlignment="Center" Grid.Column="1" 
+            VerticalAlignment="Center" Padding="0,0,0,0"/>
+        <Button
             x:Name="ChargeButton"
             Content="charge drone" 
             HorizontalAlignment="Center" 
@@ -196,6 +203,7 @@
             Height="29"
             FontFamily="Segoe UI Emoji" 
             FontWeight="Bold" Grid.Row="4" Grid.Column="1" Margin="-1,0,0,0"/>
+
         <Button 
             x:Name="associateButton"
             Content=" drone to delivery&#xD;&#xA;Associating" 
@@ -204,8 +212,7 @@
             Click="ParcelAssociate_Button"
             Visibility="Hidden"
             Height="119"
-            Width="144" 
-            Background="#FFDD1A1A" 
+            Width="144"              
             FontFamily="Bodoni MT Condensed"
             FontSize="24" Grid.RowSpan="3" Grid.Row="1" Grid.Column="1" Padding="0,0,0,0"/>
         <Button 
@@ -214,7 +221,8 @@
             HorizontalAlignment="Center" 
             VerticalAlignment="Center" 
             Click="Pickedup_Button"
-            Visibility="Hidden" Height="119" Width="144" Background="#FFE60C0C" FontFamily="Bodoni MT Condensed" FontSize="36" Grid.RowSpan="3" Padding="0,0,0,0" Grid.Row="1" Grid.Column="1"/>
+            Visibility="Hidden" Height="119" Width="144" FontFamily="Bodoni MT Condensed" 
+            FontSize="36" Grid.RowSpan="3" Padding="0,0,0,0" Grid.Row="1" Grid.Column="1"/>
         <Button 
             x:Name="provisionButton"
             Content="Parcel&#xD;&#xA; provided" 
@@ -223,13 +231,13 @@
             Click="Provision_Button"
             Visibility="Hidden"
             Height="119"
-            Width="144" 
-            Background="#FFEE0A0A" 
+            Width="144"             
             FontSize="36" 
             FontFamily="Bodoni MT Condensed" 
             FontWeight="Bold" FontStyle="Italic" 
             HorizontalContentAlignment="Center" 
-            VerticalContentAlignment="Center" Grid.RowSpan="3" Grid.Row="1" Grid.Column="1" Padding="0,0,0,0"/>
+            VerticalContentAlignment="Center" Grid.RowSpan="3" Grid.Row="1" 
+            Grid.Column="1" Padding="0,0,0,0"/>
         <Button 
             x:Name="ReleaseButton"            
             Content="Charging&#xD;&#xA; release" 
@@ -244,8 +252,8 @@
             FontSize="36" 
             FontFamily="Bodoni MT Condensed" 
             FontWeight="Bold" 
-            HorizontalContentAlignment="Center" 
-            Background="#FFE61111" Grid.RowSpan="3" Padding="0,0,0,0" Grid.Row="1" Grid.Column="1"/>
+            HorizontalContentAlignment="Center"   
+            Grid.RowSpan="3" Padding="0,0,0,0" Grid.Row="1" Grid.Column="1"/>
         <Button
             x:Name="CloseButton"
             Content="Close window" 
@@ -274,6 +282,6 @@
             HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center"
             Visibility="{Binding ElementName=parcel, Path=Visibility}" Grid.RowSpan="2" Margin="1,0,0,0"/>
-    </Grid>
+    </Grid> 
 </Window>
 
