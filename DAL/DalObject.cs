@@ -45,7 +45,7 @@ namespace DalApi
             dist = dist * 180 / Math.PI;
             dist = dist * 60 * 1.1515;
 
-            return dist * 1.609344; ;
+            return dist * 1.609344; 
         }
 
         /// <summary>

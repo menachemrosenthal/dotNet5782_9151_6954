@@ -73,7 +73,7 @@ namespace BO
 
         private BL()
         {
-            dal = DalFactory.GetDal("DalObject");
+            dal = DalFactory.GetDal("DalXml");
 
             FreeElectricityUse = dal.BatteryUseRequest()[0];
             CarryingLightElectricityUse = dal.BatteryUseRequest()[1];
