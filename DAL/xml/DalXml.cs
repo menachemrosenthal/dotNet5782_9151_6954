@@ -22,45 +22,52 @@ namespace DalApi
 
             internal static readonly DalXml instance = new();
         }
+        internal static XElement dronesRoot;
+        internal static XElement parcelsRoot;
+        internal static XElement stationsRoot;
+        internal static XElement droneChargesRoot;
+        internal static XElement customersRoot;
         DalXml()
         {
-            XElement customersRoot;
-            string cPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml";
-            customersRoot = new XElement("Customers");
-            //customersRoot.Save(cPath);
-            XElement dronesRoot;
-            string dPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml";
-            dronesRoot = new XElement("Drones");
-            //dronesRoot.Save(dPath);
-            XElement parcelsRoot;
-            string pPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ParcelXml.xml";
-            parcelsRoot = new XElement("Parcels");
-            //parcelsRoot.Save(pPath);
-            XElement stationsRoot;
-            string sPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\StationXml.xml";
-            stationsRoot = new XElement("Stations");
-            //stationsRoot.Save(sPath);
-            XElement droneChargesRoot;
-            string dchPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml";
-            droneChargesRoot = new XElement("DroneCharge");
+            
+            string cPath, dPath, pPath, sPath, dchPath;
+            cPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml";
+            dPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml";
+            pPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ParcelXml.xml";
+            sPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\StationXml.xml";
+            dchPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml";
 
+            if (true/*files dont exist*/)
+            {
+                customersRoot = new XElement("Customers");
+                dronesRoot = new XElement("Drones");
+                parcelsRoot = new XElement("Parcels");
+                stationsRoot = new XElement("Stations");
+                droneChargesRoot = new XElement("DroneCharge");
 
-            DataSource.Config.Initialize();
-            XmlSerializer x = new XmlSerializer(DataSource.Customers.GetType());
-            FileStream fs = new FileStream(cPath, FileMode.Create);
-            x.Serialize(fs, DataSource.Customers);            
-            x = new XmlSerializer(DataSource.Drones.GetType());
-            fs = new FileStream(dPath, FileMode.Create);
-            x.Serialize(fs, DataSource.Drones);
-            x = new XmlSerializer(DataSource.Parcels.GetType());
-            fs = new FileStream(pPath, FileMode.Create);
-            x.Serialize(fs, DataSource.Parcels);
-            x = new XmlSerializer(DataSource.Stations.GetType());
-            fs = new FileStream(sPath, FileMode.Create);
-            x.Serialize(fs, DataSource.Stations);
-            x = new XmlSerializer(DataSource.DronesCharge.GetType());
-            fs = new FileStream(dchPath, FileMode.Create);
-            x.Serialize(fs, DataSource.DronesCharge);
+                DataSource.Config.Initialize();
+                XmlSerializer x = new(DataSource.Customers.GetType());
+                FileStream fs = new(cPath, FileMode.Create);
+                x.Serialize(fs, DataSource.Customers);
+                x = new XmlSerializer(DataSource.Drones.GetType());
+                fs = new FileStream(dPath, FileMode.Create);
+                x.Serialize(fs, DataSource.Drones);
+                x = new XmlSerializer(DataSource.Parcels.GetType());
+                fs = new FileStream(pPath, FileMode.Create);
+                x.Serialize(fs, DataSource.Parcels);
+                x = new XmlSerializer(DataSource.Stations.GetType());
+                fs = new FileStream(sPath, FileMode.Create);
+                x.Serialize(fs, DataSource.Stations);
+                x = new XmlSerializer(DataSource.DronesCharge.GetType());
+                fs = new FileStream(dchPath, FileMode.Create);
+                x.Serialize(fs, DataSource.DronesCharge);
+            }
+                
+            customersRoot = XElement.Load(cPath);
+            dronesRoot = XElement.Load(dPath);
+            parcelsRoot = XElement.Load(pPath);
+            stationsRoot = XElement.Load(sPath);
+            droneChargesRoot = XElement.Load(dchPath);
 
         }
 
