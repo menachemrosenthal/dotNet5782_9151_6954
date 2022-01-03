@@ -76,7 +76,7 @@ namespace DalApi
 
             return DataSource.Drones.FirstOrDefault(x => x.Id == droneId);
         }
-
+        
         /// <summary>
         /// get droneCharging
         /// </summary>
