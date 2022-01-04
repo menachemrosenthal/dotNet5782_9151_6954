@@ -27,7 +27,7 @@ namespace DalApi
         internal static XElement droneChargesRoot;
         internal static XElement customersRoot;
         internal static XElement configRoot;
-        /*
+        
         string
         CustomerPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml",
         DronePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml",
@@ -35,14 +35,14 @@ namespace DalApi
         StationPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\StationXml.xml",
         DroneChargePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml",
         ConfigPath =  @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ConfigXml.xml";
-        */
+        /*
         string
         CustomerPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\CustomerXml.xml",
         DronePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneXml.xml",
         ParcelPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\ParcelXml.xml",
         StationPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\StationXml.xml",
         DroneChargePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneChargeXml.xml";
-
+        */
         DalXml()
         {
             if (true/*files dont exist*/)
@@ -56,6 +56,8 @@ namespace DalApi
                 
                 /*
                 DataSource.Config.Initialize();
+                XmlSerializer x;
+                FileStream fs;
                 x = new XmlSerializer(DataSource.Stations.GetType());
                 fs = new FileStream(StationPath, FileMode.Create);
                 x.Serialize(fs, DataSource.Stations);
@@ -72,11 +74,13 @@ namespace DalApi
                 fs = new FileStream(ParcelPath, FileMode.Create);
                 x.Serialize(fs, DataSource.Parcels);
                 fs.Close();
-                x = new XmlSerializer(DataSource.Config.CreateParcelNumber.GetType());
+                configRoot.Add(new XElement("CreateParcelNumber",DataSource.Config.CreateParcelNumber));
+                configRoot.Save(ConfigPath);
+                /*x = new XmlSerializer(DataSource.Config.CreateParcelNumber.GetType());
                 fs = new FileStream(ConfigPath, FileMode.Create);
                 x.Serialize(fs, DataSource.Config.CreateParcelNumber);
-                fs.Close();
-                 */  /*
+                fs.Close();*/
+                   /*
                 List<DroneCharge> dronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargePath);
                 foreach (var drone in dronesCharge)
                 {

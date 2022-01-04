@@ -1,38 +1,22 @@
 <?xml version="1.0"?>
 <ArrayOfDrone xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Drone>
-<<<<<<< HEAD
-    <Id>50</Id>
-=======
-    <Id>53</Id>
->>>>>>> 3d2bd2dafe4fbc96c57c58b06c24b13da2d5c02f
+    <Id>77</Id>
     <Model>Ferari</Model>
     <MaxWeight>medium</MaxWeight>
   </Drone>
   <Drone>
-<<<<<<< HEAD
-    <Id>76</Id>
-=======
-    <Id>81</Id>
->>>>>>> 3d2bd2dafe4fbc96c57c58b06c24b13da2d5c02f
+    <Id>36</Id>
     <Model>Mercedes</Model>
     <MaxWeight>medium</MaxWeight>
   </Drone>
   <Drone>
-<<<<<<< HEAD
-    <Id>42</Id>
-=======
-    <Id>57</Id>
->>>>>>> 3d2bd2dafe4fbc96c57c58b06c24b13da2d5c02f
+    <Id>75</Id>
     <Model>Mitsubishi</Model>
     <MaxWeight>light</MaxWeight>
   </Drone>
   <Drone>
-<<<<<<< HEAD
-    <Id>30</Id>
-=======
-    <Id>37</Id>
->>>>>>> 3d2bd2dafe4fbc96c57c58b06c24b13da2d5c02f
+    <Id>96</Id>
     <Model>Toyota</Model>
     <MaxWeight>light</MaxWeight>
   </Drone>

@@ -10,11 +10,9 @@ namespace DalApi
 {
     class XMLTools
     {
-<<<<<<< HEAD:DAL/DalXml/XMLTools.cs
-        //static string dir = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml";
-=======
-        static string dir = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml";
->>>>>>> 3d2bd2dafe4fbc96c57c58b06c24b13da2d5c02f:DAL/xml/XMLTools.cs
+        static string dir = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml";
+
+       // static string dir = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml";
 
         static XMLTools()
         {
