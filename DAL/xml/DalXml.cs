@@ -256,10 +256,10 @@ namespace DalApi
             {
                 return
                 (from c in customersRoot.Elements()
-                 where int.Parse(c.Element("id").Value) == customerId
+                 where int.Parse(c.Element("Id").Value) == customerId
                  select new Customer()
                  {
-                     Id = int.Parse(c.Element("id").Value),
+                     Id = int.Parse(c.Element("Id").Value),
                      Name = c.Element("Name").Value,
                      Phone = c.Element("Phone").Value,
                      Longitude =double.Parse(c.Element("Longitude").Value),

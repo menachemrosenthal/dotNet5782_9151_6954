@@ -3,7 +3,7 @@
   <Station>
     <Id>2114</Id>
     <Name>Station 487</Name>
-    <ChargeSlots>3</ChargeSlots>
+    <ChargeSlots>-5</ChargeSlots>
     <Longitude>34.958348</Longitude>
     <Latitude>32.129053</Latitude>
   </Station>
