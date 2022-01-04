@@ -1,123 +1,17 @@
 <?xml version="1.0"?>
-<ArrayOfParcel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Parcel>
-    <Id>1</Id>
-    <Senderid>240009106</Senderid>
-    <TargetId>798872893</TargetId>
-    <Weight>light</Weight>
-    <Priority>urgent</Priority>
-    <DroneId>80</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled>2021-12-31T08:51:57.4562461+02:00</Scheduled>
-    <PickedUp>2021-12-31T08:51:57.4562461+02:00</PickedUp>
-    <Delivered>2021-12-31T08:51:57.4562461+02:00</Delivered>
-  </Parcel>
-  <Parcel>
-    <Id>2</Id>
-    <Senderid>180847611</Senderid>
-    <TargetId>384480674</TargetId>
-    <Weight>heavy</Weight>
-    <Priority>urgent</Priority>
-    <DroneId>43</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled>2021-12-31T08:51:57.4562461+02:00</Scheduled>
-    <PickedUp>2021-12-31T08:51:57.4562461+02:00</PickedUp>
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <Id>3</Id>
-    <Senderid>267914216</Senderid>
-    <TargetId>787212017</TargetId>
-    <Weight>medium</Weight>
-    <Priority>urgent</Priority>
-    <DroneId>0</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <Id>4</Id>
-    <Senderid>580141481</Senderid>
-    <TargetId>556734369</TargetId>
-    <Weight>light</Weight>
-    <Priority>fast</Priority>
-    <DroneId>9</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled>2021-12-31T08:51:57.4562461+02:00</Scheduled>
-    <PickedUp>2022-01-04T00:16:02.9093869+02:00</PickedUp>
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <Id>5</Id>
-    <Senderid>371367315</Senderid>
-    <TargetId>496938089</TargetId>
-    <Weight>light</Weight>
-    <Priority>ragular</Priority>
-    <DroneId>0</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <Id>6</Id>
-    <Senderid>496938089</Senderid>
-    <TargetId>371367315</TargetId>
-    <Weight>light</Weight>
-    <Priority>urgent</Priority>
-    <DroneId>80</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled>2021-12-31T08:51:57.4562461+02:00</Scheduled>
-    <PickedUp>2021-12-31T08:51:57.4562461+02:00</PickedUp>
-    <Delivered>2021-12-31T08:51:57.4562461+02:00</Delivered>
-  </Parcel>
-  <Parcel>
-    <Id>7</Id>
-    <Senderid>556734369</Senderid>
-    <TargetId>580141481</TargetId>
-    <Weight>light</Weight>
-    <Priority>urgent</Priority>
-    <DroneId>0</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <Id>8</Id>
-    <Senderid>787212017</Senderid>
-    <TargetId>180847611</TargetId>
-    <Weight>heavy</Weight>
-    <Priority>fast</Priority>
-    <DroneId>0</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <Id>9</Id>
-    <Senderid>384480674</Senderid>
-    <TargetId>267914216</TargetId>
-    <Weight>medium</Weight>
-    <Priority>fast</Priority>
-    <DroneId>0</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-  <Parcel>
-    <Id>10</Id>
-    <Senderid>798872893</Senderid>
-    <TargetId>240009106</TargetId>
-    <Weight>heavy</Weight>
-    <Priority>urgent</Priority>
-    <DroneId>0</DroneId>
-    <Requested>2021-12-31T08:51:57.4562461+02:00</Requested>
-    <Scheduled xsi:nil="true" />
-    <PickedUp xsi:nil="true" />
-    <Delivered xsi:nil="true" />
-  </Parcel>
-</ArrayOfParcel>
+<ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Station>
+    <Id>8726</Id>
+    <Name>Station 110</Name>
+    <ChargeSlots>-1</ChargeSlots>
+    <Longitude>34.957283</Longitude>
+    <Latitude>31.997034</Latitude>
+  </Station>
+  <Station>
+    <Id>3628</Id>
+    <Name>Station 644</Name>
+    <ChargeSlots>6</ChargeSlots>
+    <Longitude>34.956844</Longitude>
+    <Latitude>31.809482</Latitude>
+  </Station>
+</ArrayOfStation>
