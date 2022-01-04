@@ -111,7 +111,7 @@ namespace BO
                     int batteryUse = (int)BatteryUseInDelivery(drone, parcel);
                     if (batteryUse < 99)
                         drone.BatteryStatus = r.Next(batteryUse, 99) + 1;
-                 }
+                }
 
                 else
                 {
@@ -145,6 +145,7 @@ namespace BO
             }
         }
 
+        
         private double LocationsDistance(Location l1, Location l2)
              => dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);
     }

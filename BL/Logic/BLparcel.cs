@@ -174,7 +174,9 @@ namespace BO
         /// <param name="parcel"></param>
         /// <returns> sender location</returns>
         private Location SenderLocation(DalApi.Parcel parcel)
-            => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.Senderid));
+        {
+            return CustomerLocation(dal.CustomerList().FirstOrDefault(x => x.Id == parcel.Senderid));
+        }
 
         /// <summary>
         /// gets Target location
@@ -182,7 +184,7 @@ namespace BO
         /// <param name="parcel"></param>
         /// <returns> Target location</returns>
         private Location TargetLocation(DalApi.Parcel parcel)
-            => CustomerLocation(dal.CustomerList().First(x => x.Id == parcel.TargetId));
+            => CustomerLocation(dal.CustomerList().FirstOrDefault(x => x.Id == parcel.TargetId));
 
         /// <summary>
         /// calculates distance between sender and reciever
