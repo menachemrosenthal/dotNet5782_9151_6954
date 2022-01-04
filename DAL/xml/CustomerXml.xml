@@ -1,144 +1,73 @@
 <?xml version="1.0"?>
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
-<<<<<<< HEAD
-    <Id>157078825</Id>
+    <Id>971380227</Id>
     <Name>person 0</Name>
-    <Phone>059-7955154</Phone>
-    <Longitude>34.956327</Longitude>
-    <Latitude>32.586668</Latitude>
+    <Phone>056-7723308</Phone>
+    <Longitude>34.958717</Longitude>
+    <Latitude>32.346231</Latitude>
   </Customer>
   <Customer>
-    <Id>586846334</Id>
+    <Id>904629292</Id>
     <Name>person 1</Name>
-    <Phone>052-3447072</Phone>
-    <Longitude>34.957654</Longitude>
-    <Latitude>31.957524</Latitude>
+    <Phone>058-4682804</Phone>
+    <Longitude>34.957869</Longitude>
+    <Latitude>31.73562</Latitude>
   </Customer>
   <Customer>
-    <Id>795359067</Id>
+    <Id>665817633</Id>
     <Name>person 2</Name>
-    <Phone>056-1916209</Phone>
-    <Longitude>34.958068</Longitude>
-    <Latitude>32.737354</Latitude>
+    <Phone>057-1189386</Phone>
+    <Longitude>34.956162</Longitude>
+    <Latitude>32.443196</Latitude>
   </Customer>
   <Customer>
-    <Id>638636579</Id>
+    <Id>185718408</Id>
     <Name>person 3</Name>
-    <Phone>054-5344486</Phone>
-    <Longitude>34.957234</Longitude>
-    <Latitude>32.080405</Latitude>
+    <Phone>051-6769142</Phone>
+    <Longitude>34.955989</Longitude>
+    <Latitude>32.668742</Latitude>
   </Customer>
   <Customer>
-    <Id>534412795</Id>
+    <Id>859924409</Id>
     <Name>person 4</Name>
-    <Phone>054-0216741</Phone>
-    <Longitude>34.958159</Longitude>
-    <Latitude>32.381897</Latitude>
+    <Phone>052-6785343</Phone>
+    <Longitude>34.956086</Longitude>
+    <Latitude>32.323751</Latitude>
   </Customer>
   <Customer>
-    <Id>653862520</Id>
+    <Id>371979135</Id>
     <Name>person 5</Name>
-    <Phone>052-0988515</Phone>
-    <Longitude>34.958633</Longitude>
-    <Latitude>31.747967</Latitude>
+    <Phone>055-1486139</Phone>
+    <Longitude>34.956443</Longitude>
+    <Latitude>32.343061</Latitude>
   </Customer>
   <Customer>
-    <Id>323559751</Id>
+    <Id>397456625</Id>
     <Name>person 6</Name>
-    <Phone>050-9182267</Phone>
-    <Longitude>34.957392</Longitude>
-    <Latitude>32.541911</Latitude>
+    <Phone>050-4430481</Phone>
+    <Longitude>34.958023</Longitude>
+    <Latitude>32.545635</Latitude>
   </Customer>
   <Customer>
-    <Id>498520983</Id>
+    <Id>653368328</Id>
     <Name>person 7</Name>
-    <Phone>055-1331946</Phone>
-    <Longitude>34.95752</Longitude>
-    <Latitude>32.297275</Latitude>
+    <Phone>051-6998795</Phone>
+    <Longitude>34.958792</Longitude>
+    <Latitude>32.503546</Latitude>
   </Customer>
   <Customer>
-    <Id>440597795</Id>
+    <Id>722616990</Id>
     <Name>person 8</Name>
-    <Phone>056-0627082</Phone>
-    <Longitude>34.957484</Longitude>
-    <Latitude>32.273288</Latitude>
+    <Phone>058-5062946</Phone>
+    <Longitude>34.956146</Longitude>
+    <Latitude>32.233203</Latitude>
   </Customer>
   <Customer>
-    <Id>161268784</Id>
+    <Id>137594256</Id>
     <Name>person 9</Name>
-    <Phone>059-8812408</Phone>
-    <Longitude>34.958776</Longitude>
-    <Latitude>32.364887</Latitude>
-=======
-    <Id>630529858</Id>
-    <Name>person 0</Name>
-    <Phone>058-5502039</Phone>
-    <Longitude>34.956912</Longitude>
-    <Latitude>31.611083</Latitude>
-  </Customer>
-  <Customer>
-    <Id>360866712</Id>
-    <Name>person 1</Name>
-    <Phone>056-8193273</Phone>
-    <Longitude>34.956576</Longitude>
-    <Latitude>32.074843</Latitude>
-  </Customer>
-  <Customer>
-    <Id>260196813</Id>
-    <Name>person 2</Name>
-    <Phone>057-6605139</Phone>
-    <Longitude>34.957542</Longitude>
-    <Latitude>32.55018</Latitude>
-  </Customer>
-  <Customer>
-    <Id>995475949</Id>
-    <Name>person 3</Name>
-    <Phone>058-3786984</Phone>
-    <Longitude>34.958295</Longitude>
-    <Latitude>32.456681</Latitude>
-  </Customer>
-  <Customer>
-    <Id>354584174</Id>
-    <Name>person 4</Name>
-    <Phone>053-8718547</Phone>
-    <Longitude>34.957668</Longitude>
-    <Latitude>31.716819</Latitude>
-  </Customer>
-  <Customer>
-    <Id>957722705</Id>
-    <Name>person 5</Name>
-    <Phone>055-9286040</Phone>
-    <Longitude>34.956238</Longitude>
-    <Latitude>32.539131</Latitude>
-  </Customer>
-  <Customer>
-    <Id>313284982</Id>
-    <Name>person 6</Name>
-    <Phone>050-5955284</Phone>
-    <Longitude>34.958106</Longitude>
-    <Latitude>32.170587</Latitude>
-  </Customer>
-  <Customer>
-    <Id>668837863</Id>
-    <Name>person 7</Name>
-    <Phone>050-4330319</Phone>
-    <Longitude>34.956059</Longitude>
-    <Latitude>32.150392</Latitude>
-  </Customer>
-  <Customer>
-    <Id>758621312</Id>
-    <Name>person 8</Name>
-    <Phone>052-2960158</Phone>
-    <Longitude>34.957233</Longitude>
-    <Latitude>32.01491</Latitude>
-  </Customer>
-  <Customer>
-    <Id>715934253</Id>
-    <Name>person 9</Name>
-    <Phone>056-4092421</Phone>
-    <Longitude>34.955861</Longitude>
-    <Latitude>31.597911</Latitude>
->>>>>>> ea5260599a8b19ce580d9c5cc8cced47bee4c9c2
+    <Phone>055-2839323</Phone>
+    <Longitude>34.956447</Longitude>
+    <Latitude>31.646235</Latitude>
   </Customer>
 </ArrayOfCustomer>

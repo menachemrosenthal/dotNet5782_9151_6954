@@ -34,7 +34,7 @@ namespace DalApi
             return DataSource.Customers.FirstOrDefault(x => x.Id == customerId);
 
         }
-
+      
         /// <summary>
         /// get list of the Customers
         /// </summary>
@@ -54,5 +54,6 @@ namespace DalApi
 
         public IEnumerable<Customer> GetCustomersByCondition(Predicate<Customer> condition)
             => DataSource.Customers.Where(x => condition(x));
+       
     }
 }
