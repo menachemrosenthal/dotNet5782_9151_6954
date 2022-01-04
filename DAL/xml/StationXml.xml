@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <ArrayOfStation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Station>
-    <Id>3072</Id>
-    <Name>Station 582</Name>
-    <ChargeSlots>6</ChargeSlots>
-    <Longitude>34.959002</Longitude>
-    <Latitude>31.769023</Latitude>
+    <Id>2114</Id>
+    <Name>Station 487</Name>
+    <ChargeSlots>3</ChargeSlots>
+    <Longitude>34.958348</Longitude>
+    <Latitude>32.129053</Latitude>
   </Station>
   <Station>
-    <Id>5680</Id>
-    <Name>Station 358</Name>
+    <Id>4349</Id>
+    <Name>Station 414</Name>
     <ChargeSlots>2</ChargeSlots>
-    <Longitude>34.957399</Longitude>
-    <Latitude>32.18918</Latitude>
+    <Longitude>34.957175</Longitude>
+    <Latitude>32.008345</Latitude>
   </Station>
 </ArrayOfStation>

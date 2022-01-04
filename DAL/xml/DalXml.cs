@@ -4,7 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.IO;
-using DAL;
+
 
 namespace DalApi
 {
@@ -93,7 +93,7 @@ namespace DalApi
 
             XMLTools.SaveListToXMLSerializer(stations, StationPath);
         }
-
+        
         public void AddDrone(Drone drone)
         {
             List<Drone> drones = XMLTools.LoadListFromXMLSerializer<Drone>(DronePath);
@@ -107,14 +107,20 @@ namespace DalApi
 
         public void AddCustumer(Customer customer)
         {
-            List<Customer> customers = XMLTools.LoadListFromXMLSerializer<Customer>(CustomerPath);
-            if (customers.Any(x => x.Id == customer.Id))
-                throw new DalApi.AddExistException("customer", customer.Id);
+            customersRoot.Add(createCustomer(customer));
+       }
+        XElement createCustomer(Customer customer)
+        {
+            XElement id = new XElement("Id", customer.Id);
+            XElement name = new XElement("Name",customer.Name);
+            XElement phone = new XElement("Phone", customer.Name);
+            XElement longitude = new XElement("Longitude",customer.Longitude);
+            XElement latitude = new XElement("Latitude", customer.Latitude);
+            XElement xeCustomer = new XElement("student", id, name, phone ,longitude, latitude);
 
-            customers.Add(customer);
-
-            XMLTools.SaveListToXMLSerializer(customers, CustomerPath);
+            return xeCustomer;
         }
+
 
         public int AddParcel(Parcel parcel)
         {
@@ -124,7 +130,7 @@ namespace DalApi
 
             parcels.Add(parcel);
 
-            XMLTools.SaveListToXMLSerializer(parcels, StationPath);
+            XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);
 
             return parcel.Id;
         }
@@ -146,6 +152,7 @@ namespace DalApi
             parcel.DroneId = droneId;
             parcel.Scheduled = DateTime.Now;
             parcels[index] = parcel;
+
             XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);
         }
 
@@ -160,19 +167,21 @@ namespace DalApi
             var index = parcels.IndexOf(parcel);
             parcel.PickedUp = DateTime.Now;
             parcels[index] = parcel;
+
             XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);
         }
 
         public void UpdateDelivery(int parcelId)
         {
             List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelPath);
-            var exist = parcels.Any(x => x.Id == parcelId);
-            if (!exist)
+
+            if (!parcels.Any(x => x.Id == parcelId))
                 throw new ItemNotFoundException("Parcel", parcelId);
 
             var parcel = parcels.First(x => x.Id == parcelId);
             var index = parcels.IndexOf(parcel);
             parcel.Delivered = DateTime.Now;
+
             parcels[index] = parcel;
             XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);
         }
@@ -180,12 +189,11 @@ namespace DalApi
         public void ChargeDrone(int droneId, int stationId)
         {
             List<Drone> drones = XMLTools.LoadListFromXMLSerializer<Drone>(DronePath);
-            var exist = drones.Any(x => x.Id == droneId);
-            if (!exist)
-                throw new DalApi.ItemNotFoundException("Drone", droneId);
-
+            if (!drones.Any(x => x.Id == droneId))
+                throw new DalApi.ItemNotFoundException("drone", droneId);
+            
             List<Station> stations = XMLTools.LoadListFromXMLSerializer<Station>(StationPath);
-            if (!(exist = stations.Any(x => x.Id == stationId)))
+            if (!stations.Any(x => x.Id == stationId))
                 throw new DalApi.ItemNotFoundException("Station", stationId);
 
             List<DroneCharge> droneCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargePath);
@@ -241,11 +249,25 @@ namespace DalApi
             return drones.FirstOrDefault(x => x.Id == droneId);
         }
 
+        
         public Customer GetCustomer(int customerId)
         {
-            List<Customer> customers = XMLTools.LoadListFromXMLSerializer<Customer>(CustomerPath);
+            try
+            {
+                return
+                (from c in customersRoot.Elements()
+                 where int.Parse(c.Element("id").Value) == customerId
+                 select new Customer()
+                 {
+                     Id = int.Parse(c.Element("id").Value),
+                     Name = c.Element("Name").Value,
+                     Phone = c.Element("Phone").Value,
+                     Longitude =double.Parse(c.Element("Longitude").Value),
+                     Latitude = double.Parse(c.Element("Latitude").Value)
 
-            return customers.FirstOrDefault(x => x.Id == customerId);
+                 }).FirstOrDefault();
+            }
+            catch { return default; }
         }
 
         public Parcel GetParcel(int parcelId)
@@ -361,11 +383,25 @@ namespace DalApi
             XMLTools.SaveListToXMLSerializer(stations, DronePath);
         }
 
+
         public void CustomerUpdate(Customer customer)
         {
-            throw new NotImplementedException();
-        }
 
+            XElement e = (from c in customersRoot.Elements()
+                             where int.Parse(c.Element("Id").Value) == customer.Id
+                             select c).FirstOrDefault();
+            if (e != null)
+            {
+
+                    e.Element("Id").Value = customer.Id.ToString();
+                    e.Element("Name").Value = customer.Name.ToString();
+                    e.Element("Phone").Value = customer.Phone.ToString();
+                    e.Element("Longitute").Value = customer.Longitude.ToString();
+                    e.Element("Latitude").Value = customer.Latitude.ToString();
+                    customersRoot.Save(CustomerPath);
+            }
+            
+        }
         public IEnumerable<DroneCharge> GetDroneChargingList(Predicate<DroneCharge> condition)
         {
             List<DroneCharge> dronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargePath);
@@ -401,5 +437,6 @@ namespace DalApi
                    where condition(parcel)
                    select parcel;
         }
+
     }
 }
