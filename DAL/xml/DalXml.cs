@@ -43,25 +43,36 @@ namespace DalApi
                 parcelsRoot = new XElement("Parcels");
                 stationsRoot = new XElement("Stations");
                 droneChargesRoot = new XElement("DroneCharge");
+
                 /*
+                XmlSerializer x = new(DataSource.DronesCharge.GetType());
+                FileStream fs = new(DroneChargePath, FileMode.Create);
+                x.Serialize(fs, DataSource.DronesCharge);
+                fs.Close();
                 DataSource.Config.Initialize();
-                XmlSerializer x = new(DataSource.Customers.GetType());
-                FileStream fs = new(CustomerPath, FileMode.Create);
-                x.Serialize(fs, DataSource.Customers);
-                x = new XmlSerializer(DataSource.Drones.GetType());
-                fs = new FileStream(DronePath, FileMode.Create);
-                x.Serialize(fs, DataSource.Drones);
-                x = new XmlSerializer(DataSource.Parcels.GetType());
-                fs = new FileStream(ParcelPath, FileMode.Create);
-                x.Serialize(fs, DataSource.Parcels);
                 x = new XmlSerializer(DataSource.Stations.GetType());
                 fs = new FileStream(StationPath, FileMode.Create);
                 x.Serialize(fs, DataSource.Stations);
-                x = new XmlSerializer(DataSource.DronesCharge.GetType());
-                fs = new FileStream(DroneChargePath, FileMode.Create);
-                x.Serialize(fs, DataSource.DronesCharge);              
+                fs.Close();
+                x = new(DataSource.Customers.GetType());
+                fs = new(CustomerPath, FileMode.Create);
+                x.Serialize(fs, DataSource.Customers);
+                fs.Close();
+                x = new XmlSerializer(DataSource.Drones.GetType());
+                fs = new FileStream(DronePath, FileMode.Create);
+                x.Serialize(fs, DataSource.Drones);
+                fs.Close();
+                x = new XmlSerializer(DataSource.Parcels.GetType());
+                fs = new FileStream(ParcelPath, FileMode.Create);
+                x.Serialize(fs, DataSource.Parcels);
                 fs.Close();
                 */
+                List<DroneCharge> dronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargePath);
+                foreach (var drone in dronesCharge)
+                {
+                    EndCharge(drone.DroneId);
+                }
+                //XMLTools.SaveListToXMLSerializer(dronesCharge, DroneChargePath);
             }
 
             customersRoot = XElement.Load(CustomerPath);
@@ -396,6 +407,7 @@ namespace DalApi
             List<DroneCharge> dronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargePath);
 
             return from droneCharge in dronesCharge
+                   where condition(droneCharge)
                    select droneCharge;
         }
 
