@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ArrayOfDroneCharge xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <DroneCharge>
+<<<<<<< HEAD
     <DroneId>50</DroneId>
     <StationId>9764</StationId>
     <time>2022-01-04T22:08:53.9907893+02:00</time>
@@ -9,5 +10,10 @@
     <DroneId>30</DroneId>
     <StationId>9764</StationId>
     <time>2022-01-04T22:08:54.0095173+02:00</time>
+=======
+    <DroneId>53</DroneId>
+    <StationId>2114</StationId>
+    <time>2022-01-04T21:54:50.4157527+02:00</time>
+>>>>>>> 3d2bd2dafe4fbc96c57c58b06c24b13da2d5c02f
   </DroneCharge>
 </ArrayOfDroneCharge>

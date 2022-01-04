@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <ArrayOfCustomer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Customer>
+<<<<<<< HEAD
     <Id>637740729</Id>
     <Name>person 0</Name>
     <Phone>057-1208140</Phone>
@@ -69,5 +70,75 @@
     <Phone>053-3508386</Phone>
     <Longitude>34.958693</Longitude>
     <Latitude>32.663237</Latitude>
+=======
+    <Id>439519655</Id>
+    <Name>person 0</Name>
+    <Phone>057-2195738</Phone>
+    <Longitude>34.958813</Longitude>
+    <Latitude>31.643132</Latitude>
+  </Customer>
+  <Customer>
+    <Id>794706698</Id>
+    <Name>person 1</Name>
+    <Phone>050-9122471</Phone>
+    <Longitude>34.956656</Longitude>
+    <Latitude>32.05112</Latitude>
+  </Customer>
+  <Customer>
+    <Id>435844419</Id>
+    <Name>person 2</Name>
+    <Phone>056-5658204</Phone>
+    <Longitude>34.958881</Longitude>
+    <Latitude>32.595492</Latitude>
+  </Customer>
+  <Customer>
+    <Id>589619732</Id>
+    <Name>person 3</Name>
+    <Phone>054-6354110</Phone>
+    <Longitude>34.957011</Longitude>
+    <Latitude>32.522427</Latitude>
+  </Customer>
+  <Customer>
+    <Id>818449442</Id>
+    <Name>person 4</Name>
+    <Phone>052-1049599</Phone>
+    <Longitude>34.958509</Longitude>
+    <Latitude>32.314991</Latitude>
+  </Customer>
+  <Customer>
+    <Id>653542260</Id>
+    <Name>person 5</Name>
+    <Phone>055-0634344</Phone>
+    <Longitude>34.956173</Longitude>
+    <Latitude>32.00575</Latitude>
+  </Customer>
+  <Customer>
+    <Id>930177020</Id>
+    <Name>person 6</Name>
+    <Phone>057-8365192</Phone>
+    <Longitude>34.957628</Longitude>
+    <Latitude>32.172223</Latitude>
+  </Customer>
+  <Customer>
+    <Id>659642277</Id>
+    <Name>person 7</Name>
+    <Phone>051-3672460</Phone>
+    <Longitude>34.957149</Longitude>
+    <Latitude>32.711459</Latitude>
+  </Customer>
+  <Customer>
+    <Id>456013721</Id>
+    <Name>person 8</Name>
+    <Phone>055-9802105</Phone>
+    <Longitude>34.956586</Longitude>
+    <Latitude>32.442742</Latitude>
+  </Customer>
+  <Customer>
+    <Id>444344808</Id>
+    <Name>person 9</Name>
+    <Phone>052-9422486</Phone>
+    <Longitude>34.958995</Longitude>
+    <Latitude>32.367006</Latitude>
+>>>>>>> 3d2bd2dafe4fbc96c57c58b06c24b13da2d5c02f
   </Customer>
 </ArrayOfCustomer>
