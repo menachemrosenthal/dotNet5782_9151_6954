@@ -6,11 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace DAL
+namespace DalApi
 {
     class XMLTools
     {
-        static string dir = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml";
+        static string dir = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml";
 
         static XMLTools()
         {

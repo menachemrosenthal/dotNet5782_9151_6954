@@ -1,5 +1,4 @@
 ﻿using DalApi;
-using DalApi;
 using System;
 
 namespace ConsoleUI
@@ -18,10 +17,10 @@ namespace ConsoleUI
 
         static void Main(string[] args)
         {
-            IDal xml = DalApi.DalFactory.GetDal("DalXml");
+            IDal iDal = DalApi.DalFactory.GetDal("DalXml");
 
             ////////////////////////////////
-            IDal iDal = DalApi.DalFactory.GetDal("DalObject");
+            //IDal iDal = DalApi.DalFactory.GetDal("DalObject");
 
             bool flag = true;
 

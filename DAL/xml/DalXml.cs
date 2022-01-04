@@ -4,7 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.IO;
-using DAL;
+
 
 namespace DalApi
 {
@@ -27,11 +27,11 @@ namespace DalApi
         internal static XElement customersRoot;
 
         string
-        CustomerPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\CustomerXml.xml",
-        DronePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneXml.xml",
-        ParcelPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\ParcelXml.xml",
-        StationPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\StationXml.xml",
-        DroneChargePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneChargeXml.xml";
+        CustomerPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml",
+        DronePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml",
+        ParcelPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ParcelXml.xml",
+        StationPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\StationXml.xml",
+        DroneChargePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml";
 
         DalXml()
         {
@@ -59,7 +59,7 @@ namespace DalApi
                 x = new XmlSerializer(DataSource.DronesCharge.GetType());
                 fs = new FileStream(DroneChargePath, FileMode.Create);
                 x.Serialize(fs, DataSource.DronesCharge);
-                */
+               */
             }
 
             customersRoot = XElement.Load(CustomerPath);
@@ -80,27 +80,28 @@ namespace DalApi
 
             XMLTools.SaveListToXMLSerializer(stations, StationPath);
         }
-
+        
         public void AddDrone(Drone drone)
         {
-            XElement dr;
-            dr = dronesRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == drone.Id);
-            if (!dr.IsEmpty)
-                throw new DalApi.AddExistException("Drone", drone.Id);
-            XmlSerializer x = new(drone.GetType());
-            StreamWriter st = new (DronePath);
-            x.Serialize(st, drone);
+            List<Drone> drones = XMLTools.LoadListFromXMLSerializer<Drone>(DronePath);
+            if (drones.Any(x => x.Id == drone.Id))
+                throw new DalApi.AddExistException("drone", drone.Id);
+
+            drones.Add(drone);
+
+            XMLTools.SaveListToXMLSerializer(drones, DronePath);
         }
 
         public void AddCustumer(Customer customer)
         {
-            XElement c;
-            c = customersRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == customer.Id);
-            if (!c.IsEmpty)
-                throw new DalApi.AddExistException("Drone", customer.Id);
-            XmlSerializer x = new(customer.GetType());
-            StreamWriter st = new(StationPath);
-            x.Serialize(st, customer);
+            List<Customer> customers = XMLTools.LoadListFromXMLSerializer<Customer>(CustomerPath);
+            if (customers.Any(x => x.Id == customer.Id))
+                throw new DalApi.AddExistException("station", customer.Id);
+
+            customers.Add(customer);
+
+            XMLTools.SaveListToXMLSerializer(customers, CustomerPath);
+
         }
 
         public int AddParcel(Parcel parcel)
@@ -111,21 +112,25 @@ namespace DalApi
 
             parcels.Add(parcel);
 
-            XMLTools.SaveListToXMLSerializer(parcels, StationPath);
+            XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);
 
             return parcel.Id;
         }
 
         public void ParcelToDrone(int parcelId, int droneId)
         {
-            XElement p,d;
-            p = parcelsRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == parcelId);
-            if (!p.IsEmpty)
-                throw new ItemNotFoundException("Parcel", parcelId);
-            d = dronesRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == droneId);
-            if (!d.IsEmpty)
-                throw new ItemNotFoundException("Drone", droneId);
-            p.Element("DroneId").Value = droneId.ToString();
+            List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelPath);
+            if (!parcels.Any(x => x.Id == parcelId))
+                throw new DalApi.ItemNotFoundException("parcel", parcelId);
+            List<Drone> drones = XMLTools.LoadListFromXMLSerializer<Drone>(DronePath);
+            if (!drones.Any(x => x.Id == droneId))
+                throw new DalApi.ItemNotFoundException("drone", droneId);
+            var parcel = parcels.First(x => x.Id == parcelId);
+            var index = parcels.IndexOf(parcel);
+            parcel.DroneId = droneId;
+            parcel.Scheduled = DateTime.Now;
+            parcels[index] = parcel;
+            XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);
         }
 
         /// <summary>
@@ -134,12 +139,16 @@ namespace DalApi
         /// <param name="parcelId">parcel id</param>
         public void UpdatePickup(int parcelId)
         {
-            XElement p;
-            p = parcelsRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == parcelId);
-            if (!p.IsEmpty)
-                throw new ItemNotFoundException("Parcel", parcelId);
+            List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelPath);
 
-            p.Element("PickedUp").Value = DateTime.Now.ToString();
+            if (!parcels.Any(x => x.Id == parcelId))
+                throw new ItemNotFoundException("Parcel", parcelId);
+            
+            var parcel = parcels.First(x => x.Id == parcelId);
+            var index = parcels.IndexOf(parcel);
+            parcel.PickedUp = DateTime.Now;
+            DataSource.Parcels[index] = parcel;
+            XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);
         }
 
         /// <summary>
@@ -148,12 +157,16 @@ namespace DalApi
         /// <param name="parcelId">parcel id</param>
         public void UpdateDelivery(int parcelId)
         {
-            XElement p;
-            p = parcelsRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == parcelId);
-            if (!p.IsEmpty)
+            List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelPath);
+
+            if (!parcels.Any(x => x.Id == parcelId))
                 throw new ItemNotFoundException("Parcel", parcelId);
 
-            p.Element("Delivered").Value = DateTime.Now.ToString();
+            var parcel = parcels.First(x => x.Id == parcelId);
+            var index = parcels.IndexOf(parcel);
+            parcel.Delivered = DateTime.Now;
+            DataSource.Parcels[index] = parcel;
+            XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);
         }
 
         /// <summary>
@@ -163,19 +176,19 @@ namespace DalApi
         /// <param name="stationId">station id</param>
         public void ChargeDrone(int droneId, int stationId)
         {
-            XElement d,s;
-            d = dronesRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == droneId);
-            if (!d.IsEmpty)
-                throw new ItemNotFoundException("Drone", droneId);
-            s = stationsRoot.Elements().FirstOrDefault(x => int.Parse(x.Attribute("Id").Value) == stationId);
-            if (!s.IsEmpty)
-                throw new ItemNotFoundException("Station", stationId);
-            DroneCharge dronecharge = new() { DroneId = droneId, StationId = stationId, time = DateTime.Now };
-            XmlSerializer x = new(dronecharge.GetType());
-            StreamWriter st = new(DroneChargePath);
-            x.Serialize(st, dronecharge);
-            int c = int.Parse(s.Element("ChargeSlots").Value) - 1;
-            s.Element("ChargeSlots").Value = c.ToString();
+            List<Drone> drones = XMLTools.LoadListFromXMLSerializer<Drone>(DronePath);
+            if (!drones.Any(x => x.Id == droneId))
+                throw new DalApi.ItemNotFoundException("drone", droneId);
+
+            if (!(exist = DataSource.Stations.Any(x => x.Id == stationId)))
+                throw new DalApi.ItemNotFoundException("Station", stationId);
+
+            DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId, time = DateTime.Now });
+
+            var station = DataSource.Stations.First(x => x.Id == stationId);
+            var index = DataSource.Stations.IndexOf(station);
+            station.ChargeSlots--;
+            DataSource.Stations[index] = station;
         }
 
 
