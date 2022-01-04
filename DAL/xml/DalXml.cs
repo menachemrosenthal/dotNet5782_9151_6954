@@ -26,14 +26,16 @@ namespace DalApi
         internal static XElement stationsRoot;
         internal static XElement droneChargesRoot;
         internal static XElement customersRoot;
-
+        internal static XElement configRoot;
+        /*
         string
         CustomerPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml",
         DronePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml",
         ParcelPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ParcelXml.xml",
         StationPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\StationXml.xml",
-        DroneChargePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml";
-
+        DroneChargePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml",
+        ConfigPath =  @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ConfigXml.xml";
+        */
         DalXml()
         {
             if (true/*files dont exist*/)
@@ -43,7 +45,8 @@ namespace DalApi
                 parcelsRoot = new XElement("Parcels");
                 stationsRoot = new XElement("Stations");
                 droneChargesRoot = new XElement("DroneCharge");
-
+                configRoot = new XElement("Config");
+                
                 /*
                 XmlSerializer x = new(DataSource.DronesCharge.GetType());
                 FileStream fs = new(DroneChargePath, FileMode.Create);
@@ -66,12 +69,16 @@ namespace DalApi
                 fs = new FileStream(ParcelPath, FileMode.Create);
                 x.Serialize(fs, DataSource.Parcels);
                 fs.Close();
-                */
+                x = new XmlSerializer(DataSource.Config.CreateParcelNumber.GetType());
+                fs = new FileStream(ConfigPath, FileMode.Create);
+                x.Serialize(fs, DataSource.Config.CreateParcelNumber);
+                fs.Close();
+                 */  /*
                 List<DroneCharge> dronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargePath);
                 foreach (var drone in dronesCharge)
                 {
                     EndCharge(drone.DroneId);
-                }
+                }*/
                 //XMLTools.SaveListToXMLSerializer(dronesCharge, DroneChargePath);
             }
 
@@ -80,6 +87,7 @@ namespace DalApi
             parcelsRoot = XElement.Load(ParcelPath);
             stationsRoot = XElement.Load(StationPath);
             droneChargesRoot = XElement.Load(DroneChargePath);
+            configRoot = XElement.Load(ConfigPath);
 
         }
 
@@ -127,7 +135,8 @@ namespace DalApi
             List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelPath);
             if (parcels.Any(x => x.Id == parcel.Id))
                 throw new DalApi.AddExistException("parcel", parcel.Id);
-
+            int parcelNum = int.Parse(configRoot.Element("CreateParcelNumber").Value);
+            configRoot.Element("CreateParcelNumber").Value = (++parcelNum).ToString();
             parcels.Add(parcel);
 
             XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);
@@ -396,7 +405,7 @@ namespace DalApi
                     e.Element("Id").Value = customer.Id.ToString();
                     e.Element("Name").Value = customer.Name.ToString();
                     e.Element("Phone").Value = customer.Phone.ToString();
-                    e.Element("Longitute").Value = customer.Longitude.ToString();
+                    e.Element("Longitude").Value = customer.Longitude.ToString();
                     e.Element("Latitude").Value = customer.Latitude.ToString();
                     customersRoot.Save(CustomerPath);
             }
