@@ -307,5 +307,10 @@ namespace PL
             if (drone.Parcel != null)
                 new ParcelWindow(BlDrone, drone.Parcel.Id).Show();
         }
+
+        private void Automatic_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

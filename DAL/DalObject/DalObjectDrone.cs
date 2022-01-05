@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace DalApi
 {
@@ -11,6 +12,7 @@ namespace DalApi
         /// add a drone to the Drones array
         /// </summary>
         /// <param name="drone">the drone for add</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddDrone(Drone drone)
         {
             var exist = DataSource.Drones.Any(x => x.Id == drone.Id);
@@ -24,6 +26,7 @@ namespace DalApi
         /// </summary>
         /// <param name="droneId">drone id</param>
         /// <param name="stationId">station id</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ChargeDrone(int droneId, int stationId)
         {
             var exist = DataSource.Drones.Any(x => x.Id == droneId);
@@ -46,6 +49,7 @@ namespace DalApi
         /// drone release from chrage
         /// </summary>
         /// <param name="droneId">drone id to release</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public TimeSpan EndCharge(int droneId)
         {
             //drone status update
@@ -68,6 +72,7 @@ namespace DalApi
         /// </summary>
         /// <param name="droneId">drone id to return</param>
         /// <returns>drone object</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetDrone(int droneId)
         {
             var exist = DataSource.Drones.Any(x => x.Id == droneId);
@@ -76,12 +81,14 @@ namespace DalApi
 
             return DataSource.Drones.FirstOrDefault(x => x.Id == droneId);
         }
-        
+
+
         /// <summary>
         /// get droneCharging
         /// </summary>
         /// <param name="droneId">drone id to return</param>
         /// <returns>drone object</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private DroneCharge GetDroneCharging(int droneId)
         {
             var exist = DataSource.DronesCharge.Any(x => x.DroneId == droneId);
@@ -90,11 +97,11 @@ namespace DalApi
 
             return DataSource.DronesCharge.FirstOrDefault(x => x.DroneId == droneId);
         }
-
         /// <summary>
         /// get the drone list
         /// </summary>
         /// <returns>drone list</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Drone> DroneList() => DataSource.Drones.ToList();
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace DalApi
 {
@@ -32,6 +33,7 @@ namespace DalApi
         /// <param name="lat2">object lattiude</param>
         /// <param name="lon2">object longitude</param>
         /// <returns>distance in kilometer</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double DistanceCalculate(double lat1, double lon1, double lat2, double lon2)
         {
             double rlat1 = Math.PI * lat1 / 180;
@@ -52,6 +54,7 @@ namespace DalApi
         /// electricity use array
         /// </summary>
         /// <returns>electricityUse array</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public double[] BatteryUseRequest()
         {
             double[] electricityUse = new double[5];

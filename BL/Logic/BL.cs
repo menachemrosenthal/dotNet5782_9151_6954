@@ -3,6 +3,7 @@ using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 
 namespace BO
@@ -22,7 +23,7 @@ namespace BO
         //static readonly BL instance = new();
         //internal static BL Instance { get { return instance; } }
         public static BL Instance { get { return Nested.instance; } }
-
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void EventRegistration(EventHandler e, string obj)
         {
             if (obj == "Drone")
@@ -35,6 +36,7 @@ namespace BO
                 ParcelChanged += e;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void EventDelete(EventHandler e, string obj)
         {
             if (obj == "Drone")
@@ -50,6 +52,7 @@ namespace BO
         /// <summary>
         /// running the events
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void EventsAction()
         {
             if (StationChanged != null)

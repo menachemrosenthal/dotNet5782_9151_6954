@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace DalApi
 {
@@ -11,6 +12,7 @@ namespace DalApi
         /// add a station to the stations array
         /// </summary>
         /// <param name="station">the station for add</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void AddStation(Station station)
         {
             try
@@ -34,6 +36,7 @@ namespace DalApi
         /// </summary>
         /// <param name="stationId">station id to return</param>
         /// <returns>station object</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Station GetStation(int stationId)
         {
             var exist = DataSource.Stations.Any(x => x.Id == stationId);
@@ -47,12 +50,14 @@ namespace DalApi
         /// get list of the stations
         /// </summary>
         /// <returns>station array</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> StationList() => DataSource.Stations.ToList();
 
         /// <summary>
         /// update station priority
         /// </summary>
         /// <param name="station">station for update</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void StationUpdate(Station station)
         {
             var dalStation = GetStation(station.Id);
@@ -61,6 +66,7 @@ namespace DalApi
         }
 
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Station> GetStationsByCondition(Predicate<Station> condition)
         {
             List<Station> StationsByCondition = DataSource.Stations.Where(x => condition(x)).ToList();
