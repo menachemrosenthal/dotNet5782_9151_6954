@@ -18,7 +18,7 @@ namespace BO
 
         private List<DroneToList> drones;
 
-        private IDal dal;
+        internal IDal dal;
 
         //static readonly BL instance = new();
         //internal static BL Instance { get { return instance; } }

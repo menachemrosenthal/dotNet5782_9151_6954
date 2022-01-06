@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Threading;
+using System.ComponentModel;
 
 namespace PL
 {
@@ -310,7 +312,7 @@ namespace PL
 
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }

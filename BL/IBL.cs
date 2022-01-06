@@ -2,11 +2,18 @@
 using BO;
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Linq;
+using static BL.BlFactory;
 
 namespace BlApi
 {
     public interface IBL
     {
+        public void StartSimulator(int droneId, Action update, Func<bool> finish)
+        {
+            Simulator simulator=new(droneId, update,finish, this); 
+        }
         /// <summary>
         /// registration of event handler to suitable event handler
         /// </summary>
