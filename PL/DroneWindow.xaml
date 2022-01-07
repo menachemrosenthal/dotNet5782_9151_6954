@@ -287,6 +287,13 @@
             Grid.Column="2" 
             HorizontalAlignment="Left" 
             Margin="60,10,0,0" Grid.Row="5" Width="88" Click="Automatic_Click"/>
+        <ProgressBar x:Name="BatteryProgress"
+            Grid.Column="1" 
+            HorizontalAlignment="Left" 
+            Height="20" Margin="10,0,0,0" 
+            Grid.Row="4"
+            VerticalAlignment="Center" Width="100"
+            Value ="{Binding Path=BatteryStatus}"/>
     </Grid>
 </Window>
 

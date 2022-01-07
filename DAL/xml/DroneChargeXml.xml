@@ -90,4 +90,14 @@
     <StationId>7870</StationId>
     <time>2022-01-04T22:55:28.3191096+02:00</time>
   </DroneCharge>
+  <DroneCharge>
+    <DroneId>77</DroneId>
+    <StationId>7870</StationId>
+    <time>2022-01-07T14:33:02.983334+02:00</time>
+  </DroneCharge>
+  <DroneCharge>
+    <DroneId>96</DroneId>
+    <StationId>7870</StationId>
+    <time>2022-01-07T14:33:03.0116337+02:00</time>
+  </DroneCharge>
 </ArrayOfDroneCharge>

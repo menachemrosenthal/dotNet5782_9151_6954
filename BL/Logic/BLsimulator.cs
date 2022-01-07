@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BlApi;
+using BO;
 
 namespace BO
 {
@@ -11,13 +12,29 @@ namespace BO
     {
         public static int speed = 100;
         public static int timer = 1000;
-
+        
         public Simulator(int droneId, Action update, Func<bool> finish, IBL bl)
         {
-            while (finish())
+            Drone drone = bl.GetDrone(droneId);
+            DroneStatuses status;
+
+            do
             {
-                /////
-            }
+                status = drone.Status;
+                if (status == DroneStatuses.free)
+                {
+                    bl.ParcelToDrone(droneId);
+                }
+                if (status == DroneStatuses.maintenance)
+                {
+                    
+                }
+                if (status == DroneStatuses.sending)
+                {
+
+                }
+
+            } while (finish());
         }
     }
 }

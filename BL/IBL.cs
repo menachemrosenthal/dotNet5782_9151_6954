@@ -10,10 +10,7 @@ namespace BlApi
 {
     public interface IBL
     {
-        public void StartSimulator(int droneId, Action update, Func<bool> finish)
-        {
-            Simulator simulator=new(droneId, update,finish, this); 
-        }
+        public void StartSimulator(int droneId, Action update, Func<bool> finish);
         /// <summary>
         /// registration of event handler to suitable event handler
         /// </summary>

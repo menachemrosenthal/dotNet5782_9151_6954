@@ -289,5 +289,9 @@ namespace BO
                 return BatteryUse;
             }
         }
+        public void StartSimulator(int droneId, Action update, Func<bool> finish)
+        {
+            new Simulator(droneId, update, finish, this);
+        }
     }
 }

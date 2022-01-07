@@ -23,6 +23,7 @@ namespace BO
         //static readonly BL instance = new();
         //internal static BL Instance { get { return instance; } }
         public static BL Instance { get { return Nested.instance; } }
+
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void EventRegistration(EventHandler e, string obj)
         {
@@ -76,7 +77,7 @@ namespace BO
 
         private BL()
         {
-            dal = DalFactory.GetDal("DalXml");
+            dal = DalFactory.GetDal("DalObject");
 
             FreeElectricityUse = dal.BatteryUseRequest()[0];
             CarryingLightElectricityUse = dal.BatteryUseRequest()[1];

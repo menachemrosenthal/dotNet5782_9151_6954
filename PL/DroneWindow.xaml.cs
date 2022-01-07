@@ -309,10 +309,14 @@ namespace PL
             if (drone.Parcel != null)
                 new ParcelWindow(BlDrone, drone.Parcel.Id).Show();
         }
+        BackgroundWorker worker;
 
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
-            
+            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
+            worker.DoWork += (sender, args) => BlDrone.StartSimulator((int)args.Argument, () => { worker.ReportProgress(0); }, () => { return worker.CancellationPending; });
+            worker.ProgressChanged += UpdateWindow;
+            worker.RunWorkerAsync(drone.Id);
         }
     }
 }
