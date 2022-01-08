@@ -88,7 +88,7 @@
                 HorizontalContentAlignment="Center"
                 VerticalAlignment="Center" 
                 Height="18" Background="White"
-                IsReadOnly="{Binding ElementName=updateButton, Path=Visibility}" SelectionChanged="Id_SelectionChanged"/>
+                IsReadOnly="{Binding ElementName=id, Path=IsReadOnly}" SelectionChanged="Id_SelectionChanged"/>
             <Label
                 x:Name="slotsLabel"
                 Content="Free charging slots:  "
@@ -134,7 +134,7 @@
                 VerticalContentAlignment="Center" 
                 HorizontalContentAlignment="Center" VerticalAlignment="Center"
                 Height="20"                
-                IsEnabled="{Binding ElementName=id, Path=IsEnabled}" SelectionChanged="Latitude_SelectionChanged"/>
+                IsReadOnly="{Binding ElementName=id, Path=IsReadOnly}" SelectionChanged="Latitude_SelectionChanged"/>
             <TextBox 
                 x:Name ="longitude"
                 Grid.Row="4"
@@ -143,7 +143,7 @@
                 HorizontalContentAlignment="Center" 
                 VerticalContentAlignment="Center" VerticalAlignment="Bottom"
                 Height="20"
-                IsEnabled="{Binding ElementName=id, Path=IsEnabled}" SelectionChanged="Longitude_SelectionChanged"/>
+                IsReadOnly="{Binding ElementName=id, Path=IsReadOnly}" SelectionChanged="Longitude_SelectionChanged"/>
             <TextBox
                 x:Name ="slots"
                 Grid.Row="3"

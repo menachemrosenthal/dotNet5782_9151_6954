@@ -58,40 +58,40 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label x:Name="IdLabel" Content="Parcel number:" HorizontalAlignment="Right" VerticalAlignment="Center"
-               Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
+               Visibility="Visible" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
         <Label x:Name="SenderIdLabel" Content="Sender Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
         <Label x:Name="TargetIdLabel" Content="Target Id:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="2" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
         <Label x:Name="WeightLabel" Content="Weight:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="3" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"/>
         <Label x:Name="PriorityLabel" Content="Priority:" HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="4"/>
         <Label x:Name="DroneInParcelLabel" Content="Drone:" HorizontalAlignment="Right" VerticalAlignment="Center"
-               Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Row="5" Grid.RowSpan="2"/>
+               Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Row="5" Grid.RowSpan="2"/>
         <Label x:Name="RequestedTimeLabel" Content="Requested Time:" HorizontalAlignment="Right" VerticalAlignment="Center"
-               Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Row="7"/>
+               Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Row="7"/>
         <Label x:Name="ScheduledTimeLabel" Content="Scheduled Time:" HorizontalAlignment="Right" VerticalAlignment="Center"
-               Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Row="8"/>
+               Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Row="8"/>
         <Label x:Name="PickedUpTimeLabel" Content="Picked Up Time:" HorizontalAlignment="Right" VerticalAlignment="Center"
-               Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Row="9"/>
+               Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Row="9"/>
         <Label x:Name="DeliveredTimeLabel" Content="Delivered Time Label:" HorizontalAlignment="Right" VerticalAlignment="Center"
-               Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Row="10"/>
+               Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Row="10"/>
         <TextBox x:Name="DeliveredTimeTextbox" HorizontalAlignment="Center" 
                  Text="{Binding Path=Delivered}" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"
-                 Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Row="10" Grid.Column="1"
+                 Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Row="10" Grid.Column="1"
                  IsReadOnly="True"/>
         <TextBox x:Name="PickedUpTimeTextbox" HorizontalAlignment="Center" 
                  Text="{Binding Path=PickedUp}" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"
-                 Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Row="9" Grid.Column="1"
+                 Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Row="9" Grid.Column="1"
                  IsReadOnly="True"/>
         <TextBox x:Name="ScheduledTimeTextbox" HorizontalAlignment="Center" 
                  Text="{Binding Path=Scheduled}" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"
-                 Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Row="8" Grid.Column="1"
+                 Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Row="8" Grid.Column="1"
                  IsReadOnly="True"/>
         <TextBox x:Name="RequestedTimeTextbox" HorizontalAlignment="Center" 
                  Text="{Binding Path=Requested}" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"
-                 Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Row="7" Grid.Column="1"
+                 Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Row="7" Grid.Column="1"
                  IsReadOnly="True"/>
         <TextBox x:Name="DroneInParcelTextbox" HorizontalAlignment="Center" 
                  Text="{Binding Drone, Mode=OneWay}" TextWrapping="Wrap" VerticalAlignment="Center"
-                 Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" 
+                 Visibility="{Binding ElementName=IdLabel, Path=Visibility}" 
                  Grid.Row="5" Grid.Column="1" FontSize="10" TextAlignment="Center" 
                  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" MouseDoubleClick="DroneInParcelTextbox_MouseDoubleClick"
                  IsReadOnly="True" Grid.RowSpan="2" Width="190" Height="70"/>
@@ -111,7 +111,7 @@
                  TextWrapping="Wrap"
                  VerticalAlignment="Center"
                  Width="120" IsReadOnly="True"
-                 Visibility="{Binding ElementName=UpdateDeliveryButton, Path=Visibility}" Grid.Column="1"/>
+                 Visibility="{Binding ElementName=IdLabel, Path=Visibility}" Grid.Column="1"/>
         <Button x:Name="AddParcelButton" 
                 Content="Add Parcel" 
                 HorizontalAlignment="Stretch" 

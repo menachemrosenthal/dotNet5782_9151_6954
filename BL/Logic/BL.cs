@@ -136,10 +136,10 @@ namespace BO
                         {
                             drone.CurrentLocation = CustomerLocation(ReceivedCustomersList().ElementAt(r.Next(ReceivedCustomersList().Count() - 1)));
                         }
+                        int battery = (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList())));
+                        battery *= (int)FreeElectricityUse;
+                        drone.BatteryStatus = r.Next(battery, 99) + 1;
 
-                        drone.BatteryStatus = r.Next((int)FreeElectricityUse * (int)LocationsDistance(drone.CurrentLocation,
-                                                    StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList()))), 99)
-                                                    + 1;
                     }
                 }
             }

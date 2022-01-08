@@ -44,6 +44,7 @@ namespace PL
             InitializeComponent();
             BlParcel = bl;
             AddParcelButton.Visibility = Visibility.Visible;
+            IdLabel.Visibility = Visibility.Hidden;
             PriorityTextbox.ItemsSource = Enum.GetValues(typeof(Priorities));
             WeightTextbox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             IdTextbox.IsReadOnly = false;

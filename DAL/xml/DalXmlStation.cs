@@ -48,7 +48,7 @@ namespace DalApi
             int index = stations.IndexOf(tmpStation);
             stations[index] = station;
 
-            XMLTools.SaveListToXMLSerializer(stations, DronePath);
+            XMLTools.SaveListToXMLSerializer(stations, StationPath);
         }
 
         public IEnumerable<Station> GetStationsByCondition(Predicate<Station> condition)

@@ -36,8 +36,8 @@ C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.AssemblyInfoInputs.cache
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.AssemblyInfo.cs
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.csproj.CoreCompileInputs.cache
-C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.csproj.CopyComplete
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\ref\PL.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.pdb
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.genruntimeconfig.cache
+C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.csproj.CopyComplete

@@ -41,7 +41,8 @@ namespace DalApi
         DronePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneXml.xml",
         ParcelPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\ParcelXml.xml",
         StationPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\StationXml.xml",
-        DroneChargePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneChargeXml.xml";
+        DroneChargePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneChargeXml.xml",
+        ConfigPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\ConfigXml.xml";
 
         DalXml()
         {
@@ -56,45 +57,28 @@ namespace DalApi
                 
                 /*
                 DataSource.Config.Initialize();
-                x = new XmlSerializer(DataSource.Stations.GetType());
-                fs = new FileStream(StationPath, FileMode.Create);
-                x.Serialize(fs, DataSource.Stations);
-                fs.Close();
-                x = new(DataSource.Customers.GetType());
-                fs = new(CustomerPath, FileMode.Create);
-                x.Serialize(fs, DataSource.Customers);
-                fs.Close();
-                x = new XmlSerializer(DataSource.Drones.GetType());
-                fs = new FileStream(DronePath, FileMode.Create);
-                x.Serialize(fs, DataSource.Drones);
-                fs.Close();
-                x = new XmlSerializer(DataSource.Parcels.GetType());
-                fs = new FileStream(ParcelPath, FileMode.Create);
-                x.Serialize(fs, DataSource.Parcels);
-                fs.Close();
-                x = new XmlSerializer(DataSource.Config.CreateParcelNumber.GetType());
-                fs = new FileStream(ConfigPath, FileMode.Create);
-                x.Serialize(fs, DataSource.Config.CreateParcelNumber);
-                fs.Close();
-                 */  /*
-                List<DroneCharge> dronesCharge = XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargePath);
-                foreach (var drone in dronesCharge)
+                XMLTools.SaveListToXMLSerializer(DataSource.Drones, DronePath);
+                XMLTools.SaveListToXMLSerializer(DataSource.Stations, StationPath);
+                XMLTools.SaveListToXMLSerializer(DataSource.Customers, CustomerPath);
+                XMLTools.SaveListToXMLSerializer(DataSource.Parcels, ParcelPath);
+                XMLTools.SaveListToXMLSerializer(DataSource.DronesCharge, DroneChargePath);                
+                */
+                
+                foreach (var drone in XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargePath))
                 {
-                    EndCharge(drone.DroneId);
-                }*/
-                //XMLTools.SaveListToXMLSerializer(dronesCharge, DroneChargePath);
+                    EndCharge(drone.DroneId);                   
+                }
+
+                customersRoot = XElement.Load(CustomerPath);
+                dronesRoot = XElement.Load(DronePath);
+                parcelsRoot = XElement.Load(ParcelPath);
+                stationsRoot = XElement.Load(StationPath);
+                droneChargesRoot = XElement.Load(DroneChargePath);
+                configRoot = XElement.Load(ConfigPath);                
             }
 
-            customersRoot = XElement.Load(CustomerPath);
-            dronesRoot = XElement.Load(DronePath);
-            parcelsRoot = XElement.Load(ParcelPath);
-            stationsRoot = XElement.Load(StationPath);
-            droneChargesRoot = XElement.Load(DroneChargePath);
-            configRoot = XElement.Load(ConfigPath);
-
+            
         }
-
-        
 
         public double DistanceCalculate(double lat1, double lon1, double lat2, double lon2)
         {
@@ -111,7 +95,7 @@ namespace DalApi
 
             return dist * 1.609344;
         }
-        
+
         public double[] BatteryUseRequest()
         {
             double[] electricityUse = new double[5];
@@ -123,9 +107,6 @@ namespace DalApi
             electricityUse[4] = DataSource.Config.ChargePace;
 
             return electricityUse;
-        }                           
-
-        
-
+        }
     }
 }

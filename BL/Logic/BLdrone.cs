@@ -114,9 +114,10 @@ namespace BO
             {
                 drone.CurrentLocation = location;
                 drone.BatteryStatus -= FreeElectricityUse * distance;
-                drone.Status = DroneStatuses.maintenance;
                 drones[index] = drone;
+
                 dal.ChargeDrone(droneId, ClosestStation(location, dal.StationList()).Id);
+                drone.Status = DroneStatuses.maintenance;
 
                 EventsAction();
 
