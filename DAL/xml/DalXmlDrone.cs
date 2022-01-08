@@ -57,6 +57,9 @@ namespace DalApi
             droneCharge.Add(new() { DroneId = droneId, StationId = stationId, time = DateTime.Now });
 
             var station = stations.First(x => x.Id == stationId);
+            if (station.ChargeSlots == 0)
+                throw new NotFreeChargeSlot("Ther is not free charge slot, please wait");
+
             var index = stations.IndexOf(station);
             station.ChargeSlots--;
             stations[index] = station;

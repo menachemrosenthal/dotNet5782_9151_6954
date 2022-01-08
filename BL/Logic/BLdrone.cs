@@ -125,13 +125,14 @@ namespace BO
 
                 double distance = LocationsDistance(drone.CurrentLocation, location);
 
-                if (FreeElectricityUse * distance <= drone.BatteryStatus)
-                {
-                    drone.CurrentLocation = location;
-                    drone.BatteryStatus -= FreeElectricityUse * distance;
-                    drone.Status = DroneStatuses.maintenance;
-                    drones[index] = drone;
-                    dal.ChargeDrone(droneId, ClosestStation(location, dal.StationList()).Id);
+            if (FreeElectricityUse * distance <= drone.BatteryStatus)
+            {
+                drone.CurrentLocation = location;
+                drone.BatteryStatus -= FreeElectricityUse * distance;
+                drones[index] = drone;
+
+                dal.ChargeDrone(droneId, ClosestStation(location, dal.StationList()).Id);
+                drone.Status = DroneStatuses.maintenance;
 
                     EventsAction();
 

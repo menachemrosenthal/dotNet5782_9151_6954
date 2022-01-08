@@ -16,6 +16,12 @@ namespace DalApi
             List<Parcel> parcels = XMLTools.LoadListFromXMLSerializer<Parcel>(ParcelPath);
             if (parcels.Any(x => x.Id == parcel.Id))
                 throw new DalApi.AddExistException("parcel", parcel.Id);
+
+            int id = int.Parse(configRoot.Value);
+            parcel.Id = id;
+            id++;
+            configRoot.Value = id.ToString();
+
             parcels.Add(parcel);
 
             XMLTools.SaveListToXMLSerializer(parcels, ParcelPath);

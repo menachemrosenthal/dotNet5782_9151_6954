@@ -9,6 +9,8 @@ C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.csproj
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\ref\DAL.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.pdb
+<<<<<<< HEAD
+=======
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\obj\Debug\net5.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
@@ -22,3 +24,4 @@ C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\bin\Debug\net
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\bin\Debug\net5.0\DAL.dll
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\bin\Debug\net5.0\ref\DAL.dll
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\bin\Debug\net5.0\DAL.pdb
+>>>>>>> 823b4af44bac124f3caa397a3dd0de789a297ce4

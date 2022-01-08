@@ -62,7 +62,7 @@ namespace PL
             StationChanged += UpdateWindow;
             GetBL.EventRegistration(StationChanged, "Station");
             UpdateWindow(this, EventArgs.Empty);
-            id.IsEnabled = false;
+            id.IsReadOnly = false;
         }
 
         /// <summary>

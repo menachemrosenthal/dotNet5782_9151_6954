@@ -37,9 +37,13 @@ namespace DalApi
             if (!(exist = DataSource.Stations.Any(x => x.Id == stationId)))
                 throw new DalApi.ItemNotFoundException("Station", stationId);
 
+            var station = DataSource.Stations.First(x => x.Id == stationId);
+            if (station.ChargeSlots == 0)
+                throw new NotFreeChargeSlot("Ther is not free charge slot, please wait");
+            
+
             DataSource.DronesCharge.Add(new() { DroneId = droneId, StationId = stationId, time = DateTime.Now });
 
-            var station = DataSource.Stations.First(x => x.Id == stationId);
             var index = DataSource.Stations.IndexOf(station);
             station.ChargeSlots--;
             DataSource.Stations[index] = station;
