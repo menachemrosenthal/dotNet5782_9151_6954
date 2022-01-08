@@ -3,6 +3,7 @@ using DalApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 
 namespace BO
@@ -17,12 +18,13 @@ namespace BO
 
         private List<DroneToList> drones;
 
-        private IDal dal;
+        internal IDal dal;
 
         //static readonly BL instance = new();
         //internal static BL Instance { get { return instance; } }
         public static BL Instance { get { return Nested.instance; } }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void EventRegistration(EventHandler e, string obj)
         {
             if (obj == "Drone")
@@ -35,6 +37,7 @@ namespace BO
                 ParcelChanged += e;
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void EventDelete(EventHandler e, string obj)
         {
             if (obj == "Drone")
@@ -50,6 +53,7 @@ namespace BO
         /// <summary>
         /// running the events
         /// </summary>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         private void EventsAction()
         {
             if (StationChanged != null)
@@ -73,7 +77,7 @@ namespace BO
 
         private BL()
         {
-            dal = DalFactory.GetDal("DalXml");
+            dal = DalFactory.GetDal("DalObject");
 
             FreeElectricityUse = dal.BatteryUseRequest()[0];
             CarryingLightElectricityUse = dal.BatteryUseRequest()[1];

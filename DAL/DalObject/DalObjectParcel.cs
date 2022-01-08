@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace DalApi
 {
@@ -11,6 +12,7 @@ namespace DalApi
         /// add a parcel to the parcels array
         /// </summary>
         /// <param name="parcel">the parcel to add</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public int AddParcel(Parcel parcel)
         {
             parcel.Id = DataSource.Config.CreateParcelNumber;
@@ -19,6 +21,7 @@ namespace DalApi
         }
 
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ParcelDelete(int id)
         {
             Parcel parcel = GetParcel(id);
@@ -35,6 +38,7 @@ namespace DalApi
         /// </summary>
         /// <param name="parcelId">parcel number to connect</param>
         /// <param name="droneId">drone id</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void ParcelToDrone(int parcelId, int droneId)
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
@@ -56,6 +60,7 @@ namespace DalApi
         /// the time of pickup a parcel by drone update
         /// </summary>
         /// <param name="parcelId">parcel id</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdatePickup(int parcelId)
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
@@ -72,6 +77,7 @@ namespace DalApi
         /// parcel delivery time update
         /// </summary>
         /// <param name="parcelId">parcel id</param>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public void UpdateDelivery(int parcelId)
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
@@ -89,6 +95,7 @@ namespace DalApi
         /// </summary>
         /// <param name="parcelId">parcel id to return</param>
         /// <returns>parcel object</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Parcel GetParcel(int parcelId)
         {
             var exist = DataSource.Parcels.Any(x => x.Id == parcelId);
@@ -102,8 +109,10 @@ namespace DalApi
         /// get list of the parcels
         /// </summary>
         /// <returns>parcel array</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> ParcelList() => DataSource.Parcels.ToList();
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public IEnumerable<Parcel> GetParcelsByCondition(Predicate<Parcel> condition)
             => DataSource.Parcels.Where(x => condition(x)).ToList();
     }
