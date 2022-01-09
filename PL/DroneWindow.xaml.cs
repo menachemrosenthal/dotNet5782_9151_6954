@@ -310,7 +310,6 @@ namespace PL
                 new ParcelWindow(BlDrone, drone.Parcel.Id).Show();
         }
         BackgroundWorker worker;
-
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };

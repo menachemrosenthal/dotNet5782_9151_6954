@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using BL;
+using System.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +24,33 @@ namespace BO
                 status = drone.Status;
                 if (status == DroneStatuses.free)
                 {
-                    bl.ParcelToDrone(droneId);
+                    try
+                    {
+                        bl.ParcelToDrone(droneId);
+                        Thread.Sleep(timer); update();
+                        bl.ParcelPickedupUptade(droneId);
+                        Thread.Sleep(timer); update();
+                        bl.ParcelProvisionUpdate(droneId);
+                        Thread.Sleep(timer); update();
+                    }
+                    catch (Exception)
+                    {
+                        try { bl.ChargeDrone(droneId); }
+                        catch (Exception)
+                        {//what to do if not enouph battery to reach station }
+                        }
+                    }
+                    if (status == DroneStatuses.maintenance)
+                    {
+                        bl.ReleaseDrone(droneId);
+                        Thread.Sleep(timer); update();
+                    }
+                    if (status == DroneStatuses.sending)
+                    {
+                        bl.ParcelProvisionUpdate(droneId);
+                        Thread.Sleep(timer); update();
+                    }
                 }
-                if (status == DroneStatuses.maintenance)
-                {
-                    
-                }
-                if (status == DroneStatuses.sending)
-                {
-
-                }
-
             } while (finish());
         }
     }
