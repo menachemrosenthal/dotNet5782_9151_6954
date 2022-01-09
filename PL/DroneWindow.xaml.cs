@@ -113,12 +113,11 @@ namespace PL
 
         public void SimulatorUpdateWindow(object sender, EventArgs e)
         {
-                ReleaseButton.Visibility = Visibility.Hidden;
-                ChargeButton.Visibility = Visibility.Hidden;
-                associateButton.Visibility = Visibility.Hidden;
-                pickedUpButton.Visibility = Visibility.Hidden;
-                provisionButton.Visibility = Visibility.Hidden;
-            
+            ReleaseButton.Visibility = Visibility.Hidden;
+            ChargeButton.Visibility = Visibility.Hidden;
+            associateButton.Visibility = Visibility.Hidden;
+            pickedUpButton.Visibility = Visibility.Hidden;
+            provisionButton.Visibility = Visibility.Hidden;            
 
             lock (BlDrone)
                 drone = BlDrone.GetDrone(drone.Id);
@@ -338,6 +337,7 @@ namespace PL
 
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
+            Automatic.Visibility = Visibility.Hidden;
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
             worker.DoWork += (sender, args) => BlDrone.StartSimulator((int)args.Argument,
                 () => { worker.ReportProgress(0); }, () => finish);
@@ -345,6 +345,6 @@ namespace PL
             worker.RunWorkerAsync(drone.Id);
         }
 
-        private bool finish = false;
+        private bool finish = true;
     }
 }
