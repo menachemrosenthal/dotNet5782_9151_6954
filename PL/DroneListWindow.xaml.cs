@@ -32,6 +32,8 @@ namespace PL
         /// </summary>
         event EventHandler DroneListChanged;
 
+        private object WindowLock = new();
+
         /// <summary>
         /// constractor
         /// </summary>
@@ -39,12 +41,15 @@ namespace PL
         public DroneListWindow(BO.BL bl)
         {
             InitializeComponent();
-            BlDroneList = (BO.BL)BL.BlFactory.GetBl();
-            DroneListView.ItemsSource = bl.GetDroneList();
+            lock (bl)
+            {
+                BlDroneList = (BO.BL)BL.BlFactory.GetBl();          
+                DroneListView.ItemsSource = bl.GetDroneList();
+            }
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-            DroneListChanged += UpdateWindow;
-            BlDroneList.EventRegistration(DroneListChanged, "Drone");
+            //DroneListChanged += UpdateWindow;
+            //BlDroneList.EventRegistration(DroneListChanged, "Drone");
         }
 
         /// <summary>
@@ -59,11 +64,12 @@ namespace PL
             {
                 InitializeComponent();
                 BlDroneList = (BO.BL)BL.BlFactory.GetBl();
-                DroneListView.ItemsSource = BlDroneList.GetDroneList();
+                lock (BlDroneList)
+                    DroneListView.ItemsSource = BlDroneList.GetDroneList();
                 WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
                 StatusSelector.ItemsSource = Enum.GetValues(typeof(DroneStatuses));
-                DroneListChanged += UpdateWindow;
-                BlDroneList.EventRegistration(DroneListChanged, "Drone");
+                //DroneListChanged += UpdateWindow;
+                //BlDroneList.EventRegistration(DroneListChanged, "Drone");
             }
         }
 
@@ -78,8 +84,9 @@ namespace PL
 
             if (WeightSelector.SelectedItem != null)
             {
-                DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
-                    (x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
+                lock (BlDroneList)
+                    DroneListView.ItemsSource = BlDroneList.GetDronesByCondition
+                        (x => x.MaxWeight == (WeightCategories)WeightSelector.SelectedItem);
                 allDronesButton.Visibility = Visibility.Visible;
             }
         }
@@ -91,7 +98,8 @@ namespace PL
         /// <param name="e"></param>
         private void StandartList_Click(object sender, RoutedEventArgs e)
         {
-            DroneListView.ItemsSource = BlDroneList.GetDroneList();
+            lock (BlDroneList)
+                DroneListView.ItemsSource = BlDroneList.GetDroneList();
             allDronesButton.Visibility = Visibility.Hidden;
             WeightSelector.SelectedItem = null;
             StatusSelector.SelectedItem = null;
@@ -108,7 +116,9 @@ namespace PL
             if (DroneListView.SelectedItem != null)
             {
                 DroneToList drone = (DroneToList)DroneListView.SelectedItem;
-                new DroneWindow(BlDroneList, drone.Id).Show();
+                DroneWindow droneWindow = new DroneWindow(BlDroneList, drone.Id);
+                droneWindow.Show();
+                droneWindow.DroneChanged += UpdateWindow;
             }
         }
 
@@ -117,9 +127,10 @@ namespace PL
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
-        public void UpdateWindow(object s, EventArgs e)
+        public void UpdateWindow()
         {
-            DroneListView.ItemsSource = BlDroneList.GetDroneList();
+            lock (BlDroneList)
+              DroneListView.ItemsSource = BlDroneList.GetDroneList();
         }
 
         /// <summary>

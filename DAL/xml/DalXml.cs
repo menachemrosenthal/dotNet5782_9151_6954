@@ -29,6 +29,7 @@ namespace DalApi
         internal static XElement customersRoot;
         internal static XElement configRoot;
         
+        /*
         string
         CustomerPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml",
         DronePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml",
@@ -36,7 +37,7 @@ namespace DalApi
         StationPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\StationXml.xml",
         DroneChargePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml",
         ConfigPath =  @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ConfigXml.xml";
-        /*
+        */
         string
         CustomerPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\CustomerXml.xml",
         DronePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneXml.xml",
@@ -44,7 +45,6 @@ namespace DalApi
         StationPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\StationXml.xml",
         DroneChargePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneChargeXml.xml",
         ConfigPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\ConfigXml.xml";
-
         DalXml()
         {
             if (true/*files dont exist*/)

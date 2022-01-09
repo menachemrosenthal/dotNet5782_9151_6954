@@ -33,7 +33,7 @@ namespace PL
         /// <summary>
         /// when changing happens in drone
         /// </summary>
-        event EventHandler DroneChanged;
+        public event Action DroneChanged;
 
         /// <summary>
         /// constractor
@@ -49,6 +49,8 @@ namespace PL
             AddDroneButton.Visibility = Visibility.Visible;
         }
 
+        private static object WindowLock = new();
+
         /// <summary>
         /// constractor by selected item
         /// </summary>
@@ -59,6 +61,7 @@ namespace PL
             InitializeComponent();
             BlDrone = bl;
             drone = BlDrone.GetDrone(droneId);
+            DataContext = drone;
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             WeightSelector.SelectedValue = drone.MaxWeight;
             WeightSelector.IsEnabled = false;
@@ -66,8 +69,8 @@ namespace PL
             IDLabel.Content = "ID:";
             ID.IsReadOnly = true;
             DroneChanged += UpdateWindow;
-            BlDrone.EventRegistration(DroneChanged, "Drone");
-            UpdateWindow(this, EventArgs.Empty);
+            //BlDrone.EventRegistration(DroneChanged, "Drone");
+            UpdateWindow();
         }
 
         /// <summary>
@@ -75,9 +78,10 @@ namespace PL
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
-        public void UpdateWindow(object s, EventArgs e)
+        public void UpdateWindow()
         {
-            drone = BlDrone.GetDrone(drone.Id);
+            lock (BlDrone)
+                drone = BlDrone.GetDrone(drone.Id);
             DataContext = drone;
 
             ReleaseButton.Visibility = Visibility.Hidden;
@@ -107,6 +111,20 @@ namespace PL
                 provisionButton.Visibility = Visibility.Visible;
         }
 
+        public void SimulatorUpdateWindow(object sender, EventArgs e)
+        {
+                ReleaseButton.Visibility = Visibility.Hidden;
+                ChargeButton.Visibility = Visibility.Hidden;
+                associateButton.Visibility = Visibility.Hidden;
+                pickedUpButton.Visibility = Visibility.Hidden;
+                provisionButton.Visibility = Visibility.Hidden;
+            
+
+            lock (BlDrone)
+                drone = BlDrone.GetDrone(drone.Id);
+            DataContext = drone;
+        }
+
         /// <summary>
         /// add drone
         /// </summary>
@@ -127,6 +145,7 @@ namespace PL
                     };
 
                     BlDrone.AddDrone(drone, stationId);
+                    DroneChanged();
                     _ = MessageBox.Show("The Drone was added successfully");
                     Close();
                     return;
@@ -167,6 +186,7 @@ namespace PL
             try
             {
                 BlDrone.DroneNameUpdate(int.Parse(ID.Text), Name.Text);
+                DroneChanged();
                 MessageBox.Show("The Name was update successfully");
             }
             catch (Exception ex)
@@ -185,6 +205,7 @@ namespace PL
             try
             {
                 BlDrone.ChargeDrone(int.Parse(ID.Text));
+                DroneChanged();
                 MessageBox.Show("The Drone was sent for charging successfully");
             }
             catch (Exception ex)
@@ -203,6 +224,7 @@ namespace PL
             try
             {
                 BlDrone.ParcelToDrone(int.Parse(ID.Text));
+                DroneChanged();
                 MessageBox.Show("The drone associated with a parcel successfully");
             }
             catch (Exception ex)
@@ -222,6 +244,7 @@ namespace PL
             try
             {
                 BlDrone.ParcelPickedupUptade(int.Parse(ID.Text));
+                DroneChanged();
                 MessageBox.Show("The parcel was pickedup successfully");
             }
             catch (Exception ex)
@@ -241,6 +264,7 @@ namespace PL
             try
             {
                 BlDrone.ParcelProvisionUpdate(int.Parse(ID.Text));
+                DroneChanged();
                 MessageBox.Show("The parcel provided successfully");
             }
             catch (Exception ex)
@@ -260,6 +284,7 @@ namespace PL
             try
             {
                 BlDrone.ReleaseDrone(int.Parse(ID.Text));
+                DroneChanged();
                 MessageBox.Show("The drone was release from charging successfully");
             }
             catch (Exception ex)
@@ -313,9 +338,12 @@ namespace PL
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
             worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
-            worker.DoWork += (sender, args) => BlDrone.StartSimulator((int)args.Argument, () => { worker.ReportProgress(0); }, () => { return worker.CancellationPending; });
-            worker.ProgressChanged += UpdateWindow;
+            worker.DoWork += (sender, args) => BlDrone.StartSimulator((int)args.Argument,
+                () => { worker.ReportProgress(0); }, () => finish);
+            worker.ProgressChanged += SimulatorUpdateWindow;
             worker.RunWorkerAsync(drone.Id);
         }
+
+        private bool finish = false;
     }
 }

@@ -8,6 +8,7 @@ namespace BO
 {
     public partial class BL : IBL
     {
+        private static object BlLock = new();
         /// <summary>
         /// when changing happens or drone was added
         /// </summary>
@@ -18,7 +19,7 @@ namespace BO
         /// </summary>
         /// <returns>IEnumerable of drone list</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public IEnumerable<DroneToList> GetDroneList() { lock (dal) { return drones.ToList(); } }
+        public IEnumerable<DroneToList> GetDroneList() { lock (BlLock) { return drones.ToList(); } }
 
         /// <summary>
         /// updates that parcel was picked up
@@ -47,6 +48,7 @@ namespace BO
                 }
             }
         }
+
         /// <summary>
         /// add a drone
         /// </summary>
@@ -80,6 +82,7 @@ namespace BO
                 EventsAction();
             }
         }
+
         /// <summary>
         /// update name of drone
         /// </summary>
@@ -112,29 +115,35 @@ namespace BO
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void ChargeDrone(int droneId)
         {
+            DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
+            if (GetDroneSituation(droneId) != "Free")
+                throw new CannotUpdateExeption("drone", droneId, "drone is not free to charge");
+
+            int index = drones.IndexOf(drone);
+
             lock (dal)
             {
-                DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
-                if (GetDroneSituation(droneId) != "Free")
-                    throw new CannotUpdateExeption("drone", droneId, "drone is not free to charge");
+                //station for charge
+                DalApi.Station station = StationForCharging(droneId);
 
-                int index = drones.IndexOf(drone);
+                double distance = LocationsDistance(drone.CurrentLocation, StationLocation(station));
 
-                //possible station location
-                Location location = StationLocation(ClosestStation(drone.CurrentLocation, dal.GetStationsByCondition(x => x.ChargeSlots > 0)));
-
-                double distance = LocationsDistance(drone.CurrentLocation, location);
-
-            if (FreeElectricityUse * distance <= drone.BatteryStatus)
-            {
-                drone.CurrentLocation = location;
-                drone.BatteryStatus -= FreeElectricityUse * distance;
-                drones[index] = drone;
-
-                dal.ChargeDrone(droneId, ClosestStation(location, dal.StationList()).Id);
-                drone.Status = DroneStatuses.maintenance;
-
-                    EventsAction();
+                if (FreeElectricityUse * distance - drone.BatteryStatus > 0)
+                {
+                    drone.CurrentLocation = StationLocation(station);
+                    drone.BatteryStatus -= FreeElectricityUse * distance;
+                    drones[index] = drone;
+                    try
+                    {
+                        dal.ChargeDrone(droneId, station.Id);
+                        drone.Status = DroneStatuses.maintenance;
+                        EventsAction();
+                    }
+                    catch (Exception ex)
+                    {
+                        EventsAction();
+                        throw new NotFreeChargeSlot("There is not free charge slot please wait", ex);
+                    }
 
                     return;
                 }
@@ -181,13 +190,14 @@ namespace BO
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void ParcelToDrone(int droneId)
         {
+
+            DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
+
+            if (GetDroneSituation(droneId) != "Free")
+                throw new ArgumentException("Drone must be free", nameof(droneId));
+
             lock (dal)
             {
-                DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
-
-                if (GetDroneSituation(droneId) != "Free")
-                    throw new ArgumentException("Drone must be free", nameof(droneId));
-
                 List<DalApi.Parcel> parcels = dal.GetParcelsByCondition(x => x.DroneId == 0).ToList();
                 int weight = (int)drone.MaxWeight;
                 parcels
@@ -261,16 +271,15 @@ namespace BO
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string GetDroneSituation(int id)
         {
+            if (drones.Any(x => x.Id == id && x.Status == DroneStatuses.maintenance))
+                return "Maintenance";
+
             lock (dal)
             {
-                if (drones.Any(x => x.Id == id && x.Status == DroneStatuses.maintenance))
-                    return "Maintenance";
-
                 if (dal.ParcelList().Any(x => x.DroneId == id && x.Delivered == null))
                     return dal.ParcelList().Any(x => x.DroneId == id && x.PickedUp == null) ? "Associated" : "Executing";
-
-                return "Free";
             }
+            return "Free";
         }
 
         /// <summary>
@@ -279,7 +288,7 @@ namespace BO
         /// <param name="drone"></param>
         /// <param name="parcel"></param>
         /// <returns>amount of battery use needed for delivery</returns>
-        private double BatteryUseInDelivery(DroneToList drone, DalApi.Parcel parcel)
+        internal double BatteryUseInDelivery(DroneToList drone, DalApi.Parcel parcel)
         {
             lock (dal)
             {
@@ -290,9 +299,110 @@ namespace BO
                 return BatteryUse;
             }
         }
+
         public void StartSimulator(int droneId, Action update, Func<bool> finish)
         {
             new Simulator(droneId, update, finish, this);
+        }
+
+        /// <summary>
+        /// try to associated parcel to the drone and return string
+        /// </summary>
+        /// <param name="droneId">drone for association parcel to it</param>
+        /// <returns>"No Parcels for delivery" or "The drone was associated successfully" or "Not enough battery"</returns>
+        internal string SimulatorParcelToDrone(int droneId)
+        {
+            DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId);
+
+            lock (dal)
+            {
+                List<DalApi.Parcel> parcels = dal.GetParcelsByCondition(x => x.DroneId == 0).ToList();
+
+                if (!parcels.Any(x => x.DroneId == 0))
+                    return "No Parcels for delivery";
+
+                int weight = (int)drone.MaxWeight;
+                parcels
+                    .OrderByDescending(x => x.Priority)
+                    .ThenByDescending(x => x.Weight)
+                    .ThenBy(x => LocationsDistance(SenderLocation(x), drone.CurrentLocation));
+
+                foreach (var parcel in parcels)
+                {
+                    if (weight >= (int)parcel.Weight &&
+                        drone.BatteryStatus >= BatteryUseInDelivery(drone, parcel))
+                    {
+                        drone.Status = DroneStatuses.sending;
+                        drone.DeliveredParcelId = parcel.Id;
+                        dal.ParcelToDrone(parcel.Id, drone.Id);
+                        drones[drones.IndexOf(drone)] = drone;
+
+                        EventsAction();
+
+                        return "Is associating";
+                    }
+                };
+            }
+            return "Not enough battery";
+        }
+
+        internal DalApi.Station StationForCharging(int droneId)
+        {
+            Drone drone = GetDrone(droneId);
+            double batteryUse;
+
+            lock (dal)
+            {
+                var stations = dal.GetStationsByCondition(x => x.ChargeSlots > 0);
+
+                DalApi.Station stationToCharge = ClosestStation(drone.CurrentLocation, stations);
+                batteryUse = LocationsDistance(drone.CurrentLocation, StationLocation(stationToCharge))
+                             * FreeElectricityUse;
+
+                if (drone.BatteryStatus - batteryUse > 0)
+                    return stationToCharge;
+
+                return ClosestStation(drone.CurrentLocation, dal.StationList());
+            }
+
+        }
+
+        internal string SimulatorChargeDrone(int droneId)
+        {
+                DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
+                if (GetDroneSituation(droneId) != "Free")
+                    return "drone is not free to charge";
+
+                int index = drones.IndexOf(drone);
+
+                //station for charge
+                DalApi.Station station = StationForCharging(droneId);
+
+                double distance = LocationsDistance(drone.CurrentLocation, StationLocation(station));
+
+            lock (dal)
+            {
+                if (FreeElectricityUse * distance - drone.BatteryStatus > 0)
+                {
+                    drone.CurrentLocation = StationLocation(station);
+                    drone.BatteryStatus -= FreeElectricityUse * distance;
+                    drones[index] = drone;
+                    try
+                    {
+                        dal.ChargeDrone(droneId, station.Id);
+                        drone.Status = DroneStatuses.maintenance;
+                        EventsAction();
+                        return "Drone is charging";
+                    }
+                    catch (Exception ex)
+                    {
+                        EventsAction();
+                        return "Not free charge slot";
+                    }
+                }
+                else
+                    return "not enough battery";
+            }
         }
     }
 }
