@@ -68,7 +68,7 @@ namespace DalApi
             station.ChargeSlots++;
             DataSource.Stations[index] = station;
             DataSource.DronesCharge.Remove(droneCharge);
-            return time - DateTime.Now;
+            return DateTime.Now - time;
         }
 
         /// <summary>

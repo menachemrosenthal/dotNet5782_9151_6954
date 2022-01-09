@@ -200,7 +200,7 @@ namespace BO
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns> sender location</returns>
-        private Location SenderLocation(DalApi.Parcel parcel)
+        internal Location SenderLocation(DalApi.Parcel parcel)
         {
             lock (dal)
             {
@@ -213,31 +213,33 @@ namespace BO
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns> Target location</returns>
-        private Location TargetLocation(DalApi.Parcel parcel)
+        internal Location TargetLocation(DalApi.Parcel parcel)
         {
             lock (dal)
             {
                 return CustomerLocation(dal.CustomerList().FirstOrDefault(x => x.Id == parcel.TargetId));
             }
         }
+
         /// <summary>
         /// calculates distance between sender and reciever
         /// </summary>
         /// <param name="parcel"></param>
         /// <returns>distance between sender and reciever</returns>
-        private double SenderTaregetDistance(DalApi.Parcel parcel)
+        internal double SenderTaregetDistance(DalApi.Parcel parcel)
         {
             lock (dal)
             {
                 return LocationsDistance(SenderLocation(parcel), TargetLocation(parcel));
             }
         }
+
         /// <summary>
         /// get parcel status
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns>parcel status</returns>
-        private ParcelStatuses GetParcelStatus(int parcelId)
+        ParcelStatuses GetParcelStatus(int parcelId)
         {
             lock (dal)
             {

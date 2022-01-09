@@ -54,7 +54,7 @@ namespace BO
         /// running the events
         /// </summary>
         [MethodImpl(MethodImplOptions.Synchronized)]
-        private void EventsAction()
+        void EventsAction()
         {
             if (StationChanged != null)
                 StationChanged(this, EventArgs.Empty);
@@ -148,9 +148,8 @@ namespace BO
                 }
             }
         }
-
         
-        private double LocationsDistance(Location l1, Location l2)
+        internal double LocationsDistance(Location l1, Location l2)
              => dal.DistanceCalculate(l1.Latitude, l1.Longitude, l2.Latitude, l2.Longitude);
     }
 }

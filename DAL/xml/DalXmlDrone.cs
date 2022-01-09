@@ -88,7 +88,7 @@ namespace DalApi
             XMLTools.SaveListToXMLSerializer(dronesCharge, DroneChargePath);
             XMLTools.SaveListToXMLSerializer(stations, StationPath);
 
-            return time - DateTime.Now;
+            return DateTime.Now - time;
         }
 
         public Drone GetDrone(int droneId)

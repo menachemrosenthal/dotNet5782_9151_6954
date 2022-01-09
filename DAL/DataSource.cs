@@ -21,7 +21,7 @@ namespace DalApi
             public static double CarryingLight = 0.5;
             public static double CarryingMediem = 0.6;
             public static double CarryingHeavy = 0.7;
-            public static double ChargePace = 25.0;
+            public static double ChargePace = 20.0;
             /// <summary>
             /// starting a project, initialize the data
             /// </summary>

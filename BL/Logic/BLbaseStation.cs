@@ -141,6 +141,7 @@ namespace BO
                 return GetBaseStationList().Where(x => condition(x));
             }
         }
+
         /// <summary>
         /// list of drones charging in station
         /// </summary>
@@ -163,7 +164,7 @@ namespace BO
         /// </summary>
         /// <param name="station"></param>
         /// <returns>location of station</returns>
-        private Location StationLocation(DalApi.Station station)
+        internal Location StationLocation(DalApi.Station station)
         {
             lock (dal)
             {
@@ -177,7 +178,7 @@ namespace BO
         /// <param name="location"></param>
         /// <param name="stations"></param>
         /// <returns>closest station</returns>
-        private DalApi.Station ClosestStation(Location location, IEnumerable<DalApi.Station> stations)
+        internal DalApi.Station ClosestStation(Location location, IEnumerable<DalApi.Station> stations)
         {
             lock (dal)
             {
