@@ -150,5 +150,10 @@ namespace PL
             ParcelInCustomer parcel = (ParcelInCustomer)RecievedParcels.SelectedItem;
             new ParcelWindow(blCustomerList, parcel.Id).Show();
         }
+
+        private void AddParcelToSend_Click(object sender, RoutedEventArgs e)
+        {
+            new ParcelWindow(blCustomerList).Show();
+        }
     }
 }

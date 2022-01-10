@@ -292,6 +292,8 @@
             Grid.Row="4" Width="100"
             Value ="{Binding Path=BatteryStatus, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"            
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
+        <Button x:Name="RagularButton"
+            Content="Ragular" Grid.Column="1" HorizontalAlignment="Left" Margin="170,13,0,0" Grid.Row="5" Width="74" Click="RagularButton_Click"/>
     </Grid>
 </Window>
 

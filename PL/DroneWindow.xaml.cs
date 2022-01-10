@@ -117,11 +117,12 @@ namespace PL
             ChargeButton.Visibility = Visibility.Hidden;
             associateButton.Visibility = Visibility.Hidden;
             pickedUpButton.Visibility = Visibility.Hidden;
-            provisionButton.Visibility = Visibility.Hidden;            
+            provisionButton.Visibility = Visibility.Hidden;
 
             lock (BlDrone)
                 drone = BlDrone.GetDrone(drone.Id);
             DataContext = drone;
+            DroneChanged();
         }
 
         /// <summary>
@@ -345,5 +346,10 @@ namespace PL
         }
 
         private bool finish = true;
+
+        private void RagularButton_Click(object sender, RoutedEventArgs e)
+        {
+            worker.CancelAsync();
+        }
     }
 }
