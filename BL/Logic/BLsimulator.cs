@@ -36,6 +36,7 @@ namespace BO
                         {
                             DroneActionBySituation(blClass.SimulatorParcelToDrone(droneId));
                             update();
+                            drone = blClass.GetDrone(droneId);
                         }
                         break;
 
@@ -58,6 +59,7 @@ namespace BO
                             blClass.ReleaseDrone(droneId);
                             drone = blClass.GetDrone(droneId);
                             updateDrone();
+                            drone = blClass.GetDrone(droneId);
                         }
                         break;
 
@@ -76,6 +78,7 @@ namespace BO
                                     updateDrone();
                                 }
                             update();
+                            drone = blClass.GetDrone(droneId);
                         }
                         break;
                 }
@@ -111,7 +114,14 @@ namespace BO
                         {
                             location = blClass.StationLocation(blClass.StationForCharging(drone.Id));
                             MovingDrone(blClass.LocationsDistance(drone.CurrentLocation, location), BL.FreeElectricityUse);
-                            blClass.ChargeDrone(drone.Id);// send to charge
+                            double batteryUse = blClass.LocationsDistance(drone.CurrentLocation, location)
+                             * BL.FreeElectricityUse;
+                            if (drone.BatteryStatus >= batteryUse)
+                                blClass.ChargeDrone(drone.Id);// send to charge
+                            else
+                            {
+                                blClass.BatteryUpdate(drone.Id, 100);
+                            }
                         }
                         //sleep the time from location to charge station                                
                     }

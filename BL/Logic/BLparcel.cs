@@ -72,7 +72,9 @@ namespace BO
                 drone.Status = DroneStatuses.free;
                 drone.DeliveredParcelId = 0;
                 dal.UpdateDelivery(parcel.Id);
-
+                int index = drones.IndexOf(drone);
+                drones[index] = drone;
+                
                 EventsAction();
             }
         }
