@@ -32,6 +32,7 @@ namespace PL
             InitializeComponent();
             blCustomerList = bl;            
             UpdateButton.Visibility = Visibility.Hidden;
+            AddParcelToSend.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
