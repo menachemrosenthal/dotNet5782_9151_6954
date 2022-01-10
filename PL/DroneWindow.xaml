@@ -130,7 +130,7 @@
             VerticalAlignment="Bottom"
             IsReadOnly="True"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=BatteryStatus, UpdateSourceTrigger=PropertyChanged, StringFormat=/{0:#0.000}%}"  Height="20" Grid.Row="4" Margin="0,0,0,5"/>
+            Text="{Binding Path=BatteryStatus, Mode=OneWay,UpdateSourceTrigger=PropertyChanged, StringFormat=/{0:#0.000}%}"  Height="20" Grid.Row="4" Margin="0,0,0,5"/>
         <Label           
             x:Name="statusLabel"
             FontWeight="Bold"
@@ -285,13 +285,14 @@
         <Button x:Name="Automatic"
             Content="Automatic" 
             Grid.Column="2" 
-            HorizontalAlignment="Left" 
-            Margin="60,10,0,0" Grid.Row="5" Width="88" Click="Automatic_Click"/>
+            HorizontalAlignment="Center" Grid.Row="5" Width="88" Click="Automatic_Click" VerticalAlignment="Center"/>
         <ProgressBar x:Name="BatteryProgress" 
             HorizontalAlignment="Right" Margin="0,5,0,31" 
             Grid.Row="4" Width="100"
             Value ="{Binding Path=BatteryStatus, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"            
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
+        <Button x:Name="stop" Content="Stop" Grid.Column="2" Grid.Row="5"
+                Visibility="Hidden" Margin="0,8,0,8" Height="Auto" VerticalAlignment="Stretch" Click="stop_Click" Width="90"/>
     </Grid>
 </Window>
 

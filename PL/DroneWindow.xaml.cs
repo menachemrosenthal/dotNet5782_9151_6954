@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Threading;
 using System.ComponentModel;
+using System.Windows.Threading;
 
 namespace PL
 {
@@ -33,7 +34,14 @@ namespace PL
         /// <summary>
         /// when changing happens in drone
         /// </summary>
-        public event Action DroneChanged;
+        public event EventHandler DroneChanged;
+
+        /// <summary>
+        /// stop simulator
+        /// </summary>
+        private bool finish = true;
+
+        private bool isSimulator = false;
 
         /// <summary>
         /// constractor
@@ -70,7 +78,7 @@ namespace PL
             ID.IsReadOnly = true;
             DroneChanged += UpdateWindow;
             //BlDrone.EventRegistration(DroneChanged, "Drone");
-            UpdateWindow();
+            UpdateWindow(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -78,50 +86,47 @@ namespace PL
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
-        public void UpdateWindow()
+        public void UpdateWindow(object sender, EventArgs e)
         {
-            lock (BlDrone)
-                drone = BlDrone.GetDrone(drone.Id);
-            DataContext = drone;
-
-            ReleaseButton.Visibility = Visibility.Hidden;
-            ChargeButton.Visibility = Visibility.Hidden;
-            associateButton.Visibility = Visibility.Hidden;
-            pickedUpButton.Visibility = Visibility.Hidden;
-            provisionButton.Visibility = Visibility.Hidden;
-            parcel.Visibility = Visibility.Visible;
-
-            if (drone.Status == DroneStatuses.maintenance)
+            if (!isSimulator)
             {
-                ReleaseButton.Visibility = Visibility.Visible;
-                parcel.Visibility = Visibility.Hidden;
+                lock (BlDrone)
+                    drone = BlDrone.GetDrone(drone.Id);
+                DataContext = drone;
+
+                ReleaseButton.Visibility = Visibility.Hidden;
+                ChargeButton.Visibility = Visibility.Hidden;
+                associateButton.Visibility = Visibility.Hidden;
+                pickedUpButton.Visibility = Visibility.Hidden;
+                provisionButton.Visibility = Visibility.Hidden;
+                parcel.Visibility = Visibility.Visible;
+
+                if (drone.Status == DroneStatuses.maintenance)
+                {
+                    ReleaseButton.Visibility = Visibility.Visible;
+                    parcel.Visibility = Visibility.Hidden;
+                }
+
+                if (BlDrone.GetDroneSituation(drone.Id) == "Free")
+                {
+                    ChargeButton.Visibility = Visibility.Visible;
+                    associateButton.Visibility = Visibility.Visible;
+                    parcel.Visibility = Visibility.Hidden;
+                }
+
+                if (BlDrone.GetDroneSituation(drone.Id) == "Associated")
+                    pickedUpButton.Visibility = Visibility.Visible;
+
+                if (BlDrone.GetDroneSituation(drone.Id) == "Executing")
+                    provisionButton.Visibility = Visibility.Visible;
             }
-
-            if (BlDrone.GetDroneSituation(drone.Id) == "Free")
-            {
-                ChargeButton.Visibility = Visibility.Visible;
-                associateButton.Visibility = Visibility.Visible;
-                parcel.Visibility = Visibility.Hidden;
-            }
-
-            if (BlDrone.GetDroneSituation(drone.Id) == "Associated")
-                pickedUpButton.Visibility = Visibility.Visible;
-
-            if (BlDrone.GetDroneSituation(drone.Id) == "Executing")
-                provisionButton.Visibility = Visibility.Visible;
         }
 
         public void SimulatorUpdateWindow(object sender, EventArgs e)
         {
-            ReleaseButton.Visibility = Visibility.Hidden;
-            ChargeButton.Visibility = Visibility.Hidden;
-            associateButton.Visibility = Visibility.Hidden;
-            pickedUpButton.Visibility = Visibility.Hidden;
-            provisionButton.Visibility = Visibility.Hidden;            
-
-            lock (BlDrone)
-                drone = BlDrone.GetDrone(drone.Id);
-            DataContext = drone;
+            Dispatcher.Invoke(() => drone = BlDrone.GetSimulatorDrone());
+            Dispatcher.Invoke(() => DataContext = drone);
+            Dispatcher.Invoke(() => DroneChanged(this, EventArgs.Empty));            
         }
 
         /// <summary>
@@ -144,7 +149,7 @@ namespace PL
                     };
 
                     BlDrone.AddDrone(drone, stationId);
-                    DroneChanged();
+                    DroneChanged(this, EventArgs.Empty);
                     _ = MessageBox.Show("The Drone was added successfully");
                     Close();
                     return;
@@ -185,7 +190,7 @@ namespace PL
             try
             {
                 BlDrone.DroneNameUpdate(int.Parse(ID.Text), Name.Text);
-                DroneChanged();
+                DroneChanged(this, EventArgs.Empty);
                 MessageBox.Show("The Name was update successfully");
             }
             catch (Exception ex)
@@ -204,7 +209,7 @@ namespace PL
             try
             {
                 BlDrone.ChargeDrone(int.Parse(ID.Text));
-                DroneChanged();
+                DroneChanged(this, EventArgs.Empty);
                 MessageBox.Show("The Drone was sent for charging successfully");
             }
             catch (Exception ex)
@@ -223,7 +228,7 @@ namespace PL
             try
             {
                 BlDrone.ParcelToDrone(int.Parse(ID.Text));
-                DroneChanged();
+                DroneChanged(this, EventArgs.Empty);
                 MessageBox.Show("The drone associated with a parcel successfully");
             }
             catch (Exception ex)
@@ -243,7 +248,7 @@ namespace PL
             try
             {
                 BlDrone.ParcelPickedupUptade(int.Parse(ID.Text));
-                DroneChanged();
+                DroneChanged(this, EventArgs.Empty);
                 MessageBox.Show("The parcel was pickedup successfully");
             }
             catch (Exception ex)
@@ -263,7 +268,7 @@ namespace PL
             try
             {
                 BlDrone.ParcelProvisionUpdate(int.Parse(ID.Text));
-                DroneChanged();
+                DroneChanged(this, EventArgs.Empty);
                 MessageBox.Show("The parcel provided successfully");
             }
             catch (Exception ex)
@@ -283,7 +288,7 @@ namespace PL
             try
             {
                 BlDrone.ReleaseDrone(int.Parse(ID.Text));
-                DroneChanged();
+                DroneChanged(this, EventArgs.Empty);
                 MessageBox.Show("The drone was release from charging successfully");
             }
             catch (Exception ex)
@@ -333,17 +338,34 @@ namespace PL
             if (drone.Parcel != null)
                 new ParcelWindow(BlDrone, drone.Parcel.Id).Show();
         }
+        
         BackgroundWorker worker;
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
+            ReleaseButton.Visibility = Visibility.Hidden;
+            ChargeButton.Visibility = Visibility.Hidden;
+            associateButton.Visibility = Visibility.Hidden;
+            pickedUpButton.Visibility = Visibility.Hidden;
+            provisionButton.Visibility = Visibility.Hidden;
             Automatic.Visibility = Visibility.Hidden;
-            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
+            stop.Visibility = Visibility.Visible;
+
+            isSimulator = true;
+
+            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };            
+            worker.ProgressChanged += SimulatorUpdateWindow;
             worker.DoWork += (sender, args) => BlDrone.StartSimulator((int)args.Argument,
                 () => { worker.ReportProgress(0); }, () => finish);
-            worker.ProgressChanged += SimulatorUpdateWindow;
             worker.RunWorkerAsync(drone.Id);
         }
 
-        private bool finish = true;
+        private void stop_Click(object sender, RoutedEventArgs e)
+        {
+            finish = false;
+            isSimulator = false;
+            stop.Visibility = Visibility.Hidden;
+            Automatic.Visibility = Visibility.Visible;
+            UpdateWindow(this, EventArgs.Empty);
+        }
     }
-}
+}  

@@ -8,6 +8,8 @@ namespace BlApi
     {        
         public void StartSimulator(int droneId, Action update, Func<bool> finish);
 
+        public Drone GetSimulatorDrone();
+
         /// <summary>
         /// registration of event handler to suitable event handler
         /// </summary>
