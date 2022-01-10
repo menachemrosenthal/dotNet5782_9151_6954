@@ -112,9 +112,9 @@ namespace BO
                     if (GetDroneSituation(drone.Id) == "Executing")
                         drone.CurrentLocation = SenderLocation(parcel);
 
-                    int batteryUse = (int)BatteryUseInDelivery(drone, parcel);
+                    double batteryUse = BatteryUseInDelivery(drone, parcel);
                     if (batteryUse < 99)
-                        drone.BatteryStatus = r.Next(batteryUse, 99) + 1;
+                        drone.BatteryStatus = r.Next((int)batteryUse, 99) + 1;
                 }
 
                 else
@@ -140,9 +140,9 @@ namespace BO
                         {
                             drone.CurrentLocation = CustomerLocation(ReceivedCustomersList().ElementAt(r.Next(ReceivedCustomersList().Count() - 1)));
                         }
-                        int battery = (int)LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList())));
-                        battery *= (int)FreeElectricityUse;
-                        drone.BatteryStatus = r.Next(battery, 99) + 1;
+                        double battery = LocationsDistance(drone.CurrentLocation, StationLocation(ClosestStation(drone.CurrentLocation, dal.StationList())));
+                        battery *= FreeElectricityUse;
+                        drone.BatteryStatus = r.Next((int)battery, 99) + 1;
 
                     }
                 }

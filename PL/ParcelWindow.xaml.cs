@@ -33,7 +33,7 @@ namespace PL
         /// <summary>
         /// when changing happens in parcel
         /// </summary>
-        event EventHandler ParcelChanged;
+        public event Action ParcelChanged;
 
         /// <summary>
         /// costructor
@@ -60,15 +60,14 @@ namespace PL
             InitializeComponent();
             BlParcel = bl;
             parcel = BlParcel.GetParcel(parcelId);
-            ParcelChanged += UpdateWindow;
-            BlParcel.EventRegistration(ParcelChanged, "Parcel");
+            ParcelChanged += UpdateWindow;           
             PriorityTextbox.ItemsSource = Enum.GetValues(typeof(Priorities));
             PriorityTextbox.SelectedValue = parcel.Priority;
             PriorityTextbox.IsEnabled = false;
             WeightTextbox.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             WeightTextbox.SelectedValue = parcel.Weight;
             WeightTextbox.IsEnabled = false;
-            UpdateWindow(this, EventArgs.Empty);
+            UpdateWindow();
         }
 
         /// <summary>
@@ -76,7 +75,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void UpdateWindow(object sender, EventArgs e)
+        private void UpdateWindow()
         {
             if (BlParcel.GetParcel(parcel.Id) != null)
                 parcel = BlParcel.GetParcel(parcel.Id);
@@ -108,6 +107,7 @@ namespace PL
                 };
 
                 BlParcel.AddParcel(parcel);
+                ParcelChanged();
                 MessageBox.Show("The Parcel was added successfully");
                 Close();
             }
@@ -192,8 +192,9 @@ namespace PL
         {
             try
             {
-                BlParcel.EventDelete(ParcelChanged, "Parcel");
+                //BlParcel.EventDelete(ParcelChanged, "Parcel");
                 BlParcel.ParcelDelete(parcel.Id);
+                ParcelChanged();
                 Close();
             }
             catch (Exception ex)

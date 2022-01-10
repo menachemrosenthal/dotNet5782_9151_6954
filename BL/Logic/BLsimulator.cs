@@ -15,7 +15,7 @@ namespace BO
         public const double speed = 100;
         public const int timer = 1000;
         private Drone drone;
-        double FlightDistance;
+        //double Battery;
         Action updateDrone;
         DalApi.Parcel parcel;
         Location location;
@@ -25,7 +25,7 @@ namespace BO
             blClass = (BL)bl;
             drone = blClass.GetDrone(droneId);
             updateDrone = update;
-
+            //Battery = drone.BatteryStatus;
 
             do
             {
@@ -44,20 +44,26 @@ namespace BO
                             do
                             {
                                 Thread.Sleep(timer);
-                                drone.BatteryStatus += BL.ChargePace;
-                                if (drone.BatteryStatus > 100)
+
+                                if (drone.BatteryStatus + BL.ChargePace > 100)
                                     drone.BatteryStatus = 100;
-                                update();
+                                else
+                                    drone.BatteryStatus += BL.ChargePace;
+
+                                blClass.BatteryUpdate(droneId, drone.BatteryStatus);
+
+                                updateDrone();
                             } while (drone.BatteryStatus < 100);
 
                             blClass.ReleaseDrone(droneId);
-                            update();
+                            drone = blClass.GetDrone(droneId);
+                            updateDrone();
                         }
                         break;
 
                     case DroneStatuses.sending:
                         {
-                            parcel = blClass.dal.GetParcel(drone.Parcel.Id);
+                            
 
                             lock (bl)
                                 if (blClass.GetDroneSituation(droneId) == "Associated")
@@ -67,6 +73,7 @@ namespace BO
                                 {
                                     MovingDrone(blClass.SenderTaregetDistance(parcel), blClass.dal.BatteryUseRequest()[(int)parcel.Weight]);
                                     blClass.ParcelProvisionUpdate(drone.Id);
+                                    updateDrone();
                                 }
                             update();
                         }
@@ -81,11 +88,20 @@ namespace BO
             {
                 case "Is associating":
                     {
+                        drone = blClass.GetDrone(drone.Id);
+                        parcel = blClass.dal.GetParcel(drone.Parcel.Id);
+                        
+                        updateDrone();
                         location = blClass.SenderLocation(parcel);
                         MovingDrone(blClass.LocationsDistance(drone.CurrentLocation, location), BL.FreeElectricityUse);
                         blClass.ParcelPickedupUptade(drone.Id);
+                        Thread.Sleep(timer);
+                        updateDrone();
                         MovingDrone(blClass.SenderTaregetDistance(parcel), blClass.dal.BatteryUseRequest()[(int)parcel.Weight]);
                         blClass.ParcelProvisionUpdate(drone.Id);
+                        drone = blClass.GetDrone(drone.Id);
+                        Thread.Sleep(timer);
+                        updateDrone();
                     }
                     break;
 
@@ -101,7 +117,7 @@ namespace BO
                     }
                     break;
 
-                case "No Parcels for delivery":
+                case "No match Parcel for delivery":
                     {
                         Thread.Sleep(timer);
                     }
@@ -115,11 +131,14 @@ namespace BO
             {
                 Thread.Sleep(timer);
                 distance -= speed;
-                drone.BatteryStatus -= batteryUse;
+                drone.BatteryStatus -= batteryUse * speed;
+                blClass.BatteryUpdate(drone.Id, drone.BatteryStatus);
                 updateDrone();
             }
+
             Thread.Sleep(timer);
             drone.BatteryStatus -= batteryUse * distance;
+            blClass.BatteryUpdate(drone.Id, drone.BatteryStatus);
             updateDrone();
         }
     }

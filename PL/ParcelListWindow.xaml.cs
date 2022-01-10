@@ -29,7 +29,7 @@ namespace PL
         /// <summary>
         /// when changing happens 
         /// </summary>
-        event EventHandler ParcelListChanged;
+        event Action ParcelListChanged;
 
         /// <summary>
         /// ienumerable for grouping
@@ -46,7 +46,7 @@ namespace PL
             BlParcelList = bl;
             ParcelListView.ItemsSource = BlParcelList.GetParcelList();
             ParcelListChanged += UpdateWindow;
-            BlParcelList.EventRegistration(ParcelListChanged, "Parcel");
+            //BlParcelList.EventRegistration(ParcelListChanged, "Parcel");
             weightFilter.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             statusFilter.ItemsSource = Enum.GetValues(typeof(ParcelStatuses));
             priorityFilter.ItemsSource = Enum.GetValues(typeof(Priorities));
@@ -60,7 +60,7 @@ namespace PL
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void UpdateWindow(object sender, EventArgs e)
+        private void UpdateWindow()
         {
             ParcelListView.ItemsSource = BlParcelList.GetParcelList();
             mainView = null;
@@ -94,7 +94,9 @@ namespace PL
         /// <param name="e"></param>
         private void AddParcel_Click(object sender, RoutedEventArgs e)
         {
-            new ParcelWindow(BlParcelList).Show();
+            ParcelWindow parcelWindow = new ParcelWindow(BlParcelList);
+            parcelWindow.Show();
+            parcelWindow.ParcelChanged += UpdateWindow;
         }
 
         /// <summary>
