@@ -60,5 +60,10 @@ namespace PL
         {
             new ParcelListWindow(bl).Show();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new UserWindow(bl).Show();
+        }
     }
 }

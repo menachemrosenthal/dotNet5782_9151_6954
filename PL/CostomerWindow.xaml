@@ -155,6 +155,8 @@
                Margin="36,284,0,0" 
                VerticalAlignment="Top"
                Visibility="{Binding ElementName=UpdateButton, Path=Visibility}"/>
+        <Button x:Name="AddParcelToSend"
+            Content="Add a parcel To Send" HorizontalAlignment="Left" Margin="528,159,0,0" Width="144" Click="AddParcelToSend_Click"/>
 
 
     </Grid>

@@ -1,0 +1,23 @@
+﻿<Window x:Class="PL.UserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        Title="UserWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="SigninButton"
+            Content="Sign in" HorizontalAlignment="Left" Margin="232,181,0,0" VerticalAlignment="Top" Height="36" Width="60" Click="Button_Click"/>
+        <TextBox x:Name="IdTextbox"
+                 HorizontalAlignment="Left" Margin="251,116,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="NameTextbox"
+            HorizontalAlignment="Left" Margin="251,75,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Enter Name" HorizontalAlignment="Left" Margin="171,71,0,0" VerticalAlignment="Top"/>
+        <Label Content="Enter Id" HorizontalAlignment="Left" Margin="182,112,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="LoginButton"
+            Content="Log in" HorizontalAlignment="Left" Margin="322,181,0,0" 
+                VerticalAlignment="Top" Height="36" Width="60" Click="LoginButton_Click"/>
+
+    </Grid>
+</Window>

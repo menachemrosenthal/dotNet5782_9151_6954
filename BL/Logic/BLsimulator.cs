@@ -28,7 +28,11 @@ namespace BO
                 {
                     case DroneStatuses.free:
                         lock (bl)
+                        {
                             DroneActionBySituation(blClass.SimulatorParcelToDrone(droneId));
+                            update();
+                            drone = blClass.GetDrone(droneId);
+                        }
                         break;
 
                     case DroneStatuses.maintenance:

@@ -225,5 +225,15 @@ namespace PL
             if (TargetIdTextbox.IsReadOnly)
                 new CostomerWindow(BlParcel, int.Parse(TargetIdTextbox.Text)).Show();
         }
+
+        private void deliveryUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            BlParcel.ParcelProvisionUpdate(parcel.Drone.Id);
+        }
+
+        private void updatePickup_Click(object sender, RoutedEventArgs e)
+        {
+            BlParcel.ParcelPickedupUptade(parcel.Drone.Id);
+        }
     }
 }

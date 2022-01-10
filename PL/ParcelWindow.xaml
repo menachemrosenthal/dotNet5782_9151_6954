@@ -37,8 +37,8 @@
         </Style>
     </Window.Resources>
     <Grid>
-        
-            <Grid.RowDefinitions>
+
+        <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -124,5 +124,9 @@
                 Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" Height="70" Width="96"
                 Visibility="Hidden"
                 Click="DeleteParcelButton_Click"/>
+        <Button x:Name="deliveryUpdate"
+            Content="Update delivery" Grid.Column="2" HorizontalAlignment="Left" Margin="85,0,0,0" Grid.Row="2" VerticalAlignment="Center" Width="115" Click="deliveryUpdate_Click"/>
+        <Button x:Name="updatePickup"
+            Content="Update pickup" Grid.Column="2" HorizontalAlignment="Left" Margin="100,4,0,0" Grid.RowSpan="2" Grid.Row="4" Width="100" Click="updatePickup_Click"/>
     </Grid>
 </Window>

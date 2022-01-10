@@ -32,6 +32,7 @@ namespace PL
             InitializeComponent();
             blCustomerList = bl;            
             UpdateButton.Visibility = Visibility.Hidden;
+            AddParcelToSend.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -149,6 +150,11 @@ namespace PL
 
             ParcelInCustomer parcel = (ParcelInCustomer)RecievedParcels.SelectedItem;
             new ParcelWindow(blCustomerList, parcel.Id).Show();
+        }
+
+        private void AddParcelToSend_Click(object sender, RoutedEventArgs e)
+        {
+            new ParcelWindow(blCustomerList).Show();
         }
     }
 }

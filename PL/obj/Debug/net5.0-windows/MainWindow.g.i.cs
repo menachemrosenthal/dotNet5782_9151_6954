@@ -139,6 +139,14 @@ namespace PL {
             #line default
             #line hidden
             return;
+            case 5:
+            
+            #line 91 "..\..\..\MainWindow.xaml"
+            ((System.Windows.Controls.Button)(target)).Click += new System.Windows.RoutedEventHandler(this.Button_Click);
+            
+            #line default
+            #line hidden
+            return;
             }
             this._contentLoaded = true;
         }
