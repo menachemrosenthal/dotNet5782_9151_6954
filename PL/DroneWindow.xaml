@@ -130,7 +130,7 @@
             VerticalAlignment="Bottom"
             IsReadOnly="True"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=BatteryStatus, UpdateSourceTrigger=PropertyChanged, StringFormat=/{0:#0.000}%}"  Height="20" Grid.Row="4" Margin="0,0,0,5"/>
+            Text="{Binding Path=BatteryStatus, UpdateSourceTrigger=PropertyChanged, StringFormat=/{0:#0.000}%}"  Height="20" Grid.Row="4" Margin="0,0,0,5" RenderTransformOrigin="0.5,-0.928"/>
         <Label           
             x:Name="statusLabel"
             FontWeight="Bold"

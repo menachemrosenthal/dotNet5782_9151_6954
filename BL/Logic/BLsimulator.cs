@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BlApi;
 using BO;
-using System.Threading;
 
 namespace BO
 {
@@ -34,7 +33,10 @@ namespace BO
                 {
                     case DroneStatuses.free:
                         lock (bl)
+                        {
                             DroneActionBySituation(blClass.SimulatorParcelToDrone(droneId));
+                            update();
+                        }
                         break;
 
                     case DroneStatuses.maintenance:
@@ -49,6 +51,7 @@ namespace BO
                             } while (drone.BatteryStatus < 100);
 
                             blClass.ReleaseDrone(droneId);
+                            update();
                         }
                         break;
 
@@ -65,6 +68,7 @@ namespace BO
                                     MovingDrone(blClass.SenderTaregetDistance(parcel), blClass.dal.BatteryUseRequest()[(int)parcel.Weight]);
                                     blClass.ParcelProvisionUpdate(drone.Id);
                                 }
+                            update();
                         }
                         break;
                 }
@@ -88,10 +92,11 @@ namespace BO
                 case "Not enough battery":
                     {
                         lock (blClass)
+                        {
                             location = blClass.StationLocation(blClass.StationForCharging(drone.Id));
-                        MovingDrone(blClass.LocationsDistance(drone.CurrentLocation, location), BL.FreeElectricityUse);
-                        blClass.ChargeDrone(drone.Id);// send to charge
-
+                            MovingDrone(blClass.LocationsDistance(drone.CurrentLocation, location), BL.FreeElectricityUse);
+                            blClass.ChargeDrone(drone.Id);// send to charge
+                        }
                         //sleep the time from location to charge station                                
                     }
                     break;
