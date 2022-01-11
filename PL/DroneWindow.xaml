@@ -130,11 +130,7 @@
             VerticalAlignment="Bottom"
             IsReadOnly="True"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-<<<<<<< HEAD
             Text="{Binding Path=BatteryStatus, Mode=OneWay,UpdateSourceTrigger=PropertyChanged, StringFormat=/{0:#0.000}%}"  Height="20" Grid.Row="4" Margin="0,0,0,5"/>
-=======
-            Text="{Binding Path=BatteryStatus, UpdateSourceTrigger=PropertyChanged, StringFormat=/{0:#0.000}%}"  Height="20" Grid.Row="4" Margin="0,0,0,5" RenderTransformOrigin="0.5,-0.928"/>
->>>>>>> 0c30004016f279b202664a40dc2cd63cc95be15f
         <Label           
             x:Name="statusLabel"
             FontWeight="Bold"
@@ -295,13 +291,8 @@
             Grid.Row="4" Width="100"
             Value ="{Binding Path=BatteryStatus, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"            
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"/>
-<<<<<<< HEAD
         <Button x:Name="stop" Content="Stop" Grid.Column="2" Grid.Row="5"
                 Visibility="Hidden" Margin="0,8,0,8" Height="Auto" VerticalAlignment="Stretch" Click="stop_Click" Width="90"/>
-=======
-        <Button x:Name="RagularButton"
-            Content="Ragular" Grid.Column="1" HorizontalAlignment="Left" Margin="170,13,0,0" Grid.Row="5" Width="74" Click="RagularButton_Click"/>
->>>>>>> 0c30004016f279b202664a40dc2cd63cc95be15f
     </Grid>
 </Window>
 

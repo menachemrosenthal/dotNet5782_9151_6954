@@ -31,7 +31,7 @@ namespace BO
                         {
                             DroneActionBySituation(blClass.SimulatorParcelToDrone(droneId));
                             update();
-                            drone = blClass.GetDrone(droneId);
+                            Drone = blClass.GetDrone(droneId);
                         }
                         break;
 
