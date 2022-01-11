@@ -43,7 +43,6 @@ C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\ref
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.pdb
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.genruntimeconfig.cache
 <<<<<<< HEAD
-<<<<<<< HEAD
 =======
 >>>>>>> 6e1288aacfb923416c3c09998b503b22df4f1627
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\bin\Debug\net5.0-windows\PL.exe
@@ -98,6 +97,5 @@ C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\PL\obj\Debug\net5.0-windows\UserWindow.baml
 >>>>>>> 0c30004016f279b202664a40dc2cd63cc95be15f
 >>>>>>> e7861431a879d0924aef6818a02eb02eb2f785b3
-=======
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\PL\obj\Debug\net5.0-windows\PL.csproj.CopyComplete
 >>>>>>> 35d9b8a12f8af6a068290e3b243a20128db6166f

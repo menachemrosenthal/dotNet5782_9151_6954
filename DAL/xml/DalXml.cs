@@ -21,12 +21,7 @@ namespace DalApi
 
             internal static readonly DalXml instance = new();
         }
-        public static double Free = 0.4;
-        public static double CarryingLight = 0.5;
-        public static double CarryingMediem = 0.6;
-        public static double CarryingHeavy = 0.7;
-        public static double ChargePace = 20.0;
-
+        
         internal static XElement dronesRoot;
         internal static XElement parcelsRoot;
         internal static XElement stationsRoot;
@@ -34,7 +29,7 @@ namespace DalApi
         internal static XElement customersRoot;
         internal static XElement configRoot;
         
-        /*
+        
         string
         CustomerPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\CustomerXml.xml",
         DronePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneXml.xml",
@@ -42,7 +37,7 @@ namespace DalApi
         StationPath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\StationXml.xml",
         DroneChargePath = @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\DroneChargeXml.xml",
         ConfigPath =  @"C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\xml\ConfigXml.xml";
-        */
+        /*
         string
         CustomerPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\CustomerXml.xml",
         DronePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneXml.xml",
@@ -50,6 +45,7 @@ namespace DalApi
         StationPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\StationXml.xml",
         DroneChargePath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\DroneChargeXml.xml",
         ConfigPath = @"C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\xml\ConfigXml.xml";
+        */
         DalXml()
         {
             if (true/*files dont exist*/)
@@ -60,16 +56,16 @@ namespace DalApi
                 stationsRoot = new XElement("Stations");
                 droneChargesRoot = new XElement("DroneCharge");
                 configRoot = new XElement("Config");
-                
                 /*
+                List<double> Battery = new() { 0.4,0.5,0.6,0.7,20.0};
                 DataSource.Config.Initialize();
                 XMLTools.SaveListToXMLSerializer(DataSource.Drones, DronePath);
                 XMLTools.SaveListToXMLSerializer(DataSource.Stations, StationPath);
                 XMLTools.SaveListToXMLSerializer(DataSource.Customers, CustomerPath);
                 XMLTools.SaveListToXMLSerializer(DataSource.Parcels, ParcelPath);
-                XMLTools.SaveListToXMLSerializer(DataSource.DronesCharge, DroneChargePath);                
+                XMLTools.SaveListToXMLSerializer(DataSource.DronesCharge, DroneChargePath);
+                XMLTools.SaveListToXMLSerializer(Battery, ConfigPath);
                 */
-                
                 foreach (var drone in XMLTools.LoadListFromXMLSerializer<DroneCharge>(DroneChargePath))
                 {
                     EndCharge(drone.DroneId);                   
@@ -104,13 +100,14 @@ namespace DalApi
 
         public double[] BatteryUseRequest()
         {
+            List<double> battery = XMLTools.LoadListFromXMLSerializer<double>(ConfigPath);
             double[] electricityUse = new double[5];
 
-            electricityUse[0] = Free;
-            electricityUse[1] = CarryingLight;
-            electricityUse[2] = CarryingMediem;
-            electricityUse[3] = CarryingHeavy;
-            electricityUse[4] = ChargePace;
+            electricityUse[0] = battery[0];
+            electricityUse[1] = battery[1];
+            electricityUse[2] = battery[2];
+            electricityUse[3] = battery[3];
+            electricityUse[4] = battery[4];
 
             return electricityUse;
         }
