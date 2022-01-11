@@ -22,7 +22,7 @@ namespace PL
     {
         private BO.BL blCustomerList;
         Customer Customer;
-        event EventHandler CustomerChanged;
+        public event EventHandler CustomerChanged;
         /// <summary>
         /// constractor
         /// </summary>
@@ -47,8 +47,7 @@ namespace PL
             blCustomerList = bl;
             Customer = blCustomerList.GetCustomer(customerId);
             nameLabel.Content = "Name";
-            CustomerChanged += UpdateWindow;
-            blCustomerList.EventRegistration(CustomerChanged, "Customer");
+            CustomerChanged += UpdateWindow;            
             UpdateWindow(this, EventArgs.Empty);            
             Id.IsReadOnly = true;
         }
@@ -79,6 +78,7 @@ namespace PL
                     };
 
                     blCustomerList.AddCustumer(customer1);
+                    CustomerChanged(this, EventArgs.Empty);
                     _ = MessageBox.Show("Customer was added successfully");                    
                     Close();
                     return;
@@ -107,7 +107,8 @@ namespace PL
         {
             try
             {
-                blCustomerList.CustomerUpdate(Customer);                
+                blCustomerList.CustomerUpdate(Customer);
+                CustomerChanged(this, EventArgs.Empty);
                 MessageBox.Show("The Customer was updated successfully");
             }
             catch (Exception ex)

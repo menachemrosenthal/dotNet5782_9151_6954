@@ -43,8 +43,7 @@ namespace PL
         {
             InitializeComponent();
             GetBL = bL;
-            StationListChanged += UpdateWindow;
-            GetBL.EventRegistration(StationListChanged, "Station");
+            StationListChanged += UpdateWindow;            
             stationList.ItemsSource = GetBL.GetBaseStationList();
         }
 
@@ -56,7 +55,8 @@ namespace PL
         private void StationList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.StationToList station = (BO.StationToList)stationList.SelectedItem;
-            new StationWindow(GetBL, station.Id).Show();
+            StationWindow stationWindow = new StationWindow(GetBL, station.Id);
+            stationWindow.StationChanged += UpdateWindow;
         }
 
         /// <summary>

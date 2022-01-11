@@ -24,48 +24,6 @@ namespace BO
         //internal static BL Instance { get { return instance; } }
         public static BL Instance { get { return Nested.instance; } }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void EventRegistration(EventHandler e, string obj)
-        {
-            if (obj == "Drone")
-                DroneChanged += e;
-            if (obj == "Station")
-                StationChanged += e;
-            if (obj == "Customer")
-                CustomerChanged += e;
-            if (obj == "Parcel")
-                ParcelChanged += e;
-        }
-
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        public void EventDelete(EventHandler e, string obj)
-        {
-            if (obj == "Drone")
-                DroneChanged -= e;
-            if (obj == "Station")
-                StationChanged -= e;
-            if (obj == "Customer")
-                CustomerChanged -= e;
-            if (obj == "Parcel")
-                ParcelChanged -= e;
-        }
-
-        /// <summary>
-        /// running the events
-        /// </summary>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        void EventsAction()
-        {
-            if (StationChanged != null)
-                StationChanged(this, EventArgs.Empty);
-            if (DroneChanged != null)
-                DroneChanged(this, EventArgs.Empty);
-            if (CustomerChanged != null)
-                CustomerChanged(this, EventArgs.Empty);
-            if (ParcelChanged != null)
-                ParcelChanged(this, EventArgs.Empty);
-        }
-
         private class Nested
         {
             static Nested()

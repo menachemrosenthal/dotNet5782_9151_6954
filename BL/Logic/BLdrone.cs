@@ -9,11 +9,7 @@ namespace BO
     public partial class BL : IBL
     {
         private static object BlLock = new();
-        /// <summary>
-        /// when changing happens or drone was added
-        /// </summary>
-        private event EventHandler DroneChanged;
-
+            
         /// <summary>
         /// get drone list
         /// </summary>
@@ -279,6 +275,7 @@ namespace BO
         /// <param name="drone"></param>
         /// <param name="parcel"></param>
         /// <returns>amount of battery use needed for delivery</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         internal double BatteryUseInDelivery(DroneToList drone, DalApi.Parcel parcel)
         {
             lock (dal)
@@ -296,6 +293,7 @@ namespace BO
             new Simulator(droneId, update, finish, this);
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         public Drone GetSimulatorDrone()
         {
             return Simulator.Drone;
@@ -306,14 +304,17 @@ namespace BO
         /// </summary>
         /// <param name="droneId">drone for association parcel to it</param>
         /// <returns>"No Parcels for delivery" or "The drone was associated successfully" or "Not enough battery"</returns>
+         [MethodImpl(MethodImplOptions.Synchronized)]
         internal string SimulatorParcelToDrone(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId);
+            List<DalApi.Parcel> parcels;
+
+            lock (BlLock)
+                parcels = dal.GetParcelsByCondition(x => GetParcelStatus(x.Id) == ParcelStatuses.defined).ToList();
 
             lock (dal)
             {
-                List<DalApi.Parcel> parcels = dal.GetParcelsByCondition(x => GetParcelStatus(x.Id) == ParcelStatuses.defined).ToList();
-
                 if (!parcels.Any())
                     return "No match Parcel for delivery";
 
@@ -333,14 +334,14 @@ namespace BO
                         dal.ParcelToDrone(parcel.Id, drone.Id);
                         drones[drones.IndexOf(drone)] = drone;
 
-                        //EventsAction();
-
                         return "Is associating";
                     }
                 };
             }
+
             if (drone.BatteryStatus < 100)
                 return "Not enough battery";
+
             return "No match Parcel for delivery";
         }
 
@@ -365,6 +366,7 @@ namespace BO
 
         }
 
+        [MethodImpl(MethodImplOptions.Synchronized)]
         internal string SimulatorChargeDrone(int droneId)
         {
             DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId) ?? throw new KeyNotFoundException(nameof(droneId));
@@ -388,25 +390,17 @@ namespace BO
                     try
                     {
                         dal.ChargeDrone(droneId, station.Id);
-                        drone.Status = DroneStatuses.maintenance;
-                        EventsAction();
+                        drone.Status = DroneStatuses.maintenance;                        
                         return "Drone is charging";
                     }
                     catch (Exception ex)
-                    {
-                        EventsAction();
+                    {                        
                         return "Not free charge slot";
                     }
                 }
                 else
                     return "not enough battery";
             }
-        }
-
-        internal void BatteryUpdate(int droneId, double battery)
-        {
-            DroneToList drone = drones.FirstOrDefault(x => x.Id == droneId);
-            drone.BatteryStatus = battery;
         }
     }
 }

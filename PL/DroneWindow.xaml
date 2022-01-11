@@ -131,6 +131,7 @@
             IsReadOnly="True"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
             Text="{Binding Path=BatteryStatus, Mode=OneWay,UpdateSourceTrigger=PropertyChanged, StringFormat=/{0:#0.000}%}"  Height="20" Grid.Row="4" Margin="0,0,0,5"/>
+
         <Label           
             x:Name="statusLabel"
             FontWeight="Bold"
@@ -147,7 +148,7 @@
             VerticalAlignment="Center"
             IsReadOnly="True"
             Visibility="{Binding ElementName=NameUpdateButton, Path=Visibility}"
-            Text="{Binding Path=Status}" Height="20" Grid.Row="3"/>
+            Text="{Binding Path=Status,IsAsync=True,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Height="20" Grid.Row="3"/>
         <Label           
             x:Name="latitudeLabel"
             Content="Latitude:"
@@ -295,4 +296,3 @@
                 Visibility="Hidden" Margin="0,8,0,8" Height="Auto" VerticalAlignment="Stretch" Click="stop_Click" Width="90"/>
     </Grid>
 </Window>
-

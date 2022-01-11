@@ -1,6 +1,8 @@
 ﻿using System.Threading;
 using System;
 using BlApi;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace BO
 {
@@ -10,8 +12,6 @@ namespace BO
         public const double speed = 100;
         public const int timer = 1000;
         public static Drone Drone;
-        //double Battery;
-        Action updateDrone;
         DalApi.Parcel parcel;
         Location location;
 
@@ -19,40 +19,29 @@ namespace BO
         {
             blClass = (BL)bl;
             Drone = blClass.GetDrone(droneId);
-            updateDrone = update;
-            //Battery = drone.BatteryStatus;
+            //update();
 
             do
             {
                 switch (Drone.Status)
                 {
                     case DroneStatuses.free:
-                        lock (bl)
                         {
                             DroneActionBySituation(blClass.SimulatorParcelToDrone(droneId));
-                            update();
                             Drone = blClass.GetDrone(droneId);
                         }
                         break;
 
                     case DroneStatuses.maintenance:
                         {
-                            do
+                            while (Drone.BatteryStatus + BL.ChargePace < 100)
                             {
-
-                                if (Drone.BatteryStatus + BL.ChargePace > 100)
-                                    Drone.BatteryStatus = 100;
-                                else
-                                    Drone.BatteryStatus += BL.ChargePace;
-
-                                updateDrone();
+                                Drone.BatteryStatus += BL.ChargePace;
                                 Thread.Sleep(timer);
-
-                            } while (Drone.BatteryStatus < 100);
+                            }
 
                             blClass.ReleaseDrone(droneId);
                             Drone = blClass.GetDrone(droneId);
-                            updateDrone();
                             Thread.Sleep(timer);
                         }
                         break;
@@ -66,7 +55,8 @@ namespace BO
                             {
                                 MovingDrone(blClass.SenderTaregetDistance(parcel), blClass.dal.BatteryUseRequest()[(int)parcel.Weight]);
                                 blClass.ParcelProvisionUpdate(Drone.Id);
-                                updateDrone();
+                                Drone = blClass.GetDrone(Drone.Id);
+                                Thread.Sleep(timer);
                             }
                         }
                         break;
@@ -82,18 +72,15 @@ namespace BO
                     {
                         Drone = blClass.GetDrone(Drone.Id);
                         parcel = blClass.dal.GetParcel(Drone.Parcel.Id);
-                        updateDrone();
                         Thread.Sleep(timer);
                         location = blClass.SenderLocation(parcel);
                         MovingDrone(blClass.LocationsDistance(Drone.CurrentLocation, location), BL.FreeElectricityUse);
                         blClass.ParcelPickedupUptade(Drone.Id);
                         Drone = blClass.GetDrone(Drone.Id);
-                        updateDrone();
                         Thread.Sleep(timer);
                         MovingDrone(blClass.SenderTaregetDistance(parcel), blClass.dal.BatteryUseRequest()[(int)parcel.Weight]);
                         blClass.ParcelProvisionUpdate(Drone.Id);
                         Drone = blClass.GetDrone(Drone.Id);
-                        updateDrone();
                         Thread.Sleep(timer);
                     }
                     break;
@@ -104,8 +91,7 @@ namespace BO
                             location = blClass.StationLocation(blClass.StationForCharging(Drone.Id));
                         MovingDrone(blClass.LocationsDistance(Drone.CurrentLocation, location), BL.FreeElectricityUse);
                         blClass.ChargeDrone(Drone.Id);// send to charge
-                        Drone = blClass.GetDrone(Drone.Id);
-                        updateDrone();
+                        Drone = blClass.GetDrone(Drone.Id);                        
                         Thread.Sleep(timer);
                         //sleep the time from location to charge station                                
                     }
@@ -125,13 +111,13 @@ namespace BO
             {
                 distance -= speed;
                 Drone.BatteryStatus -= batteryUse * speed;
-                updateDrone();
                 Thread.Sleep(timer);
             }
 
             Drone.BatteryStatus -= batteryUse * distance;
-            updateDrone();
             Thread.Sleep(timer);
         }
+
+
     }
 }

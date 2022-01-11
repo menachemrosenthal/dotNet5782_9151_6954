@@ -33,8 +33,7 @@ namespace PL
             InitializeComponent();
             BlCustomerList = bl;
             CustomerListView.ItemsSource = bl.GetCustomerList();
-            CustomerListChanged += UpdateWindow;
-            BlCustomerList.EventRegistration(CustomerListChanged, "Customer");
+            CustomerListChanged += UpdateWindow;            
         }
 
         /// <summary>
@@ -45,14 +44,12 @@ namespace PL
         private void CustomerListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             CustomerToList customer = (CustomerToList)CustomerListView.SelectedItem;
-            new CostomerWindow(BlCustomerList, customer.Id).Show();                        
+            CostomerWindow customerWindow = new CostomerWindow(BlCustomerList, customer.Id);
+            customerWindow.CustomerChanged += UpdateWindow;
+            customerWindow.Show();
         }
 
-        /// <summary>
-        /// opens add customer window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+         
         private void AddCustomer_Click(object sender, RoutedEventArgs e)
         {
             new CostomerWindow(BlCustomerList).Show();

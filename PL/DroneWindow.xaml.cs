@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Threading;
 using System.ComponentModel;
 using System.Windows.Threading;
+using System.Threading.Tasks;
 
 namespace PL
 {
@@ -41,6 +42,9 @@ namespace PL
         /// </summary>
         private bool finish = true;
 
+        /// <summary>
+        /// dont update window by the regular func
+        /// </summary>
         private bool isSimulator = false;
 
         /// <summary>
@@ -69,7 +73,7 @@ namespace PL
             InitializeComponent();
             BlDrone = bl;
             drone = BlDrone.GetDrone(droneId);
-            DataContext = drone;
+            DataContext = drone;            
             WeightSelector.ItemsSource = Enum.GetValues(typeof(WeightCategories));
             WeightSelector.SelectedValue = drone.MaxWeight;
             WeightSelector.IsEnabled = false;
@@ -77,7 +81,6 @@ namespace PL
             IDLabel.Content = "ID:";
             ID.IsReadOnly = true;
             DroneChanged += UpdateWindow;
-            //BlDrone.EventRegistration(DroneChanged, "Drone");
             UpdateWindow(this, EventArgs.Empty);
         }
 
@@ -90,9 +93,9 @@ namespace PL
         {
             if (!isSimulator)
             {
-                lock (BlDrone)
-                    drone = BlDrone.GetDrone(drone.Id);
-                DataContext = drone;
+
+                //drone = BlDrone.GetDrone(drone.Id);
+                DataContext = BlDrone.GetDrone(drone.Id);
 
                 ReleaseButton.Visibility = Visibility.Hidden;
                 ChargeButton.Visibility = Visibility.Hidden;
@@ -121,12 +124,24 @@ namespace PL
                     provisionButton.Visibility = Visibility.Visible;
             }
         }
+
+        /// <summary>
+        /// update by this when the simulator it action
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void SimulatorUpdateWindow(object sender, EventArgs e)
         {
-            Dispatcher.Invoke(() => drone = BlDrone.GetSimulatorDrone());
-            Dispatcher.Invoke(() => DataContext = drone);
-            Dispatcher.Invoke(() => DroneChanged(this, EventArgs.Empty));
 
+            drone = BlDrone.GetSimulatorDrone();
+            DataContext = drone;
+            DroneChanged(this, EventArgs.Empty);
+            if (BlDrone.GetDroneSituation(drone.Id) is "Associated" or "Executing")
+            {
+                parcel.Visibility = Visibility.Visible;
+                return;
+            }
+            parcel.Visibility = Visibility.Hidden;
         }
         /// <summary>
         /// add drone
@@ -337,7 +352,7 @@ namespace PL
             if (drone.Parcel != null)
                 new ParcelWindow(BlDrone, drone.Parcel.Id).Show();
         }
-        
+
         BackgroundWorker worker;
         private void Automatic_Click(object sender, RoutedEventArgs e)
         {
@@ -351,8 +366,8 @@ namespace PL
 
             isSimulator = true;
 
-            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };            
-            worker.ProgressChanged += SimulatorUpdateWindow;
+            worker = new() { WorkerReportsProgress = true, WorkerSupportsCancellation = true };
+            worker.ProgressChanged += SimulatorUpdateWindow;     
             worker.DoWork += (sender, args) => BlDrone.StartSimulator((int)args.Argument,
                 () => { worker.ReportProgress(0); }, () => finish);
             worker.RunWorkerAsync(drone.Id);
@@ -367,4 +382,4 @@ namespace PL
             UpdateWindow(this, EventArgs.Empty);
         }
     }
-}  
+}

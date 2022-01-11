@@ -78,11 +78,11 @@ namespace BO
         {
             lock (dal)
             {
-                if ((customer.Location.Longitude < 34.5 ||
-                   customer.Location.Longitude > 35.9) ||
-                      (customer.Location.Latitude < 31.589844 ||
-                      customer.Location.Latitude > 32.801705))
+                if (customer.Location.Longitude is < 34.5 or > 35.9
+                    || customer.Location.Latitude is < 31.589844 or > 32.801705)
+                {
                     throw new ArgumentException("location was out Out Of range");
+                }
 
                 DalApi.Customer dalCustomer = new()
                 {
@@ -92,8 +92,7 @@ namespace BO
                     Latitude = customer.Location.Latitude,
                     Longitude = customer.Location.Longitude
                 };
-                dal.AddCustumer(dalCustomer);
-                EventsAction();
+                dal.AddCustumer(dalCustomer);                
             }
         }
 
@@ -137,9 +136,7 @@ namespace BO
                 if (!string.IsNullOrWhiteSpace(customer.Phone))
                     dalCustomer.Phone = customer.Phone;
 
-                dal.CustomerUpdate(dalCustomer);
-
-                EventsAction();
+                dal.CustomerUpdate(dalCustomer);                
             }
         }
 

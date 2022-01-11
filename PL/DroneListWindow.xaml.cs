@@ -130,7 +130,7 @@ namespace PL
         public void UpdateWindow(object sender, EventArgs e)
         {
             lock (BlDroneList)
-              DroneListView.ItemsSource = BlDroneList.GetDroneList();
+             Dispatcher.Invoke(()=> DroneListView.ItemsSource = BlDroneList.GetDroneList());
         }
 
         /// <summary>
