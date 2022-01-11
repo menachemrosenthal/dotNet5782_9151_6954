@@ -37,7 +37,7 @@ namespace BO
                     drone.BatteryStatus -= distance * FreeElectricityUse;
                     drone.CurrentLocation = SenderLocation(dal.GetParcel(drone.DeliveredParcelId));
                     dal.UpdatePickup(drone.DeliveredParcelId);
-
+                    drones[drones.IndexOf(drone)] = drone;
                     return;
                 }
                 else
@@ -136,7 +136,7 @@ namespace BO
                     {
                         throw new NotFreeChargeSlot("There is not free charge slot please wait", ex);
                     }
-
+                    drones[index] = drone;
                     return;
                 }
                 else

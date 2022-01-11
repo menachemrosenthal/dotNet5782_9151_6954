@@ -71,7 +71,8 @@ namespace BO
                 drone.CurrentLocation = TargetLocation(parcel);
                 drone.Status = DroneStatuses.free;
                 drone.DeliveredParcelId = 0;
-                dal.UpdateDelivery(parcel.Id);                
+                dal.UpdateDelivery(parcel.Id);
+                drones[drones.IndexOf(drone)] = drone;
             }
         }
 
