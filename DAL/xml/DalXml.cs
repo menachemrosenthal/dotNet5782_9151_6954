@@ -21,6 +21,11 @@ namespace DalApi
 
             internal static readonly DalXml instance = new();
         }
+        public static double Free = 0.4;
+        public static double CarryingLight = 0.5;
+        public static double CarryingMediem = 0.6;
+        public static double CarryingHeavy = 0.7;
+        public static double ChargePace = 20.0;
 
         internal static XElement dronesRoot;
         internal static XElement parcelsRoot;
@@ -101,11 +106,11 @@ namespace DalApi
         {
             double[] electricityUse = new double[5];
 
-            electricityUse[0] = DataSource.Config.Free;
-            electricityUse[1] = DataSource.Config.CarryingLight;
-            electricityUse[2] = DataSource.Config.CarryingMediem;
-            electricityUse[3] = DataSource.Config.CarryingHeavy;
-            electricityUse[4] = DataSource.Config.ChargePace;
+            electricityUse[0] = Free;
+            electricityUse[1] = CarryingLight;
+            electricityUse[2] = CarryingMediem;
+            electricityUse[3] = CarryingHeavy;
+            electricityUse[4] = ChargePace;
 
             return electricityUse;
         }

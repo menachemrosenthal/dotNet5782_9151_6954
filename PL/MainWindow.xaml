@@ -88,7 +88,10 @@
             Click="ParcelListButton_Click" 
             RenderTransformOrigin="0.469,0.509"
             />
-        <Button Content="Enter as a user" HorizontalAlignment="Left" Margin="320,188,0,0" Grid.Row="1" Width="97" Click="Button_Click"/>
+        <Button x:Name="userbutton"
+            Content="Enter as a user" HorizontalAlignment="Left" Margin="320,188,0,0" Grid.Row="1" Width="97" Click="Button_Click"/>
+        <Button x:Name="managerbutton"
+            Content="Enter as Manager" HorizontalAlignment="Left" Margin="320,109,0,0" Grid.Row="1" Width="98" Click="Button_Click_1" />
 
 
     </Grid>

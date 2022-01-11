@@ -143,7 +143,6 @@ namespace PL
             }
             parcel.Visibility = Visibility.Hidden;
         }
-
         /// <summary>
         /// add drone
         /// </summary>
