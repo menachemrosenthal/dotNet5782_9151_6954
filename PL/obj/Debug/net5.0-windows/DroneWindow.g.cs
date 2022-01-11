@@ -272,14 +272,6 @@ namespace PL {
         #line default
         #line hidden
         
-        
-        #line 296 "..\..\..\DroneWindow.xaml"
-        [System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1823:AvoidUnusedPrivateFields")]
-        internal System.Windows.Controls.TextBox distanceFromLocation;
-        
-        #line default
-        #line hidden
-        
         private bool _contentLoaded;
         
         /// <summary>
@@ -474,9 +466,6 @@ namespace PL {
             
             #line default
             #line hidden
-            return;
-            case 30:
-            this.distanceFromLocation = ((System.Windows.Controls.TextBox)(target));
             return;
             }
             this._contentLoaded = true;
