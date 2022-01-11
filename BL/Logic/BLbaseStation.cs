@@ -9,11 +9,6 @@ namespace BO
     public partial class BL : IBL
     {
         /// <summary>
-        /// when changing happens or station was added
-        /// </summary>
-        private event EventHandler StationChanged;
-
-        /// <summary>
         /// gets list of stations
         /// </summary>
         /// <returns>list of stations</returns>
@@ -33,6 +28,7 @@ namespace BO
                    );
             }
         }
+
         /// <summary>
         /// gets list of stations with free charge slots
         /// </summary>
@@ -45,6 +41,7 @@ namespace BO
                 return GetStationsByCondition(x => x.FreeChargeSlots > 0);
             }
         }
+
         /// <summary>
         /// add a station
         /// </summary>
@@ -73,9 +70,7 @@ namespace BO
                     Longitude = station.LocationOfStation.Longitude,
                 };
                 station.DronesCharging = null;
-                dal.AddStation(dalStation);
-
-                EventsAction();
+                dal.AddStation(dalStation);                
             }
         }
 
@@ -100,8 +95,7 @@ namespace BO
                         throw new ArgumentOutOfRangeException("The charge slots must be positive value");
                     station.ChargeSlots = freeChargeSlots - DronesInStation(stationId).Count;
                 }
-                dal.StationUpdate(station);
-                EventsAction();
+                dal.StationUpdate(station);                
             }
         }
 

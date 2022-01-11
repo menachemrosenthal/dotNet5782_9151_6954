@@ -107,6 +107,7 @@ namespace PL
                 };
 
                 BlParcel.AddParcel(parcel);
+                ParcelChanged -= UpdateWindow;
                 ParcelChanged();
                 MessageBox.Show("The Parcel was added successfully");
                 Close();

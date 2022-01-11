@@ -10,11 +10,6 @@ namespace BO
     public partial class BL : IBL
     {
         /// <summary>
-        /// when changing happens or parcel was added
-        /// </summary>
-        private event EventHandler ParcelChanged;
-
-        /// <summary>
         /// gets parcel and creates bl object
         /// </summary>
         /// <param name="parcelId"></param>
@@ -121,12 +116,9 @@ namespace BO
                     DroneId = 0,
                     Requested = DateTime.Now,
                 };
-                dal.AddParcel(dalParcel);
-
-                EventsAction();
+                dal.AddParcel(dalParcel);                
             }
         }
-
 
         [MethodImpl(MethodImplOptions.Synchronized)]
         public void ParcelDelete(int id)
@@ -135,8 +127,7 @@ namespace BO
             {
                 try
                 {
-                    dal.ParcelDelete(id);
-                    EventsAction();
+                    dal.ParcelDelete(id);                    
                 }
                 catch (Exception ex)
                 {
@@ -237,6 +228,7 @@ namespace BO
         /// </summary>
         /// <param name="parcelId"></param>
         /// <returns>parcel status</returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         ParcelStatuses GetParcelStatus(int parcelId)
         {
             lock (dal)

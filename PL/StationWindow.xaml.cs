@@ -32,7 +32,7 @@ namespace PL
         /// <summary>
         /// when staion is changed
         /// </summary>
-        event EventHandler StationChanged;
+        public event EventHandler StationChanged;
 
         /// <summary>
         /// constractor
@@ -59,8 +59,7 @@ namespace PL
             InitializeComponent();
             GetBL = bl;
             Station = GetBL.GetStation(stationId);
-            StationChanged += UpdateWindow;
-            GetBL.EventRegistration(StationChanged, "Station");
+            StationChanged += UpdateWindow;            
             UpdateWindow(this, EventArgs.Empty);
             id.IsReadOnly = false;
         }
@@ -92,14 +91,16 @@ namespace PL
         private void Drones_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             BO.DroneInCharging drone = (BO.DroneInCharging)drones.SelectedItem;
-            new DroneWindow(GetBL, drone.Id).Show();
+            DroneWindow droneWindow = new DroneWindow(GetBL, drone.Id);
+            droneWindow.DroneChanged += StationChanged;
+            droneWindow.Show();
         }
 
-        /// <summary>
-        /// change color
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+         /// <summary>
+         /// change color of text box by the correct of the input data
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
         private void Id_SelectionChanged(object sender, RoutedEventArgs e)
         {
             if (id.IsReadOnly == false)
@@ -125,6 +126,7 @@ namespace PL
             try
             {
                 GetBL.StationUpdate(int.Parse(id.Text), name.Text, slots.Text);
+                StationChanged(this, EventArgs.Empty);
                 _ = MessageBox.Show("The Station was updated successfully");
             }
             catch (Exception ex)
@@ -160,6 +162,7 @@ namespace PL
                 };
 
                 GetBL.AddStation(station);
+                StationChanged(this, EventArgs.Empty);
                 _ = MessageBox.Show("The Station was added successfully");
                 Close();
             }

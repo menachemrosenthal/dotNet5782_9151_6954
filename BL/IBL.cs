@@ -8,21 +8,11 @@ namespace BlApi
     {        
         public void StartSimulator(int droneId, Action update, Func<bool> finish);
 
+        /// <summary>
+        /// return simulator drone for update form
+        /// </summary>
+        /// <returns>simulator drone</returns>
         public Drone GetSimulatorDrone();
-
-        /// <summary>
-        /// registration of event handler to suitable event handler
-        /// </summary>
-        /// <param name="e">even handler to registration</param>
-        /// <param name="obj">name of object his changing we wont to know</param>
-        public void EventRegistration(EventHandler e, string obj);
-
-        /// <summary>
-        /// deleting event from suitable even handler
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="obj"></param>
-        void EventDelete(EventHandler e, string obj);
 
         /// <summary>
         /// add a station
@@ -171,7 +161,11 @@ namespace BlApi
         /// <returns>list of stations</returns>
         IEnumerable<StationToList> GetFreeChargingSlotsStationList();
 
-
+        /// <summary>
+        /// return drone lis by condition
+        /// </summary>
+        /// <param name="condition">condition for choice the drones</param>
+        /// <returns>drone list by condition</returns>
         IEnumerable<DroneToList> GetDronesByCondition(Predicate<DroneToList> condition);
     }
 }
