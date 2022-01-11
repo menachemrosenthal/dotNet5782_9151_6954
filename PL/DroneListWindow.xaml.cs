@@ -127,7 +127,7 @@ namespace PL
         /// </summary>
         /// <param name="s"></param>
         /// <param name="e"></param>
-        public void UpdateWindow()
+        public void UpdateWindow(object sender, EventArgs e)
         {
             lock (BlDroneList)
               DroneListView.ItemsSource = BlDroneList.GetDroneList();

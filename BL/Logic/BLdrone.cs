@@ -38,8 +38,6 @@ namespace BO
                     drone.CurrentLocation = SenderLocation(dal.GetParcel(drone.DeliveredParcelId));
                     dal.UpdatePickup(drone.DeliveredParcelId);
 
-                    EventsAction();
-
                     return;
                 }
                 else
@@ -78,8 +76,6 @@ namespace BO
                 drones.Add(drone);
                 dal.AddDrone(daldrone);
                 dal.ChargeDrone(drone.Id, stationID);
-
-                EventsAction();
             }
         }
 
@@ -103,8 +99,6 @@ namespace BO
 
                 int index = drones.IndexOf(blDrone);
                 drones[index] = blDrone;
-
-                EventsAction();
             }
         }
 
@@ -137,11 +131,9 @@ namespace BO
                     {
                         dal.ChargeDrone(droneId, station.Id);
                         drone.Status = DroneStatuses.maintenance;
-                        EventsAction();
                     }
                     catch (Exception ex)
                     {
-                        EventsAction();
                         throw new NotFreeChargeSlot("There is not free charge slot please wait", ex);
                     }
 
@@ -178,8 +170,6 @@ namespace BO
 
                 int index = drones.IndexOf(drone);
                 drones[index] = drone;
-
-                EventsAction();
             }
         }
 
@@ -216,8 +206,6 @@ namespace BO
                         drone.DeliveredParcelId = parcel.Id;
                         dal.ParcelToDrone(parcel.Id, drone.Id);
                         drones[drones.IndexOf(drone)] = drone;
-
-                        EventsAction();
 
                         return;
                     }
@@ -271,11 +259,14 @@ namespace BO
         [MethodImpl(MethodImplOptions.Synchronized)]
         public string GetDroneSituation(int id)
         {
-            if (drones.Any(x => x.Id == id && x.Status == DroneStatuses.maintenance))
+            DroneToList drone = drones.FirstOrDefault(x => x.Id == id);
+            //if (drones.Any(x => x.Id == id && x.Status == DroneStatuses.maintenance))
+            if (drone.Status == DroneStatuses.maintenance)
                 return "Maintenance";
 
             lock (dal)
             {
+                DalApi.Parcel parcel = dal.ParcelList().FirstOrDefault(x => x.DroneId == id);
                 if (dal.ParcelList().Any(x => x.DroneId == id && x.Delivered == null))
                     return dal.ParcelList().Any(x => x.DroneId == id && x.PickedUp == null) ? "Associated" : "Executing";
             }
@@ -303,6 +294,11 @@ namespace BO
         public void StartSimulator(int droneId, Action update, Func<bool> finish)
         {
             new Simulator(droneId, update, finish, this);
+        }
+
+        public Drone GetSimulatorDrone()
+        {
+            return Simulator.Drone;
         }
 
         /// <summary>
