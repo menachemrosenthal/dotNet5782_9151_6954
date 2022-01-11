@@ -345,6 +345,12 @@ namespace BO
             return "No match Parcel for delivery";
         }
 
+        /// <summary>
+        /// search for the best station by free charge slot and distance for charging
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
+        [MethodImpl(MethodImplOptions.Synchronized)]
         internal DalApi.Station StationForCharging(int droneId)
         {
             Drone drone = GetDrone(droneId);
@@ -366,6 +372,11 @@ namespace BO
 
         }
 
+        /// <summary>
+        /// try 
+        /// </summary>
+        /// <param name="droneId"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
         internal string SimulatorChargeDrone(int droneId)
         {
@@ -377,7 +388,7 @@ namespace BO
 
             //station for charge
             DalApi.Station station = StationForCharging(droneId);
-
+            
             double distance = LocationsDistance(drone.CurrentLocation, StationLocation(station));
 
             lock (dal)

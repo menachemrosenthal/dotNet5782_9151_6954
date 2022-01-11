@@ -134,13 +134,9 @@ namespace PL
         {
 
             drone = BlDrone.GetSimulatorDrone();
-            DataContext = drone;
+            Dispatcher.Invoke(()=> DataContext = drone);
             DroneChanged(this, EventArgs.Empty);
-            if (BlDrone.GetDroneSituation(drone.Id) is "Associated" or "Executing")
-            {
-                parcel.Visibility = Visibility.Visible;
-                return;
-            }
+
             parcel.Visibility = Visibility.Hidden;
         }
         /// <summary>

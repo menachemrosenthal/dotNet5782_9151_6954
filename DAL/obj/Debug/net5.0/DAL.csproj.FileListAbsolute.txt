@@ -9,6 +9,7 @@ C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.csproj
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\ref\DAL.dll
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.pdb
+<<<<<<< HEAD
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
 <<<<<<< HEAD
 =======
@@ -27,3 +28,5 @@ C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\obj\Debug\net
 >>>>>>> 6e1288aacfb923416c3c09998b503b22df4f1627
 >>>>>>> 0c30004016f279b202664a40dc2cd63cc95be15f
 >>>>>>> e7861431a879d0924aef6818a02eb02eb2f785b3
+=======
+>>>>>>> 35d9b8a12f8af6a068290e3b243a20128db6166f

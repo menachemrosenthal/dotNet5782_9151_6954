@@ -14,15 +14,17 @@ namespace BO
         public static Drone Drone;
         DalApi.Parcel parcel;
         Location location;
+        event Action Update;
 
         public Simulator(int droneId, Action update, Func<bool> finish, IBL bl)
         {
             blClass = (BL)bl;
             Drone = blClass.GetDrone(droneId);
-            //update();
+            Update = update;
 
             do
             {
+                Update();
                 switch (Drone.Status)
                 {
                     case DroneStatuses.free:
@@ -34,8 +36,9 @@ namespace BO
 
                     case DroneStatuses.maintenance:
                         {
+                            Update();
                             while (Drone.BatteryStatus + BL.ChargePace < 100)
-                            {
+                            {                                
                                 Drone.BatteryStatus += BL.ChargePace;
                                 Thread.Sleep(timer);
                             }
@@ -66,8 +69,9 @@ namespace BO
 
         private void DroneActionBySituation(string situation)
         {
+            Update();
             switch (situation)
-            {
+            {                
                 case "Is associating":
                     {
                         Drone = blClass.GetDrone(Drone.Id);
@@ -107,6 +111,7 @@ namespace BO
 
         private void MovingDrone(double distance, double batteryUse)
         {
+            Update();
             while (distance - speed > 0)
             {
                 distance -= speed;
