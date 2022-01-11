@@ -19,6 +19,11 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
+            ParcelListButton.Visibility = Visibility.Hidden;
+            stationsButton.Visibility = Visibility.Hidden;
+            ShowDrones.Visibility = Visibility.Hidden;
+            CustomerListButton.Visibility = Visibility.Hidden;
+
         }
 
         /// <summary>
@@ -64,6 +69,17 @@ namespace PL
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             new UserWindow(bl).Show();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ParcelListButton.Visibility = Visibility.Visible;
+            stationsButton.Visibility = Visibility.Visible;
+            ShowDrones.Visibility = Visibility.Visible;
+            CustomerListButton.Visibility = Visibility.Visible;
+            managerbutton.Visibility = Visibility.Hidden;
+            userbutton.Visibility = Visibility.Hidden;
+
         }
     }
 }
