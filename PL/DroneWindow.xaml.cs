@@ -121,14 +121,13 @@ namespace PL
                     provisionButton.Visibility = Visibility.Visible;
             }
         }
-
         public void SimulatorUpdateWindow(object sender, EventArgs e)
         {
             Dispatcher.Invoke(() => drone = BlDrone.GetSimulatorDrone());
             Dispatcher.Invoke(() => DataContext = drone);
-            Dispatcher.Invoke(() => DroneChanged(this, EventArgs.Empty));            
-        }
+            Dispatcher.Invoke(() => DroneChanged(this, EventArgs.Empty));
 
+        }
         /// <summary>
         /// add drone
         /// </summary>
