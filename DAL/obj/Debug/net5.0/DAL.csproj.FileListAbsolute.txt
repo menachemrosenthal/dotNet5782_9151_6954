@@ -12,7 +12,6 @@ C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.pdb
 C:\Users\Itzic\source\repos\dotNet5782_9151_6954\DAL\obj\Debug\net5.0\DAL.csproj.AssemblyReference.cache
 <<<<<<< HEAD
 =======
-=======
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\bin\Debug\net5.0\DAL.deps.json
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\bin\Debug\net5.0\DAL.dll
 C:\Users\User\source\repos\dotNet5782_9151_6954\New folder (2)\DAL\bin\Debug\net5.0\ref\DAL.dll
